@@ -20,9 +20,6 @@ const Login = ({ history }) => {
           </button>
         </form>
       </div>
-      <button className="button is-link absolute mb-4" onClick={() => history.push("/")}>
-        Volver
-      </button>
     </div>
   );
 }
