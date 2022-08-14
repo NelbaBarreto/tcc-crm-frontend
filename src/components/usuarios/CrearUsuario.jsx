@@ -1,49 +1,91 @@
-import React from "react";
-import {createUsuarios} from "../../api/usuarios";
+import React, { useState } from "react";
+import Select from "react-select";
+import ModalUsuario from "../empleados/ModalUsuario";
+import { useQuery } from "react-query";
+import { createUsuarios } from "../../api/usuarios";
 
 const CrearUsuario = () => {
+  const [persona, setPersona] = useState({ empleado: {}, usuario: {} });
+  const [modalIsOpen, setIsOpen] = useState(false);
+
+
   const crear = async e => {
     e.preventDefault();
-      await createUsuarios({ nom_usuario: "nbarreto", activo: true, password: "123456" });
+    await createUsuarios(persona);
+  };
+
+  const handleChange = ({ campo, valor }) => {
+    console.log(campo, valor);
+  };
+
+  const options = [
+    { value: "ci", label: "CI" },
+    { value: "ruc", label: "RUC" },
+    { value: "pasaporte", label: "Pasaporte" }
+  ]
+
+  const DatosPersona = () => {
+    return (
+      <section>
+        <div className="divider">Datos Personales</div>
+        <div className="field">
+          <label className="label">Nombre</label>
+          <div className="control">
+            <input
+              className="input shadow-lg"
+              type="text"
+            />
+          </div>
+        </div>
+        <div className="field">
+          <label className="label">Email</label>
+          <div className="control">
+            <input className="input shadow-lg" type="email" />
+          </div>
+        </div>
+        <div className="columns">
+          <div className="column">
+            <div className="field">
+              <label className="label">Número de Documento</label>
+              <div className="control">
+                <input
+                  className="input shadow-lg"
+                  type="text"
+                />
+              </div>
+            </div>
+          </div>
+          <div className="column">
+            <div className="field">
+              <label className="label">Tipo de Documento</label>
+              <div className="control">
+                <Select 
+                  className="shadow-lg"
+                  placeholder=""
+                  options={options} 
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    )
   };
 
   return (
     <div className="hero is-fullheight bg-lila-400">
       <section className="section sm:w-1/2 w-full m-auto hero shadow-lg shadow-gray-800 bg-white">
-        <h1 className="title is-3 text-center">Crear Empleado</h1>
+        <h1 className="title is-3 text-center">Nuevo Empleado</h1>
         <form>
-         <div className="field">
-            <label className="label">Email</label>
+          <DatosPersona />
+          <ModalUsuario modalIsOpen={modalIsOpen} setIsOpen={setIsOpen} />
+          <div className="field mt-3">
             <div className="control">
-              <input className="input is-medium shadow-lg" type="email" placeholder="Ingresa tu dirección de email" />
-            </div>
-          </div>
-          <div className="field">
-            <label className="label">Nombre de Usuario</label>
-            <div className="control">
-              <input className="input is-medium shadow-lg" type="text" placeholder="Ingresa tu nombre de usuario" />
-            </div>
-          </div>
-          <div className="field">
-            <label className="label">Contraseña</label>
-            <div className="control">
-              <input className="input is-medium shadow-lg" type="password" placeholder="Ingresa tu contraseña" />
-            </div>
-          </div>
-          <div className="field">
-            <label className="label">Activo</label>
-            <div className="control">
-              <input className="checkbox is-medium shadow-lg" type="checkbox" />
-            </div>
-          </div>
-          <div className = "field mt-3">
-            <div className = "control">
-              <button 
-                className = "button is-medium font-semibold w-full shadow-lg hover:bg-gray-200"
-                style={{ borderColor: "#1E40AF", color: "#130b43" }}
+              <button
+                className="button float-right font-semibold shadow-lg text-white hover:text-white hover:bg-lila-700 bg-lila-400 border-lila-700"
                 onClick={e => crear(e)}
               >
-                Aceptar
+                Guardar
               </button>
             </div>
           </div>

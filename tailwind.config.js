@@ -6,7 +6,8 @@ module.exports = {
       colors: {
         lila: {
           400: "#604fcd",
-          700: "#1E40AF"
+          700: "#1E40AF",
+          500: "#130b43",
         }
       },
     },
