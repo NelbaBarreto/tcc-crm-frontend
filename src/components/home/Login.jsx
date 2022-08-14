@@ -8,7 +8,7 @@ const Login = () => {
         <h1 className="title is-3 text-center">Lorem Ipsum CRM</h1>
         <form>
           <div className="field">
-            <label className="label">Usuario</label>
+            <label className="label">Email</label>
             <div className="control">
               <input className="input is-medium shadow-lg" type="email" placeholder="Ingresa tu dirección de email" />
             </div>
@@ -27,17 +27,16 @@ const Login = () => {
                 className="button is-medium font-semibold w-full shadow-lg text-white hover:text-white hover:bg-lila-700 bg-lila-400 border-lila-700"
                 to="/"
               >
-                Iniciar Sesión con Google
+                Iniciar Sesión
               </NavLink>
             </div>
           </div>
 
-          <div class="field mt-3">
-            <div class="control">
+          <div className = "field mt-3">
+            <div className = "control">
               <button 
-                id="btn-google-login"
-                class="button is-medium font-semibold w-full shadow-lg hover:bg-gray-200"
-                style={{ borderColor: "#1E40AF", color: "#130b43" }}
+                className = "button is-medium font-semibold w-full shadow-lg hover:bg-gray-200"
+                style = {{ borderColor: "#1E40AF", color: "#130b43" }}
               >
                 Iniciar Sesión con Google
               </button>
