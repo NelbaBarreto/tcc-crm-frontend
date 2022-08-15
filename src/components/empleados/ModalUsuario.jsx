@@ -24,8 +24,8 @@ const DatosUsuario = ({ persona, setPersona }) => {
             name="nom_usuario"
             className="input shadow-lg"
             type="text"
-            value={persona.usuario.nom_usuario || ""}
-            onChange={e => setPersona({ ...persona, usuario: { ...persona.usuario, [e.target.name]: e.target.value } })}
+            value={persona.empleado.usuario.nom_usuario || ""}
+            onChange={e => setPersona({ ...persona, empleado: { ...persona.empleado,  usuario: { ...persona.usuario, [e.target.name]: e.target.value } }})}
           />
         </div>
       </div>
@@ -36,8 +36,8 @@ const DatosUsuario = ({ persona, setPersona }) => {
             name="password"
             className="input shadow-lg"
             type="password"
-            value={persona.usuario.password || ""}
-            onChange={e => setPersona({ ...persona, usuario: { ...persona.usuario, [e.target.name]: e.target.value } })}
+            value={persona.empleado.usuario.password || ""}
+            onChange={e => setPersona({ ...persona, empleado: { ...persona.empleado, usuario: { ...persona.empleado.usuario, [e.target.name]: e.target.value } }})}
           />
         </div>
       </div>

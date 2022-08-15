@@ -94,9 +94,9 @@ const DatosEmpleado = ({ persona, setPersona }) => {
 };
 
 const CrearUsuario = () => {
-  const [persona, setPersona] = useState({ empleado: {}, usuario: {} });
+  const [persona, setPersona] = useState({ empleado: { usuario: {} } });
   const [modalIsOpen, setIsOpen] = useState(false);
-
+console.log(persona)
   const crear = async e => {
     e.preventDefault();
     await createPersona(persona);
