@@ -7,9 +7,9 @@ import { createUsuarios } from "../../api/usuarios";
 const DatosPersona = ({ persona, setPersona }) => {
   const [tip_documento, setTipDocumento] = useState("");
   const options = [
-    { value: "ci", label: "CI" },
-    { value: "ruc", label: "RUC" },
-    { value: "pasaporte", label: "Pasaporte" }
+    { value: "CI", label: "CI" },
+    { value: "RUC", label: "RUC" },
+    { value: "Pasaporte", label: "Pasaporte" }
   ]
 
   return (
@@ -62,7 +62,7 @@ const DatosPersona = ({ persona, setPersona }) => {
                 name="tip_documento"
                 className="shadow-lg"
                 placeholder=""
-                onChange={e => {setPersona({ ...persona, tip_documento: e.value }); setTipDocumento(e)}}
+                onChange={e => { setPersona({ ...persona, tip_documento: e.value }); setTipDocumento(e) }}
                 value={tip_documento}
                 options={options}
               />
@@ -72,6 +72,26 @@ const DatosPersona = ({ persona, setPersona }) => {
       </div>
     </section>
   )
+};
+
+const DatosEmpleado = ({ persona, setPersona }) => {
+  return (
+    <section>
+      <div className="divider">Datos del Empleado</div>
+      <div className="field">
+        <label className="label">Activo</label>
+        <div className="control">
+          <input
+            name="activo"
+            className="checkbox shadow-lg"
+            value={persona.empleado.activo || false}
+            onChange={e => setPersona({ ...persona, empleado: { ...persona.empleado, [e.target.name]: e.target.checked }})}
+            type="checkbox"
+          />
+        </div>
+      </div>
+    </section>
+  );
 };
 
 const CrearUsuario = () => {
@@ -89,11 +109,12 @@ const CrearUsuario = () => {
         <h1 className="title is-3 text-center">Nuevo Empleado</h1>
         <form>
           <DatosPersona persona={persona} setPersona={setPersona} />
-          <ModalUsuario 
-            modalIsOpen={modalIsOpen} 
-            setIsOpen={setIsOpen} 
-            persona={persona} 
-            setPersona={setPersona} 
+          <DatosEmpleado persona={persona} setPersona={setPersona} />
+          <ModalUsuario
+            modalIsOpen={modalIsOpen}
+            setIsOpen={setIsOpen}
+            persona={persona}
+            setPersona={setPersona}
           />
           <div className="field mt-3">
             <div className="control">
