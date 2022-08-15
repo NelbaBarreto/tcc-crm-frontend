@@ -14,41 +14,47 @@ const customStyles = {
   },
 };
 
-const ModalUsuario = ({ setIsOpen, modalIsOpen }) => {
-  let subtitle;
+const DatosUsuario = ({ persona, setPersona }) => {
+  return (
+    <section className="section">
+      <div className="field">
+        <label className="label">Nombre de Usuario</label>
+        <div className="control">
+          <input
+            name="nom_usuario"
+            className="input shadow-lg"
+            type="text"
+            value={persona.usuario.nom_usuario || ""}
+            onChange={e => setPersona({ ...persona, usuario: { ...persona.usuario, [e.target.name]: e.target.value } })}
+          />
+        </div>
+      </div>
+      <div className="field">
+        <label className="label">Contraseña</label>
+        <div className="control">
+          <input
+            name="password"
+            className="input shadow-lg"
+            type="password"
+            value={persona.usuario.password || ""}
+            onChange={e => setPersona({ ...persona, usuario: { ...persona.usuario, [e.target.name]: e.target.value } })}
+          />
+        </div>
+      </div>
+    </section>
+  )
+};
 
+const ModalUsuario = ({ setIsOpen, modalIsOpen, persona, setPersona }) => {
   const openModal = e => {
     e.preventDefault();
     setIsOpen(true);
   }
 
-  const afterOpenModal = () => {
-    // references are now sync"d and can be accessed.
-    subtitle.style.color = "#f00";
-  }
 
   const closeModal = () => {
     setIsOpen(false);
   }
-
-  const DatosUsuario = () => {
-    return (
-      <section className="section">
-        <div className="field">
-          <label className="label">Nombre de Usuario</label>
-          <div className="control">
-            <input className="input shadow-lg" type="text" />
-          </div>
-        </div>
-        <div className="field">
-          <label className="label">Contraseña</label>
-          <div className="control">
-            <input className="input shadow-lg" type="password" />
-          </div>
-        </div>
-      </section>
-    )
-  };
 
   return (
     <div>
@@ -68,7 +74,6 @@ const ModalUsuario = ({ setIsOpen, modalIsOpen }) => {
       <Modal
         isOpen={modalIsOpen}
         ariaHideApp={false}
-        onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}
         style={customStyles}
         contentLabel="Datos del usuario"
@@ -78,7 +83,7 @@ const ModalUsuario = ({ setIsOpen, modalIsOpen }) => {
             <FontAwesomeIcon icon={solid("xmark")} />
           </span>
         </button>
-        <DatosUsuario />
+        <DatosUsuario persona={persona} setPersona={setPersona} />
       </Modal>
     </div>
   );
