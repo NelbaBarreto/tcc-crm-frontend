@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import Select from "react-select";
 import ModalUsuario from "../empleados/ModalUsuario";
-import { useQuery } from "react-query";
-import { createUsuarios } from "../../api/usuarios";
+import { createPersona } from "../../api/personas";
 
 const DatosPersona = ({ persona, setPersona }) => {
   const [tip_documento, setTipDocumento] = useState("");
@@ -100,7 +99,7 @@ const CrearUsuario = () => {
 
   const crear = async e => {
     e.preventDefault();
-    await createUsuarios(persona);
+    await createPersona(persona);
   };
 
   return (
