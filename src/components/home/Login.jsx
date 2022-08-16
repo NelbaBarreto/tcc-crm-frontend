@@ -1,9 +1,17 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { brands } from "@fortawesome/fontawesome-svg-core/import.macro";
+import { autenticarUsuarios } from "../../api/usuarios";
 
-const Login = () => {
+const Login = ({ setToken }) => {
+  const [usuario, setUsuario] = useState({});
+
+  const login = async e => {
+    e.preventDefault();
+    let token = await autenticarUsuarios(usuario);
+    setToken(token);
+  };
+
   return (
     <div className="hero is-fullheight bg-lila-400">
       <section className="section sm:w-1/2 w-full m-auto hero shadow-lg shadow-gray-800 bg-white">
@@ -26,25 +34,39 @@ const Login = () => {
           <div className="field">
             <label className="label">Usuario</label>
             <div className="control">
-              <input className="input is-medium shadow-lg" type="text" placeholder="Ingresa tu nombre de usuario" />
+              <input 
+                name="nom_usuario"
+                value={usuario.nom_usuario || ""}
+                className="input is-medium shadow-lg" 
+                type="text" 
+                onChange={e => setUsuario({ ...usuario, [e.target.name]: e.target.value })}
+                placeholder="Ingresa tu nombre de usuario" 
+              />
             </div>
           </div>
           <div className="field">
             <label className="label">Contraseña</label>
             <div className="control">
-              <input className="input is-medium shadow-lg" type="password" placeholder="Ingresa tu contraseña" />
+              <input 
+                name="password"
+                value={usuario.password || ""}
+                className="input is-medium shadow-lg" 
+                type="password" 
+                placeholder="Ingresa tu contraseña" 
+                onChange={e => setUsuario({ ...usuario, [e.target.name]: e.target.value })}
+              />
             </div>
           </div>
           <a href="/" className="font-bold has-text-link text">¿Olvidaste tu contraseña?</a>
 
-          <div class="field mt-3">
-            <div class="control">
-              <NavLink
+          <div className="field mt-3">
+            <div className="control">
+              <button
                 className="button is-medium font-semibold w-full shadow-lg text-white hover:text-white hover:bg-lila-700 bg-lila-400 border-lila-700"
-                to="/"
+                onClick={login}
               >
                 Iniciar Sesión
-              </NavLink>
+              </button>
             </div>
           </div>
         </form>
