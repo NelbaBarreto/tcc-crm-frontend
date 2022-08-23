@@ -1,33 +1,31 @@
-import React, { useState } from "react";
+import React from "react";
 import {
-  BrowserRouter,
-  Routes,
-  Route,
+  BrowserRouter as Router, Routes, Route
 } from "react-router-dom";
 
 import Login from "./components/home/Login";
-//import Sidemenu from "./components/home/Sidemenu";
-import Dashboard from "./components/home/Dashboard";
+import Layout from "./components/layout/Index";
+import Dashboard from "./components/dashboard/Index";
 import CrearUsuario from "./components/usuarios/CrearUsuario";
 import useToken from "../src/utils/useToken";
 
 const MainApp = () => {
   const { token, setToken } = useToken();
-  //const [token, setToken] = useState();
 
-  if(!token) {
+  if (!token) {
     return <Login setToken={setToken} />
   };
 
   return (
-    <BrowserRouter>
-      <Routes>
-        {/* <Route element={<Navbar />}> */}
+    <Router>
+      <Layout>
+        <Routes>
           <Route exact path="/" element={<Dashboard />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/usuarios" element={<CrearUsuario />} />
-        {/* </Route> */}
-      </Routes>
-    </BrowserRouter>
+        </Routes>
+      </Layout>
+    </Router>
   );
 }
 
