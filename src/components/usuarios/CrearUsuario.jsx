@@ -103,8 +103,8 @@ const CrearUsuario = () => {
   };
 
   return (
-    <div className="hero is-fullheight bg-lila-400">
-      <section className="section sm:w-1/2 w-full m-auto hero shadow-lg shadow-gray-800 bg-white">
+    <div>
+      <section className="section w-full m-auto">
         <h1 className="title is-3 text-center">Nuevo Empleado</h1>
         <form>
           <DatosPersona persona={persona} setPersona={setPersona} />
