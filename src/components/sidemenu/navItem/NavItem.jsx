@@ -1,6 +1,5 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import style from "./navItem.module.css";
 import NavItemHeader from "./NavItemHeader.jsx";
 
 const NavItem = ({ item }) => {
