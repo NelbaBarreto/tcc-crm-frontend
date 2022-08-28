@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { brands } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { autenticarUsuarios } from "../../api/usuarios";
+import { gapi } from "gapi-script";
+import { GoogleLogin } from "react-google-login";
 
 const MostrarError = ({ error }) => {
   return (
@@ -12,8 +14,19 @@ const MostrarError = ({ error }) => {
 };
 
 const Login = ({ setToken }) => {
+  const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
   const [usuario, setUsuario] = useState({});
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    const initClient = () => {
+      gapi.client.init({
+        clientId: CLIENT_ID,
+        scope: "profile email"
+      });
+    };
+    gapi.load("client:auth2", initClient);
+  });
 
   const login = async e => {
     e.preventDefault();
@@ -31,6 +44,21 @@ const Login = ({ setToken }) => {
     }
   };
 
+  const loginGoogle = async response => {
+    let userToken;
+    try {
+      userToken = await autenticarUsuarios({ email: response.profileObj.email });
+      if (userToken.token) {
+        setToken(userToken);
+        setError("");
+      } else {
+        setError(userToken.error);
+      }
+    } catch {
+      setError("Ocurrió un error al intentar iniciar sesión");
+    }
+  }
+
   return (
     <div className="hero is-fullheight bg-lila-400">
       <section className="section sm:w-1/2 w-full m-auto hero shadow-lg shadow-gray-800 bg-white">
@@ -38,15 +66,25 @@ const Login = ({ setToken }) => {
         {error ? <MostrarError error={error} /> : null}
         <div className="field mt-3">
           <div className="control">
-            <button
-              className="button is-medium font-semibold w-full shadow-lg hover:bg-gray-200"
-              style={{ borderColor: "#1E40AF", color: "#130b43" }}
-            >
-              <span className="icon">
-                <FontAwesomeIcon icon={brands("google")} />
-              </span>
-              <span>Iniciar Sesión con Google</span>
-            </button>
+            <GoogleLogin
+              clientId={CLIENT_ID}
+              render={renderProps => (
+                <button
+                  className="button is-medium font-semibold w-full shadow-lg hover:bg-gray-200 text-lila-500 border-lila-700"
+                  onClick={renderProps.onClick}
+                  disabled={renderProps.disabled}
+                >
+                  <span className="icon">
+                    <FontAwesomeIcon icon={brands("google")} />
+                  </span>
+                  <span>Iniciar Sesión con Google</span>
+                </button>
+              )}
+              buttonText="Login"
+              onSuccess={loginGoogle}
+              onFailure={loginGoogle}
+              cookiePolicy="single_host_origin"
+            />
           </div>
         </div>
         <div className="divider">O</div>
