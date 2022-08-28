@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBullhorn, faChartColumn, faGauge, faHeadphonesSimple, faHouse, faListCheck, faMoneyBillTrendUp } from "@fortawesome/free-solid-svg-icons"
+import { faBullhorn, faChartColumn, faGauge, faHeadphonesSimple, faHouse, faListCheck, faMoneyBillTrendUp, faFolder } from "@fortawesome/free-solid-svg-icons"
 
 const myIcons = {
   "gauge": faGauge,
@@ -8,7 +8,8 @@ const myIcons = {
   "headphones-simple": faHeadphonesSimple,
   "list-check": faListCheck,
   "house": faHouse,
-  "chart-column": faChartColumn
+  "chart-column": faChartColumn,
+  "folder": faFolder,
 }
 
 const Icon = ({ iconName }) => {
@@ -66,8 +67,30 @@ export const sideMenu = [
     ],
   },
   {
+    label: "Parámetros",
+    Icon: () => <Icon iconName="folder" />,
+    to: "/parametros",
+    children: [
+      {
+        label: "Países",
+        Icon: () => <Icon iconName="house" />,
+        to: "paises",
+      },
+      {
+        label: "Ciudades",
+        Icon: () => <Icon iconName="house" />,
+        to: "ciudades",
+      },
+      {
+        label: "Motivos Casos",
+        Icon: () => <Icon iconName="house" />,
+        to: "motivos",
+      },
+    ],
+  },
+  {
     label: "Reportes",
-    Icon: () => <Icon iconName="chart-column" />,
+    Icon: () => <Icon iconName="chart-folder-gear" />,
     to: "/reportes",
   },
 ];

@@ -7,6 +7,7 @@ import Login from "./components/home/Login";
 import Layout from "./components/layout/Index";
 import Dashboard from "./components/dashboard/Index";
 import CrearUsuario from "./components/usuarios/CrearUsuario";
+import CrearPais from "./components/parametros/CrearPais";
 import useToken from "../src/utils/useToken";
 
 const MainApp = () => {
@@ -23,6 +24,7 @@ const MainApp = () => {
           <Route exact path="/" element={<Dashboard />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/usuarios" element={<CrearUsuario />} />
+          <Route path="/parametros/paises" element={<CrearPais />} />
         </Routes>
       </Layout>
     </Router>
