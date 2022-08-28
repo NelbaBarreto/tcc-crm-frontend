@@ -33,7 +33,10 @@ const DatosPersona = ({ persona, setPersona }) => {
             name="email"
             className="input shadow-lg"
             value={persona.email || ""}
-            onChange={e => setPersona({ ...persona, [e.target.name]: e.target.value })}
+            onChange={e => {
+              setPersona({ ...persona, [e.target.name]: e.target.value });
+              setPersona({ ...persona, empleado: { ...persona.empleado, usuario: { ...persona.empleado.usuario, [e.target.name]: e.target.value } } })
+            }}
             type="email"
           />
         </div>
@@ -84,7 +87,7 @@ const DatosEmpleado = ({ persona, setPersona }) => {
             name="activo"
             className="checkbox shadow-lg"
             value={persona.empleado.activo || false}
-            onChange={e => setPersona({ ...persona, empleado: { ...persona.empleado, [e.target.name]: e.target.checked }})}
+            onChange={e => setPersona({ ...persona, empleado: { ...persona.empleado, [e.target.name]: e.target.checked } })}
             type="checkbox"
           />
         </div>
