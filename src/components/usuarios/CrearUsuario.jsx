@@ -33,10 +33,7 @@ const DatosPersona = ({ persona, setPersona }) => {
             name="email"
             className="input shadow-lg"
             value={persona.email || ""}
-            onChange={e => {
-              setPersona({ ...persona, [e.target.name]: e.target.value });
-              setPersona({ ...persona, empleado: { ...persona.empleado, usuario: { ...persona.empleado.usuario, [e.target.name]: e.target.value } } })
-            }}
+            onChange={e => setPersona({ ...persona, [e.target.name]: e.target.value, empleado: { ...persona.empleado, usuario: { ...persona.empleado.usuario, [e.target.name]: e.target.value } } })}
             type="email"
           />
         </div>
@@ -99,7 +96,7 @@ const DatosEmpleado = ({ persona, setPersona }) => {
 const CrearUsuario = () => {
   const [persona, setPersona] = useState({ empleado: { usuario: {} } });
   const [modalIsOpen, setIsOpen] = useState(false);
-
+console.log(persona)
   const crear = async e => {
     e.preventDefault();
     await createPersona(persona);
