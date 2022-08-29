@@ -90,7 +90,7 @@ export const sideMenu = [
   },
   {
     label: "Reportes",
-    Icon: () => <Icon iconName="chart-folder-gear" />,
+    Icon: () => <Icon iconName="chart-column" />,
     to: "/reportes",
   },
 ];

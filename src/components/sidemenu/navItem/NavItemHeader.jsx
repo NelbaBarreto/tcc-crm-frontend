@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
-import style from "./navItem.module.css";
+import classnames from "classnames";
 
 const resolveLinkPath = (childTo, parentTo) => `${parentTo}/${childTo}`;
 
@@ -23,25 +23,22 @@ const NavItemHeader = props => {
   return (
     <>
       <button
-        //className={`${style.navItem} ${style.navItemHeaderButton}`}
-        className="flex items-center no-underline py-3 px-5 text-lila-500 hover:bg-lila-200
-                   hover:text-lila-350 w-full border-none bg-transparent cursor-pointer outline-none"
+        className="flex items-center no-underline py-3 px-5 text-deep-purple-900 hover:bg-deep-purple-100
+                   hover:text-deep-purple-900 w-full border-none bg-transparent cursor-pointer outline-none"
         onClick={onExpandChange}
       >
-        <Icon /*className={style.navIcon}*/ />
-        <span className="text-lila-500 hover:text-lila-350 text-base">{label}</span>
-        {/* <ChevronDownIcon
-          className={`${style.navItemHeaderChevron} ${
-            expanded && style.chevronExpanded
-          }`}
-        /> */}
+        <Icon />
+        <span className="text-deep-purple-900 hover:text-deep-purple-900 text-base">{label}</span>
         <span className="icon">
-          <FontAwesomeIcon icon={solid("chevron-down")} />
+          <FontAwesomeIcon 
+            className={classnames("text-deep-purple-900 ml-auto w-3 h-3", { "rotate-180": expanded })} 
+            icon={solid("chevron-down")} 
+          />
         </span>
       </button>
 
       {expanded && (
-        <div className={style.navChildrenBlock}>
+        <div className="deep-purple-300">
           {children.map((item, index) => {
             const key = `${item.label}-${index}`;
 
@@ -64,11 +61,11 @@ const NavItemHeader = props => {
               <NavLink
                 key={key}
                 to={resolveLinkPath(item.to, props.item.to)}
-                className={style.navItem}
-                activeClassName={style.activeNavItem}
+                className="flex items-center no-underline py-3 px-5 text-deep-purple-900 hover:bg-deep-purple-100
+                hover:text-deep-purple-900 w-full border-none bg-transparent cursor-pointer outline-none"
               >
-                <Icon /*className={style.navIcon}*/ />
-                <span className={style.navLabel}>{label}</span>
+                <Icon />
+                <span className="text-deep-purple-700 hover:text-deep-purple-900 text-base">{label}</span>
               </NavLink>
             );
           })}

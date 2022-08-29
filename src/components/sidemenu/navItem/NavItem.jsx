@@ -11,13 +11,11 @@ const NavItem = ({ item }) => {
 
   return (
     <NavLink
-      //exact
       to={to}
-      className="flex items-center no-underline py-3 px-5 text-lila-500 hover:bg-lila-200 hover:text-lila-350"
-      //activeClassName={style.activeNavItem}
+      className="flex items-center no-underline py-3 px-5 text-deep-purple-900 hover:text-deep-purple-900 hover:bg-deep-purple-100"
     >
       <Icon />
-      <span className="text-lila-500 hover:text-lila-350 text-base">{label}</span>
+      <span className="text-deep-purple-900 hover:text-deep-purple-900 text-base">{label}</span>
     </NavLink>
   );
 };

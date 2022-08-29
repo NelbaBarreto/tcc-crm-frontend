@@ -60,7 +60,7 @@ const Login = ({ setToken }) => {
   }
 
   return (
-    <div className="hero is-fullheight bg-lila-400">
+    <div className="hero is-fullheight bg-deep-purple-400">
       <section className="section sm:w-1/2 w-full m-auto hero shadow-lg shadow-gray-800 bg-white">
         <h1 className="title is-3 text-center">Lorem Ipsum CRM</h1>
         {error ? <MostrarError error={error} /> : null}
@@ -70,7 +70,8 @@ const Login = ({ setToken }) => {
               clientId={CLIENT_ID}
               render={renderProps => (
                 <button
-                  className="button is-medium font-semibold w-full shadow-lg hover:bg-gray-200 text-lila-500 border-lila-700"
+                  className="button is-medium font-semibold w-full shadow-lg hover:bg-gray-100
+                    text-deep-purple-900 border-deep-purple-900 hover:text-deep-purple-900 hover:border-deep-purple-900"
                   onClick={renderProps.onClick}
                   disabled={renderProps.disabled}
                 >
@@ -120,7 +121,7 @@ const Login = ({ setToken }) => {
           <div className="field mt-3">
             <div className="control">
               <button
-                className="button is-medium font-semibold w-full shadow-lg text-white hover:text-white hover:bg-lila-700 bg-lila-400 border-lila-700"
+                className="button is-medium font-semibold w-full shadow-lg text-white hover:text-white hover:bg-deep-purple-700 bg-deep-purple-400 border-deep-purple-700"
                 onClick={login}
               >
                 Iniciar Sesión
