@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBullhorn, faChartColumn, faGauge, faHeadphonesSimple, faHouse, faListCheck, faMoneyBillTrendUp, faFolder } from "@fortawesome/free-solid-svg-icons"
+import { faBullhorn, faChartColumn, faGauge, faHeadphonesSimple, faHouse, faListCheck, faMoneyBillTrendUp, 
+  faFolder, faPhone, faCalendar, faClipboardCheck, faBuilding, faBullseye, faUsers, faAddressCard, faInbox } from "@fortawesome/free-solid-svg-icons"
 
 const myIcons = {
   "gauge": faGauge,
@@ -10,6 +11,14 @@ const myIcons = {
   "house": faHouse,
   "chart-column": faChartColumn,
   "folder": faFolder,
+  "phone": faPhone,
+  "calendar": faCalendar,
+  "clipboard-check": faClipboardCheck,
+  "building": faBuilding,
+  "bulls-eye": faBullseye,
+  "users": faUsers,
+  "address-card": faAddressCard,
+  "inbox": faInbox
 }
 
 const Icon = ({ iconName }) => {
@@ -26,43 +35,72 @@ export const sideMenu = [
     label: "Ventas",
     Icon: () => <Icon iconName="money-bill-trend-up" />,
     to: "/ventas",
+    children: [
+      {
+        label: "Leads",
+        Icon: () => <Icon iconName="users" />,
+        to: "leads",
+      },
+      {
+        label: "Contactos",
+        Icon: () => <Icon iconName="address-card" />,
+        to: "contactos",
+      },
+      {
+        label: "Organizaciones",
+        Icon: () => <Icon iconName="building" />,
+        to: "organizaciones",
+      },
+      {
+        label: "Oportunidades",
+        Icon: () => <Icon iconName="bulls-eye" />,
+        to: "oportunidades",
+      }
+    ]
   },
   {
     label: "Marketing",
     Icon: () => <Icon iconName="bullhorn" />,
     to: "/marketing",
+    children: [
+      {
+        label: "Campañas",
+        Icon: () => <Icon iconName="bullhorn" />,
+        to: "campanas",
+      }
+    ]
   },
   {
     label: "Soporte",
     Icon: () => <Icon iconName="headphones-simple" />,
     to: "/soporte",
+    children: [
+      {
+        label: "Casos",
+        Icon: () => <Icon iconName="inbox" />,
+        to: "casos",
+      }
+    ]
   },
   {
     label: "Actividades",
-    Icon: () => <Icon iconName="list-check" />,
-    to: "/settings",
+    Icon: () => <Icon iconName="clipboard-check" />,
+    to: "/actividades",
     children: [
       {
-        label: "Account",
-        Icon: () => <Icon iconName="house" />,
-        to: "account",
+        label: "Llamadas",
+        Icon: () => <Icon iconName="phone" />,
+        to: "llamadas",
       },
       {
-        label: "Security",
-        Icon: () => <Icon iconName="house" />,
-        to: "security",
-        children: [
-          {
-            label: "Credentials",
-            Icon: () => <Icon iconName="house" />,
-            to: "credentials",
-          },
-          {
-            label: "2-FA",
-            Icon: () => <Icon iconName="house" />,
-            to: "2fa",
-          },
-        ],
+        label: "Tareas",
+        Icon: () => <Icon iconName="list-check" />,
+        to: "tareas",
+      },
+      {
+        label: "Calendario",
+        Icon: () => <Icon iconName="calendar" />,
+        to: "calendario",
       },
     ],
   },
