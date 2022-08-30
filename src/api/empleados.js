@@ -7,7 +7,12 @@ export const createEmpleado = async (data) => {
   return response.data;
 };
 
-export const getEmpleados = async (data) => {
-  const { data: response } = await axios.get(`${API}/empleados`, data);
+export const getEmpleados = async () => {
+  const { data: response } = await axios.get(`${API}/empleados`);
+  return response.data;
+};
+
+export const getEmpleado = async id => {
+  const { data: response } = await axios.get(`${API}/empleados/${id}`);
   return response.data;
 };
