@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Select from "react-select";
-import ModalUsuario from "../empleados/ModalUsuario";
+import ModalUsuario from "../usuarios/ModalUsuario";
 import { createPersona } from "../../api/personas";
 
 const DatosPersona = ({ persona, setPersona }) => {
@@ -93,7 +93,7 @@ const DatosEmpleado = ({ persona, setPersona }) => {
   );
 };
 
-const CrearUsuario = () => {
+const CrearEmpleado = () => {
   const [persona, setPersona] = useState({ empleado: { usuario: {} } });
   const [modalIsOpen, setIsOpen] = useState(false);
 console.log(persona)
@@ -131,4 +131,4 @@ console.log(persona)
   );
 }
 
-export default CrearUsuario;
+export default CrearEmpleado;
