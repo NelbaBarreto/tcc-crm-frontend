@@ -1,5 +1,8 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBullhorn, faChartColumn, faGauge, faHeadphonesSimple, faHouse, faListCheck, faMoneyBillTrendUp, faFolder, faEarth, faCity, faPersonChalkboard, faListUl, faFile, faPersonCircleCheck, faPersonCirclePlus, faBuilding, faHandshakeAlt, faBriefcase, faBusinessTime } from "@fortawesome/free-solid-svg-icons"
+import { faBullhorn, faChartColumn, faGauge, faHeadphonesSimple, faHouse, faListCheck, faMoneyBillTrendUp, 
+  faFolder, faPhone, faCalendar, faClipboardCheck, faBuilding, faBullseye, faUsers, faAddressCard, faEarth,
+  faCity, faPersonChalkboard, faListUl, faFile, faPersonCircleCheck, faPersonCirclePlus, faBuilding, faHandshakeAlt, 
+  faBriefcase, faBusinessTime } from "@fortawesome/free-solid-svg-icons"
 
 const myIcons = {
   "gauge": faGauge,
@@ -21,6 +24,13 @@ const myIcons = {
   "person-circle-plus": faPersonCirclePlus,
   "briefcase" : faBriefcase,
   "person-chalkboard": faPersonChalkboard,
+  "phone": faPhone,
+  "calendar": faCalendar,
+  "clipboard-check": faClipboardCheck,
+  "building": faBuilding,
+  "bulls-eye": faBullseye,
+  "users": faUsers,
+  "address-card": faAddressCard,
 }
 
 const Icon = ({ iconName }) => {
@@ -39,26 +49,26 @@ export const sideMenu = [
     to: "/ventas",
     children: [
       {
-        label: "Gestión de Leads",
-        Icon: () => <Icon iconName="person-circle-plus" />,
-        to: "lead",
+        label: "Leads",
+        Icon: () => <Icon iconName="users" />,
+        to: "leads",
       },
       {
-        label: "Gestión de Contactos",
-        Icon: () => <Icon iconName="person-circle-check" />,
-        to: "contacto",
+        label: "Contactos",
+        Icon: () => <Icon iconName="address-card" />,
+        to: "contactos",
       },
       {
-        label: "Gestión de Organizaciones",
+        label: "Organizaciones",
         Icon: () => <Icon iconName="building" />,
-        to: "organizacion",
+        to: "organizaciones",
       },
       {
-        label: "Gestión de Oportunidades",
-        Icon: () => <Icon iconName="handshake" />,
-        to: "oportunidad",
-      },
-    ],
+        label: "Oportunidades",
+        Icon: () => <Icon iconName="bulls-eye" />,
+        to: "oportunidades",
+      }
+    ]
   },
   {
     label: "Marketing",
@@ -66,16 +76,15 @@ export const sideMenu = [
     to: "/marketing",
     children: [
       {
-        label: "Campaña",
+        label: "Campañas",
         Icon: () => <Icon iconName="person-chalkboard" />,
-        to: "campana",
+        to: "campanas",
       },
       {
         label: "Tipo Campaña",
         Icon: () => <Icon iconName="list-ul" />,
         to: "tipocampana",
-      },
-      
+      },  
     ],
   },
   {
@@ -84,39 +93,31 @@ export const sideMenu = [
     to: "/soporte",
     children: [
       {
-        label: "Gestión de Casos",
+        label: "Casos",
         Icon: () => <Icon iconName="briefcase" />,
         to: "casos",
       },
     ],
   },
-  
   {
     label: "Actividades",
-    Icon: () => <Icon iconName="list-check" />,
-    to: "/settings",
+    Icon: () => <Icon iconName="clipboard-check" />,
+    to: "/actividades",
     children: [
       {
-        label: "Account",
-        Icon: () => <Icon iconName="house" />,
-        to: "account",
+        label: "Llamadas",
+        Icon: () => <Icon iconName="phone" />,
+        to: "llamadas",
       },
       {
-        label: "Security",
-        Icon: () => <Icon iconName="house" />,
-        to: "security",
-        children: [
-          {
-            label: "Credentials",
-            Icon: () => <Icon iconName="house" />,
-            to: "credentials",
-          },
-          {
-            label: "2-FA",
-            Icon: () => <Icon iconName="house" />,
-            to: "2fa",
-          },
-        ],
+        label: "Tareas",
+        Icon: () => <Icon iconName="list-check" />,
+        to: "tareas",
+      },
+      {
+        label: "Calendario",
+        Icon: () => <Icon iconName="calendar" />,
+        to: "calendario",
       },
     ],
   },
@@ -144,7 +145,7 @@ export const sideMenu = [
   },
   {
     label: "Reportes",
-    Icon: () => <Icon iconName="file" />,
+    Icon: () => <Icon iconName="chart-column" />,
     to: "/reportes",
   },
 ];
