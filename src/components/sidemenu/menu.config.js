@@ -1,8 +1,10 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBullhorn, faChartColumn, faGauge, faHeadphonesSimple, faHouse, faListCheck, faMoneyBillTrendUp, 
-  faFolder, faPhone, faCalendar, faClipboardCheck, faBuilding, faBullseye, faUsers, faAddressCard, faEarth,
-  faCity, faPersonChalkboard, faListUl, faFile, faPersonCircleCheck, faPersonCirclePlus, faBuilding, faHandshakeAlt, 
-  faBriefcase, faBusinessTime } from "@fortawesome/free-solid-svg-icons"
+import {
+  faBullhorn, faChartColumn, faGauge, faHeadphonesSimple, faHouse, faListCheck, faMoneyBillTrendUp,
+  faFolder, faPhone, faCalendar, faClipboardCheck, faBullseye, faUsers, faAddressCard, faEarth,
+  faCity, faPersonChalkboard, faListUl, faFile, faPersonCircleCheck, faPersonCirclePlus, faBuilding, faHandshakeAlt,
+  faBriefcase, faBusinessTime, faGear
+} from "@fortawesome/free-solid-svg-icons";
 
 const myIcons = {
   "gauge": faGauge,
@@ -18,11 +20,10 @@ const myIcons = {
   "folder": faFolder,
   "list-ul": faListUl,
   "file": faFile,
-  "building": faBuilding,
   "handshake": faHandshakeAlt,
   "person-circle-check": faPersonCircleCheck,
   "person-circle-plus": faPersonCirclePlus,
-  "briefcase" : faBriefcase,
+  "briefcase": faBriefcase,
   "person-chalkboard": faPersonChalkboard,
   "phone": faPhone,
   "calendar": faCalendar,
@@ -31,6 +32,7 @@ const myIcons = {
   "bulls-eye": faBullseye,
   "users": faUsers,
   "address-card": faAddressCard,
+  "gear": faGear,
 }
 
 const Icon = ({ iconName }) => {
@@ -84,7 +86,7 @@ export const sideMenu = [
         label: "Tipo Campaña",
         Icon: () => <Icon iconName="list-ul" />,
         to: "tipocampana",
-      },  
+      },
     ],
   },
   {
@@ -140,6 +142,18 @@ export const sideMenu = [
         label: "Motivos Casos",
         Icon: () => <Icon iconName="business-time" />,
         to: "motivos",
+      },
+    ],
+  },
+  {
+    label: "Administrador",
+    Icon: () => <Icon iconName="gear" />,
+    to: "/admin",
+    children: [
+      {
+        label: "Empleados",
+        Icon: () => <Icon iconName="users" />,
+        to: "empleados",
       },
     ],
   },
