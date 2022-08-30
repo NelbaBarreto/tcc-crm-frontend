@@ -1,5 +1,7 @@
 import React from "react";
 import DataTables from "../DataTables";
+import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useQuery } from "react-query";
 import { getEmpleados } from "../../api/empleados";
 import { NavLink } from "react-router-dom";
@@ -70,9 +72,13 @@ const Index = () => {
         filter: false,
         sort: false,
         empty: true,
-        customBodyRenderLite: (dataIndex, rowIndex) => {
+        customBodyRenderLite: (dataIndex, _rowIndex) => {
           return (
-            <button className="button is-dark" onClick={e => console.log(empleados[dataIndex])} >
+            <button
+              className="button font-semibold shadow-lg text-white hover:text-white focus:text-white
+              hover:bg-deep-purple-700 bg-deep-purple-400 border-deep-purple-700"
+              onClick={() => console.log(empleados[dataIndex])}
+            >
               Editar
             </button>
           );
@@ -84,8 +90,22 @@ const Index = () => {
   return (
     <div>
       <section className="section w-full m-auto">
-        <h1 className="title is-3 text-center">Listado de Empleados</h1>
-        <DataTables columns={columns} data={empleados} />
+        <NavLink
+          to={"/admin/empleados/nuevo"}
+          className="button font-semibold shadow-lg text-white hover:text-white focus:text-white
+              hover:bg-deep-purple-700 bg-deep-purple-400 border-deep-purple-700 mb-2"
+        >
+          <span>Crear Nuevo</span>
+          <span className="icon is-small">
+            <FontAwesomeIcon icon={solid("plus")} />
+          </span>
+        </NavLink>
+        <DataTables
+          title="Listado de Empleados"
+          columns={columns}
+          data={empleados}
+          isLoading={isLoading}
+        />
       </section>
     </div>
   )

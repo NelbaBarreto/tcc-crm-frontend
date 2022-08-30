@@ -11,6 +11,9 @@ const NavItemHeader = props => {
   const { label, Icon, to: headerToPath, children } = item;
   const location = useLocation();
 
+  const className = "flex items-center no-underline py-3 px-5 text-deep-purple-900 hover:bg-deep-purple-100 hover:text-deep-purple-900 w-full border-none bg-transparent cursor-pointer outline-none";
+  const activeClassName = "flex items-center no-underline py-3 px-5 text-deep-purple-900 hover:text-deep-purple-900 w-full border-none bg-deep-purple-100 cursor-pointer outline-none";
+
   const [expanded, setExpand] = useState(
     location.pathname.includes(headerToPath)
   );
@@ -61,8 +64,7 @@ const NavItemHeader = props => {
               <NavLink
                 key={key}
                 to={resolveLinkPath(item.to, props.item.to)}
-                className="flex items-center no-underline py-3 px-5 text-deep-purple-900 hover:bg-deep-purple-100
-                hover:text-deep-purple-900 w-full border-none bg-transparent cursor-pointer outline-none"
+                className={nav => (nav.isActive ? activeClassName : className)} 
               >
                 <Icon />
                 <span className="text-deep-purple-700 hover:text-deep-purple-900 text-base">{label}</span>

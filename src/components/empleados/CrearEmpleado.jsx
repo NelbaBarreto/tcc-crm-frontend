@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import Volver from "../Volver";
 import Select from "react-select";
 import ModalUsuario from "../usuarios/ModalUsuario";
+import { useNavigate } from "react-router-dom";
 import { createPersona } from "../../api/personas";
 
 const DatosPersona = ({ persona, setPersona }) => {
@@ -96,6 +98,7 @@ const DatosEmpleado = ({ persona, setPersona }) => {
 const CrearEmpleado = () => {
   const [persona, setPersona] = useState({ empleado: { usuario: {} } });
   const [modalIsOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
 
   const crear = async e => {
     e.preventDefault();
@@ -118,7 +121,8 @@ const CrearEmpleado = () => {
           <div className="field mt-3">
             <div className="control">
               <button
-                className="button float-right font-semibold shadow-lg text-white hover:text-white hover:bg-lila-700 bg-lila-400 border-lila-700"
+                className="button float-right font-semibold shadow-lg text-white hover:text-white focus:text-white
+                 hover:bg-deep-purple-700 bg-deep-purple-400 border-deep-purple-700"
                 onClick={e => crear(e)}
               >
                 Guardar
@@ -126,6 +130,7 @@ const CrearEmpleado = () => {
             </div>
           </div>
         </form>
+        <Volver navigate={navigate} />
       </section>
     </div>
   );

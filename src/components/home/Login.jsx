@@ -83,7 +83,7 @@ const Login = ({ setToken }) => {
               )}
               buttonText="Login"
               onSuccess={loginGoogle}
-              onFailure={loginGoogle}
+              onFailure={() => setError("Ocurrió un error al intentar iniciar sesión con google.")}
               cookiePolicy="single_host_origin"
             />
           </div>
@@ -121,7 +121,8 @@ const Login = ({ setToken }) => {
           <div className="field mt-3">
             <div className="control">
               <button
-                className="button is-medium font-semibold w-full shadow-lg text-white hover:text-white hover:bg-deep-purple-700 bg-deep-purple-400 border-deep-purple-700"
+                className="button is-medium font-semibold w-full shadow-lg text-white hover:text-white focus:text-white
+                hover:bg-deep-purple-700 bg-deep-purple-400 border-deep-purple-700"
                 onClick={login}
               >
                 Iniciar Sesión
