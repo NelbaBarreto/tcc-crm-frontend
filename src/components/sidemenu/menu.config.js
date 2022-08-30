@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBullhorn, faChartColumn, faGauge, faHeadphonesSimple, faHouse, faListCheck, faMoneyBillTrendUp, faFolder } from "@fortawesome/free-solid-svg-icons"
+import { faBullhorn, faChartColumn, faGauge, faHeadphonesSimple, faHouse, faListCheck, faMoneyBillTrendUp, faFolder, faEarth, faCity, faPersonChalkboard, faListUl, faFile, faPersonCircleCheck, faPersonCirclePlus, faBuilding, faHandshakeAlt, faBriefcase, faBusinessTime } from "@fortawesome/free-solid-svg-icons"
 
 const myIcons = {
   "gauge": faGauge,
@@ -9,7 +9,18 @@ const myIcons = {
   "list-check": faListCheck,
   "house": faHouse,
   "chart-column": faChartColumn,
+  "earth-americas": faEarth,
+  "city": faCity,
+  "business-time": faBusinessTime,
   "folder": faFolder,
+  "list-ul": faListUl,
+  "file": faFile,
+  "building": faBuilding,
+  "handshake": faHandshakeAlt,
+  "person-circle-check": faPersonCircleCheck,
+  "person-circle-plus": faPersonCirclePlus,
+  "briefcase" : faBriefcase,
+  "person-chalkboard": faPersonChalkboard,
 }
 
 const Icon = ({ iconName }) => {
@@ -26,17 +37,60 @@ export const sideMenu = [
     label: "Ventas",
     Icon: () => <Icon iconName="money-bill-trend-up" />,
     to: "/ventas",
+    children: [
+      {
+        label: "Gestión de Leads",
+        Icon: () => <Icon iconName="person-circle-plus" />,
+        to: "lead",
+      },
+      {
+        label: "Gestión de Contactos",
+        Icon: () => <Icon iconName="person-circle-check" />,
+        to: "contacto",
+      },
+      {
+        label: "Gestión de Organizaciones",
+        Icon: () => <Icon iconName="building" />,
+        to: "organizacion",
+      },
+      {
+        label: "Gestión de Oportunidades",
+        Icon: () => <Icon iconName="handshake" />,
+        to: "oportunidad",
+      },
+    ],
   },
   {
     label: "Marketing",
     Icon: () => <Icon iconName="bullhorn" />,
     to: "/marketing",
+    children: [
+      {
+        label: "Campaña",
+        Icon: () => <Icon iconName="person-chalkboard" />,
+        to: "campana",
+      },
+      {
+        label: "Tipo Campaña",
+        Icon: () => <Icon iconName="list-ul" />,
+        to: "tipocampana",
+      },
+      
+    ],
   },
   {
     label: "Soporte",
     Icon: () => <Icon iconName="headphones-simple" />,
     to: "/soporte",
+    children: [
+      {
+        label: "Gestión de Casos",
+        Icon: () => <Icon iconName="briefcase" />,
+        to: "casos",
+      },
+    ],
   },
+  
   {
     label: "Actividades",
     Icon: () => <Icon iconName="list-check" />,
@@ -73,24 +127,24 @@ export const sideMenu = [
     children: [
       {
         label: "Países",
-        Icon: () => <Icon iconName="house" />,
+        Icon: () => <Icon iconName="earth-americas" />,
         to: "paises",
       },
       {
         label: "Ciudades",
-        Icon: () => <Icon iconName="house" />,
+        Icon: () => <Icon iconName="city" />,
         to: "ciudades",
       },
       {
         label: "Motivos Casos",
-        Icon: () => <Icon iconName="house" />,
+        Icon: () => <Icon iconName="business-time" />,
         to: "motivos",
       },
     ],
   },
   {
     label: "Reportes",
-    Icon: () => <Icon iconName="chart-folder-gear" />,
+    Icon: () => <Icon iconName="file" />,
     to: "/reportes",
   },
 ];

@@ -1,23 +1,33 @@
 import React from "react";
 
-const CrearPais = () => {
+const CrearCiudad = () => {
   return (
     <div>
       <section className="section w-full m-auto">
-        <h1 className="title is-3 text-center">Nuevo País</h1>
+        <h1 className="title is-3 text-center">Nueva Ciudad</h1>
         <form>
           <div className="field">
-            <label className="label">Nombre del País</label>
+            <label className="label">Nombre de la ciudad</label>
             <div className="control">
               <input
                 name="nombre"
                 className="input shadow-lg"
                 type="text"
-                placeholder="Ingrese su País"
+                placeholder="Ingrese el nombre de su ciudad"
               />
             </div>
           </div>
-         
+          <div className="field">
+            <label className="label">Codigo país</label>
+            <div className="control">
+              <input
+                name="codPais"
+                className="input shadow-lg"
+                type="number"
+                placeholder="Ingrese su codigo de país"
+              />
+            </div>
+          </div>
           <div className="field mt-3">
             <div className="control">
               <button
@@ -27,12 +37,10 @@ const CrearPais = () => {
               </button>
             </div>
           </div>
-
-        
         </form>
       </section>
     </div>
   )
 };
 
-export default CrearPais;
+export default CrearCiudad;
