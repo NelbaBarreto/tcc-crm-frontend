@@ -1,6 +1,8 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBullhorn, faChartColumn, faGauge, faHeadphonesSimple, faHouse, faListCheck, faMoneyBillTrendUp, 
-  faFolder, faPhone, faCalendar, faClipboardCheck, faBuilding, faBullseye, faUsers, faAddressCard, faInbox } from "@fortawesome/free-solid-svg-icons"
+  faFolder, faPhone, faCalendar, faClipboardCheck, faBuilding, faBullseye, faUsers, faAddressCard, faEarth,
+  faCity, faPersonChalkboard, faListUl, faFile, faPersonCircleCheck, faPersonCirclePlus, faBuilding, faHandshakeAlt, 
+  faBriefcase, faBusinessTime } from "@fortawesome/free-solid-svg-icons"
 
 const myIcons = {
   "gauge": faGauge,
@@ -10,7 +12,18 @@ const myIcons = {
   "list-check": faListCheck,
   "house": faHouse,
   "chart-column": faChartColumn,
+  "earth-americas": faEarth,
+  "city": faCity,
+  "business-time": faBusinessTime,
   "folder": faFolder,
+  "list-ul": faListUl,
+  "file": faFile,
+  "building": faBuilding,
+  "handshake": faHandshakeAlt,
+  "person-circle-check": faPersonCircleCheck,
+  "person-circle-plus": faPersonCirclePlus,
+  "briefcase" : faBriefcase,
+  "person-chalkboard": faPersonChalkboard,
   "phone": faPhone,
   "calendar": faCalendar,
   "clipboard-check": faClipboardCheck,
@@ -18,7 +31,6 @@ const myIcons = {
   "bulls-eye": faBullseye,
   "users": faUsers,
   "address-card": faAddressCard,
-  "inbox": faInbox
 }
 
 const Icon = ({ iconName }) => {
@@ -65,10 +77,15 @@ export const sideMenu = [
     children: [
       {
         label: "Campañas",
-        Icon: () => <Icon iconName="bullhorn" />,
+        Icon: () => <Icon iconName="person-chalkboard" />,
         to: "campanas",
-      }
-    ]
+      },
+      {
+        label: "Tipo Campaña",
+        Icon: () => <Icon iconName="list-ul" />,
+        to: "tipocampana",
+      },  
+    ],
   },
   {
     label: "Soporte",
@@ -77,10 +94,10 @@ export const sideMenu = [
     children: [
       {
         label: "Casos",
-        Icon: () => <Icon iconName="inbox" />,
+        Icon: () => <Icon iconName="briefcase" />,
         to: "casos",
-      }
-    ]
+      },
+    ],
   },
   {
     label: "Actividades",
@@ -111,17 +128,17 @@ export const sideMenu = [
     children: [
       {
         label: "Países",
-        Icon: () => <Icon iconName="house" />,
+        Icon: () => <Icon iconName="earth-americas" />,
         to: "paises",
       },
       {
         label: "Ciudades",
-        Icon: () => <Icon iconName="house" />,
+        Icon: () => <Icon iconName="city" />,
         to: "ciudades",
       },
       {
         label: "Motivos Casos",
-        Icon: () => <Icon iconName="house" />,
+        Icon: () => <Icon iconName="business-time" />,
         to: "motivos",
       },
     ],
