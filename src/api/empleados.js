@@ -6,3 +6,13 @@ export const createEmpleado = async (data) => {
   const { data: response } = await axios.post(`${API}/empleados`, data);
   return response.data;
 };
+
+export const getEmpleados = async () => {
+  const { data: response } = await axios.get(`${API}/empleados`);
+  return response.data;
+};
+
+export const getEmpleado = async id => {
+  const { data: response } = await axios.get(`${API}/empleados/${id}`);
+  return response.data;
+};

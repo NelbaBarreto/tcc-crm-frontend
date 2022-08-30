@@ -6,7 +6,12 @@ import {
 import Login from "./components/home/Login";
 import Layout from "./components/layout/Index";
 import Dashboard from "./components/dashboard/Index";
+
+// Empleado
+import ListarEmpleados from "./components/empleados/Index";
 import CrearEmpleado from "./components/empleados/CrearEmpleado";
+import MostrarEmpleado from "./components/empleados/MostrarEmpleado";
+
 import CrearPais from "./components/parametros/CrearPais";
 import CrearCiudad from "./components/parametros/CrearCiudad";
 import CrearMotivo from "./components/parametros/CrearMotivo";
@@ -32,7 +37,11 @@ const MainApp = () => {
         <Routes>
           <Route exact path="/" element={<Dashboard />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/usuarios" element={<CrearEmpleado />} />
+          { /* Empleados */}
+          <Route exact path="/admin/empleados" element={<ListarEmpleados />} />
+          <Route path="/admin/empleados/nuevo" element={<CrearEmpleado />} />
+          <Route exact path="/admin/empleados/:id" element={<MostrarEmpleado />} />
+
           <Route path="/parametros/paises" element={<CrearPais />} />
           <Route path="/parametros/ciudades" element={<CrearCiudad />} />
           <Route path="/parametros/motivos" element={<CrearMotivo />} />
