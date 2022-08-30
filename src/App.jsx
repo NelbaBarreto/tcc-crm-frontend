@@ -8,6 +8,15 @@ import Layout from "./components/layout/Index";
 import Dashboard from "./components/dashboard/Index";
 import CrearUsuario from "./components/usuarios/CrearUsuario";
 import CrearPais from "./components/parametros/CrearPais";
+import CrearCiudad from "./components/parametros/CrearCiudad";
+import CrearMotivo from "./components/parametros/CrearMotivo";
+import CrearCampana from "./components/marketing/CrearCampana";
+import CrearTipoCampana from "./components/marketing/CrearTipoCampana";
+import CrearLead from "./components/ventas/CrearLead";
+import CrearContacto from "./components/ventas/CrearContacto";
+import CrearOrganizacion from "./components/ventas/CrearOrganizacion";
+import CrearOportunidad from "./components/ventas/CrearOportunidad";
+import CrearCaso from "./components/soporte/CrearCaso";
 import useToken from "../src/utils/useToken";
 
 const MainApp = () => {
@@ -25,6 +34,15 @@ const MainApp = () => {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/usuarios" element={<CrearUsuario />} />
           <Route path="/parametros/paises" element={<CrearPais />} />
+          <Route path="/parametros/ciudades" element={<CrearCiudad />} />
+          <Route path="/parametros/motivos" element={<CrearMotivo />} />
+          <Route path="/marketing/campana" element={<CrearCampana />} />
+          <Route path="/marketing/tipocampana" element={<CrearTipoCampana />} />
+          <Route path="/ventas/lead" element={<CrearLead />} />
+          <Route path="/ventas/contacto" element={<CrearContacto />} />
+          <Route path="/ventas/organizacion" element={<CrearOrganizacion />} />
+          <Route path="/ventas/oportunidad" element={<CrearOportunidad />} />
+          <Route path="/soporte/casos" element={<CrearCaso />} />
         </Routes>
       </Layout>
     </Router>
