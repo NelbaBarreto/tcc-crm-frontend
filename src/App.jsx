@@ -36,12 +36,12 @@ const MainApp = () => {
           <Route path="/parametros/paises" element={<CrearPais />} />
           <Route path="/parametros/ciudades" element={<CrearCiudad />} />
           <Route path="/parametros/motivos" element={<CrearMotivo />} />
-          <Route path="/marketing/campana" element={<CrearCampana />} />
+          <Route path="/marketing/campanas" element={<CrearCampana />} />
           <Route path="/marketing/tipocampana" element={<CrearTipoCampana />} />
-          <Route path="/ventas/lead" element={<CrearLead />} />
-          <Route path="/ventas/contacto" element={<CrearContacto />} />
-          <Route path="/ventas/organizacion" element={<CrearOrganizacion />} />
-          <Route path="/ventas/oportunidad" element={<CrearOportunidad />} />
+          <Route path="/ventas/leads" element={<CrearLead />} />
+          <Route path="/ventas/contactos" element={<CrearContacto />} />
+          <Route path="/ventas/organizaciones" element={<CrearOrganizacion />} />
+          <Route path="/ventas/oportunidades" element={<CrearOportunidad />} />
           <Route path="/soporte/casos" element={<CrearCaso />} />
         </Routes>
       </Layout>
