@@ -1,4 +1,5 @@
 import React from "react";
+import "react-big-calendar/lib/css/react-big-calendar.css";
 import {
   BrowserRouter as Router, Routes, Route
 } from "react-router-dom";
@@ -22,6 +23,7 @@ import CrearContacto from "./components/ventas/CrearContacto";
 import CrearOrganizacion from "./components/ventas/CrearOrganizacion";
 import CrearOportunidad from "./components/ventas/CrearOportunidad";
 import CrearCaso from "./components/soporte/CrearCaso";
+import Calendario from "./components/actividades/Calendario";
 import useToken from "../src/utils/useToken";
 
 const MainApp = () => {
@@ -52,6 +54,7 @@ const MainApp = () => {
           <Route path="/ventas/organizaciones" element={<CrearOrganizacion />} />
           <Route path="/ventas/oportunidades" element={<CrearOportunidad />} />
           <Route path="/soporte/casos" element={<CrearCaso />} />
+          <Route path="/actividades/calendario" element={<Calendario />} />
         </Routes>
       </Layout>
     </Router>
