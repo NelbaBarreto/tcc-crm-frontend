@@ -51,25 +51,25 @@ const CrearOrganizacion = () => {
               </div>
             </div>
             <div class="column">
-            <div className="field">
-            <label className="label">Telefono</label>
-            <div className="field is-expanded">
-              <div className="field has-addons">
-                <p className="control">
-                  <a href=" " className="button is-static">
-                    +595
-                  </a>
-                </p>
-                <p className="control is-expanded">
-                  <input
-                    className="input"
-                    type="tel"
-                    placeholder="Ingrese su numero de telefono" />
-                </p>
+              <div className="field">
+                <label className="label">Telefono</label>
+                <div className="field is-expanded">
+                  <div className="field has-addons">
+                    <p className="control">
+                      <a href=" " className="button is-static">
+                        +595
+                      </a>
+                    </p>
+                    <p className="control is-expanded">
+                      <input
+                        className="input"
+                        type="tel"
+                        placeholder="Ingrese su numero de telefono" />
+                    </p>
+                  </div>
+                  <p className="help">No Ingresar cero al comienzo</p>
+                </div>
               </div>
-              <p className="help">No Ingresar cero al comienzo</p>
-            </div>
-          </div>
             </div>
           </div>
 
@@ -88,7 +88,8 @@ const CrearOrganizacion = () => {
           <div className="field mt-3">
             <div className="control">
               <button
-                className="button float-right font-semibold shadow-lg text-white hover:text-white hover:bg-lila-700 bg-lila-400 border-lila-700"
+                className="button float-right font-semibold shadow-lg text-white hover:text-white focus:text-white
+                 hover:bg-deep-purple-700 bg-deep-purple-400 border-deep-purple-700"
               >
                 Guardar
               </button>

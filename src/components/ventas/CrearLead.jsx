@@ -96,7 +96,7 @@ const CrearLead = () => {
 
           <div class="columns is-mobile">
             <div class="column">
-            <div className="field">
+              <div className="field">
                 <label className="label">Codigo Campaña</label>
                 <div className="control">
                   <input
@@ -109,7 +109,7 @@ const CrearLead = () => {
               </div>
             </div>
             <div class="column">
-            <div className="field">
+              <div className="field">
                 <label className="label">Codigo Curso</label>
                 <div className="control">
                   <input
@@ -156,7 +156,8 @@ const CrearLead = () => {
           <div className="field mt-3">
             <div className="control">
               <button
-                className="button float-right font-semibold shadow-lg text-white hover:text-white hover:bg-lila-700 bg-lila-400 border-lila-700"
+                className="button float-right font-semibold shadow-lg text-white hover:text-white focus:text-white
+                 hover:bg-deep-purple-700 bg-deep-purple-400 border-deep-purple-700"
               >
                 Guardar
               </button>

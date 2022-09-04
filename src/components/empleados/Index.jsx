@@ -16,7 +16,7 @@ const Index = () => {
     {
       name: "empleado_id",
       options: {
-        display: "excluded"
+        display: "none"
       }
     },
     {
@@ -91,7 +91,7 @@ const Index = () => {
     <div>
       <section className="section w-full m-auto">
         <NavLink
-          to={"/admin/empleados/nuevo"}
+          to="/admin/empleados/nuevo"
           className="button font-semibold shadow-lg text-white hover:text-white focus:text-white
               hover:bg-deep-purple-700 bg-deep-purple-400 border-deep-purple-700 mb-2"
         >

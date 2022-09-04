@@ -17,18 +17,19 @@ const CrearPais = () => {
               />
             </div>
           </div>
-         
+
           <div className="field mt-3">
             <div className="control">
               <button
-                className="button float-right font-semibold shadow-lg text-white hover:text-white hover:bg-lila-700 bg-lila-400 border-lila-700"
+                className="button float-right font-semibold shadow-lg text-white hover:text-white focus:text-white
+                 hover:bg-deep-purple-700 bg-deep-purple-400 border-deep-purple-700"
               >
                 Guardar
               </button>
             </div>
           </div>
 
-        
+
         </form>
       </section>
     </div>
