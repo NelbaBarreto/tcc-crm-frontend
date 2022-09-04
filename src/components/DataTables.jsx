@@ -6,7 +6,10 @@ import { Typography, CircularProgress } from "@mui/material";
 const DataTables = ({ data, title, columns, isLoading }) => {
   const options = {
     enableNestedDataAccess: ".",
-    textLabels:{
+    textLabels: {
+      body: {
+        noMatch: "No hay registros",
+      },
       pagination: {
         rowsPerPage: "Filas por Página",
         displayRows: "de"
