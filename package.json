@@ -19,9 +19,12 @@
     "babel-plugin-macros": "^3.1.0",
     "bulma": "^0.9.3",
     "classnames": "^2.3.1",
+    "date-fns": "^2.29.2",
     "gapi-script": "^1.2.0",
     "mui-datatables": "^4.2.2",
     "react": "^18.0.0",
+    "react-big-calendar": "^1.5.0",
+    "react-datepicker": "^4.8.0",
     "react-dom": "^18.0.0",
     "react-google-login": "^5.2.2",
     "react-modal": "^3.15.1",
@@ -58,6 +61,8 @@
   },
   "devDependencies": {
     "@creativebulma/bulma-divider": "^1.1.0",
+    "@types/react-big-calendar": "^0.38.1",
+    "@types/react-datepicker": "^4.4.2",
     "@types/react-modal": "^3.13.1",
     "tailwindcss": "^3.0.24"
   }
