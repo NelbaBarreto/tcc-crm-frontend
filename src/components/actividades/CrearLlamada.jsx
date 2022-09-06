@@ -1,8 +1,7 @@
 import React from "react";
-import TimeInput from "react-input-time";
+//import TimeInput from "react-input-time";
 
 const CrearLlamada = () => {
-
     return (
         <div>
             <section className="section w-full m-auto">
@@ -48,11 +47,12 @@ const CrearLlamada = () => {
                             <div className="field">
                                 <label className="label">Hora: </label>
                                 <div className="control">
-                                    <TimeInput
-                                        className="input shadow-lg"
-                                        initialTime="00:00"
-                                        onChange={(event) => { }}
-                                    />
+                                    <input type="text shadow-lg" />
+                                    {/* <TimeInput
+    className="input shadow-lg"
+    initialTime="00:00"
+    onChange={(event) => { }}
+    /> */}
                                 </div>
                             </div>
                         </div>
