@@ -62,7 +62,7 @@ const events = [
 
 const Calendario = () => (
   <section className="mt-4">
-    <div className="bg-white table my-0 mx-auto">
+    <div className="bg-white rounded-lg table my-0 mx-auto">
       <Calendar
         culture={"es"}
         localizer={localizer}
