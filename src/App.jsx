@@ -23,6 +23,8 @@ import CrearOrganizacion from "./components/ventas/CrearOrganizacion";
 import CrearOportunidad from "./components/ventas/CrearOportunidad";
 import CrearCaso from "./components/soporte/CrearCaso";
 import Calendario from "./components/actividades/Calendario";
+import CrearLlamada from "./components/actividades/CrearLlamada";
+import CrearTarea from "./components/actividades/CrearTarea";
 import useToken from "../src/utils/useToken";
 
 const MainApp = () => {
@@ -54,6 +56,8 @@ const MainApp = () => {
           <Route path="/ventas/oportunidades" element={<CrearOportunidad />} />
           <Route path="/soporte/casos" element={<CrearCaso />} />
           <Route path="/actividades/calendario" element={<Calendario />} />
+          <Route path="/actividades/tareas" element={<CrearTarea />} />
+          <Route path="/actividades/llamadas" element={<CrearLlamada />} />
         </Routes>
       </Layout>
     </Router>
