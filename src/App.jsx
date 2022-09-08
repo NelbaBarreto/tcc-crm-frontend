@@ -12,9 +12,18 @@ import ListarEmpleados from "./components/empleados/Index";
 import CrearEmpleado from "./components/empleados/CrearEmpleado";
 import MostrarEmpleado from "./components/empleados/MostrarEmpleado";
 
-import CrearPais from "./components/parametros/CrearPais";
-import CrearCiudad from "./components/parametros/CrearCiudad";
-import CrearMotivo from "./components/parametros/CrearMotivo";
+//Países
+import ListarPaises from "./components/parametros/paises/Index";
+import CrearPais from "./components/parametros/paises/CrearPais";
+
+// Ciudades
+import ListarCiudades from "./components/parametros/ciudades/Index";
+import CrearCiudad from "./components/parametros/ciudades/CrearCiudad";
+
+// Motivos
+import CrearMotivo from "./components/parametros/motivos/CrearMotivo";
+
+// Campañas
 import CrearCampana from "./components/marketing/CrearCampana";
 import CrearTipoCampana from "./components/marketing/CrearTipoCampana";
 import CrearLead from "./components/ventas/CrearLead";
@@ -40,12 +49,16 @@ const MainApp = () => {
         <Routes>
           <Route exact path="/" element={<Dashboard />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          { /* Empleados */}
+          {/* Empleados */}
           <Route exact path="/admin/empleados" element={<ListarEmpleados />} />
           <Route path="/admin/empleados/nuevo" element={<CrearEmpleado />} />
           <Route exact path="/admin/empleados/:id" element={<MostrarEmpleado />} />
 
-          <Route path="/parametros/paises" element={<CrearPais />} />
+          {/* Países */}
+          <Route exact path="/parametros/paises" element={<ListarPaises />} />
+          <Route path="/parametros/paises/nuevo" element={<CrearPais />} />
+
+          {/* Ciudades */}
           <Route path="/parametros/ciudades" element={<CrearCiudad />} />
           <Route path="/parametros/motivos" element={<CrearMotivo />} />
           <Route path="/marketing/campanas" element={<CrearCampana />} />
