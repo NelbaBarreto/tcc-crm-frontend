@@ -59,7 +59,9 @@ const MainApp = () => {
           <Route path="/parametros/paises/nuevo" element={<CrearPais />} />
 
           {/* Ciudades */}
-          <Route path="/parametros/ciudades" element={<CrearCiudad />} />
+          <Route exact path="/parametros/ciudades" element={<ListarCiudades />} />
+          <Route path="/parametros/ciudades/nuevo" element={<CrearCiudad />} />
+
           <Route path="/parametros/motivos" element={<CrearMotivo />} />
           <Route path="/marketing/campanas" element={<CrearCampana />} />
           <Route path="/marketing/tipocampana" element={<CrearTipoCampana />} />

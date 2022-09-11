@@ -1,44 +1,64 @@
-import React from "react";
+import React, { useState } from "react";
+import Volver from "../../Volver";
+import Select from "react-select";
+import Guardar from "../../Guardar";
+import { useQuery } from "react-query";
+import { useNavigate } from "react-router-dom";
+import { createCiudad } from "../../../api/ciudades";
+import { getPaises } from "../../../api/paises";
 
 const CrearCiudad = () => {
+  const [pais, setPais] = useState("");
+  const [ciudad, setCiudad] = useState({});
+  const navigate = useNavigate();
+
+  const {
+    data: paises,
+    isLoading
+  } = useQuery(["paises"], getPaises);
+
+  const options = isLoading ? [] : paises.map(pais => ({ value: pais.pais_id, label: pais.nombre }));
+
+  const crear = async e => {
+    e.preventDefault();
+    await createCiudad(ciudad);
+  };
+
   return (
     <div>
       <section className="section w-full m-auto">
         <h1 className="title is-3 text-center">Nueva Ciudad</h1>
         <form>
           <div className="field">
-            <label className="label">Nombre de la ciudad</label>
+            <label className="label">Nombre</label>
             <div className="control">
               <input
                 name="nombre"
                 className="input shadow-lg"
                 type="text"
-                placeholder="Ingrese el nombre de su ciudad"
+                value={ciudad.nombre || ""}
+                onChange={e => setCiudad({ ...ciudad, [e.target.name]: e.target.value })}
               />
             </div>
           </div>
+
           <div className="field">
-            <label className="label">Codigo país</label>
+            <label className="label">País</label>
             <div className="control">
-              <input
-                name="codPais"
-                className="input shadow-lg"
-                type="number"
-                placeholder="Ingrese su codigo de país"
+              <Select
+                name="pais_id"
+                className="shadow-lg"
+                placeholder=""
+                onChange={e => { setCiudad({ ...ciudad, pais_id: e.value }); setPais(e) }}
+                value={pais}
+                options={options}
               />
             </div>
           </div>
-          <div className="field mt-3">
-            <div className="control">
-              <button
-                className="button float-right font-semibold shadow-lg text-white hover:text-white focus:text-white
-                 hover:bg-deep-purple-700 bg-deep-purple-400 border-deep-purple-700"
-              >
-                Guardar
-              </button>
-            </div>
-          </div>
+
+          <Guardar guardar={crear} />
         </form>
+        <Volver navigate={navigate} />
       </section>
     </div>
   )
