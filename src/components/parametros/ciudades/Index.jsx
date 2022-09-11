@@ -12,8 +12,6 @@ const Index = () => {
       isLoading
   } = useQuery(["ciudades"], getCiudades);
 
-console.log(ciudades);
-
   const columns = [
     {
       name: "ciudad_id",
