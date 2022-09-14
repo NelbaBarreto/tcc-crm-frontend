@@ -3,7 +3,7 @@ import {
   faBullhorn, faChartColumn, faGauge, faHeadphonesSimple, faHouse, faListCheck, faMoneyBillTrendUp,
   faFolder, faPhone, faCalendar, faClipboardCheck, faBullseye, faUsers, faAddressCard, faEarth,
   faCity, faPersonChalkboard, faListUl, faFile, faPersonCircleCheck, faPersonCirclePlus, faBuilding, faHandshakeAlt,
-  faBriefcase, faBusinessTime, faGear
+  faBriefcase, faBusinessTime, faGear, faGraduationCap, faSchool, faUserGraduate, faChalkboardUser
 } from "@fortawesome/free-solid-svg-icons";
 
 const myIcons = {
@@ -31,7 +31,11 @@ const myIcons = {
   "building": faBuilding,
   "bulls-eye": faBullseye,
   "users": faUsers,
+  "graduation-cap": faGraduationCap,
   "address-card": faAddressCard,
+  "user-graduate": faUserGraduate,
+  "chalkboard-user": faChalkboardUser,
+  "school-flag": faSchool,
   "gear": faGear,
 }
 
@@ -154,6 +158,28 @@ export const sideMenu = [
         label: "Empleados",
         Icon: () => <Icon iconName="users" />,
         to: "empleados",
+      },
+    ],
+  },
+  {
+    label: "Educación",
+    Icon: () => <Icon iconName="graduation-cap" />,
+    to: "/educacion",
+    children: [
+      {
+        label: "Cursos",
+        Icon: () => <Icon iconName="user-graduate" />,
+        to: "cursos",
+      },
+      {
+        label: "Profesores",
+        Icon: () => <Icon iconName="chalkboard-user" />,
+        to: "profesores",
+      },
+      {
+        label: "Sucursales",
+        Icon: () => <Icon iconName="school-flag" />,
+        to: "sucursales",
       },
     ],
   },

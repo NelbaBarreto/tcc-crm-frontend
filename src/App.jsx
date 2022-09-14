@@ -3,7 +3,7 @@ import {
   BrowserRouter as Router, Routes, Route
 } from "react-router-dom";
 
-import Login from "./components/home/Login";
+//import Login from "./components/home/Login";
 import Layout from "./components/layout/Index";
 import Dashboard from "./components/dashboard/Index";
 
@@ -26,22 +26,28 @@ import CrearMotivo from "./components/parametros/motivos/CrearMotivo";
 // Campañas
 import CrearCampana from "./components/marketing/CrearCampana";
 import CrearTipoCampana from "./components/marketing/CrearTipoCampana";
+//Ventas
 import CrearLead from "./components/ventas/CrearLead";
 import CrearContacto from "./components/ventas/CrearContacto";
 import CrearOrganizacion from "./components/ventas/CrearOrganizacion";
 import CrearOportunidad from "./components/ventas/CrearOportunidad";
+//Soporte
 import CrearCaso from "./components/soporte/CrearCaso";
 import Calendario from "./components/actividades/Calendario";
 import CrearLlamada from "./components/actividades/CrearLlamada";
 import CrearTarea from "./components/actividades/CrearTarea";
-import useToken from "../src/utils/useToken";
+//Cursos
+import CrearCurso from "./components/educacion/CrearCurso";
+import CrearProfesor from "./components/educacion/CrearProfesor";
+import CrearSucursal from "./components/educacion/CrearSucursal";
+//import useToken from "../src/utils/useToken";
 
 const MainApp = () => {
-  const { token, setToken } = useToken();
+  // const { token, setToken } = useToken();
 
-  if (!token) {
-    return <Login setToken={setToken} />
-  };
+  // if (!token) {
+  //   return <Login setToken={setToken} />
+  // };
 
   return (
     <Router>
@@ -73,6 +79,10 @@ const MainApp = () => {
           <Route path="/actividades/calendario" element={<Calendario />} />
           <Route path="/actividades/tareas" element={<CrearTarea />} />
           <Route path="/actividades/llamadas" element={<CrearLlamada />} />
+          {/* Cursos */}
+          <Route path="/educacion/cursos" element={<CrearCurso />} />
+          <Route path="/educacion/profesores" element={<CrearProfesor />} />
+          <Route path="/educacion/sucursales" element={<CrearSucursal />} />
         </Routes>
       </Layout>
     </Router>
