@@ -3,7 +3,7 @@ import {
   BrowserRouter as Router, Routes, Route
 } from "react-router-dom";
 
-//import Login from "./components/home/Login";
+import Login from "./components/home/Login";
 import Layout from "./components/layout/Index";
 import Dashboard from "./components/dashboard/Index";
 
@@ -40,14 +40,14 @@ import CrearTarea from "./components/actividades/CrearTarea";
 import CrearCurso from "./components/educacion/CrearCurso";
 import CrearProfesor from "./components/educacion/CrearProfesor";
 import CrearSucursal from "./components/educacion/CrearSucursal";
-//import useToken from "../src/utils/useToken";
+import useToken from "../src/utils/useToken";
 
 const MainApp = () => {
-  // const { token, setToken } = useToken();
+  const { token, setToken } = useToken();
 
-  // if (!token) {
-  //   return <Login setToken={setToken} />
-  // };
+  if (!token) {
+    return <Login setToken={setToken} />
+  };
 
   return (
     <Router>
