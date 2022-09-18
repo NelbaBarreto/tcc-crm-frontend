@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
-import classnames from "classnames";
+import classNames from "classnames";
 
 const resolveLinkPath = (childTo, parentTo) => `${parentTo}/${childTo}`;
 
@@ -34,7 +34,7 @@ const NavItemHeader = props => {
         <span className="text-deep-purple-900 hover:text-deep-purple-900 text-base">{label}</span>
         <span className="icon">
           <FontAwesomeIcon 
-            className={classnames("text-deep-purple-900 ml-auto w-3 h-3", { "rotate-180": expanded })} 
+            className={classNames("text-deep-purple-900 ml-auto w-3 h-3", { "rotate-180": expanded })} 
             icon={solid("chevron-down")} 
           />
         </span>

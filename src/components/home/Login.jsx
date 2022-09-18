@@ -1,17 +1,10 @@
 import React, { useState, useEffect } from "react";
+import MostrarMensaje from "../MostrarMensaje";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { brands } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { autenticarUsuarios } from "../../api/usuarios";
 import { gapi } from "gapi-script";
 import { GoogleLogin } from "react-google-login";
-
-const MostrarError = ({ error }) => {
-  return (
-    <div className="notification is-danger is-light">
-      {error}
-    </div>
-  );
-};
 
 const Login = ({ setToken }) => {
   const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
@@ -63,7 +56,7 @@ const Login = ({ setToken }) => {
     <div className="hero is-fullheight bg-deep-purple-400">
       <section className="section sm:w-1/2 w-full m-auto hero shadow-lg shadow-gray-800 bg-white">
         <h1 className="title is-3 text-center">Lorem Ipsum CRM</h1>
-        {error ? <MostrarError error={error} /> : null}
+        {error ? <MostrarMensaje mensaje={error} error={true} /> : null}
         <div className="field mt-3">
           <div className="control">
             <GoogleLogin
