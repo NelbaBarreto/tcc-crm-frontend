@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Select from "react-select";
-import { Titulo2 } from "../formulario/Titulo";
+import Seccion from "../formulario/Seccion";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -13,8 +13,7 @@ const Persona = ({ persona, setPersona }) => {
   const [tip_documento, setTipDocumento] = useState("");
 
   return (
-    <section className="bg-white p-4 rounded-md shadow-lg mt-2">
-      <Titulo2>Datos Personales</Titulo2>
+    <Seccion titulo="Datos Personales">
       <div className="field">
         <label className="label">Nombre</label>
         <div className="control">
@@ -70,14 +69,13 @@ const Persona = ({ persona, setPersona }) => {
           </div>
         </div>
       </div>
-    </section>
+    </Seccion>
   );
 }
 
 const Direcciones = () => {
   return (
-    <section className="bg-white p-4 rounded-md shadow-lg mt-2">
-      <Titulo2>Direcciones</Titulo2>
+    <Seccion titulo="Direcciones">
       <button
         className="button font-semibold shadow-lg text-white hover:text-white focus:text-white
               hover:bg-deep-purple-700 bg-deep-purple-400 border-deep-purple-700 mb-2"
@@ -88,14 +86,13 @@ const Direcciones = () => {
           <FontAwesomeIcon icon={solid("plus")} />
         </span>
       </button>
-    </section>
+    </Seccion>
   );
 }
 
 const Telefonos = () => {
   return (
-    <section className="bg-white p-4 rounded-md shadow-lg mt-2">
-      <Titulo2>Teléfonos</Titulo2>
+    <Seccion titulo="Teléfonos">
       <button
         className="button font-semibold shadow-lg text-white hover:text-white focus:text-white
               hover:bg-deep-purple-700 bg-deep-purple-400 border-deep-purple-700 mb-2"
@@ -106,7 +103,7 @@ const Telefonos = () => {
           <FontAwesomeIcon icon={solid("plus")} />
         </span>
       </button>
-    </section>
+    </Seccion>
   );
 }
 
