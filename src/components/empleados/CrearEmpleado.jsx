@@ -62,8 +62,8 @@ const CrearEmpleado = () => {
             setPersona={setPersona}
           />
           <Guardar guardar={crear} saving={state.saving} />
+          <Volver navigate={navigate} />
         </form>
-        <Volver navigate={navigate} />
       </section>
     </div>
   );
