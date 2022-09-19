@@ -78,10 +78,30 @@ const Direcciones = () => {
   return (
     <section className="bg-white p-4 rounded-md shadow-lg mt-2">
       <Titulo2>Direcciones</Titulo2>
-      <button className="button font-semibold shadow-lg text-white hover:text-white focus:text-white
+      <button
+        className="button font-semibold shadow-lg text-white hover:text-white focus:text-white
               hover:bg-deep-purple-700 bg-deep-purple-400 border-deep-purple-700 mb-2"
+        onClick={e => e.preventDefault()}
       >
         <span>Agregar Dirección</span>
+        <span className="icon is-small">
+          <FontAwesomeIcon icon={solid("plus")} />
+        </span>
+      </button>
+    </section>
+  );
+}
+
+const Telefonos = () => {
+  return (
+    <section className="bg-white p-4 rounded-md shadow-lg mt-2">
+      <Titulo2>Teléfonos</Titulo2>
+      <button
+        className="button font-semibold shadow-lg text-white hover:text-white focus:text-white
+              hover:bg-deep-purple-700 bg-deep-purple-400 border-deep-purple-700 mb-2"
+        onClick={e => e.preventDefault()}
+      >
+        <span>Agregar Teléfono</span>
         <span className="icon is-small">
           <FontAwesomeIcon icon={solid("plus")} />
         </span>
@@ -95,6 +115,7 @@ const CrearPersona = ({ persona, setPersona }) => {
     <section>
       <Persona persona={persona} setPersona={setPersona} />
       <Direcciones />
+      <Telefonos />
     </section>
   );
 }
