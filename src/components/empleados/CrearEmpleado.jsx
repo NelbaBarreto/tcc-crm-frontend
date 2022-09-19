@@ -1,17 +1,19 @@
 import React, { useState } from "react";
+import MostrarMensaje from "../MostrarMensaje";
 import Volver from "../Volver";
+import Guardar from "../Guardar";
 import Select from "react-select";
 import ModalUsuario from "../usuarios/ModalUsuario";
 import { useNavigate } from "react-router-dom";
 import { createPersona } from "../../api/personas";
 
 const DatosPersona = ({ persona, setPersona }) => {
-  const [tip_documento, setTipDocumento] = useState("");
   const options = [
     { value: "CI", label: "CI" },
     { value: "RUC", label: "RUC" },
     { value: "Pasaporte", label: "Pasaporte" }
-  ]
+  ];
+  const [tip_documento, setTipDocumento] = useState("");
 
   return (
     <section>
@@ -97,18 +99,27 @@ const DatosEmpleado = ({ persona, setPersona }) => {
 
 const CrearEmpleado = () => {
   const [persona, setPersona] = useState({ empleado: { usuario: {} } });
+  const [state, setState] = useState(false);
   const [modalIsOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
   const crear = async e => {
     e.preventDefault();
-    await createPersona(persona);
+    setState({ saving: true, error: false, message: "" });
+    try {
+      await createPersona(persona);
+      setState({ saving: false, error: false, message: "Empleado creado exitosamente." });
+      setTimeout(() => navigate("/admin/empleados"), 3000);
+    } catch (e) {
+      setState({ saving: false, error: true, message: e.message });
+    };
   };
 
   return (
     <div>
       <section className="section w-full m-auto">
         <h1 className="title is-3 text-center">Nuevo Empleado</h1>
+        {state.message ? <MostrarMensaje mensaje={state.message} error={state.error} /> : null}
         <form>
           <DatosPersona persona={persona} setPersona={setPersona} />
           <DatosEmpleado persona={persona} setPersona={setPersona} />
@@ -118,17 +129,7 @@ const CrearEmpleado = () => {
             persona={persona}
             setPersona={setPersona}
           />
-          <div className="field mt-3">
-            <div className="control">
-              <button
-                className="button float-right font-semibold shadow-lg text-white hover:text-white focus:text-white
-                 hover:bg-deep-purple-700 bg-deep-purple-400 border-deep-purple-700"
-                onClick={e => crear(e)}
-              >
-                Guardar
-              </button>
-            </div>
-          </div>
+          <Guardar guardar={crear} saving={state.saving} />
         </form>
         <Volver navigate={navigate} />
       </section>

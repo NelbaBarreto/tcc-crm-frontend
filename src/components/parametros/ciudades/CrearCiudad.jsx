@@ -55,7 +55,6 @@ const CrearCiudad = () => {
               />
             </div>
           </div>
-
           <Guardar guardar={crear} />
         </form>
         <Volver navigate={navigate} />
