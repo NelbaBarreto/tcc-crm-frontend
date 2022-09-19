@@ -3,7 +3,7 @@ import classNames from "classnames";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const Guardar = ({ guardar, saving = false }) => {
+export const Guardar = ({ guardar, saving = false }) => {
   return (
     <div className="field mt-3">
       <div className="control">
@@ -23,4 +23,17 @@ const Guardar = ({ guardar, saving = false }) => {
   );
 }
 
-export default Guardar;
+export const Volver = ({ navigate }) => {
+  return (
+    <button
+      className="button font-semibold shadow-lg text-white hover:text-white focus:text-white
+      hover:bg-deep-purple-700 bg-deep-purple-400 border-deep-purple-700"
+      onClick={() => navigate(-1)}
+    >
+      <span>Volver</span>
+      <span className="icon is-small">
+        <FontAwesomeIcon icon={solid("arrow-left")} />
+      </span>
+    </button>
+  )
+};

@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import MostrarMensaje from "../formulario/MostrarMensaje";
-import Volver from "../formulario/Volver";
-import Guardar from "../formulario/Guardar";
-import { Titulo1, Titulo2 } from "../formulario/Titulo";
 import ModalUsuario from "../usuarios/ModalUsuario";
 import CrearPersona from "../personas/CrearPersona";
+import { Volver, Guardar } from "../formulario/Acciones";
+import { Titulo1, Titulo2 } from "../formulario/Titulo";
 import { useNavigate } from "react-router-dom";
 import { createPersona } from "../../api/personas";
 

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import Volver from "../../formulario/Volver";
 import Select from "react-select";
-import Guardar from "../../formulario/Guardar";
+import { Volver, Guardar } from "../../formulario/Acciones";
 import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { createCiudad } from "../../../api/ciudades";
