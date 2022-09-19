@@ -8,12 +8,12 @@ import { useNavigate } from "react-router-dom";
 import { createPersona } from "../../api/personas";
 
 const DatosPersona = ({ persona, setPersona }) => {
-  const [tip_documento, setTipDocumento] = useState("");
   const options = [
     { value: "CI", label: "CI" },
     { value: "RUC", label: "RUC" },
     { value: "Pasaporte", label: "Pasaporte" }
-  ]
+  ];
+  const [tip_documento, setTipDocumento] = useState("");
 
   return (
     <section>
@@ -99,22 +99,19 @@ const DatosEmpleado = ({ persona, setPersona }) => {
 
 const CrearEmpleado = () => {
   const [persona, setPersona] = useState({ empleado: { usuario: {} } });
-  const [saving, setSaving] = useState(false);
-  const [error, setError] = useState();
+  const [state, setState] = useState(false);
   const [modalIsOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
   const crear = async e => {
     e.preventDefault();
-    setSaving(true);
+    setState({ saving: true, error: false, message: "" });
     try {
       await createPersona(persona);
-      setSaving(false);
-      setError("");
-      navigate("/admin/empleados");
+      setState({ saving: false, error: false, message: "Empleado creado exitosamente." });
+      setTimeout(() => navigate("/admin/empleados"), 3000);
     } catch (e) {
-      setSaving(false);
-      setError(e.message);
+      setState({ saving: false, error: true, message: e.message });
     };
   };
 
@@ -122,7 +119,7 @@ const CrearEmpleado = () => {
     <div>
       <section className="section w-full m-auto">
         <h1 className="title is-3 text-center">Nuevo Empleado</h1>
-        {error ? <MostrarMensaje mensaje={error} error={true} /> : null}
+        {state.message ? <MostrarMensaje mensaje={state.message} error={state.error} /> : null}
         <form>
           <DatosPersona persona={persona} setPersona={setPersona} />
           <DatosEmpleado persona={persona} setPersona={setPersona} />
@@ -132,7 +129,7 @@ const CrearEmpleado = () => {
             persona={persona}
             setPersona={setPersona}
           />
-          <Guardar guardar={crear} saving={saving} />
+          <Guardar guardar={crear} saving={state.saving} />
         </form>
         <Volver navigate={navigate} />
       </section>
