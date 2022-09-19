@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Volver from "../../Volver";
-import Guardar from "../../Guardar";
+import Volver from "../../formulario/Volver";
+import Guardar from "../../formulario/Guardar";
 import { useNavigate } from "react-router-dom";
 import { createPais } from "../../../api/paises";
 
