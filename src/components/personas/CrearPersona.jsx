@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Select from "react-select";
 import Seccion from "../formulario/Seccion";
+import { Eliminar } from "../formulario/Acciones";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -73,13 +74,61 @@ const Persona = ({ persona, setPersona }) => {
   );
 }
 
+const Direccion = () => {
+  return (
+    <section className="mb-2 p-4 border-gray-300 border-solid border">
+      <div className="field">
+        <label className="label">Calle 1</label>
+        <div className="control">
+          <input
+            name="nombre"
+            className="input shadow-lg"
+            type="text"
+          />
+        </div>
+      </div>
+      <div className="field">
+        <label className="label">Calle 2</label>
+        <div className="control">
+          <input
+            name="nombre"
+            className="input shadow-lg"
+            type="text"
+          />
+        </div>
+      </div>
+      <div className="field">
+        <label className="label">Código Postal</label>
+        <div className="control">
+          <input
+            name="nombre"
+            className="input shadow-lg"
+            type="text"
+          />
+        </div>
+      </div>
+      <Eliminar />
+    </section>
+  );
+}
+
 const Direcciones = () => {
+  const [inputList, setInputList] = useState([]);
+
+  const onAddClick = e => {
+    e.preventDefault();
+    setInputList(inputList.concat(<Direccion key={inputList.length} />));
+  };
+
   return (
     <Seccion titulo="Direcciones">
+      <div>
+        {inputList}
+      </div>
       <button
         className="button font-semibold shadow-lg text-white hover:text-white focus:text-white
               hover:bg-deep-purple-700 bg-deep-purple-400 border-deep-purple-700 mb-2"
-        onClick={e => e.preventDefault()}
+        onClick={onAddClick}
       >
         <span>Agregar Dirección</span>
         <span className="icon is-small">

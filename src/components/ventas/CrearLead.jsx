@@ -47,13 +47,12 @@ const DatosLead = ({ persona, setPersona }) => {
         </div>
         <div class="column">
           <div className="field">
-            <label className="label">Codigo Curso</label>
+            <label className="label">Interés</label>
             <div className="control">
               <input
-                name="codCurso"
+                name="curso_id"
                 className="input shadow-lg"
                 type="number"
-                placeholder="Ingrese el Codigo del curso"
               />
             </div>
           </div>

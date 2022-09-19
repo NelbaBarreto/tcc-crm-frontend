@@ -14,7 +14,7 @@ export const Titulo1 = ({ children }) => {
 export const Titulo2 = ({ children }) => {
   return (
     <span 
-      className="title is-5 w-full bg-deep-purple-100 border-deep-purple-800 block p-2 rounded-md text-deep-purple-800 text-center"
+      className="title is-5 w-full bg-deep-purple-100 block p-2 rounded-md text-deep-purple-800 text-center"
     >
       {children}
     </span>
