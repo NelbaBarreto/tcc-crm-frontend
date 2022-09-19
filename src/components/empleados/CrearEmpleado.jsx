@@ -1,86 +1,17 @@
 import React, { useState } from "react";
-import MostrarMensaje from "../MostrarMensaje";
-import Volver from "../Volver";
-import Guardar from "../Guardar";
-import Select from "react-select";
+import MostrarMensaje from "../formulario/MostrarMensaje";
+import Volver from "../formulario/Volver";
+import Guardar from "../formulario/Guardar";
+import { Titulo1, Titulo2 } from "../formulario/Titulo";
 import ModalUsuario from "../usuarios/ModalUsuario";
+import CrearPersona from "../personas/CrearPersona";
 import { useNavigate } from "react-router-dom";
 import { createPersona } from "../../api/personas";
 
-const DatosPersona = ({ persona, setPersona }) => {
-  const options = [
-    { value: "CI", label: "CI" },
-    { value: "RUC", label: "RUC" },
-    { value: "Pasaporte", label: "Pasaporte" }
-  ];
-  const [tip_documento, setTipDocumento] = useState("");
-
-  return (
-    <section>
-      <div className="divider">Datos Personales</div>
-      <div className="field">
-        <label className="label">Nombre</label>
-        <div className="control">
-          <input
-            name="nombre"
-            className="input shadow-lg"
-            value={persona.nombre || ""}
-            onChange={e => setPersona({ ...persona, [e.target.name]: e.target.value })}
-            type="text"
-          />
-        </div>
-      </div>
-      <div className="field">
-        <label className="label">Email</label>
-        <div className="control">
-          <input
-            name="email"
-            className="input shadow-lg"
-            value={persona.email || ""}
-            onChange={e => setPersona({ ...persona, [e.target.name]: e.target.value, empleado: { ...persona.empleado, usuario: { ...persona.empleado.usuario, [e.target.name]: e.target.value } } })}
-            type="email"
-          />
-        </div>
-      </div>
-      <div className="columns">
-        <div className="column">
-          <div className="field">
-            <label className="label">Número de Documento</label>
-            <div className="control">
-              <input
-                name="nro_documento"
-                className="input shadow-lg"
-                value={persona.nro_documento || ""}
-                onChange={e => setPersona({ ...persona, [e.target.name]: e.target.value })}
-                type="text"
-              />
-            </div>
-          </div>
-        </div>
-        <div className="column">
-          <div className="field">
-            <label className="label">Tipo de Documento</label>
-            <div className="control">
-              <Select
-                name="tip_documento"
-                className="shadow-lg"
-                placeholder=""
-                onChange={e => { setPersona({ ...persona, tip_documento: e.value }); setTipDocumento(e) }}
-                value={tip_documento}
-                options={options}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  )
-};
-
 const DatosEmpleado = ({ persona, setPersona }) => {
   return (
-    <section>
-      <div className="divider">Datos del Empleado</div>
+    <section className="bg-white p-4 rounded-md shadow-lg mt-2">
+      <Titulo2>Datos del Empleado</Titulo2>
       <div className="field">
         <label className="label">Activo</label>
         <div className="control">
@@ -118,10 +49,12 @@ const CrearEmpleado = () => {
   return (
     <div>
       <section className="section w-full m-auto">
-        <h1 className="title is-3 text-center">Nuevo Empleado</h1>
+        <Titulo1>
+          Nuevo Empleado
+        </Titulo1>
         {state.message ? <MostrarMensaje mensaje={state.message} error={state.error} /> : null}
         <form>
-          <DatosPersona persona={persona} setPersona={setPersona} />
+          <CrearPersona persona={persona} setPersona={setPersona} />
           <DatosEmpleado persona={persona} setPersona={setPersona} />
           <ModalUsuario
             modalIsOpen={modalIsOpen}
