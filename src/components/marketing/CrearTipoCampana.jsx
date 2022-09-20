@@ -20,8 +20,8 @@ const CrearTipoCampana = () => {
 
                     <div className="field">
                         <label className="label">Estado: </label>
-                        <div class="control">
-                            <div class="select">
+                        <div className="control">
+                            <div className="select">
                                 <select>
                                     <option>Activo</option>
                                     <option>Inactivo</option>

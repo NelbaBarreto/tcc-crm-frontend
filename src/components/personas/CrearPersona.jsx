@@ -62,7 +62,8 @@ const Persona = ({ persona, setPersona }) => {
                 name="tip_documento"
                 className="shadow-lg"
                 placeholder=""
-                onChange={e => { setPersona({ ...persona, tip_documento: e.value }); setTipDocumento(e) }}
+                isClearable={true}
+                onChange={e => { setPersona({ ...persona, tip_documento: e?.value || " " }); setTipDocumento(e) }}
                 value={tip_documento}
                 options={options}
               />

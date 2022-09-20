@@ -7,8 +7,8 @@ const CrearCurso = () => {
         <h1 className="title is-3 text-center">Nuevo Curso</h1>
         <form>
 
-          <div class="columns is-mobile">
-            <div class="column">
+          <div className="columns is-mobile">
+            <div className="column">
               <div className="field">
                 <label className="label">Nombre</label>
                 <div className="control">
@@ -21,7 +21,7 @@ const CrearCurso = () => {
                 </div>
               </div>
             </div>
-            <div class="column">
+            <div className="column">
               <div className="field">
                 <label className="label">Profesor </label>
                 <div className="control">
@@ -36,8 +36,8 @@ const CrearCurso = () => {
             </div>
           </div>
 
-          <div class="columns is-mobile">
-            <div class="column">
+          <div className="columns is-mobile">
+            <div className="column">
               <div className="field">
                 <label className="label">Fecha Inicio</label>
                 <div className="control">
@@ -49,7 +49,7 @@ const CrearCurso = () => {
                 </div>
               </div>
             </div>
-            <div class="column">
+            <div className="column">
               <div className="field">
                 <label className="label">Fecha Fin</label>
                 <div className="control">
@@ -63,12 +63,12 @@ const CrearCurso = () => {
             </div>
           </div>
 
-          <div class="columns is-mobile">
-            <div class="column">
+          <div className="columns is-mobile">
+            <div className="column">
             <div className="field">
                 <label className="label">Horario </label>
-                <div class="control">
-                  <div class="select">
+                <div className="control">
+                  <div className="select">
                     <select>
                       <option>Mañana</option>
                       <option>Tarde</option>
@@ -78,7 +78,7 @@ const CrearCurso = () => {
                 </div>
               </div>
             </div>
-            <div class="column">
+            <div className="column">
             <div className="field">
                 <label className="label">Sucursal</label>
                 <div className="control">

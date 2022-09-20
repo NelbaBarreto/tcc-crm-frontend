@@ -10,8 +10,8 @@ const DatosLead = ({ persona, setPersona }) => {
     <Seccion titulo="Datos del Lead">
       <div className="field">
         <label className="label">Estado</label>
-        <div class="control">
-          <div class="select">
+        <div className="control">
+          <div className="select">
             <select>
               <option>Activo</option>
               <option>Inactivo</option>
@@ -31,8 +31,8 @@ const DatosLead = ({ persona, setPersona }) => {
           />
         </div>
       </div>
-      <div class="columns is-mobile">
-        <div class="column">
+      <div className="columns is-mobile">
+        <div className="column">
           <div className="field">
             <label className="label">Codigo Campaña</label>
             <div className="control">
@@ -45,7 +45,7 @@ const DatosLead = ({ persona, setPersona }) => {
             </div>
           </div>
         </div>
-        <div class="column">
+        <div className="column">
           <div className="field">
             <label className="label">Interés</label>
             <div className="control">

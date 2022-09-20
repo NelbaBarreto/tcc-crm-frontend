@@ -7,8 +7,8 @@ const CrearCaso = () => {
                 <h1 className="title is-3 text-center">Nuevo Caso</h1>
                 <form>
 
-                    <div class="columns is-mobile">
-                        <div class="column">
+                    <div className="columns is-mobile">
+                        <div className="column">
                             <div className="field">
                                 <label className="label">Nombre del Caso</label>
                                 <div className="control">
@@ -21,11 +21,11 @@ const CrearCaso = () => {
                                 </div>
                             </div>
                         </div>
-                        <div class="column">
+                        <div className="column">
                             <div className="field">
                                 <label className="label">Estado: </label>
-                                <div class="control">
-                                    <div class="select">
+                                <div className="control">
+                                    <div className="select">
                                         <select>
                                             <option>Pendiente</option>
                                             <option>Confirmado</option>
@@ -37,8 +37,8 @@ const CrearCaso = () => {
                         </div>
                     </div>
 
-                    <div class="columns is-mobile">
-                        <div class="column">
+                    <div className="columns is-mobile">
+                        <div className="column">
                             <div className="field">
                                 <label className="label">Usuario Asignado</label>
                                 <div className="control">
@@ -51,11 +51,11 @@ const CrearCaso = () => {
                                 </div>
                             </div>
                         </div>
-                        <div class="column">
+                        <div className="column">
                             <div className="field">
                                 <label className="label">Prioridad: </label>
-                                <div class="control">
-                                    <div class="select">
+                                <div className="control">
+                                    <div className="select">
                                         <select>
                                             <option>Alta</option>
                                             <option>Media</option>
@@ -67,8 +67,8 @@ const CrearCaso = () => {
                         </div>
                     </div>
 
-                    <div class="columns is-mobile">
-                        <div class="column">
+                    <div className="columns is-mobile">
+                        <div className="column">
                             <div className="field">
                                 <label className="label">Solución del Caso</label>
                                 <div className="control">
@@ -81,7 +81,7 @@ const CrearCaso = () => {
                                 </div>
                             </div>
                         </div>
-                        <div class="column">
+                        <div className="column">
                             <div className="field">
                                 <label className="label">Descripción del Caso</label>
                                 <div className="control">

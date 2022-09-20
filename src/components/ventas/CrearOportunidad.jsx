@@ -7,8 +7,8 @@ const CrearOportunidad = () => {
         <h1 className="title is-3 text-center">Nueva Oportunidad</h1>
         <form>
 
-          <div class="columns is-mobile">
-            <div class="column">
+          <div className="columns is-mobile">
+            <div className="column">
               <div className="field">
                 <label className="label">Nombre de la Oportunidad</label>
                 <div className="control">
@@ -21,11 +21,11 @@ const CrearOportunidad = () => {
                 </div>
               </div>
             </div>
-            <div class="column">
+            <div className="column">
               <div className="field">
                 <label className="label">Etapa: </label>
-                <div class="control">
-                  <div class="select">
+                <div className="control">
+                  <div className="select">
                     <select>
                       <option>Pendiente</option>
                       <option>Confirmado</option>
@@ -37,8 +37,8 @@ const CrearOportunidad = () => {
             </div>
           </div>
 
-          <div class="columns is-mobile">
-            <div class="column">
+          <div className="columns is-mobile">
+            <div className="column">
               <div className="field">
                 <label className="label">Usuario Asignado</label>
                 <div className="control">
@@ -51,7 +51,7 @@ const CrearOportunidad = () => {
                 </div>
               </div>
             </div>
-            <div class="column">
+            <div className="column">
               <div className="field">
                 <label className="label">Valor Oportunidad</label>
                 <div className="control">
@@ -66,8 +66,8 @@ const CrearOportunidad = () => {
             </div>
           </div>
 
-          <div class="columns is-mobile">
-            <div class="column">
+          <div className="columns is-mobile">
+            <div className="column">
               <div className="field">
                 <label className="label">Codigo Campaña</label>
                 <div className="control">
@@ -80,7 +80,7 @@ const CrearOportunidad = () => {
                 </div>
               </div>
             </div>
-            <div class="column">
+            <div className="column">
               <div className="field">
                 <label className="label">Descripción de la Oportunidad</label>
                 <div className="control">

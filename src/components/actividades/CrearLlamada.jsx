@@ -19,8 +19,8 @@ const CrearLlamada = () => {
         {state.message ? <MostrarMensaje mensaje={state.message} error={state.error} /> : null}
         <form>
           <Seccion titulo="General">
-            <div class="columns">
-              <div class="column">
+            <div className="columns">
+              <div className="column">
                 <div className="field">
                   <label className="label">Asunto</label>
                   <div className="control">
@@ -32,13 +32,13 @@ const CrearLlamada = () => {
                   </div>
                 </div>
               </div>
-              <div class="column">
+              <div className="column">
                 <div className="field">
                   <label className="label">Estado</label>
                   <div className="columns">
-                    <div class="column">
-                      <div class="control">
-                        <div class="select">
+                    <div className="column">
+                      <div className="control">
+                        <div className="select">
                           <select>
                             <option selected>Entrante</option>
                             <option>Saliente</option>
@@ -46,9 +46,9 @@ const CrearLlamada = () => {
                         </div>
                       </div>
                     </div>
-                    <div class="column">
-                      <div class="control">
-                        <div class="select">
+                    <div className="column">
+                      <div className="control">
+                        <div className="select">
                           <select>
                             <option>Ocupado</option>
                             <option>Conectado</option>
@@ -65,8 +65,8 @@ const CrearLlamada = () => {
                 </div>
               </div>
             </div>
-            <div class="columns is-mobile">
-              <div class="column">
+            <div className="columns is-mobile">
+              <div className="column">
                 <div className="field">
                   <label className="label">Fecha y Hora de Inicio</label>
                   <DatePicker
@@ -81,7 +81,7 @@ const CrearLlamada = () => {
                   />
                 </div>
               </div>
-              <div class="column">
+              <div className="column">
                 <div className="field">
                   <label className="label">Descripción de la llamada</label>
                   <div className="control">

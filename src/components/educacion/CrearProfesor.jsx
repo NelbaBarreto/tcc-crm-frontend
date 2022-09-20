@@ -7,8 +7,8 @@ const CrearProfesor = () => {
         <h1 className="title is-3 text-center">Nuevo Profesor</h1>
         <form>
 
-          <div class="columns is-desktop">
-            <div class="column">
+          <div className="columns is-desktop">
+            <div className="column">
               <div className="field">
                 <label className="label">Nombre Completo</label>
                 <div className="control">
@@ -21,7 +21,7 @@ const CrearProfesor = () => {
                 </div>
               </div>
             </div>
-            <div class="column">
+            <div className="column">
               <div className="field">
                 <label className="label">Fecha de Registro</label>
                 <div className="control">
@@ -35,12 +35,12 @@ const CrearProfesor = () => {
             </div>
           </div>
 
-          <div class="columns is-mobile">
-            <div class="column">
+          <div className="columns is-mobile">
+            <div className="column">
               <div className="field">
                 <label className="label">Tipo Documento</label>
-                <div class="control">
-                  <div class="select">
+                <div className="control">
+                  <div className="select">
                     <select>
                       <option>Cedula de Indetidad Paraguaya</option>
                       <option>Registro Unico de Contribuyente</option>
@@ -51,7 +51,7 @@ const CrearProfesor = () => {
                 </div>
               </div>
             </div>
-            <div class="column">
+            <div className="column">
               <div className="field">
                 <label className="label">Numero de Documento</label>
                 <div className="control">
@@ -68,8 +68,8 @@ const CrearProfesor = () => {
 
 
 
-          <div class="columns is-mobile">
-            <div class="column">
+          <div className="columns is-mobile">
+            <div className="column">
               <div className="field">
                 <label className="label">Correo</label>
                 <div className="control">
@@ -82,7 +82,7 @@ const CrearProfesor = () => {
                 </div>
               </div>
             </div>
-            <div class="column">
+            <div className="column">
               <div className="field">
                 <label className="label">Codigo Curso</label>
                 <div className="control">
@@ -97,12 +97,12 @@ const CrearProfesor = () => {
             </div>
           </div>
 
-          <div class="columns is-desktop">
-            <div class="column">
+          <div className="columns is-desktop">
+            <div className="column">
               <div className="field">
                 <label className="label">Tipo Telefono</label>
-                <div class="control">
-                  <div class="select">
+                <div className="control">
+                  <div className="select">
                     <select>
                       <option>Movil</option>
                       <option>Familiar</option>
@@ -113,7 +113,7 @@ const CrearProfesor = () => {
                 </div>
               </div>
             </div>
-            <div class="column">
+            <div className="column">
               <div className="field">
                 <label className="label">Numero de Telefono</label>
                 <div className="control">

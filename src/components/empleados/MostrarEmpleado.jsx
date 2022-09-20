@@ -14,7 +14,7 @@ const Empleado = ({ empleado }) => {
         <PersonaCard persona={empleado.persona} />
       </div>
       <div className="tile is-parent">
-        <div class="tile is-child box">
+        <div className="tile is-child box">
         </div>
       </div>
     </div>

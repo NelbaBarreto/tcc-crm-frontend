@@ -7,8 +7,8 @@ const CrearOrganizacion = () => {
         <h1 className="title is-3 text-center">Nueva Organizacion</h1>
         <form>
 
-          <div class="columns is-mobile">
-            <div class="column">
+          <div className="columns is-mobile">
+            <div className="column">
               <div className="field">
                 <label className="label">Codigo Persona</label>
                 <div className="control">
@@ -21,7 +21,7 @@ const CrearOrganizacion = () => {
                 </div>
               </div>
             </div>
-            <div class="column">
+            <div className="column">
               <div className="field">
                 <label className="label">Nombre de la Organización</label>
                 <div className="control">
@@ -36,8 +36,8 @@ const CrearOrganizacion = () => {
             </div>
           </div>
 
-          <div class="columns is-mobile">
-            <div class="column">
+          <div className="columns is-mobile">
+            <div className="column">
               <div className="field">
                 <label className="label">Website</label>
                 <div className="control">
@@ -50,7 +50,7 @@ const CrearOrganizacion = () => {
                 </div>
               </div>
             </div>
-            <div class="column">
+            <div className="column">
               <div className="field">
                 <label className="label">Telefono</label>
                 <div className="field is-expanded">
