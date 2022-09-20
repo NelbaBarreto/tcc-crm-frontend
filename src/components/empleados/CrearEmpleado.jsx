@@ -1,17 +1,16 @@
 import React, { useState } from "react";
 import MostrarMensaje from "../formulario/MostrarMensaje";
-import Volver from "../formulario/Volver";
-import Guardar from "../formulario/Guardar";
-import { Titulo1, Titulo2 } from "../formulario/Titulo";
 import ModalUsuario from "../usuarios/ModalUsuario";
 import CrearPersona from "../personas/CrearPersona";
+import Seccion from "../formulario/Seccion";
+import { Volver, Guardar } from "../formulario/Acciones";
+import { Titulo1 } from "../formulario/Titulo";
 import { useNavigate } from "react-router-dom";
 import { createPersona } from "../../api/personas";
 
 const DatosEmpleado = ({ persona, setPersona }) => {
   return (
-    <section className="bg-white p-4 rounded-md shadow-lg mt-2">
-      <Titulo2>Datos del Empleado</Titulo2>
+    <Seccion titulo="Datos del Empleado">
       <div className="field">
         <label className="label">Activo</label>
         <div className="control">
@@ -24,7 +23,7 @@ const DatosEmpleado = ({ persona, setPersona }) => {
           />
         </div>
       </div>
-    </section>
+    </Seccion>
   );
 };
 
@@ -63,8 +62,8 @@ const CrearEmpleado = () => {
             setPersona={setPersona}
           />
           <Guardar guardar={crear} saving={state.saving} />
+          <Volver navigate={navigate} />
         </form>
-        <Volver navigate={navigate} />
       </section>
     </div>
   );

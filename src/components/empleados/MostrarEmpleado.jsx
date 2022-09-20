@@ -1,6 +1,6 @@
 import React from "react";
 import PersonaCard from "../personas/PersonaCard";
-import Volver from "../formulario/Volver";
+import { Volver } from "../formulario/Acciones";
 import { useQuery } from "react-query";
 import { useParams, useNavigate } from "react-router-dom";
 import { getEmpleado } from "../../api/empleados";
