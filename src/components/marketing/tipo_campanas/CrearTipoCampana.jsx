@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import Volver from "../../Volver";
-import Guardar from "../../Guardar";
+import { Volver, Guardar } from "../formulario/Acciones";
 import { useNavigate } from "react-router-dom";
 import { createTip_campana } from "../../../api/tip_campanas";
 
