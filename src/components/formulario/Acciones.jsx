@@ -28,7 +28,7 @@ export const Volver = ({ navigate }) => {
     <button
       className="button font-semibold shadow-lg text-white hover:text-white focus:text-white
       hover:bg-deep-purple-700 bg-deep-purple-400 border-deep-purple-700"
-      onClick={() => navigate(-1)}
+      onClick={(e) => {e.preventDefault(); navigate(-1)}}
     >
       <span>Volver</span>
       <span className="icon is-small">
