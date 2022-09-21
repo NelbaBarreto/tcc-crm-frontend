@@ -1,6 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
+import Volver from "../../Volver";
+import Guardar from "../../Guardar";
+import { useNavigate } from "react-router-dom";
+import { createLead } from "../../../api/leads";
 
 const CrearLead = () => {
+  const [lead, setLead] = useState({});
+  const navigate = useNavigate();
+
+  const crear = async e => {
+    e.preventDefault();
+    await createLead(lead);
+  };
   return (
     <div>
       <section className="section w-full m-auto">
@@ -10,13 +21,13 @@ const CrearLead = () => {
           <div class="columns is-mobile">
             <div class="column">
               <div className="field">
-                <label className="label">Codigo Persona</label>
+                <label className="label">Nombre del Lead</label>
                 <div className="control">
                   <input
-                    name="codPersona"
+                    name="nomLead"
                     className="input shadow-lg"
-                    type="number"
-                    placeholder="Ingrese el codigo de persona"
+                    type="text"
+                    onChange={e => setLead({ ...lead, [e.target.name]: e.target.value })}
                   />
                 </div>
               </div>
@@ -39,13 +50,13 @@ const CrearLead = () => {
           <div class="columns is-mobile">
             <div class="column">
               <div className="field">
-                <label className="label">Nombre del Lead</label>
+                <label className="label">Telefono</label>
                 <div className="control">
                   <input
                     name="nomLead"
                     className="input shadow-lg"
                     type="text"
-                    placeholder="Ingrese el nombre del lead"
+                    onChange={e => setLead({ ...lead, [e.target.name]: e.target.value })}
                   />
                 </div>
               </div>
@@ -58,7 +69,7 @@ const CrearLead = () => {
                     name="usuAsignado"
                     className="input shadow-lg"
                     type="number"
-                    placeholder="Ingrese el codigo del usuario asignado"
+                    onChange={e => setLead({ ...lead, [e.target.name]: e.target.value })}
                   />
                 </div>
               </div>
@@ -74,7 +85,7 @@ const CrearLead = () => {
                     name="codCaso"
                     className="input shadow-lg"
                     type="number"
-                    placeholder="Ingrese su numero de documento"
+                    onChange={e => setLead({ ...lead, [e.target.name]: e.target.value })}
                   />
                 </div>
               </div>
@@ -87,7 +98,7 @@ const CrearLead = () => {
                     name="tipDoc"
                     className="input shadow-lg"
                     type="number"
-                    placeholder="Ingrese el Tipo de documento"
+                    onChange={e => setLead({ ...lead, [e.target.name]: e.target.value })}
                   />
                 </div>
               </div>
@@ -103,7 +114,7 @@ const CrearLead = () => {
                     name="codCampa"
                     className="input shadow-lg"
                     type="number"
-                    placeholder="Ingrese el codigo de campaña"
+                    onChange={e => setLead({ ...lead, [e.target.name]: e.target.value })}
                   />
                 </div>
               </div>
@@ -116,7 +127,7 @@ const CrearLead = () => {
                     name="codCurso"
                     className="input shadow-lg"
                     type="number"
-                    placeholder="Ingrese el Codigo del curso"
+                    onChange={e => setLead({ ...lead, [e.target.name]: e.target.value })}
                   />
                 </div>
               </div>
@@ -128,7 +139,10 @@ const CrearLead = () => {
               <div className="field">
                 <label className="label">Correo</label>
                 <div class="control has-icons-left has-icons-right">
-                  <input class="input" type="email" placeholder="Email" />
+                  <input
+                    class="input"
+                    type="email"
+                    onChange={e => setLead({ ...lead, [e.target.name]: e.target.value })} />
                   <span class="icon is-small is-left">
                     <i class="fas fa-envelope"></i>
                   </span>
@@ -146,24 +160,15 @@ const CrearLead = () => {
                     name="origen"
                     className="input shadow-lg"
                     type="text"
-                    placeholder="Ingrese el Origen del Lead"
+                    onChange={e => setLead({ ...lead, [e.target.name]: e.target.value })}
                   />
                 </div>
               </div>
             </div>
           </div>
-
-          <div className="field mt-3">
-            <div className="control">
-              <button
-                className="button float-right font-semibold shadow-lg text-white hover:text-white focus:text-white
-                 hover:bg-deep-purple-700 bg-deep-purple-400 border-deep-purple-700"
-              >
-                Guardar
-              </button>
-            </div>
-          </div>
+          <Guardar guardar={crear} />
         </form>
+        <Volver navigate={navigate} />
       </section>
     </div>
   )
