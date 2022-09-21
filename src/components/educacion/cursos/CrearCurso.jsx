@@ -1,6 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
+import Volver from "../../Volver";
+import Guardar from "../../Guardar";
+import { useNavigate } from "react-router-dom";
+import { createCurso } from "../../../api/cursos";
 
 const CrearCurso = () => {
+  const [curso, setCurso] = useState({});
+  const navigate = useNavigate();
+
+  const crear = async e => {
+    e.preventDefault();
+    await createCurso(curso);
+  };
+
   return (
     <div>
       <section className="section w-full m-auto">
@@ -16,7 +28,7 @@ const CrearCurso = () => {
                     name="nombre"
                     className="input shadow-lg"
                     type="text"
-                    placeholder="Ingrese el nombre del curso"
+                    onChange={e => setCurso({ ...curso, [e.target.name]: e.target.value })}
                   />
                 </div>
               </div>
@@ -29,7 +41,7 @@ const CrearCurso = () => {
                     name="profesor_id"
                     className="input shadow-lg"
                     type="number"
-                    placeholder="Ingrese el codigo del profesor"
+                    onChange={e => setCurso({ ...curso, [e.target.name]: e.target.value })}
                   />
                 </div>
               </div>
@@ -45,6 +57,7 @@ const CrearCurso = () => {
                     name="fec_ini_curso"
                     className="input shadow-lg"
                     type="date"
+                    onChange={e => setCurso({ ...curso, [e.target.name]: e.target.value })}
                   />
                 </div>
               </div>
@@ -57,6 +70,7 @@ const CrearCurso = () => {
                     name="fec_fin_curso"
                     className="input shadow-lg"
                     type="date"
+                    onChange={e => setCurso({ ...curso, [e.target.name]: e.target.value })}
                   />
                 </div>
               </div>
@@ -65,7 +79,7 @@ const CrearCurso = () => {
 
           <div class="columns is-mobile">
             <div class="column">
-            <div className="field">
+              <div className="field">
                 <label className="label">Horario </label>
                 <div class="control">
                   <div class="select">
@@ -79,33 +93,22 @@ const CrearCurso = () => {
               </div>
             </div>
             <div class="column">
-            <div className="field">
+              <div className="field">
                 <label className="label">Sucursal</label>
                 <div className="control">
                   <input
                     name="sucursal_id"
                     className="input shadow-lg"
                     type="number"
-                    placeholder="Ingrese el codigo de la sucursal"
+                    onChange={e => setCurso({ ...curso, [e.target.name]: e.target.value })}
                   />
                 </div>
               </div>
             </div>
           </div>
-
-          <div className="field mt-3">
-            <div className="control">
-              <button
-                className="button float-right font-semibold shadow-lg text-white hover:text-white focus:text-white
-                 hover:bg-deep-purple-700 bg-deep-purple-400 border-deep-purple-700"
-              >
-                Guardar
-              </button>
-            </div>
-          </div>
-
-          
+          <Guardar guardar={crear} />
         </form>
+        <Volver navigate={navigate} />
       </section>
     </div>
   )
