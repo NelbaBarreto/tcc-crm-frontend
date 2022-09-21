@@ -1,6 +1,6 @@
 import React from "react";
 import PersonaCard from "../personas/PersonaCard";
-import Volver from "../Volver";
+import { Volver } from "../formulario/Acciones";
 import { useQuery } from "react-query";
 import { useParams, useNavigate } from "react-router-dom";
 import { getEmpleado } from "../../api/empleados";
@@ -14,7 +14,7 @@ const Empleado = ({ empleado }) => {
         <PersonaCard persona={empleado.persona} />
       </div>
       <div className="tile is-parent">
-        <div class="tile is-child box">
+        <div className="tile is-child box">
         </div>
       </div>
     </div>

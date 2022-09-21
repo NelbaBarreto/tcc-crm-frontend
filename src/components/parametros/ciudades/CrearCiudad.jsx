@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import Volver from "../../Volver";
 import Select from "react-select";
-import Guardar from "../../Guardar";
+import { Volver, Guardar } from "../../formulario/Acciones";
 import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { createCiudad } from "../../../api/ciudades";
@@ -55,7 +54,6 @@ const CrearCiudad = () => {
               />
             </div>
           </div>
-
           <Guardar guardar={crear} />
         </form>
         <Volver navigate={navigate} />

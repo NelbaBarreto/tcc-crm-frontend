@@ -1,172 +1,93 @@
 import React, { useState } from "react";
-import Volver from "../../Volver";
-import Guardar from "../../Guardar";
-import { useNavigate } from "react-router-dom";
-import { createLead } from "../../../api/leads";
+import Seccion from "../formulario/Seccion";
+import MostrarMensaje from "../formulario/MostrarMensaje";
+import CrearPersona from "../personas/CrearPersona";
+import { Volver, Guardar } from "../formulario/Acciones";
+import { Titulo1 } from "../formulario/Titulo";
+
+const DatosLead = ({ persona, setPersona }) => {
+  return (
+    <Seccion titulo="Datos del Lead">
+      <div className="field">
+        <label className="label">Estado</label>
+        <div className="control">
+          <div className="select">
+            <select>
+              <option>Activo</option>
+              <option>Inactivo</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div className="field">
+        <label className="label">Usuario Asignado</label>
+        <div className="control">
+          <input
+            name="usuAsignado"
+            className="input shadow-lg"
+            type="number"
+            placeholder="Ingrese el codigo del usuario asignado"
+          />
+        </div>
+      </div>
+      <div className="columns is-mobile">
+        <div className="column">
+          <div className="field">
+            <label className="label">Codigo Campaña</label>
+            <div className="control">
+              <input
+                name="codCampa"
+                className="input shadow-lg"
+                type="number"
+                placeholder="Ingrese el codigo de campaña"
+              />
+            </div>
+          </div>
+        </div>
+        <div className="column">
+          <div className="field">
+            <label className="label">Interés</label>
+            <div className="control">
+              <input
+                name="curso_id"
+                className="input shadow-lg"
+                type="number"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="field">
+        <label className="label">Origen</label>
+        <div className="control">
+          <input
+            name="origen"
+            className="input shadow-lg"
+            type="text"
+            placeholder="Ingrese el Origen del Lead"
+          />
+        </div>
+      </div>
+    </Seccion>
+  );
+};
 
 const CrearLead = () => {
-  const [lead, setLead] = useState({});
-  const navigate = useNavigate();
+  const [persona, setPersona] = useState({ empleado: { usuario: {} } });
+  const [state, setState] = useState(false);
 
-  const crear = async e => {
-    e.preventDefault();
-    await createLead(lead);
-  };
   return (
     <div>
       <section className="section w-full m-auto">
-        <h1 className="title is-3 text-center">Nuevo Lead</h1>
+        <Titulo1>
+          Nuevo Lead
+        </Titulo1>
         <form>
-
-          <div class="columns is-mobile">
-            <div class="column">
-              <div className="field">
-                <label className="label">Nombre del Lead</label>
-                <div className="control">
-                  <input
-                    name="nomLead"
-                    className="input shadow-lg"
-                    type="text"
-                    onChange={e => setLead({ ...lead, [e.target.name]: e.target.value })}
-                  />
-                </div>
-              </div>
-            </div>
-            <div class="column">
-              <div className="field">
-                <label className="label">Estado: </label>
-                <div class="control">
-                  <div class="select">
-                    <select>
-                      <option>Activo</option>
-                      <option>Inactivo</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="columns is-mobile">
-            <div class="column">
-              <div className="field">
-                <label className="label">Telefono</label>
-                <div className="control">
-                  <input
-                    name="nomLead"
-                    className="input shadow-lg"
-                    type="text"
-                    onChange={e => setLead({ ...lead, [e.target.name]: e.target.value })}
-                  />
-                </div>
-              </div>
-            </div>
-            <div class="column">
-              <div className="field">
-                <label className="label">Usuario Asignado</label>
-                <div className="control">
-                  <input
-                    name="usuAsignado"
-                    className="input shadow-lg"
-                    type="number"
-                    onChange={e => setLead({ ...lead, [e.target.name]: e.target.value })}
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="columns is-mobile">
-            <div class="column">
-              <div className="field">
-                <label className="label">Numero de Documento</label>
-                <div className="control">
-                  <input
-                    name="codCaso"
-                    className="input shadow-lg"
-                    type="number"
-                    onChange={e => setLead({ ...lead, [e.target.name]: e.target.value })}
-                  />
-                </div>
-              </div>
-            </div>
-            <div class="column">
-              <div className="field">
-                <label className="label">Tipo Documento</label>
-                <div className="control">
-                  <input
-                    name="tipDoc"
-                    className="input shadow-lg"
-                    type="number"
-                    onChange={e => setLead({ ...lead, [e.target.name]: e.target.value })}
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="columns is-mobile">
-            <div class="column">
-              <div className="field">
-                <label className="label">Codigo Campaña</label>
-                <div className="control">
-                  <input
-                    name="codCampa"
-                    className="input shadow-lg"
-                    type="number"
-                    onChange={e => setLead({ ...lead, [e.target.name]: e.target.value })}
-                  />
-                </div>
-              </div>
-            </div>
-            <div class="column">
-              <div className="field">
-                <label className="label">Codigo Curso</label>
-                <div className="control">
-                  <input
-                    name="codCurso"
-                    className="input shadow-lg"
-                    type="number"
-                    onChange={e => setLead({ ...lead, [e.target.name]: e.target.value })}
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="columns is-mobile">
-            <div class="column">
-              <div className="field">
-                <label className="label">Correo</label>
-                <div class="control has-icons-left has-icons-right">
-                  <input
-                    class="input"
-                    type="email"
-                    onChange={e => setLead({ ...lead, [e.target.name]: e.target.value })} />
-                  <span class="icon is-small is-left">
-                    <i class="fas fa-envelope"></i>
-                  </span>
-                  <span class="icon is-small is-right">
-                    <i class="fas fa-check"></i>
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div class="column">
-              <div className="field">
-                <label className="label">Origen</label>
-                <div className="control">
-                  <input
-                    name="origen"
-                    className="input shadow-lg"
-                    type="text"
-                    onChange={e => setLead({ ...lead, [e.target.name]: e.target.value })}
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <Guardar guardar={crear} />
+          <CrearPersona persona={persona} setPersona={setPersona} />
+          <DatosLead persona={persona} setPersona={setPersona} />
+          <Guardar saving={state.saving} />
+          <Volver />
         </form>
         <Volver navigate={navigate} />
       </section>

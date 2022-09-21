@@ -7,8 +7,8 @@ const CrearTarea = () => {
                 <h1 className="title is-3 text-center">Nueva Tarea</h1>
                 <form>
 
-                    <div class="columns is-desktop">
-                        <div class="column">
+                    <div className="columns is-desktop">
+                        <div className="column">
                             <div className="field">
                                 <label className="label">Asunto:</label>
                                 <div className="control">
@@ -21,11 +21,11 @@ const CrearTarea = () => {
                                 </div>
                             </div>
                         </div>
-                        <div class="column">
+                        <div className="column">
                             <div className="field">
                                 <label className="label">Estado: </label>
-                                <div class="control">
-                                    <div class="select">
+                                <div className="control">
+                                    <div className="select">
                                         <select>
                                             <option>Activo</option>
                                             <option>Inactivo</option>
@@ -34,11 +34,11 @@ const CrearTarea = () => {
                                 </div>
                             </div>
                         </div>
-                        <div class="column">
+                        <div className="column">
                             <div className="field">
                                 <label className="label">Prioridad: </label>
-                                <div class="control">
-                                    <div class="select">
+                                <div className="control">
+                                    <div className="select">
                                         <select>
                                             <option>Alta</option>
                                             <option>Media</option>
@@ -50,8 +50,8 @@ const CrearTarea = () => {
                         </div>
                     </div>
 
-                    <div class="columns is-desktop">
-                        <div class="column">
+                    <div className="columns is-desktop">
+                        <div className="column">
                             <div className="field">
                                 <label className="label">Fecha de Inicio: </label>
                                 <div className="control">
@@ -64,7 +64,7 @@ const CrearTarea = () => {
                                 </div>
                             </div>
                         </div>
-                        <div class="column">
+                        <div className="column">
                             <div className="field">
                                 <label className="label">Fecha de Finalizacion</label>
                                 <div className="control">

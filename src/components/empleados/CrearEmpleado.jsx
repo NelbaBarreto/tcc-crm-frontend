@@ -1,84 +1,16 @@
 import React, { useState } from "react";
-import Volver from "../Volver";
-import Select from "react-select";
+import MostrarMensaje from "../formulario/MostrarMensaje";
 import ModalUsuario from "../usuarios/ModalUsuario";
+import CrearPersona from "../personas/CrearPersona";
+import Seccion from "../formulario/Seccion";
+import { Volver, Guardar } from "../formulario/Acciones";
+import { Titulo1 } from "../formulario/Titulo";
 import { useNavigate } from "react-router-dom";
 import { createPersona } from "../../api/personas";
 
-const DatosPersona = ({ persona, setPersona }) => {
-  const [tip_documento, setTipDocumento] = useState("");
-  const options = [
-    { value: "CI", label: "CI" },
-    { value: "RUC", label: "RUC" },
-    { value: "Pasaporte", label: "Pasaporte" }
-  ]
-
-  return (
-    <section>
-      <div className="divider">Datos Personales</div>
-      <div className="field">
-        <label className="label">Nombre</label>
-        <div className="control">
-          <input
-            name="nombre"
-            className="input shadow-lg"
-            value={persona.nombre || ""}
-            onChange={e => setPersona({ ...persona, [e.target.name]: e.target.value })}
-            type="text"
-          />
-        </div>
-      </div>
-      <div className="field">
-        <label className="label">Email</label>
-        <div className="control">
-          <input
-            name="email"
-            className="input shadow-lg"
-            value={persona.email || ""}
-            onChange={e => setPersona({ ...persona, [e.target.name]: e.target.value, empleado: { ...persona.empleado, usuario: { ...persona.empleado.usuario, [e.target.name]: e.target.value } } })}
-            type="email"
-          />
-        </div>
-      </div>
-      <div className="columns">
-        <div className="column">
-          <div className="field">
-            <label className="label">Número de Documento</label>
-            <div className="control">
-              <input
-                name="nro_documento"
-                className="input shadow-lg"
-                value={persona.nro_documento || ""}
-                onChange={e => setPersona({ ...persona, [e.target.name]: e.target.value })}
-                type="text"
-              />
-            </div>
-          </div>
-        </div>
-        <div className="column">
-          <div className="field">
-            <label className="label">Tipo de Documento</label>
-            <div className="control">
-              <Select
-                name="tip_documento"
-                className="shadow-lg"
-                placeholder=""
-                onChange={e => { setPersona({ ...persona, tip_documento: e.value }); setTipDocumento(e) }}
-                value={tip_documento}
-                options={options}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  )
-};
-
 const DatosEmpleado = ({ persona, setPersona }) => {
   return (
-    <section>
-      <div className="divider">Datos del Empleado</div>
+    <Seccion titulo="Datos del Empleado">
       <div className="field">
         <label className="label">Activo</label>
         <div className="control">
@@ -91,26 +23,37 @@ const DatosEmpleado = ({ persona, setPersona }) => {
           />
         </div>
       </div>
-    </section>
+    </Seccion>
   );
 };
 
 const CrearEmpleado = () => {
   const [persona, setPersona] = useState({ empleado: { usuario: {} } });
+  const [state, setState] = useState(false);
   const [modalIsOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
   const crear = async e => {
     e.preventDefault();
-    await createPersona(persona);
+    setState({ saving: true, error: false, message: "" });
+    try {
+      await createPersona(persona);
+      setState({ saving: false, error: false, message: "Empleado creado exitosamente." });
+      setTimeout(() => navigate("/admin/empleados"), 3000);
+    } catch (e) {
+      setState({ saving: false, error: true, message: e.message });
+    };
   };
 
   return (
     <div>
       <section className="section w-full m-auto">
-        <h1 className="title is-3 text-center">Nuevo Empleado</h1>
+        <Titulo1>
+          Nuevo Empleado
+        </Titulo1>
+        {state.message ? <MostrarMensaje mensaje={state.message} error={state.error} /> : null}
         <form>
-          <DatosPersona persona={persona} setPersona={setPersona} />
+          <CrearPersona persona={persona} setPersona={setPersona} />
           <DatosEmpleado persona={persona} setPersona={setPersona} />
           <ModalUsuario
             modalIsOpen={modalIsOpen}
@@ -118,19 +61,9 @@ const CrearEmpleado = () => {
             persona={persona}
             setPersona={setPersona}
           />
-          <div className="field mt-3">
-            <div className="control">
-              <button
-                className="button float-right font-semibold shadow-lg text-white hover:text-white focus:text-white
-                 hover:bg-deep-purple-700 bg-deep-purple-400 border-deep-purple-700"
-                onClick={e => crear(e)}
-              >
-                Guardar
-              </button>
-            </div>
-          </div>
+          <Guardar guardar={crear} saving={state.saving} />
+          <Volver navigate={navigate} />
         </form>
-        <Volver navigate={navigate} />
       </section>
     </div>
   );

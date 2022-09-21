@@ -6,8 +6,8 @@ const CrearContacto = () => {
       <section className="section w-full m-auto">
         <h1 className="title is-3 text-center">Nuevo Contacto</h1>
         <form>
-          <div class="columns is-mobile">
-            <div class="column">
+          <div className="columns is-mobile">
+            <div className="column">
               <div className="field">
                 <label className="label">Codigo Persona</label>
                 <div className="control">
@@ -20,7 +20,7 @@ const CrearContacto = () => {
                 </div>
               </div>
             </div>
-            <div class="column">
+            <div className="column">
               <div className="field">
                 <label className="label">Nombre del Contacto</label>
                 <div className="control">
@@ -35,8 +35,8 @@ const CrearContacto = () => {
             </div>
           </div>
 
-          <div class="columns is-mobile">
-            <div class="column">
+          <div className="columns is-mobile">
+            <div className="column">
               <div className="field">
                 <label className="label">Numero de Documento</label>
                 <div className="control">
@@ -49,7 +49,7 @@ const CrearContacto = () => {
                 </div>
               </div>
             </div>
-            <div class="column">
+            <div className="column">
               <div className="field">
                 <label className="label">Tipo Documento</label>
                 <div className="control">
@@ -64,8 +64,8 @@ const CrearContacto = () => {
             </div>
           </div>
 
-          <div class="columns is-mobile">
-            <div class="column">
+          <div className="columns is-mobile">
+            <div className="column">
               <div className="field">
                 <label className="label">Telefono</label>
                 <div className="field is-expanded">
@@ -86,7 +86,7 @@ const CrearContacto = () => {
                 </div>
               </div>
             </div>
-            <div class="column">
+            <div className="column">
               <div className="field">
                 <label className="label">Tipo Telefono</label>
                 <div className="control">

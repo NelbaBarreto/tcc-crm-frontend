@@ -7,8 +7,8 @@ const CrearSucursal = () => {
         <h1 className="title is-3 text-center">Nueva Sucursal</h1>
         <form>
 
-          <div class="columns is-desktop">
-            <div class="column">
+          <div className="columns is-desktop">
+            <div className="column">
               <div className="field">
                 <label className="label">Nombre</label>
                 <div className="control">
@@ -21,7 +21,7 @@ const CrearSucursal = () => {
                 </div>
               </div>
             </div>
-            <div class="column">
+            <div className="column">
             <div className="field">
                 <label className="label">Dirección</label>
                 <div className="control">
@@ -36,12 +36,12 @@ const CrearSucursal = () => {
             </div>
           </div>
 
-          <div class="columns is-desktop">
-            <div class="column">
+          <div className="columns is-desktop">
+            <div className="column">
             <div className="field">
                 <label className="label">Tipo Telefono</label>
-                <div class="control">
-                  <div class="select">
+                <div className="control">
+                  <div className="select">
                     <select>
                       <option>Linea fija</option>
                       <option>Movil</option>
@@ -50,7 +50,7 @@ const CrearSucursal = () => {
                 </div>
               </div>
             </div>
-            <div class="column">
+            <div className="column">
               <div className="field">
                 <label className="label">Numero de Telefono</label>
                 <div className="control">
