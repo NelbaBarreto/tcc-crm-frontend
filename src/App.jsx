@@ -55,8 +55,8 @@ import CrearTarea from "./components/actividades/CrearTarea";
 import ListarCursos from "./components/educacion/cursos/Index";
 import CrearCurso from "./components/educacion/cursos/CrearCurso";
 
-import CrearProfesor from "./components/educacion/Profesores/CrearProfesor";
-import CrearSucursal from "./components/educacion/Sucursales/CrearSucursal";
+import CrearProfesor from "./components/educacion/profesores/CrearProfesor";
+import CrearSucursal from "./components/educacion/sucursales/CrearSucursal";
 import useToken from "../src/utils/useToken";
 
 const MainApp = () => {
