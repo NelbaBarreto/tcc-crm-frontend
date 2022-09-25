@@ -77,12 +77,22 @@ const Index = () => {
       }
     },
     {
-      name: "curso_id",
-      label: "Curso",
+      name: "curso",
+      label: "Curso/Interés",
       options: {
         filter: true,
-        filterType: "textField",
+        filterType: "dropdown",
         sort: true,
+        customBodyRender: (value) => {
+          return (
+            <NavLink
+              to={"/administrador/usuarios/" + value.usuario_id}
+              className="underline text-blue-900"
+            >
+              {value.nom_usuario}
+            </NavLink>
+          )
+        }
       }
     },
     {

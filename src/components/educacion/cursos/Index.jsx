@@ -39,7 +39,7 @@ const Index = () => {
         }
       }
     },
-    
+
     {
       name: "",
       options: {
