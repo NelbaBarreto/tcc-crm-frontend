@@ -76,8 +76,8 @@ const CrearCurso = () => {
             </div>
           </div>
 
-          <div class="columns is-mobile">
-            <div class="column">
+          <div className="columns is-mobile">
+            <div className="column">
               <div className="field">
                 <label className="label">Horario </label>
                 <div className="control">
@@ -91,7 +91,7 @@ const CrearCurso = () => {
                 </div>
               </div>
             </div>
-            <div class="column">
+            <div className="column">
               <div className="field">
                 <label className="label">Sucursal</label>
                 <div className="control">
