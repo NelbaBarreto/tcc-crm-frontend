@@ -2,7 +2,7 @@ import axios from "axios";
 
 const API = process.env.REACT_APP_API || "http://localhost:8080/api"
 
-export const createTip_campana = async (data) => {
+export const create_tip_campana = async (data) => {
   const { data: response } = await axios.post(`${API}/tip_campanas`, data);
   return response.data;
 };
