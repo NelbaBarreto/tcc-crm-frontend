@@ -25,22 +25,38 @@ import CrearCiudad from "./components/parametros/ciudades/CrearCiudad";
 import CrearMotivo from "./components/parametros/motivos/CrearMotivo";
 
 // Campañas
-import CrearCampana from "./components/marketing/CrearCampana";
-import CrearTipoCampana from "./components/marketing/CrearTipoCampana";
+import ListarCampana from "./components/marketing/campanas/Index";
+import CrearCampana from "./components/marketing/campanas/CrearCampana";
+
+// Tipo Campaña
+import ListarTipcampana from "./components/marketing/tipo_campanas/Index";
+import CrearTipoCampana from "./components/marketing/tipo_campanas/CrearTipoCampana";
+
 //Ventas
-import CrearLead from "./components/ventas/CrearLead";
+//Leads
+import ListarLead from "./components/ventas/leads/Index";
+import CrearLead from "./components/ventas/leads/CrearLead";
+
+//Contacto
 import CrearContacto from "./components/ventas/CrearContacto";
+
+//Organización
 import CrearOrganizacion from "./components/ventas/CrearOrganizacion";
+
+//Oportunidad
 import CrearOportunidad from "./components/ventas/CrearOportunidad";
+
 //Soporte
 import CrearCaso from "./components/soporte/CrearCaso";
 import Calendario from "./components/actividades/Calendario";
 import CrearLlamada from "./components/actividades/CrearLlamada";
 import CrearTarea from "./components/actividades/CrearTarea";
 //Cursos
-import CrearCurso from "./components/educacion/CrearCurso";
-import CrearProfesor from "./components/educacion/CrearProfesor";
-import CrearSucursal from "./components/educacion/CrearSucursal";
+import ListarCursos from "./components/educacion/cursos/Index";
+import CrearCurso from "./components/educacion/cursos/CrearCurso";
+
+import CrearProfesor from "./components/educacion/profesores/CrearProfesor";
+import CrearSucursal from "./components/educacion/sucursales/CrearSucursal";
 import useToken from "../src/utils/useToken";
 
 const MainApp = () => {
@@ -70,9 +86,18 @@ const MainApp = () => {
           <Route path="/parametros/ciudades/nuevo" element={<CrearCiudad />} />
 
           <Route path="/parametros/motivos" element={<CrearMotivo />} />
-          <Route path="/marketing/campanas" element={<CrearCampana />} />
-          <Route path="/marketing/tipocampana" element={<CrearTipoCampana />} />
-          <Route path="/ventas/leads" element={<CrearLead />} />
+
+          {/* Campañas */}
+          <Route exact path="/marketing/campanas" element={<ListarCampana />} />
+          <Route path="/marketing/campanas/nuevo" element={<CrearCampana />} />
+
+          {/* Tipo Campañas */}
+          <Route exact path="/marketing/tipocampana" element={<ListarTipcampana />} />
+          <Route path="/marketing/tipocampana/nuevo" element={<CrearTipoCampana />} />
+          {/* Leads */}
+          <Route exact path="/ventas/leads" element={<ListarLead />} />
+          <Route path="/ventas/leads/nuevo" element={<CrearLead />} />
+          
           <Route path="/ventas/contactos" element={<CrearContacto />} />
           <Route path="/ventas/organizaciones" element={<CrearOrganizacion />} />
           <Route path="/ventas/oportunidades" element={<CrearOportunidad />} />
@@ -80,8 +105,10 @@ const MainApp = () => {
           <Route path="/actividades/calendario" element={<Calendario />} />
           <Route path="/actividades/tareas" element={<CrearTarea />} />
           <Route path="/actividades/llamadas" element={<CrearLlamada />} />
-          {/* Cursos */}
-          <Route path="/educacion/cursos" element={<CrearCurso />} />
+          {/* Educación */}
+          <Route exact path="/educacion/cursos" element={<ListarCursos />} />
+          <Route path="/educacion/cursos/nuevo" element={<CrearCurso />} />
+          {/* // */}
           <Route path="/educacion/profesores" element={<CrearProfesor />} />
           <Route path="/educacion/sucursales" element={<CrearSucursal />} />
         </Routes>

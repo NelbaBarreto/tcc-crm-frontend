@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import Seccion from "../formulario/Seccion";
-import MostrarMensaje from "../formulario/MostrarMensaje";
-import CrearPersona from "../personas/CrearPersona";
-import { Volver, Guardar } from "../formulario/Acciones";
-import { Titulo1 } from "../formulario/Titulo";
+import Seccion from "../../formulario/Seccion";
+import MostrarMensaje from "../../formulario/MostrarMensaje";
+import CrearPersona from "../../personas/CrearPersona";
+import { Volver, Guardar } from "../../formulario/Acciones";
+import { Titulo1 } from "../../formulario/Titulo";
 
 const DatosLead = ({ persona, setPersona }) => {
   return (

@@ -1,6 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
+import { Volver, Guardar } from "../../formulario/Acciones";
+import { useNavigate } from "react-router-dom";
+import { createCampana } from "../../../api/campanas";
 
 const CrearCampana = () => {
+  const [campana, setCampana] = useState({});
+  const navigate = useNavigate();
+
+  const crear = async e => {
+    e.preventDefault();
+    await createCampana(campana);
+  };
+
+  console.log(campana);
+
   return (
     <div>
       <section className="section w-full m-auto">
@@ -10,10 +23,10 @@ const CrearCampana = () => {
             <label className="label">Nombre de la Campaña</label>
             <div className="control">
               <input
-                name="nomCampa"
+                name="nombre"
                 className="input shadow-lg"
                 type="text"
-                placeholder="Ingrese el nombre de la campaña"
+                onChange={e => setCampana({ ...campana, [e.target.name]: e.target.value })}
               />
             </div>
           </div>
@@ -22,10 +35,10 @@ const CrearCampana = () => {
             <label className="label">Tipo Campaña</label>
             <div className="control">
               <input
-                name="codCaso"
+                name="tip_campana_id"
                 className="input shadow-lg"
                 type="number"
-                placeholder="Ingrese el Tipo Campaña"
+                onChange={e => setCampana({ ...campana, [e.target.name]: e.target.value })}
               />
             </div>
           </div>
@@ -34,9 +47,10 @@ const CrearCampana = () => {
             <label className="label">Fecha Inicio</label>
             <div className="control">
               <input
-                name="fecIni"
+                name="fec_inicio"
                 className="input shadow-lg"
                 type="date"
+                onChange={e => setCampana({ ...campana, [e.target.name]: e.target.value })}
               />
             </div>
           </div>
@@ -45,24 +59,16 @@ const CrearCampana = () => {
             <label className="label">Fecha Fin</label>
             <div className="control">
               <input
-                name="fecFin"
+                name="fec_fin"
                 className="input shadow-lg"
                 type="date"
+                onChange={e => setCampana({ ...campana, [e.target.name]: e.target.value })}
               />
             </div>
           </div>
-
-          <div className="field mt-3">
-            <div className="control">
-              <button
-                className="button float-right font-semibold shadow-lg text-white hover:text-white focus:text-white
-                 hover:bg-deep-purple-700 bg-deep-purple-400 border-deep-purple-700"
-              >
-                Guardar
-              </button>
-            </div>
-          </div>
+          <Guardar guardar={crear} />
         </form>
+        <Volver navigate={navigate} />
       </section>
     </div>
   )

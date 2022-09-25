@@ -75,44 +75,6 @@ const Persona = ({ persona, setPersona }) => {
   );
 }
 
-const Direccion = () => {
-  return (
-    <section className="mb-2 p-4 border-gray-300 border-solid border">
-      <div className="field">
-        <label className="label">Calle 1</label>
-        <div className="control">
-          <input
-            name="nombre"
-            className="input shadow-lg"
-            type="text"
-          />
-        </div>
-      </div>
-      <div className="field">
-        <label className="label">Calle 2</label>
-        <div className="control">
-          <input
-            name="nombre"
-            className="input shadow-lg"
-            type="text"
-          />
-        </div>
-      </div>
-      <div className="field">
-        <label className="label">Código Postal</label>
-        <div className="control">
-          <input
-            name="nombre"
-            className="input shadow-lg"
-            type="text"
-          />
-        </div>
-      </div>
-      <Eliminar />
-    </section>
-  );
-}
-
 const Direcciones = () => {
   const [inputList, setInputList] = useState([]);
 
@@ -120,6 +82,81 @@ const Direcciones = () => {
     e.preventDefault();
     setInputList(inputList.concat(<Direccion key={inputList.length} />));
   };
+
+  const Direccion = () => {
+    return (
+      <section className="mb-2 p-4 border-gray-300 border-solid border">
+        <div className="field">
+          <label className="label">Calle 1</label>
+          <div className="control">
+            <input
+              name="nombre"
+              className="input shadow-lg"
+              type="text"
+            />
+          </div>
+        </div>
+        <div className="field">
+          <label className="label">Calle 2</label>
+          <div className="control">
+            <input
+              name="nombre"
+              className="input shadow-lg"
+              type="text"
+            />
+          </div>
+        </div>
+        <div className="field">
+          <label className="label">Código Postal</label>
+          <div className="control">
+            <input
+              name="nombre"
+              className="input shadow-lg"
+              type="text"
+            />
+          </div>
+        </div>
+        <div className="columns">
+          <div className="column">
+            <div className="field">
+              <label className="label">País</label>
+              <div className="control">
+                <Select
+                  name="pais_id"
+                  className="shadow-lg"
+                  placeholder=""
+                  options={[{ value: 1, label: "Paraguay" }]}
+                />
+              </div>
+            </div>
+          </div>
+          <div className="column">
+            <div className="field">
+              <label className="label">Ciudad</label>
+              <div className="control">
+                <Select
+                  name="ciudad_id"
+                  className="shadow-lg"
+                  placeholder=""
+                  options={[{ value: 1, label: "Asunción" }]}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="field">
+          <label className="label">Principal</label>
+          <div className="control">
+            <input
+              name="principal"
+              type="checkbox"
+            />
+          </div>
+        </div>
+        <Eliminar onClick={e => console.log(e)} />
+      </section>
+    );
+  }
 
   return (
     <Seccion titulo="Direcciones">
@@ -141,12 +178,57 @@ const Direcciones = () => {
 }
 
 const Telefonos = () => {
+  const [inputList, setInputList] = useState([]);
+
+  const onAddClick = e => {
+    e.preventDefault();
+    setInputList(inputList.concat(<Telefono key={inputList.length} />));
+  };
+
+  const Telefono = () => {
+    return (
+      <section className="mb-2 p-4 border-gray-300 border-solid border">
+        <div className="field">
+          <label className="label">Calle 1</label>
+          <div className="control">
+            <input
+              name="nombre"
+              className="input shadow-lg"
+              type="text"
+            />
+          </div>
+        </div>
+        <div className="field">
+          <label className="label">Calle 2</label>
+          <div className="control">
+            <input
+              name="nombre"
+              className="input shadow-lg"
+              type="text"
+            />
+          </div>
+        </div>
+        <div className="field">
+          <label className="label">Código Postal</label>
+          <div className="control">
+            <input
+              name="nombre"
+              className="input shadow-lg"
+              type="text"
+            />
+          </div>
+        </div>
+        <Eliminar />
+      </section>
+    );
+  }
+
   return (
     <Seccion titulo="Teléfonos">
       <button
         className="button font-semibold shadow-lg text-white hover:text-white focus:text-white
               hover:bg-deep-purple-700 bg-deep-purple-400 border-deep-purple-700 mb-2"
-        onClick={e => e.preventDefault()}
+        onClick={onAddClick}
       >
         <span>Agregar Teléfono</span>
         <span className="icon is-small">
