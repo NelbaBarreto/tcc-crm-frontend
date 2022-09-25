@@ -40,15 +40,6 @@ const Index = () => {
       }
     },
     {
-      name: "tip_campana_id",
-      label: "Tipo Campaña",
-      options: {
-        filter: true,
-        filterType: "textField",
-        sort: true,
-      }
-    },
-    {
       name: "fec_inicio",
       label: "Fecha Inicio",
       options: {
