@@ -4,6 +4,7 @@ import MostrarMensaje from "../../formulario/MostrarMensaje";
 import CrearPersona from "../../personas/CrearPersona";
 import { Volver, Guardar } from "../../formulario/Acciones";
 import { Titulo1 } from "../../formulario/Titulo";
+import { useNavigate } from "react-router-dom";
 
 const DatosLead = ({ persona, setPersona }) => {
   return (
@@ -76,6 +77,7 @@ const DatosLead = ({ persona, setPersona }) => {
 const CrearLead = () => {
   const [persona, setPersona] = useState({ empleado: { usuario: {} } });
   const [state, setState] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <div>
@@ -83,11 +85,12 @@ const CrearLead = () => {
         <Titulo1>
           Nuevo Lead
         </Titulo1>
+        {state.message ? <MostrarMensaje mensaje={state.message} error={state.error} /> : null}
         <form>
           <CrearPersona persona={persona} setPersona={setPersona} />
           <DatosLead persona={persona} setPersona={setPersona} />
           <Guardar saving={state.saving} />
-          <Volver />
+          <Volver navigate={navigate} />
         </form>
       </section>
     </div>
