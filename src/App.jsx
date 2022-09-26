@@ -34,7 +34,7 @@ import CrearTipoCampana from "./components/marketing/tipo_campanas/CrearTipoCamp
 
 //Ventas
 //Leads
-import ListarLead from "./components/ventas/leads/Index";
+import ListarLeads from "./components/ventas/leads/Index";
 import CrearLead from "./components/ventas/leads/CrearLead";
 
 //Contacto
@@ -95,7 +95,7 @@ const MainApp = () => {
           <Route exact path="/marketing/tipocampana" element={<ListarTipcampana />} />
           <Route path="/marketing/tipocampana/nuevo" element={<CrearTipoCampana />} />
           {/* Leads */}
-          <Route exact path="/ventas/leads" element={<ListarLead />} />
+          <Route exact path="/ventas/leads" element={<ListarLeads />} />
           <Route path="/ventas/leads/nuevo" element={<CrearLead />} />
           
           <Route path="/ventas/contactos" element={<CrearContacto />} />
