@@ -1,143 +1,87 @@
-import React from "react";
+import React, { useState } from "react";
+import Seccion from "../../formulario/Seccion";
+import MostrarMensaje from "../../formulario/MostrarMensaje";
+import CrearPersona from "../../personas/CrearPersona";
+import { Volver, Guardar } from "../../formulario/Acciones";
+import { Titulo1 } from "../../formulario/Titulo";
+import { useNavigate } from "react-router-dom";
+
+const DatosProfesor = ({ profesor, setProfesor }) => {
+  return (
+    <Seccion titulo="Datos del Profesor">
+      <div className="field">
+        <label className="label">Nombre Completo</label>
+        <div className="control">
+          <input
+            name="nombre"
+            className="input shadow-lg"
+            type="text"
+            placeholder="Ingrese el nombre del profesor"
+          />
+        </div>
+      </div>
+
+      <div className="field">
+        <label className="label">Fecha de Registro</label>
+        <div className="control">
+          <input
+            name="fecIni"
+            className="input shadow-lg"
+            type="date"
+          />
+        </div>
+      </div>
+
+      <div className="columns is-desktop">
+        <div className="column">
+          <div className="field">
+            <label className="label">Nivel Academico</label>
+            <div className="control">
+              <input
+                name="nivel"
+                className="input shadow-lg"
+                type="email"
+                placeholder="Ingrese su mail"
+              />
+            </div>
+          </div>
+        </div>
+        <div className="column">
+          <div className="field">
+            <label className="label">Codigo Curso</label>
+            <div className="control">
+              <input
+                name="curso_id"
+                className="input shadow-lg"
+                type="number"
+                placeholder="Ingrese el Codigo del curso"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </Seccion>
+  );
+};
 
 const CrearProfesor = () => {
+  const [persona, setPersona] = useState({ empleado: { usuario: {} } });
+  const [state, setState] = useState(false);
+  const navigate = useNavigate();
+
   return (
     <div>
       <section className="section w-full m-auto">
-        <h1 className="title is-3 text-center">Nuevo Profesor</h1>
+        <Titulo1>
+          Nuevo Profesor
+        </Titulo1>
+        {state.message ? <MostrarMensaje mensaje={state.message} error={state.error} /> : null}
         <form>
-
-          <div className="columns is-desktop">
-            <div className="column">
-              <div className="field">
-                <label className="label">Nombre Completo</label>
-                <div className="control">
-                  <input
-                    name="nombre"
-                    className="input shadow-lg"
-                    type="text"
-                    placeholder="Ingrese el nombre del profesor"
-                  />
-                </div>
-              </div>
-            </div>
-            <div className="column">
-              <div className="field">
-                <label className="label">Fecha de Registro</label>
-                <div className="control">
-                  <input
-                    name="fecIni"
-                    className="input shadow-lg"
-                    type="date"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="columns is-mobile">
-            <div className="column">
-              <div className="field">
-                <label className="label">Tipo Documento</label>
-                <div className="control">
-                  <div className="select">
-                    <select>
-                      <option>Cedula de Indetidad Paraguaya</option>
-                      <option>Registro Unico de Contribuyente</option>
-                      <option>Tarjeta Diplomatica</option>
-                      <option>Cedula de Indentidad Extranjera</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="column">
-              <div className="field">
-                <label className="label">Numero de Documento</label>
-                <div className="control">
-                  <input
-                    name="codCaso"
-                    className="input shadow-lg"
-                    type="number"
-                    placeholder="Ingrese su numero de documento"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-
-
-
-          <div className="columns is-mobile">
-            <div className="column">
-              <div className="field">
-                <label className="label">Correo</label>
-                <div className="control">
-                  <input
-                    name="nombre"
-                    className="input shadow-lg"
-                    type="email"
-                    placeholder="Ingrese su mail"
-                  />
-                </div>
-              </div>
-            </div>
-            <div className="column">
-              <div className="field">
-                <label className="label">Codigo Curso</label>
-                <div className="control">
-                  <input
-                    name="curso_id"
-                    className="input shadow-lg"
-                    type="number"
-                    placeholder="Ingrese el Codigo del curso"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="columns is-desktop">
-            <div className="column">
-              <div className="field">
-                <label className="label">Tipo Telefono</label>
-                <div className="control">
-                  <div className="select">
-                    <select>
-                      <option>Movil</option>
-                      <option>Familiar</option>
-                      <option>Laboral</option>
-                      <option>Otro</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="column">
-              <div className="field">
-                <label className="label">Numero de Telefono</label>
-                <div className="control">
-                  <input
-                    name="numero"
-                    className="input shadow-lg"
-                    type="number"
-                    placeholder="Ingrese el numero de telefono"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="field mt-3">
-            <div className="control">
-              <button
-                className="button float-right font-semibold shadow-lg text-white hover:text-white focus:text-white
-                 hover:bg-deep-purple-700 bg-deep-purple-400 border-deep-purple-700"
-              >
-                Guardar
-              </button>
-            </div>
-          </div>
+          <CrearPersona persona={persona} setPersona={setPersona} />
+          <DatosProfesor persona={persona} setPersona={setPersona} />
+          <Guardar saving={state.saving} />
+          <Volver navigate={navigate} />
         </form>
       </section>
     </div>
