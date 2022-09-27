@@ -59,7 +59,11 @@ import CrearCurso from "./components/educacion/cursos/CrearCurso";
 // Profesores
 import CrearProfesor from "./components/educacion/profesores/CrearProfesor";
 import ListarProfesores from "./components/educacion/profesores/Index";
+
+// Sucursales
 import CrearSucursal from "./components/educacion/sucursales/CrearSucursal";
+import ListarSucursales from "./components/educacion/sucursales/Index";
+
 import useToken from "../src/utils/useToken";
 
 const MainApp = () => {
@@ -114,7 +118,10 @@ const MainApp = () => {
           {/* // */}
           <Route exact path="/educacion/profesores" element={<ListarProfesores />} />
           <Route path="/educacion/profesores/nuevo" element={<CrearProfesor />} />
-          <Route path="/educacion/sucursales" element={<CrearSucursal />} />
+          
+          {/* Sucursales */}
+          <Route exact path="/educacion/sucursales" element={<ListarSucursales />} />
+          <Route path="/educacion/sucursales/nuevo" element={<CrearSucursal />} />
         </Routes>
       </Layout>
     </Router>
