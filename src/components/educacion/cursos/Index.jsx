@@ -3,14 +3,14 @@ import DataTables from "../../DataTables";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useQuery } from "react-query";
-import { getCurso } from "../../../api/cursos";
+import { getCursos } from "../../../api/cursos";
 import { NavLink } from "react-router-dom";
 
 const Index = () => {
   const {
     data: cursos,
     isLoading
-  } = useQuery(["cursos"], getCurso);
+  } = useQuery(["cursos"], getCursos);
 
   const columns = [
     {

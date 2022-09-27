@@ -2,18 +2,24 @@ import React, { useState } from "react";
 import { Volver, Guardar } from "../../formulario/Acciones";
 import { useNavigate } from "react-router-dom";
 import { createCurso } from "../../../api/cursos";
+import { useQuery } from "react-query";
+import { getProfesores } from "../../../api/profesores";
 import Seccion from "../../formulario/Seccion";
+import Select from "react-select";
 import MostrarMensaje from "../../formulario/MostrarMensaje";
-import CrearPersona from "../../personas/CrearPersona";
 import { Titulo1 } from "../../formulario/Titulo";
 
 const DatosCurso = ({ curso, setCurso }) => {
-  const navigate = useNavigate();
+  const [profesor, setProfesor] = useState("");
+  
+  const {
+    data: profesores,
+    isLoading
+  } = useQuery(["profesores"], getProfesores);
 
-  const crear = async e => {
-    e.preventDefault();
-    await createCurso(curso);
-  };
+  const opcionesProfesor = isLoading || !profesores ? [] :
+    profesores.map(profesor => ({ value: profesor.profesor_id, label: profesor.nombre }));
+
   return (
     <Seccion titulo="Datos del Curso">
       <div className="field">
@@ -31,13 +37,16 @@ const DatosCurso = ({ curso, setCurso }) => {
       <div className="field">
         <label className="label">Profesor </label>
         <div className="control">
-          <input
+          <Select
             name="profesor_id"
-            className="input shadow-lg"
-            type="number"
-            onChange={e => setCurso({ ...curso, [e.target.name]: e.target.value })}
+            className="shadow-lg"
+            placeholder=""
+            onChange={e => setProfesor(e)}
+            value={profesor}
+            options={opcionesProfesor}
           />
         </div>
+
       </div>
 
       <div className="columns is-mobile">
@@ -98,7 +107,6 @@ const DatosCurso = ({ curso, setCurso }) => {
           </div>
         </div>
       </div>
-
     </Seccion>
   );
 };
@@ -107,6 +115,18 @@ const CrearCurso = () => {
   const [curso, setCurso] = useState();
   const [state, setState] = useState(false);
   const navigate = useNavigate();
+
+  const crear = async e => {
+    e.preventDefault();
+    setState({ saving: true, error: false, message: "" });
+    try {
+      await createCurso(curso);
+      setState({ saving: false, error: false, message: "Curso creado exitosamente." });
+      setTimeout(() => navigate("/educacion/cursos"), 3000);
+    } catch (e) {
+      setState({ saving: false, error: true, message: e.message });
+    };
+  };
 
   return (
     <div>
@@ -117,7 +137,7 @@ const CrearCurso = () => {
         {state.message ? <MostrarMensaje mensaje={state.message} error={state.error} /> : null}
         <form>
           <DatosCurso curso={curso} setCurso={setCurso} />
-          <Guardar saving={state.saving} />
+          <Guardar saving={state.saving} guardar={crear} />
           <Volver navigate={navigate} />
         </form>
       </section>
