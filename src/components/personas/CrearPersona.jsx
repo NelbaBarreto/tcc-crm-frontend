@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Select from "react-select";
 import Seccion from "../formulario/Seccion";
+import Direccion from "./Direccion";
 import { Eliminar } from "../formulario/Acciones";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -80,83 +81,8 @@ const Direcciones = () => {
 
   const onAddClick = e => {
     e.preventDefault();
-    setInputList(inputList.concat(<Direccion key={inputList.length} />));
+    setInputList(inputList.concat(<Direccion key={inputList.length} index={inputList.length} />));
   };
-
-  const Direccion = () => {
-    return (
-      <section className="mb-2 p-4 border-gray-300 border-solid border">
-        <div className="field">
-          <label className="label">Calle 1</label>
-          <div className="control">
-            <input
-              name="nombre"
-              className="input shadow-lg"
-              type="text"
-            />
-          </div>
-        </div>
-        <div className="field">
-          <label className="label">Calle 2</label>
-          <div className="control">
-            <input
-              name="nombre"
-              className="input shadow-lg"
-              type="text"
-            />
-          </div>
-        </div>
-        <div className="field">
-          <label className="label">Código Postal</label>
-          <div className="control">
-            <input
-              name="nombre"
-              className="input shadow-lg"
-              type="text"
-            />
-          </div>
-        </div>
-        <div className="columns">
-          <div className="column">
-            <div className="field">
-              <label className="label">País</label>
-              <div className="control">
-                <Select
-                  name="pais_id"
-                  className="shadow-lg"
-                  placeholder=""
-                  options={[{ value: 1, label: "Paraguay" }]}
-                />
-              </div>
-            </div>
-          </div>
-          <div className="column">
-            <div className="field">
-              <label className="label">Ciudad</label>
-              <div className="control">
-                <Select
-                  name="ciudad_id"
-                  className="shadow-lg"
-                  placeholder=""
-                  options={[{ value: 1, label: "Asunción" }]}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="field">
-          <label className="label">Principal</label>
-          <div className="control">
-            <input
-              name="principal"
-              type="checkbox"
-            />
-          </div>
-        </div>
-        <Eliminar onClick={e => console.log(e)} />
-      </section>
-    );
-  }
 
   return (
     <Seccion titulo="Direcciones">
