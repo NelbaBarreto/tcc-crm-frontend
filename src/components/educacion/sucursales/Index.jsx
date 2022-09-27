@@ -3,18 +3,18 @@ import DataTables from "../../DataTables";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useQuery } from "react-query";
-import { getCursos } from "../../../api/cursos";
+import { getSucursales } from "../../../api/sucursales";
 import { NavLink } from "react-router-dom";
 
 const Index = () => {
   const {
-    data: cursos,
+    data: sucursales,
     isLoading
-  } = useQuery(["cursos"], getCursos);
+  } = useQuery(["sucursales"], getSucursales);
 
   const columns = [
     {
-      name: "curso_id",
+      name: "sucursal_id",
       options: {
         display: "excluded",
         filter: false
@@ -30,7 +30,7 @@ const Index = () => {
         customBodyRender: (value, tableMeta) => {
           return (
             <NavLink
-              to={"/educacion/cursos/" + tableMeta.rowData[0]}
+              to={"/educacion/sucursales/" + tableMeta.rowData[0]}
               className="underline text-blue-900"
             >
               {value}
@@ -39,7 +39,6 @@ const Index = () => {
         }
       }
     },
-
     {
       name: "",
       options: {
@@ -51,7 +50,7 @@ const Index = () => {
             <button
               className="button font-semibold shadow-lg text-white hover:text-white focus:text-white
               hover:bg-deep-purple-700 bg-deep-purple-400 border-deep-purple-700"
-              onClick={() => console.log(cursos[dataIndex])}
+              onClick={() => console.log(sucursales[dataIndex])}
             >
               Editar
             </button>
@@ -65,7 +64,7 @@ const Index = () => {
     <div>
       <section className="section w-full m-auto">
         <NavLink
-          to="/educacion/cursos/nuevo"
+          to="/educacion/sucursales/nuevo"
           className="button font-semibold shadow-lg text-white hover:text-white focus:text-white
               hover:bg-deep-purple-700 bg-deep-purple-400 border-deep-purple-700 mb-2"
         >
@@ -75,9 +74,9 @@ const Index = () => {
           </span>
         </NavLink>
         <DataTables
-          title="Listado de Cursos"
+          title="Listado de Sucursales"
           columns={columns}
-          data={cursos}
+          data={sucursales}
           isLoading={isLoading}
         />
       </section>

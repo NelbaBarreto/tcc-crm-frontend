@@ -51,12 +51,19 @@ import CrearCaso from "./components/soporte/CrearCaso";
 import Calendario from "./components/actividades/Calendario";
 import CrearLlamada from "./components/actividades/CrearLlamada";
 import CrearTarea from "./components/actividades/CrearTarea";
+
 //Cursos
 import ListarCursos from "./components/educacion/cursos/Index";
 import CrearCurso from "./components/educacion/cursos/CrearCurso";
 
+// Profesores
 import CrearProfesor from "./components/educacion/profesores/CrearProfesor";
+import ListarProfesores from "./components/educacion/profesores/Index";
+
+// Sucursales
 import CrearSucursal from "./components/educacion/sucursales/CrearSucursal";
+import ListarSucursales from "./components/educacion/sucursales/Index";
+
 import useToken from "../src/utils/useToken";
 
 const MainApp = () => {
@@ -109,8 +116,12 @@ const MainApp = () => {
           <Route exact path="/educacion/cursos" element={<ListarCursos />} />
           <Route path="/educacion/cursos/nuevo" element={<CrearCurso />} />
           {/* // */}
-          <Route path="/educacion/profesores" element={<CrearProfesor />} />
-          <Route path="/educacion/sucursales" element={<CrearSucursal />} />
+          <Route exact path="/educacion/profesores" element={<ListarProfesores />} />
+          <Route path="/educacion/profesores/nuevo" element={<CrearProfesor />} />
+          
+          {/* Sucursales */}
+          <Route exact path="/educacion/sucursales" element={<ListarSucursales />} />
+          <Route path="/educacion/sucursales/nuevo" element={<CrearSucursal />} />
         </Routes>
       </Layout>
     </Router>
