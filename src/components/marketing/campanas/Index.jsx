@@ -1,5 +1,6 @@
 import React from "react";
 import DataTables from "../../DataTables";
+import { format, parseISO } from "date-fns";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useQuery } from "react-query";
@@ -46,6 +47,7 @@ const Index = () => {
         filter: true,
         filterType: "textField",
         sort: true,
+        customBodyRender: value => value ?  format(parseISO(value), "dd/MM/yyyy") : ""
       }
     },
     {
@@ -55,6 +57,7 @@ const Index = () => {
         filter: true,
         filterType: "textField",
         sort: true,
+        customBodyRender: value => value ?  format(parseISO(value), "dd/MM/yyyy") : ""
       }
     },
     {
