@@ -51,11 +51,14 @@ import CrearCaso from "./components/soporte/CrearCaso";
 import Calendario from "./components/actividades/Calendario";
 import CrearLlamada from "./components/actividades/CrearLlamada";
 import CrearTarea from "./components/actividades/CrearTarea";
+
 //Cursos
 import ListarCursos from "./components/educacion/cursos/Index";
 import CrearCurso from "./components/educacion/cursos/CrearCurso";
 
+// Profesores
 import CrearProfesor from "./components/educacion/profesores/CrearProfesor";
+import ListarProfesores from "./components/educacion/profesores/Index";
 import CrearSucursal from "./components/educacion/sucursales/CrearSucursal";
 import useToken from "../src/utils/useToken";
 
@@ -109,7 +112,8 @@ const MainApp = () => {
           <Route exact path="/educacion/cursos" element={<ListarCursos />} />
           <Route path="/educacion/cursos/nuevo" element={<CrearCurso />} />
           {/* // */}
-          <Route path="/educacion/profesores" element={<CrearProfesor />} />
+          <Route exact path="/educacion/profesores" element={<ListarProfesores />} />
+          <Route path="/educacion/profesores/nuevo" element={<CrearProfesor />} />
           <Route path="/educacion/sucursales" element={<CrearSucursal />} />
         </Routes>
       </Layout>

@@ -3,14 +3,14 @@ import DataTables from "../../DataTables";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useQuery } from "react-query";
-import { getLeads } from "../../../api/leads";
+import { getProfesores } from "../../../api/profesores";
 import { NavLink } from "react-router-dom";
 
 const Index = () => {
   const {
-    data: leads,
+    data: profesores,
     isLoading
-  } = useQuery(["leads"], getLeads);
+  } = useQuery(["profesores"], getProfesores);
 
   const columns = [
     {
@@ -21,8 +21,8 @@ const Index = () => {
       }
     },
     {
-      name: "estado",
-      label: "Estado",
+      name: "nombre",
+      label: "Nombre",
       options: {
         filter: true,
         filterType: "textField",
@@ -30,66 +30,10 @@ const Index = () => {
         customBodyRender: (value, tableMeta) => {
           return (
             <NavLink
-              to={"/ventas/leads/" + tableMeta.rowData[0]}
+              to={"/educacion/profesores/" + tableMeta.rowData[0]}
               className="underline text-blue-900"
             >
               {value}
-            </NavLink>
-          )
-        }
-      }
-    },
-    {
-      name: "usuario",
-      label: "Usuario Asignado",
-      options: {
-        filter: true,
-        filterType: "textField",
-        sort: true,
-        customBodyRender: (value) => {
-          return (
-            <NavLink
-              to={"/administrador/usuarios/" + value.usuario_id}
-              className="underline text-blue-900"
-            >
-              {value.nom_usuario}
-            </NavLink>
-          )
-        }
-      }
-    },
-    {
-      name: "campana_id",
-      label: "Campaña",
-      options: {
-        filter: true,
-        filterType: "textField",
-        sort: true,
-      }
-    },
-    {
-      name: "origen",
-      label: "Origen",
-      options: {
-        filter: true,
-        filterType: "textField",
-        sort: true,
-      }
-    },
-    {
-      name: "curso",
-      label: "Curso/Interés",
-      options: {
-        filter: true,
-        filterType: "dropdown",
-        sort: true,
-        customBodyRender: (value) => {
-          return (
-            <NavLink
-              to={"/educacion/cursos/" + value.curso_id}
-              className="underline text-blue-900"
-            >
-              {value.nombre}
             </NavLink>
           )
         }
@@ -106,7 +50,7 @@ const Index = () => {
             <button
               className="button font-semibold shadow-lg text-white hover:text-white focus:text-white
               hover:bg-deep-purple-700 bg-deep-purple-400 border-deep-purple-700"
-              onClick={() => console.log(leads[dataIndex])}
+              onClick={() => console.log(profesores[dataIndex])}
             >
               Editar
             </button>
@@ -120,7 +64,7 @@ const Index = () => {
     <div>
       <section className="section w-full m-auto">
         <NavLink
-          to="/ventas/leads/nuevo"
+          to="/educacion/profesores/nuevo"
           className="button font-semibold shadow-lg text-white hover:text-white focus:text-white
               hover:bg-deep-purple-700 bg-deep-purple-400 border-deep-purple-700 mb-2"
         >
@@ -132,7 +76,7 @@ const Index = () => {
         <DataTables
           title="Listado de Leads"
           columns={columns}
-          data={leads}
+          data={profesores}
           isLoading={isLoading}
         />
       </section>

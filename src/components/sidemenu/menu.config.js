@@ -87,7 +87,7 @@ export const sideMenu = [
         to: "campanas",
       },
       {
-        label: "Tipo Campaña",
+        label: "Tipos de Campaña",
         Icon: () => <Icon iconName="list-ul" />,
         to: "tipocampana",
       },

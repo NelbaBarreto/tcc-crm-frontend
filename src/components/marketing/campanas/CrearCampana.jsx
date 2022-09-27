@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import MostrarMensaje from "../../formulario/MostrarMensaje";
 import Seccion from "../../formulario/Seccion";
+import DatePicker from "react-datepicker";
 import { Volver, Guardar } from "../../formulario/Acciones";
 import { useNavigate } from "react-router-dom";
 import { createCampana } from "../../../api/campanas";
@@ -9,6 +10,7 @@ import { Titulo1 } from "../../formulario/Titulo";
 const CrearCampana = () => {
   const [campana, setCampana] = useState({});
   const [state, setState] = useState(false);
+  const [startDate, setStartDate] = useState(new Date());
   const navigate = useNavigate();
 
   const crear = async e => {
@@ -47,11 +49,10 @@ const CrearCampana = () => {
             <div className="field">
               <label className="label">Fecha de Inicio</label>
               <div className="control">
-                <input
-                  name="fec_inicio"
-                  className="input shadow-lg"
-                  type="date"
-                  onChange={e => setCampana({ ...campana, [e.target.name]: e.target.value })}
+                <DatePicker
+                  className="input"
+                  selected={startDate}
+                  onChange={(date) => setStartDate(date)}
                 />
               </div>
             </div>
