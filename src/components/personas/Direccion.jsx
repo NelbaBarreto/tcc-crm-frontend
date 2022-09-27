@@ -3,16 +3,26 @@ import Select from "react-select";
 import { Eliminar } from "../formulario/Acciones";
 import { useQuery } from "react-query";
 import { getPaises } from "../../api/paises";
+import { getCiudades } from "../../api/ciudades";
 
 const Direccion = ({ index }) => {
   const [pais, setPais] = useState("");
+  const [ciudad, setCiudad] = useState("");
 
   const {
     data: paises,
-    isLoading
+    paisesLoading
   } = useQuery(["paises"], getPaises);
 
-  const opcionesPais = isLoading ? [] : paises.map(pais => ({ value: pais.pais_id, label: pais.nombre }));
+  const {
+    data: ciudades,
+    ciudadesLoading
+  } = useQuery(["ciudades"], getCiudades);
+
+  const opcionesPais = !paises || paisesLoading ? [] :
+    paises.map(pais => ({ value: pais.pais_id, label: pais.nombre }));
+  const opcionesCiudad = ! ciudades || ciudadesLoading ? [] :
+    ciudades.map(ciudad => ({ value: ciudad.ciudad_id, label: ciudad.nombre }));
 
   return (
     <section className="mb-2 p-4 border-gray-300 border-solid border">
@@ -71,7 +81,9 @@ const Direccion = ({ index }) => {
                 name="ciudad_id"
                 className="shadow-lg"
                 placeholder=""
-                options={[{ value: 1, label: "Asunción" }]}
+                onChange={e => setCiudad(e)}
+                value={ciudad}
+                options={opcionesCiudad}
               />
             </div>
           </div>
@@ -92,7 +104,7 @@ const Direccion = ({ index }) => {
           />
         </div>
       </div>
-      <Eliminar onClick={e => console.log(e)} />
+      <Eliminar />
     </section>
   );
 }

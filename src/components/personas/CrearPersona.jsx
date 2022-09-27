@@ -81,7 +81,12 @@ const Direcciones = () => {
 
   const onAddClick = e => {
     e.preventDefault();
-    setInputList(inputList.concat(<Direccion key={inputList.length} index={inputList.length} />));
+    setInputList(inputList.concat(
+      <Direccion 
+        key={inputList.length} 
+        index={inputList.length}
+      />
+    ));
   };
 
   return (
