@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { createCurso } from "../../../api/cursos";
 import { useQuery } from "react-query";
 import { getProfesores } from "../../../api/profesores";
+import { getSucursales } from "../../../api/sucursales";
 import Seccion from "../../formulario/Seccion";
 import Select from "react-select";
 import MostrarMensaje from "../../formulario/MostrarMensaje";
@@ -11,14 +12,23 @@ import { Titulo1 } from "../../formulario/Titulo";
 
 const DatosCurso = ({ curso, setCurso }) => {
   const [profesor, setProfesor] = useState("");
+  const [sucursal, setSucursal] = useState("");
   
   const {
     data: profesores,
-    isLoading
+    profesoresLoading
   } = useQuery(["profesores"], getProfesores);
 
-  const opcionesProfesor = isLoading || !profesores ? [] :
+  const {
+    data: sucursales,
+    sucursalesLoading
+  } = useQuery(["sucursales"], getSucursales);
+
+  const opcionesProfesor = profesoresLoading || !profesores ? [] :
     profesores.map(profesor => ({ value: profesor.profesor_id, label: profesor.nombre }));
+
+  const opcionesSucursal = sucursalesLoading || !sucursales ? [] :
+  sucursales.map(profesor => ({ value: sucursal.sucursal_id, label: sucursal.nombre }));    
 
   return (
     <Seccion titulo="Datos del Curso">
@@ -33,9 +43,8 @@ const DatosCurso = ({ curso, setCurso }) => {
           />
         </div>
       </div>
-
       <div className="field">
-        <label className="label">Profesor </label>
+        <label className="label">Profesor</label>
         <div className="control">
           <Select
             name="profesor_id"
@@ -46,9 +55,20 @@ const DatosCurso = ({ curso, setCurso }) => {
             options={opcionesProfesor}
           />
         </div>
-
       </div>
-
+      <div className="field">
+        <label className="label">Sucursal</label>
+        <div className="control">
+          <Select
+            name="sucursal_id"
+            className="shadow-lg"
+            placeholder=""
+            onChange={e => setSucursal(e)}
+            value={sucursal}
+            options={opcionesSucursal}
+          />
+        </div>
+      </div>
       <div className="columns is-mobile">
         <div className="column">
           <div className="field">

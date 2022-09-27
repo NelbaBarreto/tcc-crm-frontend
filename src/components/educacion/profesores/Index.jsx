@@ -74,7 +74,7 @@ const Index = () => {
           </span>
         </NavLink>
         <DataTables
-          title="Listado de Leads"
+          title="Listado de Profesores"
           columns={columns}
           data={profesores}
           isLoading={isLoading}
