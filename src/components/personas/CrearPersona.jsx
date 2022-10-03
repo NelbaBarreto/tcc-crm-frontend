@@ -3,8 +3,8 @@ import Select from "react-select";
 import Seccion from "../formulario/Seccion";
 import Direccion from "./Direccion";
 import { Eliminar } from "../formulario/Acciones";
-import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 
 const Persona = ({ persona, setPersona }) => {
   const options = [
@@ -82,8 +82,8 @@ const Direcciones = () => {
   const onAddClick = e => {
     e.preventDefault();
     setInputList(inputList.concat(
-      <Direccion 
-        key={inputList.length} 
+      <Direccion
+        key={inputList.length}
         index={inputList.length}
       />
     ));

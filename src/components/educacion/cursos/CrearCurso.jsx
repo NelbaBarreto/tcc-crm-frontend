@@ -1,19 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useReducer } from "react";
+import Seccion from "../../formulario/Seccion";
+import MostrarMensaje from "../../formulario/MostrarMensaje";
+import { Titulo1 } from "../../formulario/Titulo";
+import { Dropdown, Datepicker, Input } from "../../formulario/Componentes";
 import { Volver, Guardar } from "../../formulario/Acciones";
+import { reducer } from "../../formulario/reducerFormularios.js";
 import { useNavigate } from "react-router-dom";
 import { createCurso } from "../../../api/cursos";
 import { useQuery } from "react-query";
 import { getProfesores } from "../../../api/profesores";
 import { getSucursales } from "../../../api/sucursales";
-import Seccion from "../../formulario/Seccion";
-import Select from "react-select";
-import MostrarMensaje from "../../formulario/MostrarMensaje";
-import { Titulo1 } from "../../formulario/Titulo";
 
-const DatosCurso = ({ curso, setCurso }) => {
+const DatosCurso = ({ onChange, curso }) => {
   const [profesor, setProfesor] = useState("");
   const [sucursal, setSucursal] = useState("");
-  
+  const [horario, setHorario] = useState("");
+
   const {
     data: profesores,
     profesoresLoading
@@ -28,125 +30,78 @@ const DatosCurso = ({ curso, setCurso }) => {
     profesores.map(profesor => ({ value: profesor.profesor_id, label: profesor.nombre }));
 
   const opcionesSucursal = sucursalesLoading || !sucursales ? [] :
-  sucursales.map(profesor => ({ value: sucursal.sucursal_id, label: sucursal.nombre }));    
+    sucursales.map(sucursal => ({ value: sucursal.sucursal_id, label: sucursal.nombre }));
 
   return (
     <Seccion titulo="Datos del Curso">
-      <div className="field">
-        <label className="label">Nombre</label>
-        <div className="control">
-          <input
-            name="nombre"
-            className="input shadow-lg"
-            type="text"
-            onChange={e => setCurso({ ...curso, [e.target.name]: e.target.value })}
+      <Input
+        name="nombre"
+        label="Nombre"
+        value={curso?.nombre}
+        onChange={onChange}
+      />
+      <Dropdown
+        label="Profesor"
+        value={profesor}
+        onChange={e => {onChange(e, "profesor_id", e.value); setProfesor(e)}}
+        options={opcionesProfesor}
+      />
+      <Dropdown
+        label="Sucursal"
+        onChange={e => {onChange(e, "sucursal_id", e.value); setSucursal(e)}}
+        value={sucursal}
+        options={opcionesSucursal}
+      />
+      <div className="columns">
+        <div className="column">
+          <Datepicker
+            label="Fecha de Inicio"
+            name="fec_ini_curso"
+            selected={curso?.fec_ini_curso}
+            onChange={date => onChange(null, "fec_ini_curso", date)}
+          />
+        </div>
+        <div className="column">
+          <Datepicker
+            label="Fecha Fin"
+            name="fec_fin_curso"
+            selected={curso?.fec_fin_curso}
+            onChange={date => onChange(null, "fec_fin_curso", date)}
           />
         </div>
       </div>
-      <div className="field">
-        <label className="label">Profesor</label>
-        <div className="control">
-          <Select
-            name="profesor_id"
-            className="shadow-lg"
-            placeholder=""
-            onChange={e => setProfesor(e)}
-            value={profesor}
-            options={opcionesProfesor}
-          />
-        </div>
-      </div>
-      <div className="field">
-        <label className="label">Sucursal</label>
-        <div className="control">
-          <Select
-            name="sucursal_id"
-            className="shadow-lg"
-            placeholder=""
-            onChange={e => setSucursal(e)}
-            value={sucursal}
-            options={opcionesSucursal}
-          />
-        </div>
-      </div>
-      <div className="columns is-mobile">
-        <div className="column">
-          <div className="field">
-            <label className="label">Fecha Inicio</label>
-            <div className="control">
-              <input
-                name="fec_ini_curso"
-                className="input shadow-lg"
-                type="date"
-                onChange={e => setCurso({ ...curso, [e.target.name]: e.target.value })}
-              />
-            </div>
-          </div>
-        </div>
-        <div className="column">
-          <div className="field">
-            <label className="label">Fecha Fin</label>
-            <div className="control">
-              <input
-                name="fec_fin_curso"
-                className="input shadow-lg"
-                type="date"
-                onChange={e => setCurso({ ...curso, [e.target.name]: e.target.value })}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="columns is-mobile">
-        <div className="column">
-          <div className="field">
-            <label className="label">Horario </label>
-            <div className="control">
-              <div className="select">
-                <select>
-                  <option>Mañana</option>
-                  <option>Tarde</option>
-                  <option>Noche</option>
-                </select>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="column">
-          <div className="field">
-            <label className="label">Sucursal</label>
-            <div className="control">
-              <input
-                name="sucursal_id"
-                className="input shadow-lg"
-                type="number"
-                onChange={e => setCurso({ ...curso, [e.target.name]: e.target.value })}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
+      <Dropdown
+        label="Horario"
+        value={horario}
+        onChange={e => {onChange(e, "horario", e.value); setHorario(e)}}
+        options={[{ label: "tarde", value: "tarde" }]}
+      />
     </Seccion>
   );
 };
 
 const CrearCurso = () => {
-  const [curso, setCurso] = useState();
-  const [state, setState] = useState(false);
+  const [state, dispatch] = useReducer(reducer, {});
+  const [action, setAction] = useState({});
   const navigate = useNavigate();
 
   const crear = async e => {
     e.preventDefault();
-    setState({ saving: true, error: false, message: "" });
+    setAction({ saving: true, error: false, message: "" });
     try {
-      await createCurso(curso);
-      setState({ saving: false, error: false, message: "Curso creado exitosamente." });
+      await createCurso(state.curso);
+      setAction({ saving: false, error: false, message: "Curso creado exitosamente." });
       setTimeout(() => navigate("/educacion/cursos"), 3000);
     } catch (e) {
-      setState({ saving: false, error: true, message: e.message });
+      setAction({ saving: false, error: true, message: e.message });
     };
   };
+
+  const handleDispatch = (e, name, value) => {
+    dispatch({ type: "FORM_UPDATED", 
+      payload: { name: e?.target?.name || name, value: e?.target?.value || value, object: "curso" } 
+    })
+  }
 
   return (
     <div>
@@ -154,10 +109,10 @@ const CrearCurso = () => {
         <Titulo1>
           Nuevo Curso
         </Titulo1>
-        {state.message ? <MostrarMensaje mensaje={state.message} error={state.error} /> : null}
+        {action.message ? <MostrarMensaje mensaje={action.message} error={action.error} /> : null}
         <form>
-          <DatosCurso curso={curso} setCurso={setCurso} />
-          <Guardar saving={state.saving} guardar={crear} />
+          <DatosCurso onChange={handleDispatch} curso={state.curso} />
+          <Guardar saving={action.saving} guardar={crear} />
           <Volver navigate={navigate} />
         </form>
       </section>

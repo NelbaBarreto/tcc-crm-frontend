@@ -2,8 +2,8 @@ import axios from "axios";
 
 const API = process.env.REACT_APP_API || "http://localhost:8080/api"
 
-export const getUsuarios = async() => {
-  const { data } = await axios.get(`${API}/usuarios`); 
+export const getUsuarios = async () => {
+  const { data } = await axios.get(`${API}/usuarios`);
   return data;
 };
 
@@ -13,6 +13,12 @@ export const createUsuarios = async (data) => {
 };
 
 export const autenticarUsuarios = async (data) => {
-  const { data: response } = await axios.post(`${API}/usuarios/login`, data);
-  return response;
+  try {
+    const { data: response } = await axios.post(`${API}/usuarios/login`, data);
+    return response;
+  } catch (error) {
+    const { response } = error;
+    console.error(response);
+    return response;
+  }
 };
