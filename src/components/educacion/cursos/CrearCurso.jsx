@@ -14,6 +14,7 @@ import { getSucursales } from "../../../api/sucursales";
 const DatosCurso = ({ onChange, curso }) => {
   const [profesor, setProfesor] = useState("");
   const [sucursal, setSucursal] = useState("");
+  const [horario, setHorario] = useState("");
 
   const {
     data: profesores,
@@ -56,20 +57,23 @@ const DatosCurso = ({ onChange, curso }) => {
           <Datepicker
             label="Fecha de Inicio"
             name="fec_ini_curso"
-            value={sucursal}
+            selected={curso?.fec_ini_curso}
+            onChange={date => onChange(null, "fec_ini_curso", date)}
           />
         </div>
         <div className="column">
           <Datepicker
             label="Fecha Fin"
             name="fec_fin_curso"
-            value={sucursal}
+            selected={curso?.fec_fin_curso}
+            onChange={date => onChange(null, "fec_fin_curso", date)}
           />
         </div>
       </div>
       <Dropdown
         label="Horario"
-        name="horario"
+        value={horario}
+        onChange={e => {onChange(e, "horario", e.value); setHorario(e)}}
         options={[{ label: "tarde", value: "tarde" }]}
       />
     </Seccion>
@@ -78,24 +82,24 @@ const DatosCurso = ({ onChange, curso }) => {
 
 const CrearCurso = () => {
   const [state, dispatch] = useReducer(reducer, {});
+  const [action, setAction] = useState({});
   const navigate = useNavigate();
-console.log(state)
 
- /* const crear = async e => {
+  const crear = async e => {
     e.preventDefault();
-    setState({ saving: true, error: false, message: "" });
+    setAction({ saving: true, error: false, message: "" });
     try {
-      await createCurso(curso);
-      setState({ saving: false, error: false, message: "Curso creado exitosamente." });
+      await createCurso(state.curso);
+      setAction({ saving: false, error: false, message: "Curso creado exitosamente." });
       setTimeout(() => navigate("/educacion/cursos"), 3000);
     } catch (e) {
-      setState({ saving: false, error: true, message: e.message });
+      setAction({ saving: false, error: true, message: e.message });
     };
-  };*/
+  };
 
   const handleDispatch = (e, name, value) => {
     dispatch({ type: "FORM_UPDATED", 
-      payload: { name: e.target?.name || name, value: e.target?.value || value, object: "curso" } 
+      payload: { name: e?.target?.name || name, value: e?.target?.value || value, object: "curso" } 
     })
   }
 
@@ -105,10 +109,10 @@ console.log(state)
         <Titulo1>
           Nuevo Curso
         </Titulo1>
-        {state.message ? <MostrarMensaje mensaje={state.message} error={state.error} /> : null}
+        {action.message ? <MostrarMensaje mensaje={action.message} error={action.error} /> : null}
         <form>
           <DatosCurso onChange={handleDispatch} curso={state.curso} />
-          {/* <Guardar saving={state.saving} guardar={crear} /> */}
+          <Guardar saving={action.saving} guardar={crear} />
           <Volver navigate={navigate} />
         </form>
       </section>

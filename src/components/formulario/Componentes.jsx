@@ -20,14 +20,16 @@ export const Input = ({ label, name, value = "", type = "text", placeholder = ""
   );
 }
 
-export const Datepicker = ({ label, selected }) => {
+export const Datepicker = ({ label, selected, onChange }) => {
   return (
     <div className="field">
       <label className="label">{label}</label>
       <div className="control">
         <DatePicker
           className="input"
+          onChange={onChange}
           selected={selected}
+          dateFormat="dd/MM/yyyy"
         />
       </div>
     </div>
