@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useReducer } from "react";
 import MostrarMensaje from "../formulario/MostrarMensaje";
+import { GoogleLogin } from "react-google-login";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { reducer } from "../formulario/reducerFormularios.js";
 import { brands } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { autenticarUsuarios } from "../../api/usuarios";
 import { gapi } from "gapi-script";
-import { GoogleLogin } from "react-google-login";
 
 const Login = ({ setToken }) => {
   const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
+  const [state, dispatch] = useReducer(reducer, {});
   const [usuario, setUsuario] = useState({});
   const [error, setError] = useState("");
 
@@ -30,7 +32,7 @@ const Login = ({ setToken }) => {
         setToken(userToken);
         setError("");
       } else {
-        setError(userToken.error);
+        setError(userToken?.data?.error);
       }
     } catch {
       setError("Ocurrió un error al intentar iniciar sesión");
@@ -82,7 +84,7 @@ const Login = ({ setToken }) => {
           </div>
         </div>
         <div className="divider">O</div>
-        <form>
+        <form onSubmit={login}>
           <div className="field">
             <label className="label">Usuario</label>
             <div className="control">
@@ -116,7 +118,7 @@ const Login = ({ setToken }) => {
               <button
                 className="button is-medium font-semibold w-full shadow-lg text-white hover:text-white focus:text-white
                 hover:bg-deep-purple-700 bg-deep-purple-400 border-deep-purple-700"
-                onClick={login}
+                type="submit"
               >
                 Iniciar Sesión
               </button>
