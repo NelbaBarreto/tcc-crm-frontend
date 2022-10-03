@@ -26,7 +26,7 @@ const IniciarSesion = () => {
   );
 }
 
-const GoogleLoginButton = ({ loginReducer }) => {
+const GoogleLoginButton = ({ loginReducer, handleError, setToken }) => {
   const { dispatch } = loginReducer;
 
   const loginGoogle = async response => {
@@ -34,13 +34,13 @@ const GoogleLoginButton = ({ loginReducer }) => {
     try {
       userToken = await autenticarUsuarios({ email: response.profileObj.email });
       if (userToken.token) {
-        dispatch({ type: "LOGIN", payload: { name: "token", value: userToken } })
-        dispatch({ type: "LOGIN", payload: { name: "error", value: "" } })
+        setToken(userToken);
+        handleError("");
       } else {
-        dispatch({ type: "LOGIN", payload: { name: "error", value: userToken.error } })
+        handleError(userToken.error);
       }
     } catch {
-      dispatch({ type: "LOGIN", payload: { name: "error", value: "Ocurrió un error al intentar iniciar sesión." } })
+      handleError("Ocurrió un error al intentar iniciar sesión con google.");
     }
   }
 
@@ -74,7 +74,6 @@ const GoogleLoginButton = ({ loginReducer }) => {
 
 const Login = ({ setToken }) => {
   const [state, dispatch] = useReducer(reducer, {});
-  const [error, setError] = useState("");
 
   useEffect(() => {
     const initClient = () => {
@@ -86,6 +85,14 @@ const Login = ({ setToken }) => {
     gapi.load("client:auth2", initClient);
   });
 
+  const handleDispatch = e => {
+    dispatch({ type: "LOGIN", payload: { name: e.target.name, value: e.target.value } })
+  }
+
+  const handleError = error => {
+    dispatch({ type: "LOGIN", payload: { name: "error", value: error } })
+  }
+
   const login = async e => {
     e.preventDefault();
     let userToken;
@@ -93,25 +100,25 @@ const Login = ({ setToken }) => {
       userToken = await autenticarUsuarios(state.login);
       if (userToken.token) {
         setToken(userToken);
-        setError("");
+        handleError("");
       } else {
-        setError(userToken?.data?.error);
+        handleError(userToken?.data?.error);
       }
     } catch {
-      setError("Ocurrió un error al intentar iniciar sesión");
+      handleError("Ocurrió un error al intentar iniciar sesión");
     }
   };
-
-  const handleDispatch = e => {
-    dispatch({ type: "LOGIN", payload: { name: e.target.name, value: e.target.value } })
-  }
 
   return (
     <div className="hero is-fullheight bg-deep-purple-400">
       <section className="section sm:w-1/2 w-full m-auto hero shadow-lg shadow-gray-800 bg-white">
         <h1 className="title is-3 text-center">Lorem Ipsum CRM</h1>
-        {error ? <MostrarMensaje mensaje={error} error={true} /> : null}
-        <GoogleLoginButton loginReducer={{ state, dispatch }} />
+        {state.login?.error ? <MostrarMensaje mensaje={state.login.error} error={true} /> : null}
+        <GoogleLoginButton 
+          loginReducer={{ state, dispatch }} 
+          handleError={handleError}
+          setToken={setToken} 
+        />
         <div className="divider">O</div>
         <form onSubmit={login}>
           <Input
