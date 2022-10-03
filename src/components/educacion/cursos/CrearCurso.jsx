@@ -1,16 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useReducer } from "react";
 import Seccion from "../../formulario/Seccion";
 import MostrarMensaje from "../../formulario/MostrarMensaje";
+import { Titulo1 } from "../../formulario/Titulo";
+import { Dropdown, Datepicker, Input } from "../../formulario/Componentes";
 import { Volver, Guardar } from "../../formulario/Acciones";
+import { reducer } from "../../formulario/reducerFormularios.js";
 import { useNavigate } from "react-router-dom";
 import { createCurso } from "../../../api/cursos";
 import { useQuery } from "react-query";
 import { getProfesores } from "../../../api/profesores";
 import { getSucursales } from "../../../api/sucursales";
-import { Titulo1 } from "../../formulario/Titulo";
-import { Dropdown, Datepicker, Input } from "../../formulario/Componentes";
 
-const DatosCurso = ({ curso, setCurso }) => {
+const DatosCurso = ({ onChange, curso }) => {
   const [profesor, setProfesor] = useState("");
   const [sucursal, setSucursal] = useState("");
 
@@ -35,19 +36,18 @@ const DatosCurso = ({ curso, setCurso }) => {
       <Input
         name="nombre"
         label="Nombre"
-        onChange={e => setCurso({ ...curso, [e.target.name]: e.target.value })}
+        value={curso?.nombre}
+        onChange={onChange}
       />
       <Dropdown
         label="Profesor"
-        name="profesor_id"
-        onChange={e => setProfesor(e)}
         value={profesor}
+        onChange={e => {onChange(e, "profesor_id", e.value); setProfesor(e)}}
         options={opcionesProfesor}
       />
       <Dropdown
         label="Sucursal"
-        name="sucursal_id"
-        onChange={e => setSucursal(e)}
+        onChange={e => {onChange(e, "sucursal_id", e.value); setSucursal(e)}}
         value={sucursal}
         options={opcionesSucursal}
       />
@@ -77,11 +77,11 @@ const DatosCurso = ({ curso, setCurso }) => {
 };
 
 const CrearCurso = () => {
-  const [curso, setCurso] = useState();
-  const [state, setState] = useState(false);
+  const [state, dispatch] = useReducer(reducer, {});
   const navigate = useNavigate();
+console.log(state)
 
-  const crear = async e => {
+ /* const crear = async e => {
     e.preventDefault();
     setState({ saving: true, error: false, message: "" });
     try {
@@ -91,7 +91,13 @@ const CrearCurso = () => {
     } catch (e) {
       setState({ saving: false, error: true, message: e.message });
     };
-  };
+  };*/
+
+  const handleDispatch = (e, name, value) => {
+    dispatch({ type: "FORM_UPDATED", 
+      payload: { name: e.target?.name || name, value: e.target?.value || value, object: "curso" } 
+    })
+  }
 
   return (
     <div>
@@ -101,8 +107,8 @@ const CrearCurso = () => {
         </Titulo1>
         {state.message ? <MostrarMensaje mensaje={state.message} error={state.error} /> : null}
         <form>
-          <DatosCurso curso={curso} setCurso={setCurso} />
-          <Guardar saving={state.saving} guardar={crear} />
+          <DatosCurso onChange={handleDispatch} curso={state.curso} />
+          {/* <Guardar saving={state.saving} guardar={crear} /> */}
           <Volver navigate={navigate} />
         </form>
       </section>
