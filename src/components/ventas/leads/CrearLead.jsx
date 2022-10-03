@@ -4,72 +4,42 @@ import MostrarMensaje from "../../formulario/MostrarMensaje";
 import CrearPersona from "../../personas/CrearPersona";
 import { Volver, Guardar } from "../../formulario/Acciones";
 import { Titulo1 } from "../../formulario/Titulo";
+import { Dropdown } from "../../formulario/Componentes";
 import { useNavigate } from "react-router-dom";
 
-const DatosLead = ({ persona, setPersona }) => {
+const DatosLead = () => {
+  const [select, setSelect] = useState({ estado: "", origen: "", campana: "", usu_asignado: "" });
+
   return (
     <Seccion titulo="Datos del Lead">
-      <div className="field">
-        <label className="label">Estado</label>
-        <div className="control">
-          <div className="select">
-            <select>
-              <option>Activo</option>
-              <option>Inactivo</option>
-            </select>
-          </div>
+      <div className="columns">
+        <div className="column">
+          <Dropdown
+            label="Estado"
+            value={select.estado}
+          />
         </div>
-      </div>
-
-      <div className="field">
-        <label className="label">Usuario Asignado</label>
-        <div className="control">
-          <input
-            name="usuAsignado"
-            className="input shadow-lg"
-            type="number"
-            placeholder="Ingrese el codigo del usuario asignado"
+        <div className="column">
+          <Dropdown
+            label="Origen"
+            value={select.origen}
           />
         </div>
       </div>
-      <div className="columns is-mobile">
+      <div className="columns">
         <div className="column">
-          <div className="field">
-            <label className="label">Codigo Campaña</label>
-            <div className="control">
-              <input
-                name="codCampa"
-                className="input shadow-lg"
-                type="number"
-                placeholder="Ingrese el codigo de campaña"
-              />
-            </div>
-          </div>
-        </div>
-        <div className="column">
-          <div className="field">
-            <label className="label">Interés</label>
-            <div className="control">
-              <input
-                name="curso_id"
-                className="input shadow-lg"
-                type="number"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="field">
-        <label className="label">Origen</label>
-        <div className="control">
-          <input
-            name="origen"
-            className="input shadow-lg"
-            type="text"
-            placeholder="Ingrese el Origen del Lead"
+          <Dropdown
+            label="Campaña"
+            value={select.campana}
           />
         </div>
-      </div>
+        <div className="column">
+          <Dropdown
+            label="Usuario Asignado"
+            value={select.usu_asignado}
+          />
+        </div>
+      </div>      
     </Seccion>
   );
 };
