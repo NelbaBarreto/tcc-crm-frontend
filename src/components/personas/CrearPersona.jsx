@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Select from "react-select";
 import Seccion from "../formulario/Seccion";
 import Direccion from "./Direccion";
-import { Input } from "../formulario/Componentes";
 import { Eliminar } from "../formulario/Acciones";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
@@ -17,11 +16,18 @@ const Persona = ({ persona, setPersona }) => {
 
   return (
     <Seccion titulo="Datos Personales">
-      <Input 
-        label="Nombre"
-        value={persona.nombre}
-        onChange={console.log("a")}
-      />
+      <div className="field">
+        <label className="label">Nombre</label>
+        <div className="control">
+          <input
+            name="nombre"
+            className="input shadow-lg"
+            value={persona.nombre || ""}
+            onChange={e => setPersona({ ...persona, [e.target.name]: e.target.value })}
+            type="text"
+          />
+        </div>
+      </div>
       <div className="field">
         <label className="label">Email</label>
         <div className="control">
@@ -76,8 +82,8 @@ const Direcciones = () => {
   const onAddClick = e => {
     e.preventDefault();
     setInputList(inputList.concat(
-      <Direccion 
-        key={inputList.length} 
+      <Direccion
+        key={inputList.length}
         index={inputList.length}
       />
     ));

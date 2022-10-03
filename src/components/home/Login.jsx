@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer } from "react";
+import React, { useEffect, useReducer } from "react";
 import MostrarMensaje from "../formulario/MostrarMensaje";
 import { Input } from "../formulario/Componentes";
 import { GoogleLogin } from "react-google-login";
