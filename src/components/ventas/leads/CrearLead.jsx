@@ -7,6 +7,7 @@ import { Titulo1 } from "../../formulario/Titulo";
 import { Dropdown } from "../../formulario/Componentes";
 import { getUsuarios } from "../../../api/usuarios";
 import { getCampanas } from "../../../api/campanas";
+import { createLead } from "../../../api/leads";
 import { reducer } from "../../formulario/reducerFormularios.js";
 import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
@@ -54,7 +55,7 @@ const DatosLead = ({ onChange }) => {
             label="Campaña"
             value={select.campana}
             options={opcionesCampanas}
-            onChange={e => { onChange(e, "campana_id", e.value); setSelect({ ...select, campana: e }) }}
+            onChange={e => { onChange(e, "campana_id", e?.value); setSelect({ ...select, campana: e }) }}
           />
         </div>
         <div className="column">
@@ -62,7 +63,7 @@ const DatosLead = ({ onChange }) => {
             label="Usuario Asignado"
             value={select.usu_asignado}
             options={opcionesUsuarios}
-            onChange={e => { onChange(e, "usu_asignado", e.value); setSelect({ ...select, usu_asignado: e }) }}
+            onChange={e => { onChange(e, "usu_asignado", e?.value); setSelect({ ...select, usu_asignado: e }) }}
           />
         </div>
       </div>
@@ -75,11 +76,22 @@ const CrearLead = () => {
   const [action, setAction] = useState({});
   const navigate = useNavigate();
 
-  const handleDispatch = (e, name, value) => {
+  const handleDispatch = (e, name, value = " ") => {
     dispatch({ type: "FORM_UPDATED", 
       payload: { name: e?.target?.name || name, value: e?.target?.value || value, object: "lead" } 
     })
   }
+
+  const crear = async () => {
+    setAction({ saving: true, error: false, message: "" });
+    try {
+      await createLead(state.lead);
+      setAction({ saving: false, error: false, message: "Lead creado exitosamente." });
+      setTimeout(() => navigate("/ventas/leads"), 3000);
+    } catch (e) {
+      setAction({ saving: false, error: true, message: e.message });
+    };
+  };
 
   return (
     <div>
@@ -88,7 +100,7 @@ const CrearLead = () => {
           Nuevo Lead
         </Titulo1>
         {action.message ? <MostrarMensaje mensaje={action.message} error={action.error} /> : null}
-        <form>
+        <form onSubmit={crear}>
           {/* <CrearPersona persona={persona} setPersona={setPersona} /> */}
           <DatosLead lead={state.lead} onChange={handleDispatch} />
           <Guardar saving={action.saving} />

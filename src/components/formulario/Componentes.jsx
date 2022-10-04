@@ -64,6 +64,7 @@ export const Dropdown = ({ label, name, value = "", placeholder = "", className 
         onChange={onChange}
         value={value}
         options={options}
+        isClearable={true}
       />
     </div>
   </div>
