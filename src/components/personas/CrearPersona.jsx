@@ -35,7 +35,7 @@ const Persona = ({ persona, setPersona }) => {
             name="email"
             className="input shadow-lg"
             value={persona.email || ""}
-            onChange={e => setPersona({ ...persona, [e.target.name]: e.target.value, empleado: { ...persona.empleado, usuario: { ...persona.empleado.usuario, [e.target.name]: e.target.value } } })}
+            onChange={e => setPersona({ ...persona, [e.target.name]: e.target.value })}
             type="email"
           />
         </div>

@@ -63,7 +63,7 @@ const DatosLead = ({ onChange }) => {
             label="Usuario Asignado"
             value={select.usu_asignado}
             options={opcionesUsuarios}
-            onChange={e => { onChange(e, "usu_asignado", e?.value); setSelect({ ...select, usu_asignado: e }) }}
+            onChange={e => { onChange(e, "usu_asignado_id", e?.value); setSelect({ ...select, usu_asignado: e }) }}
           />
         </div>
       </div>
@@ -73,6 +73,7 @@ const DatosLead = ({ onChange }) => {
 
 const CrearLead = () => {
   const [state, dispatch] = useReducer(reducer, {});
+  const [persona, setPersona] = useState({});
   const [action, setAction] = useState({});
   const navigate = useNavigate();
 
@@ -82,10 +83,11 @@ const CrearLead = () => {
     })
   }
 
-  const crear = async () => {
+  const crear = async e => {
+    e.preventDefault();
     setAction({ saving: true, error: false, message: "" });
     try {
-      await createLead(state.lead);
+      await createLead({ ...state.lead, persona });
       setAction({ saving: false, error: false, message: "Lead creado exitosamente." });
       setTimeout(() => navigate("/ventas/leads"), 3000);
     } catch (e) {
@@ -100,10 +102,10 @@ const CrearLead = () => {
           Nuevo Lead
         </Titulo1>
         {action.message ? <MostrarMensaje mensaje={action.message} error={action.error} /> : null}
-        <form onSubmit={crear}>
-          {/* <CrearPersona persona={persona} setPersona={setPersona} /> */}
+        <form>
+          <CrearPersona persona={persona} setPersona={setPersona} />
           <DatosLead lead={state.lead} onChange={handleDispatch} />
-          <Guardar saving={action.saving} />
+          <Guardar saving={action.saving} guardar={crear} />
           <Volver navigate={navigate} />
         </form>
       </section>
