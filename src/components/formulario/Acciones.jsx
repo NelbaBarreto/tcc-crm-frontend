@@ -8,6 +8,7 @@ export const Guardar = ({ guardar, saving = false }) => {
     <div className="field mt-3">
       <div className="control">
         <button
+          type="submit"
           className={classNames("button float-right font-semibold shadow-lg text-white hover:text-white focus:text-white hover:bg-deep-purple-700 focus:bg-deep-purple-700 bg-deep-purple-400 border-deep-purple-700",
             { "is-loading": saving })}
           disabled={saving}
