@@ -48,7 +48,7 @@ const Index = () => {
       }
     },
     {
-      name: "estado",
+      name: "activo",
       label: "Estado",
       options: {
         customBodyRender: value => value ? "Activo" : "Inactivo",

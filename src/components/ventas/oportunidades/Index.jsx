@@ -25,8 +25,18 @@ const Index = () => {
       label: "Estado",
       options: {
         filter: true,
-        filterType: "dropDown",
+        filterType: "textField",
         sort: true,
+        customBodyRender: (value, tableMeta) => {
+          return (
+            <NavLink
+              to={"/ventas/leads/" + tableMeta.rowData[0]}
+              className="underline text-blue-900"
+            >
+              {value}
+            </NavLink>
+          )
+        }
       }
     },
     {
