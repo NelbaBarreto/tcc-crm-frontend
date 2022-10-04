@@ -1,14 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, useReducer } from "react";
 import Seccion from "../../formulario/Seccion";
 import MostrarMensaje from "../../formulario/MostrarMensaje";
 import CrearPersona from "../../personas/CrearPersona";
 import { Volver, Guardar } from "../../formulario/Acciones";
 import { Titulo1 } from "../../formulario/Titulo";
 import { Dropdown } from "../../formulario/Componentes";
+import { getUsuarios } from "../../../api/usuarios";
+import { getCampanas } from "../../../api/campanas";
+import { reducer } from "../../formulario/reducerFormularios.js";
+import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 
-const DatosLead = () => {
+const DatosLead = ({ onChange }) => {
   const [select, setSelect] = useState({ estado: "", origen: "", campana: "", usu_asignado: "" });
+
+  const {
+    data: usuarios,
+    usuariosLoading
+  } = useQuery(["usuarios"], getUsuarios);
+
+  const {
+    data: campanas,
+    campanasLoading
+  } = useQuery(["campanas"], getCampanas);
+
+  const opcionesUsuarios = usuariosLoading || !usuarios ? [] :
+    usuarios.map(usuario => ({ value: usuario.usuario_id, label: usuario.nom_usuario }));
+
+  const opcionesCampanas = campanasLoading || !campanas ? [] :
+    campanas.map(campana => ({ value: campana.campana_id, label: campana.nombre }));
 
   return (
     <Seccion titulo="Datos del Lead">
@@ -17,12 +37,14 @@ const DatosLead = () => {
           <Dropdown
             label="Estado"
             value={select.estado}
+            onChange={e => { onChange(e, "estado", e.value); setSelect({ ...select, estado: e }) }}
           />
         </div>
         <div className="column">
           <Dropdown
             label="Origen"
             value={select.origen}
+            onChange={e => { onChange(e, "origen", e.value); setSelect({ ...select, origen: e }) }}
           />
         </div>
       </div>
@@ -31,23 +53,33 @@ const DatosLead = () => {
           <Dropdown
             label="Campaña"
             value={select.campana}
+            options={opcionesCampanas}
+            onChange={e => { onChange(e, "campana_id", e.value); setSelect({ ...select, campana: e }) }}
           />
         </div>
         <div className="column">
           <Dropdown
             label="Usuario Asignado"
             value={select.usu_asignado}
+            options={opcionesUsuarios}
+            onChange={e => { onChange(e, "usu_asignado", e.value); setSelect({ ...select, usu_asignado: e }) }}
           />
         </div>
-      </div>      
+      </div>
     </Seccion>
   );
 };
 
 const CrearLead = () => {
-  const [persona, setPersona] = useState({ empleado: { usuario: {} } });
-  const [state, setState] = useState(false);
+  const [state, dispatch] = useReducer(reducer, {});
+  const [action, setAction] = useState({});
   const navigate = useNavigate();
+
+  const handleDispatch = (e, name, value) => {
+    dispatch({ type: "FORM_UPDATED", 
+      payload: { name: e?.target?.name || name, value: e?.target?.value || value, object: "lead" } 
+    })
+  }
 
   return (
     <div>
@@ -55,11 +87,11 @@ const CrearLead = () => {
         <Titulo1>
           Nuevo Lead
         </Titulo1>
-        {state.message ? <MostrarMensaje mensaje={state.message} error={state.error} /> : null}
+        {action.message ? <MostrarMensaje mensaje={action.message} error={action.error} /> : null}
         <form>
-          <CrearPersona persona={persona} setPersona={setPersona} />
-          <DatosLead persona={persona} setPersona={setPersona} />
-          <Guardar saving={state.saving} />
+          {/* <CrearPersona persona={persona} setPersona={setPersona} /> */}
+          <DatosLead lead={state.lead} onChange={handleDispatch} />
+          <Guardar saving={action.saving} />
           <Volver navigate={navigate} />
         </form>
       </section>
