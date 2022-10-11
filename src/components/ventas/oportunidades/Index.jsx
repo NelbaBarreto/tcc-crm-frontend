@@ -1,69 +1,23 @@
 import React from "react";
-import DataTables from "../DataTables";
+import DataTables from "../../DataTables";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useQuery } from "react-query";
-import { getEmpleados } from "../../api/empleados";
+import { getOportunidades } from "../../../api/oportunidades";
 import { NavLink } from "react-router-dom";
 
 const Index = () => {
   const {
-    data: empleados,
+    data: oportunidades,
     isLoading
-  } = useQuery(["empleados"], getEmpleados);
+  } = useQuery(["oportunidades"], getOportunidades);
 
   const columns = [
     {
-      name: "empleado_id",
+      name: "oportunidad_id",
       options: {
-        display: "none"
-      }
-    },
-    {
-      name: "persona.nombre",
-      label: "Nombre",
-      options: {
-        filter: true,
-        filterType: "textField",
-        sort: true,
-        customBodyRender: (value, tableMeta) => {
-          return (
-            <NavLink
-              to={"/admin/empleados/" + tableMeta.rowData[0]}
-              className="underline text-blue-900"
-            >
-              {value}
-            </NavLink>
-          )
-        }
-      }
-    },
-    {
-      name: "persona.email",
-      label: "Email",
-      options: {
-        filter: true,
-        filterType: "textField",
-        sort: true,
-      }
-    },
-    {
-      name: "activo",
-      label: "Estado",
-      options: {
-        customBodyRender: value => value ? "Activo" : "Inactivo",
-        filter: true,
-        filterType: "dropdown",
-        sort: true,
-      }
-    },
-    {
-      name: "usuario.nom_usuario",
-      label: "Usuario",
-      options: {
-        filter: true,
-        filterType: "textField",
-        sort: true,
+        display: "excluded",
+        filter: false
       }
     },
     {
@@ -77,7 +31,7 @@ const Index = () => {
             <button
               className="button font-semibold shadow-lg text-white hover:text-white focus:text-white
               hover:bg-deep-purple-700 bg-deep-purple-400 border-deep-purple-700"
-              onClick={() => console.log(empleados[dataIndex])}
+              onClick={() => console.log(oportunidades[dataIndex])}
             >
               Editar
             </button>
@@ -91,7 +45,7 @@ const Index = () => {
     <div>
       <section className="section w-full m-auto">
         <NavLink
-          to="/admin/empleados/nuevo"
+          to="/ventas/oportunidades/nuevo"
           className="button font-semibold shadow-lg text-white hover:text-white focus:text-white
               hover:bg-deep-purple-700 bg-deep-purple-400 border-deep-purple-700 mb-2"
         >
@@ -101,9 +55,9 @@ const Index = () => {
           </span>
         </NavLink>
         <DataTables
-          title="Listado de Empleados"
+          title="Listado de Oportunidades"
           columns={columns}
-          data={empleados}
+          data={oportunidades}
           isLoading={isLoading}
         />
       </section>

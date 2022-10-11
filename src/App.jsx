@@ -37,14 +37,17 @@ import CrearTipoCampana from "./components/marketing/tipo_campanas/CrearTipoCamp
 import ListarLeads from "./components/ventas/leads/Index";
 import CrearLead from "./components/ventas/leads/CrearLead";
 
-//Contacto
-import CrearContacto from "./components/ventas/CrearContacto";
+//Contactos
+import ListarContactos from "./components/ventas/contactos/Index";
+import CrearContacto from "./components/ventas/contactos/CrearContacto";
 
-//Organización
-import CrearOrganizacion from "./components/ventas/CrearOrganizacion";
+//Organizaciones
+import ListarOrganizaciones from "./components/ventas/organizaciones/Index";
+import CrearOrganizacion from "./components/ventas/organizaciones/CrearOrganizacion";
 
-//Oportunidad
-import CrearOportunidad from "./components/ventas/CrearOportunidad";
+//Oportunidades
+import ListarOportunidades from "./components/ventas/oportunidades/Index";
+import CrearOportunidad from "./components/ventas/oportunidades/CrearOportunidad";
 
 //Soporte
 import CrearCaso from "./components/soporte/CrearCaso";
@@ -101,13 +104,23 @@ const MainApp = () => {
           {/* Tipo Campañas */}
           <Route exact path="/marketing/tipocampana" element={<ListarTipcampana />} />
           <Route path="/marketing/tipocampana/nuevo" element={<CrearTipoCampana />} />
+
           {/* Leads */}
           <Route exact path="/ventas/leads" element={<ListarLeads />} />
           <Route path="/ventas/leads/nuevo" element={<CrearLead />} />
-          
-          <Route path="/ventas/contactos" element={<CrearContacto />} />
-          <Route path="/ventas/organizaciones" element={<CrearOrganizacion />} />
-          <Route path="/ventas/oportunidades" element={<CrearOportunidad />} />
+
+          {/* Contactos */}
+          <Route exact path="/ventas/contactos" element={<ListarContactos />} />
+          <Route path="/ventas/contactos/nuevo" element={<CrearContacto />} />
+
+          {/* Organizaciones */}
+          <Route exact path="/ventas/organizaciones" element={<ListarOrganizaciones />} />
+          <Route path="/ventas/organizaciones/nuevo" element={<CrearOrganizacion />} />
+
+          {/* Oportunidades */}
+          <Route path="/ventas/oportunidades" element={<ListarOportunidades />} />
+          <Route path="/ventas/oportunidades/nuevo" element={<CrearOportunidad />} />
+
           <Route path="/soporte/casos" element={<CrearCaso />} />
           <Route path="/actividades/calendario" element={<Calendario />} />
           <Route path="/actividades/tareas" element={<CrearTarea />} />
@@ -118,7 +131,7 @@ const MainApp = () => {
           {/* // */}
           <Route exact path="/educacion/profesores" element={<ListarProfesores />} />
           <Route path="/educacion/profesores/nuevo" element={<CrearProfesor />} />
-          
+
           {/* Sucursales */}
           <Route exact path="/educacion/sucursales" element={<ListarSucursales />} />
           <Route path="/educacion/sucursales/nuevo" element={<CrearSucursal />} />
