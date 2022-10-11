@@ -58,6 +58,7 @@ import CrearTarea from "./components/actividades/CrearTarea";
 //Cursos
 import ListarCursos from "./components/educacion/cursos/Index";
 import CrearCurso from "./components/educacion/cursos/CrearCurso";
+import MostrarCurso from "./components/educacion/cursos/MostrarCurso";
 
 // Profesores
 import CrearProfesor from "./components/educacion/profesores/CrearProfesor";
@@ -82,6 +83,7 @@ const MainApp = () => {
         <Routes>
           <Route exact path="/" element={<Dashboard />} />
           <Route path="/dashboard" element={<Dashboard />} />
+
           {/* Empleados */}
           <Route exact path="/admin/empleados" element={<ListarEmpleados />} />
           <Route path="/admin/empleados/nuevo" element={<CrearEmpleado />} />
@@ -125,9 +127,12 @@ const MainApp = () => {
           <Route path="/actividades/calendario" element={<Calendario />} />
           <Route path="/actividades/tareas" element={<CrearTarea />} />
           <Route path="/actividades/llamadas" element={<CrearLlamada />} />
-          {/* Educación */}
+
+          {/* Cursos */}
           <Route exact path="/educacion/cursos" element={<ListarCursos />} />
           <Route path="/educacion/cursos/nuevo" element={<CrearCurso />} />
+          <Route path="/educacion/cursos/:id" element={<MostrarCurso />} />
+
           {/* // */}
           <Route exact path="/educacion/profesores" element={<ListarProfesores />} />
           <Route path="/educacion/profesores/nuevo" element={<CrearProfesor />} />
