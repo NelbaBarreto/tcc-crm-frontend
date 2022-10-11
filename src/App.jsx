@@ -46,7 +46,7 @@ import ListarOrganizaciones from "./components/ventas/organizaciones/Index";
 import CrearOrganizacion from "./components/ventas/organizaciones/CrearOrganizacion";
 
 //Oportunidades
-import ListarOportunidades from "./components/ventas/organizaciones/Index";
+import ListarOportunidades from "./components/ventas/oportunidades/Index";
 import CrearOportunidad from "./components/ventas/oportunidades/CrearOportunidad";
 
 //Soporte

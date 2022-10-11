@@ -25,7 +25,7 @@ const Index = () => {
       label: "Estado",
       options: {
         filter: true,
-        filterType: "dropDown",
+        filterType: "dropdown",
         sort: true,
       }
     },
