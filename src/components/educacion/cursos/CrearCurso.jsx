@@ -7,8 +7,6 @@ import { Volver, Guardar } from "../../formulario/Acciones";
 import { reducer } from "../../formulario/reducerFormularios.js";
 import { useNavigate } from "react-router-dom";
 import { createCurso } from "../../../api/cursos";
-import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const DatosCurso = ({ onChange, curso, navigate }) => {
   return (
@@ -25,21 +23,6 @@ const DatosCurso = ({ onChange, curso, navigate }) => {
         value={curso?.descripcion}
         onChange={onChange}
       />
-      <div className="field mt-3">
-        <div className="control">
-          <button
-            type="submit"
-            className="button font-semibold shadow-lg text-deep-purple-800 hover:text-white focus:text-white
-              hover:bg-deep-purple-700 bg-deep-purple-100"
-            onClick={() => navigate("/educacion/cursos")}
-          >
-            <span>Crear Ciclo</span>
-            <span className="icon is-small">
-              <FontAwesomeIcon icon={solid("arrows-spin")} />
-            </span>
-          </button>
-        </div>
-      </div>
     </Seccion>
   );
 };

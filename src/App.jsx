@@ -60,6 +60,9 @@ import ListarCursos from "./components/educacion/cursos/Index";
 import CrearCurso from "./components/educacion/cursos/CrearCurso";
 import MostrarCurso from "./components/educacion/cursos/MostrarCurso";
 
+// Ciclos
+import CrearCiclo from "./components/educacion/ciclos/CrearCiclo";
+
 // Profesores
 import CrearProfesor from "./components/educacion/profesores/CrearProfesor";
 import ListarProfesores from "./components/educacion/profesores/Index";
@@ -132,6 +135,9 @@ const MainApp = () => {
           <Route exact path="/educacion/cursos" element={<ListarCursos />} />
           <Route path="/educacion/cursos/nuevo" element={<CrearCurso />} />
           <Route path="/educacion/cursos/:id" element={<MostrarCurso />} />
+
+          {/* Ciclos */}
+          <Route exact path="/educacion/cursos/:curso_id/ciclos/nuevo" element={<CrearCiclo />} />
 
           {/* // */}
           <Route exact path="/educacion/profesores" element={<ListarProfesores />} />

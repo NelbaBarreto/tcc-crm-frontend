@@ -10,9 +10,9 @@ import { createCurso } from "../../../api/cursos";
 import { useQuery } from "react-query";
 import { getSucursales } from "../../../api/sucursales";
 
-const DatosCurso = ({ onChange, curso }) => {
+const DatosCiclo = ({ onChange, curso }) => {
   const [sucursal, setSucursal] = useState("");
-  const [horario, setHorario] = useState("");
+  const [nivel, setNivel] = useState("");
 
   const {
     data: sucursales,
@@ -23,25 +23,36 @@ const DatosCurso = ({ onChange, curso }) => {
     sucursales.map(sucursal => ({ value: sucursal.sucursal_id, label: sucursal.nombre }));
 
   return (
-    <Seccion titulo="Datos del Curso">
-      <Input
-        name="nombre"
-        label="Nombre"
-        value={curso?.nombre}
-        onChange={onChange}
-      />
-      <TextArea
-        name="descripcion"
-        label="Descripción"
-        value={curso?.descrpcion}
-        onChange={onChange}
-      />
-      <Dropdown
-        label="Sede"
-        onChange={e => {onChange(e, "sucursal_id", e.value); setSucursal(e)}}
-        value={sucursal}
-        options={opcionesSucursal}
-      />
+    <Seccion titulo="Datos del Ciclo">
+      <div className="columns">
+        <div className="column">
+          <Dropdown
+            label="Nivel"
+            onChange={e => { onChange(e, "nivel", e.value); setNivel(e) }}
+            value={nivel}
+            options={[{ label: "Avanzado", value: "avanzado" }]}
+          />
+        </div>
+        <div className="column">
+          <Dropdown
+            label="Sede"
+            onChange={e => { onChange(e, "sucursal_id", e.value); setSucursal(e) }}
+            value={sucursal}
+            options={[{ label: "España", value: "espana" }]}
+            //options={opcionesSucursal}
+          />
+        </div>
+      </div>
+      <div className="columns">
+        <div className="column is-half">
+          <Input
+            name="precio"
+            label="Precio"
+            value={curso?.precio}
+            onChange={onChange}
+          />
+        </div>
+      </div>
       <div className="columns">
         <div className="column">
           <Datepicker
@@ -60,12 +71,6 @@ const DatosCurso = ({ onChange, curso }) => {
           />
         </div>
       </div>
-      <Dropdown
-        label="Horario"
-        value={horario}
-        onChange={e => {onChange(e, "horario", e.value); setHorario(e)}}
-        options={[{ label: "tarde", value: "tarde" }]}
-      />
     </Seccion>
   );
 };
@@ -78,7 +83,7 @@ const DatosAulas = () => {
   );
 }
 
-const CrearCurso = () => {
+const CrearCiclo = () => {
   const [state, dispatch] = useReducer(reducer, {});
   const [action, setAction] = useState({});
   const navigate = useNavigate();
@@ -96,8 +101,9 @@ const CrearCurso = () => {
   };
 
   const handleDispatch = (e, name, value) => {
-    dispatch({ type: "FORM_UPDATED", 
-      payload: { name: e?.target?.name || name, value: e?.target?.value || value, object: "curso" } 
+    dispatch({
+      type: "FORM_UPDATED",
+      payload: { name: e?.target?.name || name, value: e?.target?.value || value, object: "curso" }
     })
   }
 
@@ -105,11 +111,11 @@ const CrearCurso = () => {
     <div>
       <section className="section w-full m-auto">
         <Titulo1>
-          Nuevo Curso
+          Nuevo Ciclo
         </Titulo1>
         {action.message ? <MostrarMensaje mensaje={action.message} error={action.error} /> : null}
         <form>
-          <DatosCurso onChange={handleDispatch} curso={state.curso} />
+          <DatosCiclo onChange={handleDispatch} curso={state.curso} />
           <DatosAulas />
           <Guardar saving={action.saving} guardar={crear} />
           <Volver navigate={navigate} />
@@ -119,4 +125,4 @@ const CrearCurso = () => {
   )
 };
 
-export default CrearCurso;
+export default CrearCiclo;
