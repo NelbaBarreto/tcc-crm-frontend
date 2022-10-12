@@ -21,6 +21,101 @@ const Index = () => {
       }
     },
     {
+      name: "nombre",
+      label: "Nombre",
+      options: {
+        filter: true,
+        filterType: "textField",
+        sort: true,
+        customBodyRender: (value, tableMeta) => {
+          return (
+            <NavLink
+              to={"/ventas/oportunidades/" + tableMeta.rowData[0]}
+              className="underline text-blue-900"
+            >
+              {value}
+            </NavLink>
+          )
+        }
+      }
+    },
+    {
+      name: "campana_id",
+      label: "codigo campana",
+      options: {
+        filter: true,
+        filterType: "textField",
+        sort: true,
+        customBodyRender: (value, tableMeta) => {
+          return (
+            <NavLink
+              to={"/ventas/oportunidades/" + tableMeta.rowData[0]}
+              className="underline text-blue-900"
+            >
+              {value}
+            </NavLink>
+          )
+        }
+      }
+    },
+    {
+      name: "usu_asignado",
+      label: "Usuario Asignado",
+      options: {
+        filter: true,
+        filterType: "textField",
+        sort: true,
+        customBodyRender: (value, tableMeta) => {
+          return (
+            <NavLink
+              to={"/ventas/oportunidades/" + tableMeta.rowData[0]}
+              className="underline text-blue-900"
+            >
+              {value}
+            </NavLink>
+          )
+        }
+      }
+    },
+    {
+      name: "valor",
+      label: "Valor",
+      options: {
+        filter: true,
+        filterType: "textField",
+        sort: true,
+        customBodyRender: (value, tableMeta) => {
+          return (
+            <NavLink
+              to={"/ventas/oportunidades/" + tableMeta.rowData[0]}
+              className="underline text-blue-900"
+            >
+              {value}
+            </NavLink>
+          )
+        }
+      }
+    },
+    {
+      name: "etapa",
+      label: "Etapa",
+      options: {
+        filter: true,
+        filterType: "textField",
+        sort: true,
+        customBodyRender: (value, tableMeta) => {
+          return (
+            <NavLink
+              to={"/ventas/oportunidades/" + tableMeta.rowData[0]}
+              className="underline text-blue-900"
+            >
+              {value}
+            </NavLink>
+          )
+        }
+      }
+    },
+    {
       name: "",
       options: {
         filter: false,
