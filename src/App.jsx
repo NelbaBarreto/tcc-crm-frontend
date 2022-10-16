@@ -127,6 +127,7 @@ const MainApp = () => {
           <Route path="/ventas/oportunidades/nuevo" element={<CrearOportunidad />} />
 
           <Route path="/soporte/casos" element={<CrearCaso />} />
+          
           <Route path="/actividades/calendario" element={<Calendario />} />
           <Route path="/actividades/tareas" element={<CrearTarea />} />
           <Route path="/actividades/llamadas" element={<CrearLlamada />} />

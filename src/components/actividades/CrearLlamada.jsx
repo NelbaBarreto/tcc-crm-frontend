@@ -19,7 +19,7 @@ const CrearLlamada = () => {
         {state.message ? <MostrarMensaje mensaje={state.message} error={state.error} /> : null}
         <form>
           <Seccion titulo="General">
-            <div className="columns">
+            <div className="columns is-vcentered">
               <div className="column">
                 <div className="field">
                   <label className="label">Asunto</label>
@@ -32,11 +32,11 @@ const CrearLlamada = () => {
                   </div>
                 </div>
               </div>
-              <div className="column">
+              <div className="column is-2">
                 <div className="field">
-                  <label className="label">Estado</label>
-                  <div className="columns">
-                    <div className="column">
+                  <label className="label">Tipo</label>
+                  {/* <div className="columns">
+                    <div className="column"> */}
                       <div className="control">
                         <div className="select">
                           <select>
@@ -45,12 +45,19 @@ const CrearLlamada = () => {
                           </select>
                         </div>
                       </div>
-                    </div>
-                    <div className="column">
+                    {/* </div>
+                  </div> */}
+                </div>
+              </div>
+              <div className="column is-3">
+                <div className="field">
+                  <label className="label">Estado</label>
+                  {/* <div className="columns">
+                    <div className="column"> */}
                       <div className="control">
                         <div className="select">
                           <select>
-                            <option>Ocupado</option>
+                            <option selected>Ocupado</option>
                             <option>Conectado</option>
                             <option>Dejo un mensaje</option>
                             <option>Sin respuesta</option>
@@ -60,12 +67,12 @@ const CrearLlamada = () => {
                           </select>
                         </div>
                       </div>
-                    </div>
-                  </div>
+                    {/* </div>
+                  </div> */}
                 </div>
               </div>
             </div>
-            <div className="columns is-mobile">
+            <div className="columns is-desktop">
               <div className="column">
                 <div className="field">
                   <label className="label">Fecha y Hora de Inicio</label>
