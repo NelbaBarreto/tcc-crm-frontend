@@ -70,3 +70,21 @@ export const Dropdown = ({ label, name, value = "", placeholder = "", className 
   </div>
   );
 }
+
+export const TextArea = ({ label, name, value = "", type = "text", placeholder = "", className = "textarea shadow-lg", onChange }) => {
+  return (
+    <div className="field">
+      <label className="label">{label}</label>
+      <div className="control">
+        <textarea
+          name={name}
+          className={className}
+          placeholder={placeholder}
+          type={type}
+          value={value}
+          onChange={onChange}
+        />
+      </div>
+    </div>
+  );
+}

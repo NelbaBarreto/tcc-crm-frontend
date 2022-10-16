@@ -2,36 +2,13 @@ import React, { useState, useReducer } from "react";
 import Seccion from "../../formulario/Seccion";
 import MostrarMensaje from "../../formulario/MostrarMensaje";
 import { Titulo1 } from "../../formulario/Titulo";
-import { Dropdown, Datepicker, Input } from "../../formulario/Componentes";
+import { Input, TextArea } from "../../formulario/Componentes";
 import { Volver, Guardar } from "../../formulario/Acciones";
 import { reducer } from "../../formulario/reducerFormularios.js";
 import { useNavigate } from "react-router-dom";
 import { createCurso } from "../../../api/cursos";
-import { useQuery } from "react-query";
-import { getProfesores } from "../../../api/profesores";
-import { getSucursales } from "../../../api/sucursales";
 
-const DatosCurso = ({ onChange, curso }) => {
-  const [profesor, setProfesor] = useState("");
-  const [sucursal, setSucursal] = useState("");
-  const [horario, setHorario] = useState("");
-
-  const {
-    data: profesores,
-    profesoresLoading
-  } = useQuery(["profesores"], getProfesores);
-
-  const {
-    data: sucursales,
-    sucursalesLoading
-  } = useQuery(["sucursales"], getSucursales);
-
-  const opcionesProfesor = profesoresLoading || !profesores ? [] :
-    profesores.map(profesor => ({ value: profesor.profesor_id, label: profesor.nombre }));
-
-  const opcionesSucursal = sucursalesLoading || !sucursales ? [] :
-    sucursales.map(sucursal => ({ value: sucursal.sucursal_id, label: sucursal.nombre }));
-
+const DatosCurso = ({ onChange, curso, navigate }) => {
   return (
     <Seccion titulo="Datos del Curso">
       <Input
@@ -40,41 +17,11 @@ const DatosCurso = ({ onChange, curso }) => {
         value={curso?.nombre}
         onChange={onChange}
       />
-      <Dropdown
-        label="Profesor"
-        value={profesor}
-        onChange={e => {onChange(e, "profesor_id", e.value); setProfesor(e)}}
-        options={opcionesProfesor}
-      />
-      <Dropdown
-        label="Sucursal"
-        onChange={e => {onChange(e, "sucursal_id", e.value); setSucursal(e)}}
-        value={sucursal}
-        options={opcionesSucursal}
-      />
-      <div className="columns">
-        <div className="column">
-          <Datepicker
-            label="Fecha de Inicio"
-            name="fec_ini_curso"
-            selected={curso?.fec_ini_curso}
-            onChange={date => onChange(null, "fec_ini_curso", date)}
-          />
-        </div>
-        <div className="column">
-          <Datepicker
-            label="Fecha Fin"
-            name="fec_fin_curso"
-            selected={curso?.fec_fin_curso}
-            onChange={date => onChange(null, "fec_fin_curso", date)}
-          />
-        </div>
-      </div>
-      <Dropdown
-        label="Horario"
-        value={horario}
-        onChange={e => {onChange(e, "horario", e.value); setHorario(e)}}
-        options={[{ label: "tarde", value: "tarde" }]}
+      <TextArea
+        name="descripcion"
+        label="Descripción"
+        value={curso?.descripcion}
+        onChange={onChange}
       />
     </Seccion>
   );
@@ -98,8 +45,9 @@ const CrearCurso = () => {
   };
 
   const handleDispatch = (e, name, value) => {
-    dispatch({ type: "FORM_UPDATED", 
-      payload: { name: e?.target?.name || name, value: e?.target?.value || value, object: "curso" } 
+    dispatch({
+      type: "FORM_UPDATED",
+      payload: { name: e?.target?.name || name, value: e?.target?.value || value, object: "curso" }
     })
   }
 
@@ -111,7 +59,7 @@ const CrearCurso = () => {
         </Titulo1>
         {action.message ? <MostrarMensaje mensaje={action.message} error={action.error} /> : null}
         <form>
-          <DatosCurso onChange={handleDispatch} curso={state.curso} />
+          <DatosCurso onChange={handleDispatch} curso={state.curso} navigate={navigate} />
           <Guardar saving={action.saving} guardar={crear} />
           <Volver navigate={navigate} />
         </form>
