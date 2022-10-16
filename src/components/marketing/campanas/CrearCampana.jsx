@@ -11,6 +11,7 @@ const CrearCampana = () => {
   const [campana, setCampana] = useState({});
   const [state, setState] = useState(false);
   const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(null);
   const navigate = useNavigate();
 
   const crear = async e => {
@@ -46,25 +47,21 @@ const CrearCampana = () => {
                 />
               </div>
             </div>
-            <div className="field">
-              <label className="label">Fecha de Inicio</label>
-              <div className="control">
+            <div className="columns">
+              <div className="column">
                 <DatePicker
+                  label="Fecha de Inicio"
                   className="input"
                   selected={startDate}
                   onChange={(date) => setStartDate(date)}
                 />
               </div>
-            </div>
-
-            <div className="field">
-              <label className="label">Fecha de Fin</label>
-              <div className="control">
-                <input
-                  name="fec_fin"
-                  className="input shadow-lg"
-                  type="date"
-                  onChange={e => setCampana({ ...campana, [e.target.name]: e.target.value })}
+              <div className="column">
+                <DatePicker
+                  label="Fecha Fin"
+                  className="input"
+                  selected={endDate}
+                  onChange={(date) => setEndDate(date)}
                 />
               </div>
             </div>
