@@ -2,6 +2,7 @@ import React from "react";
 import Seccion from "../../formulario/Seccion";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { TextView } from "../../formulario/Componentes";
 import { Volver } from "../../formulario/Acciones";
 import { useQuery } from "react-query";
 import { useParams, useNavigate } from "react-router-dom";
@@ -11,10 +12,14 @@ import { CircularProgress } from "@mui/material";
 const DatosCurso = ({ curso, navigate }) => {
   return (
     <Seccion titulo="Datos del Curso">
-      <ul className="list-none">
-        <li><label className="label">Nombre: </label>{curso.nombre}</li>
-        <li><label className="label">Descripción: </label>{curso.descripcion}</li>
-      </ul>
+      <div className="columns">
+        <div className="column">
+          <TextView label="Nombre" value={curso.nombre} />
+        </div>
+        <div className="column">
+          <TextView label="Descripción" value={curso.descripcion} />
+        </div>
+      </div>
       <div className="field mt-3">
         <div className="control">
           <button
