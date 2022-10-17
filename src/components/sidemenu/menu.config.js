@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faBullhorn, faChartColumn, faGauge, faHeadphonesSimple, faHouse, faListCheck, faMoneyBillTrendUp,
+  faBullhorn, faGauge, faHeadphonesSimple, faHouse, faListCheck, faMoneyBillTrendUp,
   faFolder, faPhone, faCalendar, faClipboardCheck, faBullseye, faUsers, faAddressCard, faEarth,
   faCity, faPersonChalkboard, faListUl, faFile, faPersonCircleCheck, faPersonCirclePlus, faBuilding, faHandshakeAlt,
   faBriefcase, faBusinessTime, faGear, faGraduationCap, faSchool, faUserGraduate, faChalkboardUser
@@ -13,7 +13,6 @@ const myIcons = {
   "headphones-simple": faHeadphonesSimple,
   "list-check": faListCheck,
   "house": faHouse,
-  "chart-column": faChartColumn,
   "earth-americas": faEarth,
   "city": faCity,
   "business-time": faBusinessTime,
@@ -182,10 +181,5 @@ export const sideMenu = [
         to: "sucursales",
       },
     ],
-  },
-  {
-    label: "Reportes",
-    Icon: () => <Icon iconName="chart-column" />,
-    to: "/reportes",
   },
 ];
