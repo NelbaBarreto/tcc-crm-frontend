@@ -88,3 +88,12 @@ export const TextArea = ({ label, name, value = "", type = "text", placeholder =
     </div>
   );
 }
+
+export const TextView = ({ label, value = "", className = "textarea shadow-lg" }) => {
+  return (
+    <div>
+      <label className="label">{label}</label>
+      <span>{value}</span>
+    </div>
+  );
+}

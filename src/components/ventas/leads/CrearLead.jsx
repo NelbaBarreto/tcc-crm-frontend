@@ -6,6 +6,7 @@ import { Volver, Guardar } from "../../formulario/Acciones";
 import { Titulo1 } from "../../formulario/Titulo";
 import { Dropdown } from "../../formulario/Componentes";
 import { getUsuarios } from "../../../api/usuarios";
+import { getCursos } from "../../../api/cursos";
 import { getCampanas } from "../../../api/campanas";
 import { createLead } from "../../../api/leads";
 import { reducer } from "../../formulario/reducerFormularios.js";
@@ -13,7 +14,8 @@ import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 
 const DatosLead = ({ onChange }) => {
-  const [select, setSelect] = useState({ estado: "", origen: "", campana: "", usu_asignado: "" });
+  const [select, setSelect] = useState({ estado: "", origen: "", campana: "", 
+    usu_asignado: "" , curso: ""});
 
   const {
     data: usuarios,
@@ -25,11 +27,19 @@ const DatosLead = ({ onChange }) => {
     campanasLoading
   } = useQuery(["campanas"], getCampanas);
 
+  const {
+    data: cursos,
+    cursosLoading
+  } = useQuery(["cursos"], getCursos);
+
   const opcionesUsuarios = usuariosLoading || !usuarios ? [] :
     usuarios.map(usuario => ({ value: usuario.usuario_id, label: usuario.nom_usuario }));
 
   const opcionesCampanas = campanasLoading || !campanas ? [] :
     campanas.map(campana => ({ value: campana.campana_id, label: campana.nombre }));
+
+  const opcionesCursos = cursosLoading || !cursos ? [] :
+    cursos.map(curso => ({ value: curso.curso_id, label: curso.nombre }));
 
   return (
     <Seccion titulo="Datos del Lead">
@@ -67,6 +77,12 @@ const DatosLead = ({ onChange }) => {
           />
         </div>
       </div>
+      <Dropdown
+        label="Curso/Interés"
+        value={select.curso_id}
+        options={opcionesCursos}
+        onChange={e => { onChange(e, "curso_id", e?.value); setSelect({ ...select, curso_id: e }) }}
+      />
     </Seccion>
   );
 };
@@ -78,8 +94,9 @@ const CrearLead = () => {
   const navigate = useNavigate();
 
   const handleDispatch = (e, name, value = " ") => {
-    dispatch({ type: "FORM_UPDATED", 
-      payload: { name: e?.target?.name || name, value: e?.target?.value || value, object: "lead" } 
+    dispatch({
+      type: "FORM_UPDATED",
+      payload: { name: e?.target?.name || name, value: e?.target?.value || value, object: "lead" }
     })
   }
 
