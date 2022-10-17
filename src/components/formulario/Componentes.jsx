@@ -55,19 +55,19 @@ export const Checkbox = ({ label, value }) => {
 export const Dropdown = ({ label, name, value = "", placeholder = "", className = "shadow-lg", options, onChange }) => {
   return (
     <div className="field">
-    <label className="label">{label}</label>
-    <div className="control">
-      <Select
-        name={name}
-        className={className}
-        placeholder={placeholder}
-        onChange={onChange}
-        value={value}
-        options={options}
-        isClearable={true}
-      />
+      <label className="label">{label}</label>
+      <div className="control">
+        <Select
+          name={name}
+          className={className}
+          placeholder={placeholder}
+          onChange={onChange}
+          value={value}
+          options={options}
+          isClearable={true}
+        />
+      </div>
     </div>
-  </div>
   );
 }
 
@@ -95,5 +95,16 @@ export const TextView = ({ label, value = "", className = "textarea shadow-lg" }
       <label className="label">{label}</label>
       <span>{value}</span>
     </div>
+  );
+}
+
+export const Button1 = ({ onClick, children }) => {
+  return (
+    <button
+      className="button font-semibold shadow-lg text-deep-purple-800 hover:text-white focus:text-white hover:bg-deep-purple-700 bg-deep-purple-100"
+      onClick={() => onClick}
+    >
+      {children}
+    </button>
   );
 }

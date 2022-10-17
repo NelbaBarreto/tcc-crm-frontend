@@ -2,7 +2,7 @@ import React from "react";
 import Seccion from "../../formulario/Seccion";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { TextView } from "../../formulario/Componentes";
+import { Button1, TextView } from "../../formulario/Componentes";
 import { Volver } from "../../formulario/Acciones";
 import { useQuery } from "react-query";
 import { useParams, useNavigate } from "react-router-dom";
@@ -22,17 +22,14 @@ const DatosCurso = ({ curso, navigate }) => {
       </div>
       <div className="field mt-3">
         <div className="control">
-          <button
-            type="submit"
-            className="button font-semibold shadow-lg text-deep-purple-800 hover:text-white focus:text-white
-              hover:bg-deep-purple-700 bg-deep-purple-100"
+          <Button1
             onClick={() => navigate(`/educacion/cursos/${curso.curso_id}/ciclos/nuevo`)}
           >
             <span>Crear Ciclo</span>
             <span className="icon is-small">
               <FontAwesomeIcon icon={solid("arrows-spin")} />
             </span>
-          </button>
+          </Button1>
         </div>
       </div>
     </Seccion>

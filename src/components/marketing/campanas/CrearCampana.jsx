@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import MostrarMensaje from "../../formulario/MostrarMensaje";
 import Seccion from "../../formulario/Seccion";
-import DatePicker from "react-datepicker";
+import { Datepicker } from "../../formulario/Componentes";
 import { Volver, Guardar } from "../../formulario/Acciones";
 import { useNavigate } from "react-router-dom";
 import { createCampana } from "../../../api/campanas";
@@ -49,7 +49,7 @@ const CrearCampana = () => {
             </div>
             <div className="columns">
               <div className="column">
-                <DatePicker
+                <Datepicker
                   label="Fecha de Inicio"
                   className="input"
                   selected={startDate}
@@ -57,7 +57,7 @@ const CrearCampana = () => {
                 />
               </div>
               <div className="column">
-                <DatePicker
+                <Datepicker
                   label="Fecha Fin"
                   className="input"
                   selected={endDate}
