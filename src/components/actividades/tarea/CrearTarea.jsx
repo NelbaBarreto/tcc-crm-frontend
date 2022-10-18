@@ -10,7 +10,7 @@ import { reducer } from "../../formulario/reducerFormularios.js";
 import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 
-const DatosCaso = ({ onChange }) => {
+const DatosTarea = ({ onChange }) => {
     const [select, setSelect] = useState({ estado: "", prioridad: "" });
 
     const {
@@ -156,7 +156,7 @@ const CrearTarea = () => {
                 </Titulo1>
                 {action.message ? <MostrarMensaje mensaje={action.message} error={action.error} /> : null}
                 <form>
-                    <DatosCaso caso={state.caso} onChange={handleDispatch} />
+                    <DatosTarea tarea={state.tarea} onChange={handleDispatch} />
                     <Guardar saving={action.saving} guardar={crear} />
                     <Volver navigate={navigate} />
                 </form>
