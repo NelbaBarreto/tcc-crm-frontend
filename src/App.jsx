@@ -50,10 +50,18 @@ import ListarOportunidades from "./components/ventas/oportunidades/Index";
 import CrearOportunidad from "./components/ventas/oportunidades/CrearOportunidad";
 
 //Soporte
+//Caso
+import ListarCaso from "./components/soporte/Index";
 import CrearCaso from "./components/soporte/CrearCaso";
-import Calendario from "./components/actividades/Calendario";
-import CrearLlamada from "./components/actividades/CrearLlamada";
-import CrearTarea from "./components/actividades/CrearTarea";
+
+//Actividades
+import Calendario from "./components/actividades/calendario/Calendario";
+//Llamadas
+import ListarLlamada from "./components/actividades/llamada/Index";
+import CrearLlamada from "./components/actividades/llamada/CrearLlamada";
+//Tareas
+import ListarTarea from "./components/actividades/tarea/Index";
+import CrearTarea from "./components/actividades/tarea/CrearTarea";
 
 //Cursos
 import ListarCursos from "./components/educacion/cursos/Index";
@@ -126,11 +134,18 @@ const MainApp = () => {
           <Route path="/ventas/oportunidades" element={<ListarOportunidades />} />
           <Route path="/ventas/oportunidades/nuevo" element={<CrearOportunidad />} />
 
-          <Route path="/soporte/casos" element={<CrearCaso />} />
+          {/* Casos */}
+          <Route exact path="soporte/casos" element={<ListarCaso />} />
+          <Route path="/soporte/nuevo" element={<CrearCaso />} />
           
           <Route path="/actividades/calendario" element={<Calendario />} />
-          <Route path="/actividades/tareas" element={<CrearTarea />} />
-          <Route path="/actividades/llamadas" element={<CrearLlamada />} />
+
+          {/* Tareas */}
+          <Route exact path="/actividades/tareas/" element={<ListarTarea />} />
+          <Route path="/actividades/tareas/nuevo" element={<CrearTarea />} />
+          {/* Llamadas */}
+          <Route exact path="/actividades/llamadas" element={<ListarLlamada />} />
+          <Route path="/actividades/llamadas/nuevo" element={<CrearLlamada />} />
 
           {/* Cursos */}
           <Route exact path="/educacion/cursos" element={<ListarCursos />} />
