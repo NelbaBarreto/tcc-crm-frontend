@@ -36,6 +36,7 @@ import CrearTipoCampana from "./components/marketing/tipo_campanas/CrearTipoCamp
 //Leads
 import ListarLeads from "./components/ventas/leads/Index";
 import CrearLead from "./components/ventas/leads/CrearLead";
+import MostrarLead from "./components/ventas/leads/MostrarLead";
 
 //Contactos
 import ListarContactos from "./components/ventas/contactos/Index";
@@ -76,9 +77,9 @@ import useToken from "../src/utils/useToken";
 const MainApp = () => {
   const { token, setToken } = useToken();
 
-  if (!token) {
+  /*if (!token) {
     return <Login setToken={setToken} />
-  };
+  };*/
 
   return (
     <Router>
@@ -113,6 +114,7 @@ const MainApp = () => {
           {/* Leads */}
           <Route exact path="/ventas/leads" element={<ListarLeads />} />
           <Route path="/ventas/leads/nuevo" element={<CrearLead />} />
+          <Route path="/ventas/leads/:id" element={<MostrarLead />} />
 
           {/* Contactos */}
           <Route exact path="/ventas/contactos" element={<ListarContactos />} />
