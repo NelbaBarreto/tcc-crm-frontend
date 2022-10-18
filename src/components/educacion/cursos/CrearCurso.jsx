@@ -8,7 +8,7 @@ import { reducer } from "../../formulario/reducerFormularios.js";
 import { useNavigate } from "react-router-dom";
 import { createCurso } from "../../../api/cursos";
 
-const DatosCurso = ({ onChange, curso, navigate }) => {
+const DatosCurso = ({ onChange, curso }) => {
   return (
     <Seccion titulo="Datos del Curso">
       <Input
@@ -59,7 +59,7 @@ const CrearCurso = () => {
         </Titulo1>
         {action.message ? <MostrarMensaje mensaje={action.message} error={action.error} /> : null}
         <form>
-          <DatosCurso onChange={handleDispatch} curso={state.curso} navigate={navigate} />
+          <DatosCurso onChange={handleDispatch} curso={state.curso} />
           <Guardar saving={action.saving} guardar={crear} />
           <Volver navigate={navigate} />
         </form>

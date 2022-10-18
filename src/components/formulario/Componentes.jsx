@@ -52,7 +52,7 @@ export const Checkbox = ({ label, value }) => {
   );
 }
 
-export const Dropdown = ({ label, name, value = "", placeholder = "", className = "shadow-lg", options, onChange }) => {
+export const Dropdown = ({ label, name, value = "", placeholder = "Seleccionar", className = "shadow-lg", options, isMulti, onChange }) => {
   return (
     <div className="field">
       <label className="label">{label}</label>
@@ -63,6 +63,7 @@ export const Dropdown = ({ label, name, value = "", placeholder = "", className 
           placeholder={placeholder}
           onChange={onChange}
           value={value}
+          isMulti={isMulti}
           options={options}
           isClearable={true}
         />
