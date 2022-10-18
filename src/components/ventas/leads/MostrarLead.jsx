@@ -6,30 +6,18 @@ import { Button1, TextView } from "../../formulario/Componentes";
 import { Volver } from "../../formulario/Acciones";
 import { useQuery } from "react-query";
 import { useParams, useNavigate } from "react-router-dom";
-import { getCurso } from "../../../api/cursos";
+import { getLead } from "../../../api/leads";
 import { CircularProgress } from "@mui/material";
 
-const DatosCurso = ({ curso = {}, navigate }) => {
+const DatosLead = ({ lead, navigate }) => {
   return (
-    <Seccion titulo="Datos del Curso">
+    <Seccion titulo="Datos del lead">
       <div className="columns">
         <div className="column">
-          <TextView label="Nombre" value={curso.nombre} />
+          <TextView label="Nombre" value={lead.nombre} />
         </div>
         <div className="column">
-          <TextView label="Descripción" value={curso.descripcion} />
-        </div>
-      </div>
-      <div className="field mt-3">
-        <div className="control">
-          <Button1
-            onClick={navigate(`/educacion/cursos/${curso.curso_id}/ciclos/nuevo`)}
-          >
-            <span>Crear Ciclo</span>
-            <span className="icon is-small">
-              <FontAwesomeIcon icon={solid("arrows-spin")} />
-            </span>
-          </Button1>
+          <TextView label="Descripción" value={lead.descripcion} />
         </div>
       </div>
     </Seccion>
@@ -41,15 +29,15 @@ const MostrarEmpleado = () => {
   const navigate = useNavigate();
 
   const {
-    data: curso,
+    data: lead,
     isLoading
-  } = useQuery(["curso", id], () => getCurso(id));
+  } = useQuery(["lead", id], () => getLead(id));
 
   return (
     <section className="section w-full m-auto">
       <div className="mb-4">
         {isLoading ?
-          <CircularProgress size={24} /> : <DatosCurso curso={curso} navigate={navigate} />
+          <CircularProgress size={24} /> : <DatosLead lead={lead} navigate={navigate} />
         }
       </div>
       <Volver navigate={navigate} />
