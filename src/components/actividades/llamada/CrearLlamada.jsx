@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import MostrarMensaje from "../formulario/MostrarMensaje";
-import Seccion from "../formulario/Seccion";
+import MostrarMensaje from "../../formulario/MostrarMensaje";
+import Seccion from "../../formulario/Seccion";
 import DatePicker from "react-datepicker";
-import { Volver, Guardar } from "../formulario/Acciones";
-import { Titulo1 } from "../formulario/Titulo";
+import { Volver, Guardar } from "../../formulario/Acciones";
+import { Titulo1 } from "../../formulario/Titulo";
 //import TimeInput from "react-input-time";
 
 const CrearLlamada = () => {
-  const [state, setState] = useState(false);
+  const [state] = useState(false);
   const [startDate, setStartDate] = useState(new Date());
 
   return (
