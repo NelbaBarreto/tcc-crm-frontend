@@ -27,6 +27,16 @@ const Index = () => {
         filter: true,
         filterType: "textField",
         sort: true,
+        customBodyRender: (value, tableMeta) => {
+          return (
+            <NavLink
+              to={"/soporte/cursos/" + tableMeta.rowData[0]}
+              className="underline text-blue-900"
+            >
+              {value}
+            </NavLink>
+          )
+        }
       }
     },
     {
