@@ -54,6 +54,7 @@ import CrearOportunidad from "./components/ventas/oportunidades/CrearOportunidad
 //Caso
 import ListarCaso from "./components/soporte/casos/Index";
 import CrearCaso from "./components/soporte/casos/CrearCaso";
+import MostrarCaso from "./components/soporte/casos/MostrarCaso";
 
 //Actividades
 import Calendario from "./components/actividades/calendario/Calendario";
@@ -138,7 +139,8 @@ const MainApp = () => {
 
           {/* Casos */}
           <Route exact path="soporte/casos" element={<ListarCaso />} />
-          <Route path="/soporte/nuevo" element={<CrearCaso />} />
+          <Route path="/soporte/casos/nuevo" element={<CrearCaso />} />
+          <Route path="/soporte/casos/:id" element={<MostrarCaso />} />
           
           <Route path="/actividades/calendario" element={<Calendario />} />
 

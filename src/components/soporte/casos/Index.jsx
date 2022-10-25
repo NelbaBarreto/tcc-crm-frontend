@@ -30,22 +30,13 @@ const Index = () => {
         customBodyRender: (value, tableMeta) => {
           return (
             <NavLink
-              to={"/soporte/cursos/" + tableMeta.rowData[0]}
+              to={"/soporte/casos/" + tableMeta.rowData[0]}
               className="underline text-blue-900"
             >
               {value}
             </NavLink>
           )
         }
-      }
-    },
-    {
-      name: "descripcion",
-      label: "Descripción",
-      options: {
-        filter: true,
-        filterType: "textField",
-        sort: false,
       }
     },
     {
@@ -85,6 +76,25 @@ const Index = () => {
       }
     },
     {
+      name: "usuario",
+      label: "Usuario Asignado",
+      options: {
+        filter: true,
+        filterType: "textField",
+        sort: true,
+        customBodyRender: (value) => {
+          return (
+            <NavLink
+              to={"/administrador/empleados/" + value.usuario_id}
+              className="underline text-blue-900"
+            >
+              {value.nom_usuario}
+            </NavLink>
+          )
+        }
+      }
+    },
+    {
       name: "",
       options: {
         filter: false,
@@ -109,7 +119,7 @@ const Index = () => {
     <div>
       <section className="section w-full m-auto">
         <NavLink
-          to="/soporte/nuevo"
+          to="/soporte/casos/nuevo"
           className="button font-semibold shadow-lg text-white hover:text-white focus:text-white
               hover:bg-deep-purple-700 bg-deep-purple-400 border-deep-purple-700 mb-2"
         >
