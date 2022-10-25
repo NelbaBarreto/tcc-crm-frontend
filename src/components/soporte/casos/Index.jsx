@@ -2,6 +2,7 @@ import React from "react";
 import DataTables from "../../DataTables";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Button1 } from "../../formulario/Componentes";
 import { useQuery } from "react-query";
 import { getCasos } from "../../../api/casos";
 import { NavLink } from "react-router-dom";
@@ -49,14 +50,14 @@ const Index = () => {
       }
     },
     {
-        name: "estado",
-        label: "Estado",
-        options: {
-          filter: true,
-          filterType: "dropdown",
-          sort: true,
-        }
-      },
+      name: "estado",
+      label: "Estado",
+      options: {
+        filter: true,
+        filterType: "dropdown",
+        sort: true,
+      }
+    },
     {
       name: "tipo",
       label: "Tipo",
@@ -102,13 +103,20 @@ const Index = () => {
         empty: true,
         customBodyRenderLite: (dataIndex, _rowIndex) => {
           return (
-            <button
-              className="button font-semibold shadow-lg text-white hover:text-white focus:text-white
-              hover:bg-deep-purple-700 bg-deep-purple-400 border-deep-purple-700"
-              onClick={() => console.log(casos[dataIndex])}
-            >
-              Editar
-            </button>
+            <div className="field is-grouped">
+              <div className="control">
+                <Button1
+                >
+                  Editar
+                </Button1>
+              </div>
+              <div className="control">
+                <Button1
+                >
+                  Eliminar
+                </Button1>
+              </div>
+            </div>
           );
         }
       }
