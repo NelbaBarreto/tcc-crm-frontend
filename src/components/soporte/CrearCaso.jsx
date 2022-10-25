@@ -94,7 +94,7 @@ const DatosCaso = ({ caso, dispatch }) => {
             value={select.tipo}
             options={opcionesTipos}
             onChange={e => {
-              handleDispatch(dispatch, "tipos", e?.value, CASO);
+              handleDispatch(dispatch, "tipo", e?.value, CASO);
               setSelect({ ...select, tipo: e })
             }}
           />
@@ -112,7 +112,7 @@ const DatosCaso = ({ caso, dispatch }) => {
         </div>
       </div>
       <div className="columns">
-        <div className="column">
+        <div className="column is-half">
           <Dropdown
             label="Usuario Asignado"
             value={select.usu_asignado}
