@@ -52,8 +52,8 @@ import CrearOportunidad from "./components/ventas/oportunidades/CrearOportunidad
 
 //Soporte
 //Caso
-import ListarCaso from "./components/soporte/Index";
-import CrearCaso from "./components/soporte/CrearCaso";
+import ListarCaso from "./components/soporte/casos/Index";
+import CrearCaso from "./components/soporte/casos/CrearCaso";
 
 //Actividades
 import Calendario from "./components/actividades/calendario/Calendario";

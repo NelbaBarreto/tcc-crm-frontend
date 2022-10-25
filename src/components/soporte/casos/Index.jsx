@@ -1,9 +1,9 @@
 import React from "react";
-import DataTables from "../DataTables";
+import DataTables from "../../DataTables";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useQuery } from "react-query";
-import { getCasos } from "../../api/casos";
+import { getCasos } from "../../../api/casos";
 import { NavLink } from "react-router-dom";
 
 const Index = () => {

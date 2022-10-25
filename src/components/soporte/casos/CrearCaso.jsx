@@ -1,12 +1,12 @@
 import React, { useState, useReducer } from "react";
-import Seccion from "../formulario/Seccion";
-import MostrarMensaje from "../formulario/MostrarMensaje";
-import { Volver, Guardar } from "../formulario/Acciones";
-import { Titulo1 } from "../formulario/Titulo";
-import { Dropdown, Input, TextArea } from "../formulario/Componentes";
-import { getUsuarios } from "../../api/usuarios";
-import { createCaso, getOrigenes, getPrioridades, getEstados, getTipos } from "../../api/casos";
-import { reducer, handleDispatch } from "../formulario/reducerFormularios.js";
+import Seccion from "../../formulario/Seccion";
+import MostrarMensaje from "../../formulario/MostrarMensaje";
+import { Volver, Guardar } from "../../formulario/Acciones";
+import { Titulo1 } from "../../formulario/Titulo";
+import { Dropdown, Input, TextArea } from "../../formulario/Componentes";
+import { getUsuarios } from "../../../api/usuarios";
+import { createCaso, getOrigenes, getPrioridades, getEstados, getTipos } from "../../../api/casos";
+import { reducer, handleDispatch } from "../../formulario/reducerFormularios.js";
 import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 
