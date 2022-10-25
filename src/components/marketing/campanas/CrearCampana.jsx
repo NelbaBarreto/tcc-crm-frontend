@@ -1,7 +1,7 @@
 import React, { useState, useReducer } from "react";
 import MostrarMensaje from "../../formulario/MostrarMensaje";
 import Seccion from "../../formulario/Seccion";
-import { Datepicker } from "../../formulario/Componentes";
+import { Datepicker, Input } from "../../formulario/Componentes";
 import { Volver, Guardar } from "../../formulario/Acciones";
 import { Titulo1 } from "../../formulario/Titulo";
 import { useNavigate } from "react-router-dom";
@@ -26,7 +26,7 @@ const CrearCampana = () => {
       setAction({ saving: false, error: true, message: e.message });
     };
   };
-  
+
   return (
     <div>
       <section className="section w-full m-auto">
@@ -36,18 +36,14 @@ const CrearCampana = () => {
         {action.message ? <MostrarMensaje mensaje={action.message} error={action.error} /> : null}
         <form>
           <Seccion titulo="Datos de la Campaña">
-            <div className="field">
-              <label className="label">Nombre</label>
-              <div className="control">
-                <input
-                  name="nombre"
-                  className="input shadow-lg"
-                  type="text"
-                  value={state.campana?.nombre || ""}
-                  onChange={e => handleDispatch(dispatch, e.target?.name, e.target?.value, CAMPANA)}
-                />
-              </div>
-            </div>
+            <Input
+              name="nombre"
+              label="Nombre"
+              className="input shadow-lg"
+              type="text"
+              value={state.campana?.nombre || ""}
+              onChange={e => handleDispatch(dispatch, e.target?.name, e.target?.value, CAMPANA)}
+            />
             <div className="columns">
               <div className="column">
                 <Datepicker

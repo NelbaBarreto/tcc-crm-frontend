@@ -16,3 +16,22 @@ export const getCaso = async id => {
   const { data: response } = await axios.get(`${API}/casos/${id}`);
   return response.data;
 };
+export const getOrigenes = async () => {
+  const { data: response } = await axios.get(`${API}/casos/origenes`);
+  return response.data;
+};
+
+export const getPrioridades = async () => {
+  const { data: response } = await axios.get(`${API}/casos/prioridades`);
+  return response.data;
+};
+
+export const getEstados = async () => {
+  const { data: response } = await axios.get(`${API}/casos/estados`);
+  return response.data;
+};
+
+export const getTipos = async () => {
+  const { data: response } = await axios.get(`${API}/casos/tipos`);
+  return response.data;
+};

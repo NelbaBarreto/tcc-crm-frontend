@@ -21,8 +21,8 @@ const Index = () => {
       }
     },
     {
-      name: "nombre",
-      label: "Nombre",
+      name: "asunto",
+      label: "Asunto",
       options: {
         filter: true,
         filterType: "textField",
@@ -35,7 +35,7 @@ const Index = () => {
       options: {
         filter: true,
         filterType: "textField",
-        sort: true,
+        sort: false,
       }
     },
     {
@@ -63,7 +63,6 @@ const Index = () => {
         filter: true,
         filterType: "textField",
         sort: true,
-        display: "excluded",
       }
     },
     {
@@ -73,7 +72,6 @@ const Index = () => {
         filter: true,
         filterType: "textField",
         sort: true,
-        display: "excluded",
       }
     },
     {
