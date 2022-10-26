@@ -1,31 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useReducer } from "react";
 import MostrarMensaje from "../../formulario/MostrarMensaje";
 import Seccion from "../../formulario/Seccion";
-import { Datepicker } from "../../formulario/Componentes";
+import { Datepicker, Input } from "../../formulario/Componentes";
 import { Volver, Guardar } from "../../formulario/Acciones";
+import { Titulo1 } from "../../formulario/Titulo";
 import { useNavigate } from "react-router-dom";
 import { createCampana } from "../../../api/campanas";
-import { Titulo1 } from "../../formulario/Titulo";
+import { reducer, handleDispatch } from "../../formulario/reducerFormularios.js";
+
+const CAMPANA = "campana";
 
 const CrearCampana = () => {
-  const [campana, setCampana] = useState({});
-  const [state, setState] = useState(false);
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(null);
+  const [state, dispatch] = useReducer(reducer, {});
+  const [action, setAction] = useState({});
   const navigate = useNavigate();
 
   const crear = async e => {
     e.preventDefault();
-    setState({ saving: true, error: false, message: "" });
+    setAction({ saving: true, error: false, message: "" });
     try {
-      await createCampana(campana);
-      setState({ saving: false, error: false, message: "Campaña creada exitosamente." });
+      await createCampana(state.campana);
+      setAction({ saving: false, error: false, message: "Campaña creada exitosamente." });
       setTimeout(() => navigate("/marketing/campanas"), 3000);
     } catch (e) {
-      setState({ saving: false, error: true, message: e.message });
+      setAction({ saving: false, error: true, message: e.message });
     };
   };
-
 
   return (
     <div>
@@ -33,40 +33,37 @@ const CrearCampana = () => {
         <Titulo1>
           Nueva Campaña
         </Titulo1>
-        {state.message ? <MostrarMensaje mensaje={state.message} error={state.error} /> : null}
+        {action.message ? <MostrarMensaje mensaje={action.message} error={action.error} /> : null}
         <form>
           <Seccion titulo="Datos de la Campaña">
-            <div className="field">
-              <label className="label">Nombre</label>
-              <div className="control">
-                <input
-                  name="nombre"
-                  className="input shadow-lg"
-                  type="text"
-                  onChange={e => setCampana({ ...campana, [e.target.name]: e.target.value })}
-                />
-              </div>
-            </div>
+            <Input
+              name="nombre"
+              label="Nombre"
+              className="input shadow-lg"
+              type="text"
+              value={state.campana?.nombre || ""}
+              onChange={e => handleDispatch(dispatch, e.target?.name, e.target?.value, CAMPANA)}
+            />
             <div className="columns">
               <div className="column">
                 <Datepicker
                   label="Fecha de Inicio"
                   className="input"
-                  selected={startDate}
-                  onChange={(date) => setStartDate(date)}
+                  selected={state.campana?.fec_inicio || ""}
+                  onChange={fecha => handleDispatch(dispatch, "fec_inicio", fecha, CAMPANA)}
                 />
               </div>
               <div className="column">
                 <Datepicker
                   label="Fecha Fin"
                   className="input"
-                  selected={endDate}
-                  onChange={(date) => setEndDate(date)}
+                  selected={state.campana?.fec_fin || ""}
+                  onChange={fecha => handleDispatch(dispatch, "fec_fin", fecha, CAMPANA)}
                 />
               </div>
             </div>
           </Seccion>
-          <Guardar guardar={crear} saving={state.saving} />
+          <Guardar guardar={crear} saving={action.saving} />
         </form>
         <Volver navigate={navigate} />
       </section>

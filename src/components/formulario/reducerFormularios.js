@@ -10,3 +10,10 @@ export const reducer = (state, action) => {
       return state;
   }
 }
+
+export const handleDispatch = (dispatch, name, value, object) => {
+  dispatch({
+    type: "FORM_UPDATED",
+    payload: { name, value, object }
+  })
+}

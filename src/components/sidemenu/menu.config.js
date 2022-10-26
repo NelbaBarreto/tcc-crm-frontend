@@ -85,11 +85,11 @@ export const sideMenu = [
         Icon: () => <Icon iconName="person-chalkboard" />,
         to: "campanas",
       },
-      {
-        label: "Tipos de Campaña",
-        Icon: () => <Icon iconName="list-ul" />,
-        to: "tipocampana",
-      },
+      // {
+      //   label: "Tipos de Campaña",
+      //   Icon: () => <Icon iconName="list-ul" />,
+      //   to: "tipocampana",
+      // },
     ],
   },
   {

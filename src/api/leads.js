@@ -16,3 +16,13 @@ export const getLead = async id => {
   const { data: response } = await axios.get(`${API}/leads/${id}`);
   return response.data;
 };
+
+export const getEstados = async () => {
+  const { data: response } = await axios.get(`${API}/leads/estados`);
+  return response.data;
+};
+
+export const getOrigenes = async () => {
+  const { data: response } = await axios.get(`${API}/leads/origenes`);
+  return response.data;
+};

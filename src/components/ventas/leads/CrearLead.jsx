@@ -8,14 +8,16 @@ import { Dropdown } from "../../formulario/Componentes";
 import { getUsuarios } from "../../../api/usuarios";
 import { getCursos } from "../../../api/cursos";
 import { getCampanas } from "../../../api/campanas";
-import { createLead } from "../../../api/leads";
+import { createLead, getEstados, getOrigenes } from "../../../api/leads";
 import { reducer } from "../../formulario/reducerFormularios.js";
 import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 
 const DatosLead = ({ onChange }) => {
-  const [select, setSelect] = useState({ estado: "", origen: "", campana: "", 
-    usu_asignado: "" , curso: ""});
+  const [select, setSelect] = useState({
+    estado: "", origen: "", campana: "",
+    usu_asignado: "", curso: ""
+  });
 
   const {
     data: usuarios,
@@ -32,6 +34,16 @@ const DatosLead = ({ onChange }) => {
     cursosLoading
   } = useQuery(["cursos"], getCursos);
 
+  const {
+    data: estados,
+    estadosLoading
+  } = useQuery(["estados"], getEstados);
+
+  const {
+    data: origenes,
+    origenesLoading
+  } = useQuery(["origenes"], getOrigenes);
+
   const opcionesUsuarios = usuariosLoading || !usuarios ? [] :
     usuarios.map(usuario => ({ value: usuario.usuario_id, label: usuario.nom_usuario }));
 
@@ -41,6 +53,12 @@ const DatosLead = ({ onChange }) => {
   const opcionesCursos = cursosLoading || !cursos ? [] :
     cursos.map(curso => ({ value: curso.curso_id, label: curso.nombre }));
 
+  const opcionesEstado = estadosLoading || !estados ? [] :
+    estados.map(estado => ({ value: estado, label: estado }));
+
+  const opcionesOrigen = origenesLoading || !origenes ? [] :
+    origenes.map(origen => ({ value: origen, label: origen }));
+
   return (
     <Seccion titulo="Datos del Lead">
       <div className="columns">
@@ -48,14 +66,16 @@ const DatosLead = ({ onChange }) => {
           <Dropdown
             label="Estado"
             value={select.estado}
-            onChange={e => { onChange(e, "estado", e.value); setSelect({ ...select, estado: e }) }}
+            options={opcionesEstado}
+            onChange={e => { onChange(e, "estado", e?.value); setSelect({ ...select, estado: e }) }}
           />
         </div>
         <div className="column">
           <Dropdown
             label="Origen"
             value={select.origen}
-            onChange={e => { onChange(e, "origen", e.value); setSelect({ ...select, origen: e }) }}
+            options={opcionesOrigen}
+            onChange={e => { onChange(e, "origen", e?.value); setSelect({ ...select, origen: e }) }}
           />
         </div>
       </div>
@@ -106,7 +126,7 @@ const CrearLead = () => {
     try {
       await createLead({ ...state.lead, persona });
       setAction({ saving: false, error: false, message: "Lead creado exitosamente." });
-      setTimeout(() => navigate("/ventas/leads"), 3000);
+      setTimeout(() => navigate("/ventas/leads"), 2000);
     } catch (e) {
       setAction({ saving: false, error: true, message: e.message });
     };

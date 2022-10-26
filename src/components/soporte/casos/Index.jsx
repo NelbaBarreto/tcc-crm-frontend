@@ -1,9 +1,10 @@
 import React from "react";
-import DataTables from "../DataTables";
+import DataTables from "../../DataTables";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Button1 } from "../../formulario/Componentes";
 import { useQuery } from "react-query";
-import { getCasos } from "../../api/casos";
+import { getCasos } from "../../../api/casos";
 import { NavLink } from "react-router-dom";
 
 const Index = () => {
@@ -21,21 +22,22 @@ const Index = () => {
       }
     },
     {
-      name: "nombre",
-      label: "Nombre",
+      name: "asunto",
+      label: "Asunto",
       options: {
         filter: true,
         filterType: "textField",
         sort: true,
-      }
-    },
-    {
-      name: "descripcion",
-      label: "Descripción",
-      options: {
-        filter: true,
-        filterType: "textField",
-        sort: true,
+        customBodyRender: (value, tableMeta) => {
+          return (
+            <NavLink
+              to={"/soporte/casos/" + tableMeta.rowData[0]}
+              className="underline text-blue-900"
+            >
+              {value}
+            </NavLink>
+          )
+        }
       }
     },
     {
@@ -48,14 +50,14 @@ const Index = () => {
       }
     },
     {
-        name: "estado",
-        label: "Estado",
-        options: {
-          filter: true,
-          filterType: "dropdown",
-          sort: true,
-        }
-      },
+      name: "estado",
+      label: "Estado",
+      options: {
+        filter: true,
+        filterType: "dropdown",
+        sort: true,
+      }
+    },
     {
       name: "tipo",
       label: "Tipo",
@@ -63,7 +65,6 @@ const Index = () => {
         filter: true,
         filterType: "textField",
         sort: true,
-        display: "excluded",
       }
     },
     {
@@ -73,7 +74,25 @@ const Index = () => {
         filter: true,
         filterType: "textField",
         sort: true,
-        display: "excluded",
+      }
+    },
+    {
+      name: "usuario",
+      label: "Usuario Asignado",
+      options: {
+        filter: true,
+        filterType: "textField",
+        sort: true,
+        customBodyRender: (value) => {
+          return (
+            <NavLink
+              to={"/administrador/empleados/" + value.usuario_id}
+              className="underline text-blue-900"
+            >
+              {value.nom_usuario}
+            </NavLink>
+          )
+        }
       }
     },
     {
@@ -84,13 +103,20 @@ const Index = () => {
         empty: true,
         customBodyRenderLite: (dataIndex, _rowIndex) => {
           return (
-            <button
-              className="button font-semibold shadow-lg text-white hover:text-white focus:text-white
-              hover:bg-deep-purple-700 bg-deep-purple-400 border-deep-purple-700"
-              onClick={() => console.log(casos[dataIndex])}
-            >
-              Editar
-            </button>
+            <div className="field is-grouped">
+              <div className="control">
+                <Button1
+                >
+                  Editar
+                </Button1>
+              </div>
+              <div className="control">
+                <Button1
+                >
+                  Eliminar
+                </Button1>
+              </div>
+            </div>
           );
         }
       }
@@ -101,7 +127,7 @@ const Index = () => {
     <div>
       <section className="section w-full m-auto">
         <NavLink
-          to="/soporte/nuevo"
+          to="/soporte/casos/nuevo"
           className="button font-semibold shadow-lg text-white hover:text-white focus:text-white
               hover:bg-deep-purple-700 bg-deep-purple-400 border-deep-purple-700 mb-2"
         >
