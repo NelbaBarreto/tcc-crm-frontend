@@ -105,7 +105,7 @@ const Index = () => {
         filter: false,
         sort: false,
         empty: true,
-        customBodyRenderLite: (dataIndex, _rowIndex) => {
+        customBodyRenderLite: (_dataIndex, _rowIndex) => {
           return (
             <div className="field is-grouped">
               <div className="control">

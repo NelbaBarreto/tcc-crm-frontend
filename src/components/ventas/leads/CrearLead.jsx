@@ -9,11 +9,13 @@ import { getUsuarios } from "../../../api/usuarios";
 import { getCursos } from "../../../api/cursos";
 import { getCampanas } from "../../../api/campanas";
 import { createLead, getEstados, getOrigenes } from "../../../api/leads";
-import { reducer } from "../../formulario/reducerFormularios.js";
+import { reducer, handleDispatch } from "../../formulario/reducerFormularios.js";
 import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 
-const DatosLead = ({ onChange }) => {
+const LEAD = "lead";
+
+const DatosLead = ({ dispatch }) => {
   const [select, setSelect] = useState({
     estado: "", origen: "", campana: "",
     usu_asignado: "", curso: ""
@@ -67,7 +69,10 @@ const DatosLead = ({ onChange }) => {
             label="Estado"
             value={select.estado}
             options={opcionesEstado}
-            onChange={e => { onChange(e, "estado", e?.value); setSelect({ ...select, estado: e }) }}
+            onChange={e => {
+              handleDispatch(dispatch, "estado", e?.value, LEAD);
+              setSelect({ ...select, estado: e })
+            }}
           />
         </div>
         <div className="column">
@@ -75,7 +80,10 @@ const DatosLead = ({ onChange }) => {
             label="Origen"
             value={select.origen}
             options={opcionesOrigen}
-            onChange={e => { onChange(e, "origen", e?.value); setSelect({ ...select, origen: e }) }}
+            onChange={e => {
+              handleDispatch(dispatch, "origen", e?.value, LEAD);
+              setSelect({ ...select, origen: e })
+            }}
           />
         </div>
       </div>
@@ -85,7 +93,10 @@ const DatosLead = ({ onChange }) => {
             label="Campaña"
             value={select.campana}
             options={opcionesCampanas}
-            onChange={e => { onChange(e, "campana_id", e?.value); setSelect({ ...select, campana: e }) }}
+            onChange={e => {
+              handleDispatch(dispatch, "campana_id", e?.value, LEAD);
+              setSelect({ ...select, campana: e })
+            }}
           />
         </div>
         <div className="column">
@@ -93,15 +104,21 @@ const DatosLead = ({ onChange }) => {
             label="Usuario Asignado"
             value={select.usu_asignado}
             options={opcionesUsuarios}
-            onChange={e => { onChange(e, "usu_asignado_id", e?.value); setSelect({ ...select, usu_asignado: e }) }}
+            onChange={e => {
+              handleDispatch(dispatch, "usuario_asignado_id", e?.value, LEAD);
+              setSelect({ ...select, usu_asignado: e })
+            }}
           />
         </div>
       </div>
       <Dropdown
         label="Curso/Interés"
-        value={select.curso_id}
+        value={select.curso}
         options={opcionesCursos}
-        onChange={e => { onChange(e, "curso_id", e?.value); setSelect({ ...select, curso_id: e }) }}
+        onChange={e => {
+          handleDispatch(dispatch, "curso_id", e?.value, LEAD);
+          setSelect({ ...select, curso: e })
+        }}
       />
     </Seccion>
   );
@@ -109,22 +126,14 @@ const DatosLead = ({ onChange }) => {
 
 const CrearLead = () => {
   const [state, dispatch] = useReducer(reducer, {});
-  const [persona, setPersona] = useState({});
   const [action, setAction] = useState({});
   const navigate = useNavigate();
-
-  const handleDispatch = (e, name, value = " ") => {
-    dispatch({
-      type: "FORM_UPDATED",
-      payload: { name: e?.target?.name || name, value: e?.target?.value || value, object: "lead" }
-    })
-  }
 
   const crear = async e => {
     e.preventDefault();
     setAction({ saving: true, error: false, message: "" });
     try {
-      await createLead({ ...state.lead, persona });
+      await createLead({ ...state.lead, persona: { ...state.persona } });
       setAction({ saving: false, error: false, message: "Lead creado exitosamente." });
       setTimeout(() => navigate("/ventas/leads"), 2000);
     } catch (e) {
@@ -140,8 +149,8 @@ const CrearLead = () => {
         </Titulo1>
         {action.message ? <MostrarMensaje mensaje={action.message} error={action.error} /> : null}
         <form>
-          <CrearPersona persona={persona} setPersona={setPersona} />
-          <DatosLead lead={state.lead} onChange={handleDispatch} />
+          <CrearPersona />
+          <DatosLead lead={state.lead} dispatch={dispatch} />
           <Guardar saving={action.saving} guardar={crear} />
           <Volver navigate={navigate} />
         </form>

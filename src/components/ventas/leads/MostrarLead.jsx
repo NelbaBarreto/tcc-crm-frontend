@@ -1,15 +1,13 @@
 import React from "react";
 import Seccion from "../../formulario/Seccion";
-import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button1, TextView } from "../../formulario/Componentes";
+import { TextView } from "../../formulario/Componentes";
 import { Volver } from "../../formulario/Acciones";
 import { useQuery } from "react-query";
 import { useParams, useNavigate } from "react-router-dom";
 import { getLead } from "../../../api/leads";
 import { CircularProgress } from "@mui/material";
 
-const DatosLead = ({ lead, navigate }) => {
+const DatosLead = ({ lead }) => {
   return (
     <Seccion titulo="Datos del lead">
       <div className="columns">

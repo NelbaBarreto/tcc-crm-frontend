@@ -6,16 +6,21 @@ import { Eliminar } from "../formulario/Acciones";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { reducer, handleDispatch } from "../formulario/reducerFormularios.js";
+import { useQuery } from "react-query";
+import { getTipDocumentos } from "../../api/personas";
 
 const PERSONA = "persona";
 
 const Persona = ({ dispatch, persona }) => {
-  const options = [
-    { value: "CI", label: "CI" },
-    { value: "RUC", label: "RUC" },
-    { value: "Pasaporte", label: "Pasaporte" }
-  ];
   const [select, setSelect] = useState({ tip_documento: "" });
+
+  const {
+    data: tip_documentos,
+    tiposDocumentosLoading
+  } = useQuery(["tip_documentos"], getTipDocumentos);
+
+  const opcionesTipDocumentos = tiposDocumentosLoading || !tip_documentos ? [] :
+    tip_documentos.map(tip_documento => ({ value: tip_documento, label: tip_documento }));
 
   return (
     <Seccion titulo="Datos Personales">
@@ -49,7 +54,7 @@ const Persona = ({ dispatch, persona }) => {
               setSelect({ ...select, tip_documento: e })
             }}
             value={select.tip_documento}
-            options={options}
+            options={opcionesTipDocumentos}
           />
         </div>
       </div>
