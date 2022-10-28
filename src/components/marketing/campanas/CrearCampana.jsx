@@ -21,7 +21,7 @@ const CrearCampana = () => {
     try {
       await createCampana(state.campana);
       setAction({ saving: false, error: false, message: "Campaña creada exitosamente." });
-      setTimeout(() => navigate("/marketing/campanas"), 3000);
+      setTimeout(() => navigate("/marketing/campanas"), 2000);
     } catch (e) {
       setAction({ saving: false, error: true, message: e.message });
     };
@@ -39,8 +39,6 @@ const CrearCampana = () => {
             <Input
               name="nombre"
               label="Nombre"
-              className="input shadow-lg"
-              type="text"
               value={state.campana?.nombre || ""}
               onChange={e => handleDispatch(dispatch, e.target?.name, e.target?.value, CAMPANA)}
             />
@@ -48,7 +46,6 @@ const CrearCampana = () => {
               <div className="column">
                 <Datepicker
                   label="Fecha de Inicio"
-                  className="input"
                   selected={state.campana?.fec_inicio || ""}
                   onChange={fecha => handleDispatch(dispatch, "fec_inicio", fecha, CAMPANA)}
                 />
@@ -56,7 +53,6 @@ const CrearCampana = () => {
               <div className="column">
                 <Datepicker
                   label="Fecha Fin"
-                  className="input"
                   selected={state.campana?.fec_fin || ""}
                   onChange={fecha => handleDispatch(dispatch, "fec_fin", fecha, CAMPANA)}
                 />

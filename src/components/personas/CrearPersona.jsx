@@ -1,75 +1,56 @@
-import React, { useState } from "react";
-import Select from "react-select";
+import React, { useState, useReducer } from "react";
 import Seccion from "../formulario/Seccion";
 import Direccion from "./Direccion";
+import { Dropdown, Input, classNameButton2 } from "../formulario/Componentes";
 import { Eliminar } from "../formulario/Acciones";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
+import { reducer, handleDispatch } from "../formulario/reducerFormularios.js";
 
-const Persona = ({ persona, setPersona }) => {
+const PERSONA = "persona";
+
+const Persona = ({ dispatch, persona }) => {
   const options = [
     { value: "CI", label: "CI" },
     { value: "RUC", label: "RUC" },
     { value: "Pasaporte", label: "Pasaporte" }
   ];
-  const [tip_documento, setTipDocumento] = useState("");
+  const [select, setSelect] = useState({ tip_documento: "" });
 
   return (
     <Seccion titulo="Datos Personales">
-      <div className="field">
-        <label className="label">Nombre</label>
-        <div className="control">
-          <input
-            name="nombre"
-            className="input shadow-lg"
-            value={persona.nombre || ""}
-            onChange={e => setPersona({ ...persona, [e.target.name]: e.target.value })}
-            type="text"
-          />
-        </div>
-      </div>
-      <div className="field">
-        <label className="label">Email</label>
-        <div className="control">
-          <input
-            name="email"
-            className="input shadow-lg"
-            value={persona.email || ""}
-            onChange={e => setPersona({ ...persona, [e.target.name]: e.target.value })}
-            type="email"
-          />
-        </div>
-      </div>
+      <Input
+        label="Nombre"
+        name="nombre"
+        value={persona?.nombre || ""}
+        onChange={e => handleDispatch(dispatch, e?.target.name, e?.target.value, PERSONA)}
+      />
+      <Input
+        label="Email"
+        name="email"
+        value={persona?.email || ""}
+        onChange={e => handleDispatch(dispatch, e?.target.name, e?.target.value, PERSONA)}
+      />
       <div className="columns">
         <div className="column">
-          <div className="field">
-            <label className="label">Número de Documento</label>
-            <div className="control">
-              <input
-                name="nro_documento"
-                className="input shadow-lg"
-                value={persona.nro_documento || ""}
-                onChange={e => setPersona({ ...persona, [e.target.name]: e.target.value })}
-                type="text"
-              />
-            </div>
-          </div>
+          <Input
+            label="Número de Documento"
+            name="nro_documento"
+            value={persona?.nro_documento || ""}
+            onChange={e => handleDispatch(dispatch, e?.target.name, e?.target.value, PERSONA)}
+          />
         </div>
         <div className="column">
-          <div className="field">
-            <label className="label">Tipo de Documento</label>
-            <div className="control">
-              <Select
-                name="tip_documento"
-                className="shadow-lg"
-                placeholder=""
-                isClearable={true}
-                onChange={e => { setPersona({ ...persona, tip_documento: e?.value || " " }); setTipDocumento(e) }}
-                value={tip_documento}
-                options={options}
-              />
-            </div>
-          </div>
+          <Dropdown
+            label="Tipo de Documento"
+            name="tip_documento"
+            onChange={e => {
+              handleDispatch(dispatch, "tip_documento", e?.value, PERSONA);
+              setSelect({ ...select, tip_documento: e })
+            }}
+            value={select.tip_documento}
+            options={options}
+          />
         </div>
       </div>
     </Seccion>
@@ -95,8 +76,7 @@ const Direcciones = () => {
         {inputList}
       </div>
       <button
-        className="button font-semibold shadow-lg text-white hover:text-white focus:text-white
-              hover:bg-deep-purple-700 bg-deep-purple-400 border-deep-purple-700 mb-2"
+        className={classNameButton2}
         onClick={onAddClick}
       >
         <span>Agregar Dirección</span>
@@ -157,8 +137,7 @@ const Telefonos = () => {
   return (
     <Seccion titulo="Teléfonos">
       <button
-        className="button font-semibold shadow-lg text-white hover:text-white focus:text-white
-              hover:bg-deep-purple-700 bg-deep-purple-400 border-deep-purple-700 mb-2"
+        className={classNameButton2}
         onClick={onAddClick}
       >
         <span>Agregar Teléfono</span>
@@ -170,12 +149,14 @@ const Telefonos = () => {
   );
 }
 
-const CrearPersona = ({ persona, setPersona }) => {
+const CrearPersona = () => {
+  const [state, dispatch] = useReducer(reducer, {});
+
   return (
     <section>
-      <Persona persona={persona} setPersona={setPersona} />
-      <Direcciones />
-      <Telefonos />
+      <Persona persona={state.persona} dispatch={dispatch} />
+      <Direcciones persona={state.direcciones} dispatch={dispatch} />
+      <Telefonos persona={state.telefonos} dispatch={dispatch} />
     </section>
   );
 }

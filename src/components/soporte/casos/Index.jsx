@@ -84,14 +84,18 @@ const Index = () => {
         filterType: "textField",
         sort: true,
         customBodyRender: (value) => {
-          return (
-            <NavLink
-              to={"/administrador/empleados/" + value.usuario_id}
-              className="underline text-blue-900"
-            >
-              {value.nom_usuario}
-            </NavLink>
-          )
+          if (value) {
+            return (
+              <NavLink
+                to={"/administrador/empleados/" + value.usuario_id}
+                className="underline text-blue-900"
+              >
+                {value.nom_usuario}
+              </NavLink>
+            )
+          } else {
+            return null;
+          }
         }
       }
     },

@@ -109,3 +109,7 @@ export const Button1 = ({ onClick, children }) => {
     </button>
   );
 }
+
+export const classNameButton1 = "button font-semibold shadow-lg text-deep-purple-800 hover:text-white focus:text-white hover:bg-deep-purple-700 bg-deep-purple-100";
+
+export const classNameButton2 = "button font-semibold shadow-lg text-white hover:text-white focus:text-white hover:bg-deep-purple-700 bg-deep-purple-400 border-deep-purple-700 mb-2";

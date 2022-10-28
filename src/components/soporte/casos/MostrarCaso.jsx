@@ -29,7 +29,7 @@ const DatosCaso = ({ caso = {} }) => {
       </div>
       <div className="columns">
         <div className="column">
-          <TextView label="Usuario Asignado" value={caso.usuario.nom_usuario} />
+          <TextView label="Usuario Asignado" value={caso.usuario?.nom_usuario} />
         </div>
         <div className="column">
           <TextView label="Fecha de Creación" value={format(parseISO(caso.fec_insercion), "dd/MM/yyyy hh:mm")} />
