@@ -84,14 +84,18 @@ const Index = () => {
         filterType: "textField",
         sort: true,
         customBodyRender: (value) => {
-          return (
-            <NavLink
-              to={"/administrador/empleados/" + value.usuario_id}
-              className="underline text-blue-900"
-            >
-              {value.nom_usuario}
-            </NavLink>
-          )
+          if (value) {
+            return (
+              <NavLink
+                to={"/administrador/empleados/" + value.usuario_id}
+                className="underline text-blue-900"
+              >
+                {value.nom_usuario}
+              </NavLink>
+            )
+          } else {
+            return null;
+          }
         }
       }
     },
@@ -101,7 +105,7 @@ const Index = () => {
         filter: false,
         sort: false,
         empty: true,
-        customBodyRenderLite: (dataIndex, _rowIndex) => {
+        customBodyRenderLite: (_dataIndex, _rowIndex) => {
           return (
             <div className="field is-grouped">
               <div className="control">

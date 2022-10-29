@@ -5,42 +5,33 @@ import { CircularProgress } from "@mui/material";
 import { Volver } from "../../formulario/Acciones";
 import { useQuery } from "react-query";
 import { useParams, useNavigate } from "react-router-dom";
-import { getCaso } from "../../../api/casos";
+import { getLlamada } from "../../../api/llamadas";
 import { format, parseISO } from "date-fns";
 
-const DatosCaso = ({ caso = {} }) => {
+const DatosLlamada = ({ llamada = {} }) => {
   return (
-    <Seccion titulo={caso.asunto}>
+    <Seccion titulo={llamada.asunto}>
       <div className="columns">
         <div className="column">
-          <TextView label="Prioridad" value={caso.prioridad} />
-        </div>
-        <div className="column">
-          <TextView label="Estado" value={caso.estado} />
+          <TextView label="Estado" value={llamada.estado} />
         </div>
       </div>
       <div className="columns">
         <div className="column">
-          <TextView label="Tipo" value={caso.tipo} />
-        </div>
-        <div className="column">
-          <TextView label="Origen" value={caso.origen} />
+          <TextView label="Tipo" value={llamada.tipo} />
         </div>
       </div>
       <div className="columns">
         <div className="column">
-          <TextView label="Usuario Asignado" value={caso.usuario?.nom_usuario} />
+          <TextView label="Usuario Asignado" value={llamada.usuario?.nom_usuario} />
         </div>
         <div className="column">
-          <TextView label="Fecha de Creación" value={format(parseISO(caso.fec_insercion), "dd/MM/yyyy hh:mm")} />
+          <TextView label="Fecha de Creación" value={format(parseISO(llamada.fec_insercion), "dd/MM/yyyy hh:mm")} />
         </div>
       </div>
       <div className="columns">
         <div className="column">
-          <TextView label="Solución" value={caso.solucion} />
-        </div>
-        <div className="column">
-          <TextView label="Descripción" value={caso.descripcion} />
+          <TextView label="Descripción" value={llamada.descripcion} />
         </div>
       </div>
     </Seccion>
@@ -52,15 +43,15 @@ const MostrarCaso = () => {
   const navigate = useNavigate();
 
   const {
-    data: caso,
+    data: llamada,
     isLoading
-  } = useQuery(["caso", id], () => getCaso(id));
+  } = useQuery(["llamada", id], () => getLlamada(id));
 
   return (
     <section className="section w-full m-auto">
       <div className="mb-4">
         {isLoading ?
-          <CircularProgress size={24} /> : <DatosCaso caso={caso} navigate={navigate} />
+          <CircularProgress size={24} /> : <DatosLlamada llamada={llamada} navigate={navigate} />
         }
       </div>
       <Volver navigate={navigate} />

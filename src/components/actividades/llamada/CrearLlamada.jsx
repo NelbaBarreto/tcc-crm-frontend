@@ -1,14 +1,50 @@
-import React, { useState } from "react";
+import React, { useState, useReducer } from "react";
 import MostrarMensaje from "../../formulario/MostrarMensaje";
 import Seccion from "../../formulario/Seccion";
-import DatePicker from "react-datepicker";
+import { getTipos, getEstados, createLlamada } from "../../../api/llamadas";
+import { useQuery } from "react-query";
+import { useNavigate } from "react-router-dom";
+import { reducer, handleDispatch } from "../../formulario/reducerFormularios";
 import { Volver, Guardar } from "../../formulario/Acciones";
 import { Titulo1 } from "../../formulario/Titulo";
+import { Dropdown, Input, TextArea, Datepicker } from "../../formulario/Componentes";
 //import TimeInput from "react-input-time";
 
+const LLAMADA = "llamada";
+
 const CrearLlamada = () => {
-  const [state] = useState(false);
-  const [startDate, setStartDate] = useState(new Date());
+  const [state, dispatch] = useReducer(reducer, {});
+  const [select, setSelect] = useState({ tipo: "", estado: "" });
+  const [action, setAction] = useState({});
+  const navigate = useNavigate();
+
+  const crear = async e => {
+    e.preventDefault();
+    setAction({ saving: true, error: false, message: "" });
+    try {
+      await createLlamada({ ...state.llamada });
+      setAction({ saving: false, error: false, message: "Registro de llamada creado exitosamente." });
+      setTimeout(() => navigate("/actividades/llamadas"), 2000);
+    } catch (e) {
+      setAction({ saving: false, error: true, message: e.message });
+    };
+  };
+
+  const {
+    data: tipos,
+    tiposLoading
+  } = useQuery(["tipos"], getTipos);
+
+  const {
+    data: estados,
+    estadosLoading
+  } = useQuery(["estados"], getEstados);
+
+  const opcionesTipos = tiposLoading || !tipos ? [] :
+    tipos.map(tipo => ({ value: tipo, label: tipo }));
+
+  const opcionesEstados = estadosLoading || !estados ? [] :
+    estados.map(estado => ({ value: estado, label: estado }));
 
   return (
     <div>
@@ -16,95 +52,61 @@ const CrearLlamada = () => {
         <Titulo1>
           Nuevo Registro de Llamada
         </Titulo1>
-        {state.message ? <MostrarMensaje mensaje={state.message} error={state.error} /> : null}
+        {action.message ? <MostrarMensaje mensaje={action.message} error={action.error} /> : null}
         <form>
           <Seccion titulo="General">
             <div className="columns is-vcentered">
               <div className="column">
-                <div className="field">
-                  <label className="label">Asunto</label>
-                  <div className="control">
-                    <input
-                      name="asunto"
-                      className="input shadow-lg"
-                      type="text"
-                    />
-                  </div>
-                </div>
+                <Input
+                  label="Asunto"
+                  name="asunto"
+                  value={state?.llamada?.asunto || ""}
+                  onChange={e => handleDispatch(dispatch, e?.target.name, e?.target.value, LLAMADA)}
+                />
               </div>
               <div className="column is-2">
-                <div className="field">
-                  <label className="label">Tipo</label>
-                  {/* <div className="columns">
-                    <div className="column"> */}
-                      <div className="control">
-                        <div className="select">
-                          <select>
-                            <option selected>Entrante</option>
-                            <option>Saliente</option>
-                          </select>
-                        </div>
-                      </div>
-                    {/* </div>
-                  </div> */}
-                </div>
+                <Dropdown
+                  label="Tipo"
+                  options={opcionesTipos}
+                  value={select.tipo}
+                  onChange={e => {
+                    handleDispatch(dispatch, "tipo", e?.value, LLAMADA);
+                    setSelect({ ...select, tipo: e })
+                  }}
+                />
               </div>
               <div className="column is-3">
-                <div className="field">
-                  <label className="label">Estado</label>
-                  {/* <div className="columns">
-                    <div className="column"> */}
-                      <div className="control">
-                        <div className="select">
-                          <select>
-                            <option selected>Ocupado</option>
-                            <option>Conectado</option>
-                            <option>Dejo un mensaje</option>
-                            <option>Sin respuesta</option>
-                            <option>Nro Incorrecto</option>
-                            <option>Proxima llamada</option>
-                            <option>Oportunidad Cerrada</option>
-                          </select>
-                        </div>
-                      </div>
-                    {/* </div>
-                  </div> */}
-                </div>
+                <Dropdown
+                  label="Estado"
+                  value={select.estado}
+                  options={opcionesEstados}
+                  onChange={e => {
+                    handleDispatch(dispatch, "estado", e?.value, LLAMADA);
+                    setSelect({ ...select, estado: e })
+                  }}
+                />
               </div>
             </div>
             <div className="columns is-desktop">
               <div className="column">
-                <div className="field">
-                  <label className="label">Fecha y Hora de Inicio</label>
-                  <DatePicker
-                    className="input"
-                    selected={startDate}
-                    onChange={(date) => setStartDate(date)}
-                    locale="pt-BR"
-                    showTimeSelect
-                    timeFormat="p"
-                    timeIntervals={15}
-                    dateFormat="Pp"
-                  />
-                </div>
+                <Datepicker
+                  label="Fecha de Inicio"
+                  selected={state.llamada?.fec_inicio || ""}
+                  onChange={fecha => handleDispatch(dispatch, "fec_inicio", fecha, LLAMADA)}
+                />
               </div>
               <div className="column">
-                <div className="field">
-                  <label className="label">Descripción de la llamada</label>
-                  <div className="control">
-                    <textarea
-                      name="desCaso"
-                      className="textarea"
-                      type="text"
-                      placeholder="Ingrese una descripción"
-                    />
-                  </div>
-                </div>
+                <TextArea
+                  label=" Descripción"
+                  name="descripcion"
+                  value={state?.llamada?.descripcion || ""}
+                  onChange={e => handleDispatch(dispatch, e?.target.name, e?.target.value, LLAMADA)}
+                />
               </div>
             </div>
           </Seccion>
-          <Guardar saving={state.saving} />
-          <Volver />
+          <Guardar saving={action.saving} guardar={crear} />
+          <Volver navigate={navigate} />
         </form>
       </section>
     </div>
