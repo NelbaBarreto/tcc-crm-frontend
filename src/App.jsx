@@ -58,9 +58,12 @@ import MostrarCaso from "./components/soporte/casos/MostrarCaso";
 
 //Actividades
 import Calendario from "./components/actividades/calendario/Calendario";
+
 //Llamadas
 import ListarLlamada from "./components/actividades/llamada/Index";
 import CrearLlamada from "./components/actividades/llamada/CrearLlamada";
+import MostrarLlamada from "./components/actividades/llamada/MostrarLlamada";
+
 //Tareas
 import ListarTarea from "./components/actividades/tarea/Index";
 import CrearTarea from "./components/actividades/tarea/CrearTarea";
@@ -150,6 +153,7 @@ const MainApp = () => {
           {/* Llamadas */}
           <Route exact path="/actividades/llamadas" element={<ListarLlamada />} />
           <Route path="/actividades/llamadas/nuevo" element={<CrearLlamada />} />
+          <Route path="/actividades/llamadas/:id" element={<MostrarLlamada />} />
 
           {/* Cursos */}
           <Route exact path="/educacion/cursos" element={<ListarCursos />} />
