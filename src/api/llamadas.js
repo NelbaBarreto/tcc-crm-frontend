@@ -16,3 +16,13 @@ export const getLlamada = async id => {
   const { data: response } = await axios.get(`${API}/llamadas/${id}`);
   return response.data;
 };
+
+export const getTipos = async () => {
+  const { data: response } = await axios.get(`${API}/llamadas/tipos`);
+  return response.data;
+};
+
+export const getEstados = async () => {
+  const { data: response } = await axios.get(`${API}/llamadas/estados`);
+  return response.data;
+};

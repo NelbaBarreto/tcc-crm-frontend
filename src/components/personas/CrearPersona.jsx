@@ -156,7 +156,6 @@ const Telefonos = () => {
 
 const CrearPersona = () => {
   const [state, dispatch] = useReducer(reducer, {});
-
   return (
     <section>
       <Persona persona={state.persona} dispatch={dispatch} />

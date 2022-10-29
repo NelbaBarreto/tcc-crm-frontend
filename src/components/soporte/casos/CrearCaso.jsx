@@ -54,7 +54,6 @@ const DatosCaso = ({ caso, dispatch }) => {
 
   const opcionesTipos = tiposLoading || !tipos ? [] :
     tipos.map(tipo => ({ value: tipo, label: tipo }));
-
   return (
     <Seccion titulo="Datos del Caso">
       <Input
