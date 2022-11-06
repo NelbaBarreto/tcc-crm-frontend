@@ -5,6 +5,7 @@ import MostrarMensaje from "../../formulario/MostrarMensaje";
 import { Volver, Guardar } from "../../formulario/Acciones";
 import { Titulo1 } from "../../formulario/Titulo";
 import { useNavigate } from "react-router-dom";
+import { createSucursal } from "../../../api/sucursales";
 
 const DatosSucursal = ({ sucursal, setSucursal }) => {
   return (
@@ -32,8 +33,21 @@ const DatosSucursal = ({ sucursal, setSucursal }) => {
 
 const CrearSucursal = () => {
   const [sucursal, setSucursal] = useState({ empleado: { usuario: {} } });
+  const [action, setAction] = useState({});
   const [state, setState] = useState(false);
   const navigate = useNavigate();
+
+  const crear = async e => {
+    e.preventDefault();
+    setAction({ saving: true, error: false, message: "" });
+    try {
+      await createSucursal(state.sucursal);
+      setAction({ saving: false, error: false, message: "Profesor registrado exitosamente." });
+      setTimeout(() => navigate("/educacion/profesores"), 3000);
+    } catch (e) {
+      setAction({ saving: false, error: true, message: e.message });
+    };
+  };
 
   return (
     <div>
@@ -44,7 +58,7 @@ const CrearSucursal = () => {
         {state.message ? <MostrarMensaje mensaje={state.message} error={state.error} /> : null}
         <form>
           <DatosSucursal sucursal={sucursal} setSucursal={setSucursal} />
-          <Guardar saving={state.saving} />
+          <Guardar saving={action.saving} guardar={crear} />
           <Volver navigate={navigate} />
         </form>
       </section>

@@ -2,7 +2,7 @@ import axios from "axios";
 
 const API = process.env.REACT_APP_API || "http://localhost:8080/api"
 
-export const create = async (data) => {
+export const createSucursal = async (data) => {
   const { data: response } = await axios.post(`${API}/sucursales`, data);
   return response.data;
 };
