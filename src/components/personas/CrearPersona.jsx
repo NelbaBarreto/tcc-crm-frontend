@@ -1,11 +1,12 @@
-import React, { useState, useReducer } from "react";
+import React, { useState, useContext } from "react";
 import Seccion from "../formulario/Seccion";
 import Direccion from "./Direccion";
+import AppContext from "../../utils/AppContext";
 import { Dropdown, Input, classNameButton2 } from "../formulario/Componentes";
 import { Eliminar } from "../formulario/Acciones";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
-import { reducer, handleDispatch } from "../formulario/reducerFormularios.js";
+import { handleDispatch } from "../formulario/reducerFormularios.js";
 import { useQuery } from "react-query";
 import { getTipDocumentos } from "../../api/personas";
 
@@ -155,7 +156,8 @@ const Telefonos = () => {
 }
 
 const CrearPersona = () => {
-  const [state, dispatch] = useReducer(reducer, {});
+  const {state, dispatch} = useContext(AppContext);
+
   return (
     <section>
       <Persona persona={state.persona} dispatch={dispatch} />

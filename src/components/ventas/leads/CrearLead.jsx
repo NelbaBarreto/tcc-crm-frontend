@@ -1,4 +1,4 @@
-import React, { useState, useReducer } from "react";
+import React, { useState, useContext } from "react";
 import Seccion from "../../formulario/Seccion";
 import MostrarMensaje from "../../formulario/MostrarMensaje";
 import CrearPersona from "../../personas/CrearPersona";
@@ -9,7 +9,8 @@ import { getUsuarios } from "../../../api/usuarios";
 import { getCursos } from "../../../api/cursos";
 import { getCampanas } from "../../../api/campanas";
 import { createLead, getEstados, getOrigenes } from "../../../api/leads";
-import { reducer, handleDispatch } from "../../formulario/reducerFormularios.js";
+import { handleDispatch } from "../../formulario/reducerFormularios.js";
+import AppContext from "../../../utils/AppContext";
 import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 
@@ -125,15 +126,15 @@ const DatosLead = ({ dispatch }) => {
 };
 
 const CrearLead = () => {
-  const [state, dispatch] = useReducer(reducer, {});
+  const {state, dispatch} = useContext(AppContext);
   const [action, setAction] = useState({});
   const navigate = useNavigate();
-
+console.log(state)
   const crear = async e => {
     e.preventDefault();
     setAction({ saving: true, error: false, message: "" });
     try {
-      await createLead({ ...state.lead, persona: { ...state.persona } });
+      await createLead({ ...state.lead, persona: state.persona });
       setAction({ saving: false, error: false, message: "Lead creado exitosamente." });
       setTimeout(() => navigate("/ventas/leads"), 2000);
     } catch (e) {
