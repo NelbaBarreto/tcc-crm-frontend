@@ -21,6 +21,29 @@ const Index = () => {
       }
     },
     {
+      name: "persona",
+      label: "Nombre",
+      options: {
+        filter: true,
+        filterType: "textField",
+        sort: true,
+        customBodyRender: value => {
+          if (value) {
+            return (
+              <NavLink
+                to={"/ventas/leads/" + value.lead_id}
+                className="underline text-blue-900"
+              >
+                {value.nombre}
+              </NavLink>
+            );
+          } else {
+            return null;
+          }
+        }
+      }
+    },
+    {
       name: "estado",
       label: "Estado",
       options: {
