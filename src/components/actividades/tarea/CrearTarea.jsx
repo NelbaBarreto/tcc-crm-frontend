@@ -125,7 +125,7 @@ const CrearTarea = () => {
     try {
       await createTarea({ ...state.tarea });
       setAction({ saving: false, error: false, message: "Tarea creada exitosamente." });
-      setTimeout(() => navigate("/actividades/tarea"), 3000);
+      setTimeout(() => navigate("/actividades/tareas"), 3000);
     } catch (e) {
       setAction({ saving: false, error: true, message: e.message });
     };

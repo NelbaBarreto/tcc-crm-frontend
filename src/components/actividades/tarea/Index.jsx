@@ -15,7 +15,7 @@ const Index = () => {
 
   const columns = [
     {
-      name: "llamada_id",
+      name: "tarea_id",
       options: {
         display: "excluded",
         filter: false
@@ -28,6 +28,16 @@ const Index = () => {
         filter: true,
         filterType: "textField",
         sort: true,
+        customBodyRender: (value, tableMeta) => {
+          return (
+            <NavLink
+              to={"/actividades/tareas/" + tableMeta.rowData[0]}
+              className="underline text-blue-900"
+            >
+              {value}
+            </NavLink>
+          )
+        }
       }
     },
     {
