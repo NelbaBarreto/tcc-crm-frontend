@@ -23,9 +23,6 @@ const DatosLlamada = ({ llamada = {} }) => {
       </div>
       <div className="columns">
         <div className="column">
-          <TextView label="Usuario Asignado" value={llamada.usuario?.nom_usuario} />
-        </div>
-        <div className="column">
           <TextView label="Fecha de Creación" value={format(parseISO(llamada.fec_insercion), "dd/MM/yyyy hh:mm")} />
         </div>
       </div>
@@ -38,7 +35,7 @@ const DatosLlamada = ({ llamada = {} }) => {
   );
 }
 
-const MostrarCaso = () => {
+const MostrarLlamada = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -59,4 +56,4 @@ const MostrarCaso = () => {
   );
 }
 
-export default MostrarCaso;
+export default MostrarLlamada;
