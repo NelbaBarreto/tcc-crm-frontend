@@ -3,10 +3,9 @@ import Seccion from "../formulario/Seccion";
 import Direccion from "./Direccion";
 import AppContext from "../../utils/AppContext";
 import { Dropdown, Input, classNameButton2 } from "../formulario/Componentes";
-import { Eliminar } from "../formulario/Acciones";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
-import { handleDispatch } from "../formulario/reducerFormularios.js";
+import { handleDispatch, handleDireccionAdded } from "../formulario/reducerFormularios.js";
 import { useQuery } from "react-query";
 import { getTipDocumentos } from "../../api/personas";
 
@@ -63,27 +62,38 @@ const Persona = ({ dispatch, persona }) => {
   );
 }
 
-const Direcciones = () => {
-  const [inputList, setInputList] = useState([]);
+const MostrarDirecciones = () => {
+  return (
+    <table className="table is-striped is-narrow is-fullwidth">
+      <thead>
+        <tr>
+          <th>Calle 1</th>
+          <th>Calle 2</th>
+          <th>Código Postal</th>
+          <th>País</th>
+          <th>Ciudad</th>
+          <th>Referencia</th>
+          <th>Principal</th>
+        </tr>
+      </thead>
+    </table>
+  );
+}
 
-  const onAddClick = e => {
-    e.preventDefault();
-    setInputList(inputList.concat(
-      <Direccion
-        key={inputList.length}
-        index={inputList.length}
-      />
-    ));
-  };
-
+const Direcciones = ({ dispatch }) => {
   return (
     <Seccion titulo="Direcciones">
-      <div>
-        {inputList}
+      <div className="columns">
+        <div className="column">
+          <Direccion />
+        </div>
+        <div className="column">
+          <MostrarDirecciones />
+        </div>
       </div>
       <button
         className={classNameButton2}
-        onClick={onAddClick}
+        onClick={e => {e.preventDefault(); handleDireccionAdded(dispatch)}}
       >
         <span>Agregar Dirección</span>
         <span className="icon is-small">
@@ -135,7 +145,6 @@ const Telefonos = () => {
             />
           </div>
         </div>
-        <Eliminar />
       </section>
     );
   }
@@ -156,7 +165,7 @@ const Telefonos = () => {
 }
 
 const CrearPersona = () => {
-  const {state, dispatch} = useContext(AppContext);
+  const { state, dispatch } = useContext(AppContext);
 
   return (
     <section>
