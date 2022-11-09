@@ -27,6 +27,7 @@ import CrearMotivo from "./components/parametros/motivos/CrearMotivo";
 // Campañas
 import ListarCampana from "./components/marketing/campanas/Index";
 import CrearCampana from "./components/marketing/campanas/CrearCampana";
+import MostrarCampana from "./components/marketing/campanas/MostrarCampana";
 
 // Tipo Campaña
 import ListarTipcampana from "./components/marketing/tipo_campanas/Index";
@@ -118,6 +119,7 @@ const MainApp = () => {
           {/* Campañas */}
           <Route exact path="/marketing/campanas" element={<ListarCampana />} />
           <Route path="/marketing/campanas/nuevo" element={<CrearCampana />} />
+          <Route path="/marketing/campanas/:id" element={<MostrarCampana />} />
 
           {/* Tipo Campañas */}
           <Route exact path="/marketing/tipocampana" element={<ListarTipcampana />} />

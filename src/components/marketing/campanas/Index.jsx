@@ -32,7 +32,7 @@ const Index = () => {
         customBodyRender: (value, tableMeta) => {
           return (
             <NavLink
-              to={"/marketing/campana/" + tableMeta.rowData[0]}
+              to={"/marketing/campanas/" + tableMeta.rowData[0]}
               className="underline text-blue-900"
             >
               {value}
