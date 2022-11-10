@@ -16,10 +16,12 @@ import MostrarEmpleado from "./components/empleados/MostrarEmpleado";
 //Países
 import ListarPaises from "./components/parametros/paises/Index";
 import CrearPais from "./components/parametros/paises/CrearPais";
+import MostrarPais from "./components/parametros/paises/MostrarPais";
 
 // Ciudades
 import ListarCiudades from "./components/parametros/ciudades/Index";
 import CrearCiudad from "./components/parametros/ciudades/CrearCiudad";
+import MostrarCiudad from "./components/parametros/ciudades/MostrarCiudad";
 
 // Motivos
 import CrearMotivo from "./components/parametros/motivos/CrearMotivo";
@@ -110,10 +112,12 @@ const MainApp = () => {
           {/* Países */}
           <Route exact path="/parametros/paises" element={<ListarPaises />} />
           <Route path="/parametros/paises/nuevo" element={<CrearPais />} />
+          <Route path="/parametros/paises/:id" element={<MostrarPais />} />
 
           {/* Ciudades */}
           <Route exact path="/parametros/ciudades" element={<ListarCiudades />} />
           <Route path="/parametros/ciudades/nuevo" element={<CrearCiudad />} />
+          <Route path="/parametros/ciudades/:id" element={<MostrarCiudad />} />
 
           <Route path="/parametros/motivos" element={<CrearMotivo />} />
 
