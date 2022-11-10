@@ -11,3 +11,8 @@ export const getTipDocumentos = async (data) => {
   const { data: response } = await axios.get(`${API}/personas/tip_documentos`, data);
   return response.data;
 };
+
+export const getTiposDireccion = async () => {
+  const { data: response } = await axios.get(`${API}/direcciones/tipos`);
+  return response.data;
+};

@@ -36,16 +36,17 @@ export const Datepicker = ({ label, selected, onChange }) => {
   );
 }
 
-export const Checkbox = ({ label, value }) => {
+export const Checkbox = ({ label, name, value, onChange }) => {
   return (
     <div className="field">
       <label className="label">{label}</label>
       <div className="control">
         <input
-          name="activo"
+          name={name}
           className="checkbox shadow-lg"
           type="checkbox"
-          value={value}
+          checked={value}
+          onChange={onChange}
         />
       </div>
     </div>
