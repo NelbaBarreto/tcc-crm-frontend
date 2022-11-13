@@ -13,34 +13,30 @@ const DatosTarea = ({ tarea = {} }) => {
     <Seccion titulo={tarea.asunto}>
       <div className="columns">
         <div className="column">
-          <TextView label="Asunto" value={tarea.asunto} />
+          <TextView label="Estado" value={tarea.estado} />
         </div>
         <div className="column">
-          <TextView label="Descripcion" value={tarea.descripcion} />
+          <TextView label="Fecha de Creación" value={format(parseISO(tarea.fec_insercion), "dd/MM/yyyy hh:mm")} />
         </div>
       </div>
 
       <div className="columns">
         <div className="column">
-          <TextView label="Estado" value={tarea.estado} />
-        </div>
-        <div className="column">
-          <TextView label="Prioridad" value={tarea.prioridad} />
-        </div>
-      </div>
-      <div className="columns">
-      <div className="column">
           <TextView label="Fecha de Inicio" value={tarea.fec_inicio} />
         </div>
         <div className="column">
           <TextView label="Fecha Fin" value={tarea.fec_fin} />
         </div>
       </div>
-        
-        <div className="column">
-          <TextView label="Fecha de Creación" value={format(parseISO(tarea.fec_insercion), "dd/MM/yyyy hh:mm")} />
-        </div>
       
+      <div className="columns">
+        <div className="column">
+          <TextView label="Prioridad" value={tarea.prioridad} />
+        </div>
+        <div className="column">
+          <TextView label="Descripcion" value={tarea.descripcion} />
+        </div>
+      </div>
     </Seccion>
   );
 }
