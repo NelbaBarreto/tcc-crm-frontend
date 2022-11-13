@@ -16,12 +16,11 @@ const DatosCiudad = ({ ciudad = {} }) => {
                     <TextView label="Nombre" value={ciudad.nombre} />
                 </div>
                 <div className="column">
-                    <TextView label="País" value={ciudad.pais_id} />
+                    <TextView label="País" value={ciudad.pais.nombre} />
                 </div>
-            </div>
-
-            <div className="column">
-                <TextView label="Fecha de Creación" value={format(parseISO(ciudad.fec_insercion), "dd/MM/yyyy hh:mm")} />
+                <div className="column">
+                    <TextView label="Fecha de Creación" value={format(parseISO(ciudad.fec_insercion), "dd/MM/yyyy hh:mm")} />
+                </div>
             </div>
 
         </Seccion>
