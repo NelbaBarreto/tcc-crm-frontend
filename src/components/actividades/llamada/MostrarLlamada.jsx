@@ -15,22 +15,19 @@ const DatosLlamada = ({ llamada = {} }) => {
         <div className="column">
           <TextView label="Estado" value={llamada.estado} />
         </div>
-      </div>
-      <div className="columns">
-        <div className="column">
-          <TextView label="Tipo" value={llamada.tipo} />
-        </div>
-      </div>
-      <div className="columns">
         <div className="column">
           <TextView label="Fecha de Creación" value={format(parseISO(llamada.fec_insercion), "dd/MM/yyyy hh:mm")} />
         </div>
       </div>
       <div className="columns">
         <div className="column">
+          <TextView label="Tipo de llamada" value={llamada.tipo} />
+        </div>
+        <div className="column">
           <TextView label="Descripción" value={llamada.descripcion} />
         </div>
       </div>
+
     </Seccion>
   );
 }
