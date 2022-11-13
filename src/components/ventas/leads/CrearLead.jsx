@@ -1,4 +1,5 @@
-import React, { useState, useReducer } from "react";
+import React, { useState, useContext } from "react";
+import AppContext from "../../../utils/AppContext";
 import Seccion from "../../formulario/Seccion";
 import MostrarMensaje from "../../formulario/MostrarMensaje";
 import CrearPersona from "../../personas/CrearPersona";
@@ -9,7 +10,7 @@ import { getUsuarios } from "../../../api/usuarios";
 import { getCursos } from "../../../api/cursos";
 import { getCampanas } from "../../../api/campanas";
 import { createLead, getEstados, getOrigenes } from "../../../api/leads";
-import { reducer, handleDispatch } from "../../formulario/reducerFormularios.js";
+import { handleDispatch, handleStateCleared } from "../../formulario/reducerFormularios.js";
 import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 
@@ -125,7 +126,7 @@ const DatosLead = ({ dispatch }) => {
 };
 
 const CrearLead = () => {
-  const [state, dispatch] = useReducer(reducer, {});
+  const {state : { lead, persona, direcciones }, dispatch} = useContext(AppContext);
   const [action, setAction] = useState({});
   const navigate = useNavigate();
 
@@ -133,8 +134,9 @@ const CrearLead = () => {
     e.preventDefault();
     setAction({ saving: true, error: false, message: "" });
     try {
-      await createLead({ ...state.lead, persona: { ...state.persona } });
+      await createLead({ ...lead, persona: { ...persona, direcciones } });
       setAction({ saving: false, error: false, message: "Lead creado exitosamente." });
+      handleStateCleared(dispatch);
       setTimeout(() => navigate("/ventas/leads"), 2000);
     } catch (e) {
       setAction({ saving: false, error: true, message: e.message });
@@ -150,7 +152,10 @@ const CrearLead = () => {
         {action.message ? <MostrarMensaje mensaje={action.message} error={action.error} /> : null}
         <form>
           <CrearPersona />
-          <DatosLead lead={state.lead} dispatch={dispatch} />
+          <DatosLead 
+            lead={lead} 
+            dispatch={dispatch} 
+          />
           <Guardar saving={action.saving} guardar={crear} />
           <Volver navigate={navigate} />
         </form>

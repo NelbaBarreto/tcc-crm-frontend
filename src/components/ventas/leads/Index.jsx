@@ -21,6 +21,29 @@ const Index = () => {
       }
     },
     {
+      name: "persona",
+      label: "Nombre",
+      options: {
+        filter: true,
+        filterType: "textField",
+        sort: true,
+        customBodyRender: value => {
+          if (value) {
+            return (
+              <NavLink
+                to={"/ventas/leads/" + value.lead_id}
+                className="underline text-blue-900"
+              >
+                {value.nombre}
+              </NavLink>
+            );
+          } else {
+            return null;
+          }
+        }
+      }
+    },
+    {
       name: "estado",
       label: "Estado",
       options: {
@@ -30,31 +53,26 @@ const Index = () => {
       }
     },
     {
-      name: "usuario",
-      label: "Usuario Asignado",
-      options: {
-        filter: true,
-        filterType: "textField",
-        sort: true,
-        customBodyRender: (value) => {
-          return (
-            <NavLink
-              to={"/administrador/usuarios/" + value.usuario_id}
-              className="underline text-blue-900"
-            >
-              {value.nom_usuario}
-            </NavLink>
-          )
-        }
-      }
-    },
-    {
-      name: "campana_id",
+      name: "campana",
       label: "Campaña",
       options: {
         filter: true,
         filterType: "textField",
         sort: true,
+        customBodyRender: value => {
+          if (value) {
+            return (
+              <NavLink
+                to={"/marketing/campanas/" + value.campana_id}
+                className="underline text-blue-900"
+              >
+                {value.nombre}
+              </NavLink>
+            );
+          } else {
+            return null;
+          }
+        }
       }
     },
     {
@@ -73,15 +91,43 @@ const Index = () => {
         filter: true,
         filterType: "dropdown",
         sort: true,
-        customBodyRender: (value) => {
-          return (
-            <NavLink
-              to={"/educacion/cursos/" + value.curso_id}
-              className="underline text-blue-900"
-            >
-              {value.nombre}
-            </NavLink>
-          )
+        customBodyRender: value => {
+          if (value) {
+            return (
+              <NavLink
+                to={"/educacion/cursos/" + value.curso_id}
+                className="underline text-blue-900"
+              >
+                {value.nombre}
+              </NavLink>
+            );
+          } else {
+            return null;
+          }
+        }
+      }
+    },
+    {
+      name: "usuario",
+      label: "Usuario Asignado",
+      options: {
+        filter: true,
+        filterType: "textField",
+        sort: true,
+        customBodyRender: value => {
+          if (value) {
+            return (
+              <NavLink
+                to={"/administrador/usuarios/" + value.usuario_id}
+                className="underline text-blue-900"
+              >
+                {value.nom_usuario}
+              </NavLink>
+            );
+          } else {
+            return null;
+          }
+
         }
       }
     },
