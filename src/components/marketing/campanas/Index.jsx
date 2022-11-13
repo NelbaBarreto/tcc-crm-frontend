@@ -3,6 +3,7 @@ import DataTables from "../../DataTables";
 import { format, parseISO } from "date-fns";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Button1 } from "../../formulario/Componentes";
 import { useQuery } from "react-query";
 import { getCampanas } from "../../../api/campanas";
 import { NavLink } from "react-router-dom";
@@ -31,7 +32,7 @@ const Index = () => {
         customBodyRender: (value, tableMeta) => {
           return (
             <NavLink
-              to={"/marketing/campana/" + tableMeta.rowData[0]}
+              to={"/marketing/campanas/" + tableMeta.rowData[0]}
               className="underline text-blue-900"
             >
               {value}
@@ -66,15 +67,22 @@ const Index = () => {
         filter: false,
         sort: false,
         empty: true,
-        customBodyRenderLite: (dataIndex, _rowIndex) => {
+        customBodyRenderLite: (_dataIndex, _rowIndex) => {
           return (
-            <button
-              className="button font-semibold shadow-lg text-white hover:text-white focus:text-white
-              hover:bg-deep-purple-700 bg-deep-purple-400 border-deep-purple-700"
-              onClick={() => console.log(campanas[dataIndex])}
-            >
-              Editar
-            </button>
+            <div className="field is-grouped">
+              <div className="control">
+                <Button1
+                >
+                  Editar
+                </Button1>
+              </div>
+              <div className="control">
+                <Button1
+                >
+                  Eliminar
+                </Button1>
+              </div>
+            </div>
           );
         }
       }

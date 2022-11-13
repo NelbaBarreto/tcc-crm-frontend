@@ -16,3 +16,13 @@ export const getTarea = async id => {
   const { data: response } = await axios.get(`${API}/tareas/${id}`);
   return response.data;
 };
+
+export const getPrioridades = async () => {
+  const { data: response } = await axios.get(`${API}/tareas/prioridades`);
+  return response.data;
+};
+
+export const getEstados = async () => {
+  const { data: response } = await axios.get(`${API}/tareas/estados`);
+  return response.data;
+};

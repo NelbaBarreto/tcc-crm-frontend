@@ -18,18 +18,6 @@ const CrearLlamada = () => {
   const [action, setAction] = useState({});
   const navigate = useNavigate();
 
-  const crear = async e => {
-    e.preventDefault();
-    setAction({ saving: true, error: false, message: "" });
-    try {
-      await createLlamada({ ...state.llamada });
-      setAction({ saving: false, error: false, message: "Registro de llamada creado exitosamente." });
-      setTimeout(() => navigate("/actividades/llamadas"), 2000);
-    } catch (e) {
-      setAction({ saving: false, error: true, message: e.message });
-    };
-  };
-
   const {
     data: tipos,
     tiposLoading
@@ -45,6 +33,18 @@ const CrearLlamada = () => {
 
   const opcionesEstados = estadosLoading || !estados ? [] :
     estados.map(estado => ({ value: estado, label: estado }));
+
+  const crear = async e => {
+    e.preventDefault();
+    setAction({ saving: true, error: false, message: "" });
+    try {
+      await createLlamada({ ...state.llamada });
+      setAction({ saving: false, error: false, message: "Registro de llamada creado exitosamente." });
+      setTimeout(() => navigate("/actividades/llamadas"), 2000);
+    } catch (e) {
+      setAction({ saving: false, error: true, message: e.message });
+    };
+  };
 
   return (
     <div>

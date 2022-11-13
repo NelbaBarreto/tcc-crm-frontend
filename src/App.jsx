@@ -18,10 +18,12 @@ import MostrarEmpleado from "./components/empleados/MostrarEmpleado";
 //Países
 import ListarPaises from "./components/parametros/paises/Index";
 import CrearPais from "./components/parametros/paises/CrearPais";
+import MostrarPais from "./components/parametros/paises/MostrarPais";
 
 // Ciudades
 import ListarCiudades from "./components/parametros/ciudades/Index";
 import CrearCiudad from "./components/parametros/ciudades/CrearCiudad";
+import MostrarCiudad from "./components/parametros/ciudades/MostrarCiudad";
 
 // Motivos
 import CrearMotivo from "./components/parametros/motivos/CrearMotivo";
@@ -29,6 +31,7 @@ import CrearMotivo from "./components/parametros/motivos/CrearMotivo";
 // Campañas
 import ListarCampana from "./components/marketing/campanas/Index";
 import CrearCampana from "./components/marketing/campanas/CrearCampana";
+import MostrarCampana from "./components/marketing/campanas/MostrarCampana";
 
 // Tipo Campaña
 import ListarTipcampana from "./components/marketing/tipo_campanas/Index";
@@ -69,6 +72,7 @@ import MostrarLlamada from "./components/actividades/llamada/MostrarLlamada";
 //Tareas
 import ListarTarea from "./components/actividades/tarea/Index";
 import CrearTarea from "./components/actividades/tarea/CrearTarea";
+import MostrarTarea from "./components/actividades/tarea/MostrarTarea";
 
 //Cursos
 import ListarCursos from "./components/educacion/cursos/Index";
@@ -99,7 +103,7 @@ const MainApp = () => {
   };*/
 
   return (
-    <AppContext.Provider value={{state, dispatch}}>
+    <AppContext.Provider value={{ state, dispatch }}>
       <Router>
         <Layout>
           <Routes>
@@ -114,16 +118,19 @@ const MainApp = () => {
             {/* Países */}
             <Route exact path="/parametros/paises" element={<ListarPaises />} />
             <Route path="/parametros/paises/nuevo" element={<CrearPais />} />
+            <Route path="/parametros/paises/:id" element={<MostrarPais />} />
 
             {/* Ciudades */}
             <Route exact path="/parametros/ciudades" element={<ListarCiudades />} />
             <Route path="/parametros/ciudades/nuevo" element={<CrearCiudad />} />
+            <Route path="/parametros/ciudades/:id" element={<MostrarCiudad />} />
 
             <Route path="/parametros/motivos" element={<CrearMotivo />} />
 
             {/* Campañas */}
             <Route exact path="/marketing/campanas" element={<ListarCampana />} />
             <Route path="/marketing/campanas/nuevo" element={<CrearCampana />} />
+            <Route path="/marketing/campanas/:id" element={<MostrarCampana />} />
 
             {/* Tipo Campañas */}
             <Route exact path="/marketing/tipocampana" element={<ListarTipcampana />} />
@@ -151,15 +158,19 @@ const MainApp = () => {
             <Route path="/soporte/casos/nuevo" element={<CrearCaso />} />
             <Route path="/soporte/casos/:id" element={<MostrarCaso />} />
 
-            <Route path="/actividades/calendario" element={<Calendario />} />
-
             {/* Tareas */}
             <Route exact path="/actividades/tareas/" element={<ListarTarea />} />
             <Route path="/actividades/tareas/nuevo" element={<CrearTarea />} />
+            <Route path="/actividades/tareas/:id" element={<MostrarTarea />} />
+
             {/* Llamadas */}
             <Route exact path="/actividades/llamadas" element={<ListarLlamada />} />
             <Route path="/actividades/llamadas/nuevo" element={<CrearLlamada />} />
             <Route path="/actividades/llamadas/:id" element={<MostrarLlamada />} />
+
+            {/* Calendarios */}
+            <Route path="/actividades/calendario" element={<Calendario />} />
+
 
             {/* Cursos */}
             <Route exact path="/educacion/cursos" element={<ListarCursos />} />
@@ -169,7 +180,7 @@ const MainApp = () => {
             {/* Ciclos */}
             <Route exact path="/educacion/cursos/:curso_id/ciclos/nuevo" element={<CrearCiclo />} />
 
-            {/* // */}
+            {/* Educación */}
             <Route exact path="/educacion/profesores" element={<ListarProfesores />} />
             <Route path="/educacion/profesores/nuevo" element={<CrearProfesor />} />
 

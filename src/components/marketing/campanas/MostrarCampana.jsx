@@ -5,47 +5,47 @@ import { CircularProgress } from "@mui/material";
 import { Volver } from "../../formulario/Acciones";
 import { useQuery } from "react-query";
 import { useParams, useNavigate } from "react-router-dom";
-import { getLlamada } from "../../../api/llamadas";
+import { getCampana } from "../../../api/campanas";
 import { format, parseISO } from "date-fns";
 
-const DatosLlamada = ({ llamada = {} }) => {
+const DatosCampana = ({ campana = {} }) => {
   return (
-    <Seccion titulo={llamada.asunto}>
+    <Seccion titulo={campana.nombre}>
       <div className="columns">
         <div className="column">
-          <TextView label="Estado" value={llamada.estado} />
+          <TextView label="Nombre" value={campana.nombre} />
         </div>
         <div className="column">
-          <TextView label="Fecha de Creación" value={format(parseISO(llamada.fec_insercion), "dd/MM/yyyy hh:mm")} />
-        </div>
-      </div>
-      <div className="columns">
-        <div className="column">
-          <TextView label="Tipo de llamada" value={llamada.tipo} />
-        </div>
-        <div className="column">
-          <TextView label="Descripción" value={llamada.descripcion} />
+          <TextView label="Fecha de Creación" value={format(parseISO(campana.fec_insercion), "dd/MM/yyyy hh:mm")} />
         </div>
       </div>
 
-    </Seccion>
+      <div className="columns">
+      <div className="column">
+        <TextView label="Fecha Fin" value={campana.fec_fin} />
+      </div>
+      <div className="column">
+        <TextView label="Fecha de Inicio" value={campana.fec_inicio} />
+      </div>
+    </div>
+    </Seccion >
   );
 }
 
-const MostrarLlamada = () => {
+const MostrarCampana = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
   const {
-    data: llamada,
+    data: campana,
     isLoading
-  } = useQuery(["llamada", id], () => getLlamada(id));
+  } = useQuery(["campana", id], () => getCampana(id));
 
   return (
     <section className="section w-full m-auto">
       <div className="mb-4">
         {isLoading ?
-          <CircularProgress size={24} /> : <DatosLlamada llamada={llamada} navigate={navigate} />
+          <CircularProgress size={24} /> : <DatosCampana campana={campana} navigate={navigate} />
         }
       </div>
       <Volver navigate={navigate} />
@@ -53,4 +53,4 @@ const MostrarLlamada = () => {
   );
 }
 
-export default MostrarLlamada;
+export default MostrarCampana;

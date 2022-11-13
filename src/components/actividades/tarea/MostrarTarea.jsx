@@ -5,47 +5,56 @@ import { CircularProgress } from "@mui/material";
 import { Volver } from "../../formulario/Acciones";
 import { useQuery } from "react-query";
 import { useParams, useNavigate } from "react-router-dom";
-import { getLlamada } from "../../../api/llamadas";
+import { getTarea } from "../../../api/tareas";
 import { format, parseISO } from "date-fns";
 
-const DatosLlamada = ({ llamada = {} }) => {
+const DatosTarea = ({ tarea = {} }) => {
   return (
-    <Seccion titulo={llamada.asunto}>
+    <Seccion titulo={tarea.asunto}>
       <div className="columns">
         <div className="column">
-          <TextView label="Estado" value={llamada.estado} />
+          <TextView label="Estado" value={tarea.estado} />
         </div>
         <div className="column">
-          <TextView label="Fecha de Creación" value={format(parseISO(llamada.fec_insercion), "dd/MM/yyyy hh:mm")} />
-        </div>
-      </div>
-      <div className="columns">
-        <div className="column">
-          <TextView label="Tipo de llamada" value={llamada.tipo} />
-        </div>
-        <div className="column">
-          <TextView label="Descripción" value={llamada.descripcion} />
+          <TextView label="Fecha de Creación" value={format(parseISO(tarea.fec_insercion), "dd/MM/yyyy hh:mm")} />
         </div>
       </div>
 
+      <div className="columns">
+        <div className="column">
+          <TextView label="Fecha de Inicio" value={tarea.fec_inicio} />
+        </div>
+        <div className="column">
+          <TextView label="Fecha Fin" value={tarea.fec_fin} />
+        </div>
+      </div>
+      
+      <div className="columns">
+        <div className="column">
+          <TextView label="Prioridad" value={tarea.prioridad} />
+        </div>
+        <div className="column">
+          <TextView label="Descripcion" value={tarea.descripcion} />
+        </div>
+      </div>
     </Seccion>
   );
 }
 
-const MostrarLlamada = () => {
+const MostrarTarea = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
   const {
-    data: llamada,
+    data: tarea,
     isLoading
-  } = useQuery(["llamada", id], () => getLlamada(id));
+  } = useQuery(["tarea", id], () => getTarea(id));
 
   return (
     <section className="section w-full m-auto">
       <div className="mb-4">
         {isLoading ?
-          <CircularProgress size={24} /> : <DatosLlamada llamada={llamada} navigate={navigate} />
+          <CircularProgress size={24} /> : <DatosTarea tarea={tarea} navigate={navigate} />
         }
       </div>
       <Volver navigate={navigate} />
@@ -53,4 +62,4 @@ const MostrarLlamada = () => {
   );
 }
 
-export default MostrarLlamada;
+export default MostrarTarea;
