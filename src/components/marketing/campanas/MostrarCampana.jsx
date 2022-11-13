@@ -16,19 +16,19 @@ const DatosCampana = ({ campana = {} }) => {
           <TextView label="Nombre" value={campana.nombre} />
         </div>
         <div className="column">
-          <TextView label="Fecha de Inicio" value={campana.fec_inicio} />
-        </div>
-      </div>
-      
-        <div className="column">
-          <TextView label="Fecha Fin" value={campana.fec_fin} />
-        </div>
-        
-        <div className="column">
           <TextView label="Fecha de Creación" value={format(parseISO(campana.fec_insercion), "dd/MM/yyyy hh:mm")} />
         </div>
-      
-    </Seccion>
+      </div>
+
+      <div className="columns">
+      <div className="column">
+        <TextView label="Fecha Fin" value={campana.fec_fin} />
+      </div>
+      <div className="column">
+        <TextView label="Fecha de Inicio" value={campana.fec_inicio} />
+      </div>
+    </div>
+    </Seccion >
   );
 }
 
