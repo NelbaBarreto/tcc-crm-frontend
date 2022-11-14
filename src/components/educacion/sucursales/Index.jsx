@@ -47,6 +47,7 @@ const Index = () => {
         filter: true,
         filterType: "textField",
         sort: true,
+        
       }
     },
     {

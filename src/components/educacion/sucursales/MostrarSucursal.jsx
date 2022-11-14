@@ -13,7 +13,7 @@ const DatosSucursal = ({ sucursal = {} }) => {
         <Seccion titulo={sucursal.nombre}>
             <div className="columns">
                 <div className="column">
-                    <TextView label="País" value="" />
+                    <TextView label="País" value={sucursal.pai.nombre} />
                 </div>
                 <div className="column">
                     <TextView label="Fecha de Creación" value={format(parseISO(sucursal.fec_insercion), "dd/MM/yyyy hh:mm")} />
