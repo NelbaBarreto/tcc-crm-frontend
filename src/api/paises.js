@@ -16,3 +16,8 @@ export const getPais = async id => {
   const { data: response } = await axios.get(`${API}/paises/${id}`);
   return response.data;
 };
+
+export const deletePais = async id => {
+  const { data: response } = await axios.delete(`${API}/paises/${id}`);
+  return response.data;
+};
