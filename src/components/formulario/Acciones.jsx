@@ -12,7 +12,7 @@ export const Guardar = ({ guardar, saving = false }) => {
       <div className="control">
         <button
           type="submit"
-          className={classNames(classNameButton2,
+          className={classNames(`${classNameButton2} float-right`,
             { "is-loading": saving })}
           disabled={saving}
           onClick={e => guardar(e)}

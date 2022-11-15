@@ -5,7 +5,8 @@ import AppContext from "../../utils/AppContext";
 import { Dropdown, Input, classNameButton2 } from "../formulario/Componentes";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
-import { handleDispatch, handleDireccionAdded, handleDireccionDeleted } from "../formulario/reducerFormularios.js";
+import { handleDispatch, handleDireccionAdded, 
+  handleDireccionDeleted, handleTelefonoAdded, handleTelefonoDeleted } from "../formulario/reducerFormularios.js";
 import { useQuery } from "react-query";
 import { getTipDocumentos } from "../../api/personas";
 import Telefono from "./Telefono";
@@ -129,6 +130,44 @@ const Direcciones = ({ dispatch, direcciones, direccion }) => {
 }
 
 const Telefonos = ({ dispatch, telefonos, telefono }) => {
+  const MostrarTelefonos = () => {
+    return (
+      <table className="table is-striped">
+        <thead>
+          <tr>
+            <th>Número</th>
+            <th>Tipo</th>
+            <th>Comentario</th>
+            <th>Principal</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {telefonos?.map((telefono, idx) => {
+            return (
+              <tr key={idx}>
+                <td>{telefono.numero}</td>
+                <td>{telefono.tipo}</td>
+                <td>{telefono.comentario}</td>
+                <td>{telefono.principal ? "Sí" : "No"}</td>
+                <td>
+                  <button
+                    className="button is-danger"
+                    onClick={e => { e.preventDefault(); handleTelefonoDeleted(dispatch, idx) }}
+                  >
+                    <span className="icon is-small">
+                      <FontAwesomeIcon icon={solid("trash")} />
+                    </span>
+                  </button>
+                </td>
+              </tr>
+            )
+          })}
+        </tbody>
+      </table>
+    );
+  }
+
   return (
     <Seccion titulo="Teléfonos">
       <>
@@ -136,7 +175,7 @@ const Telefonos = ({ dispatch, telefonos, telefono }) => {
         <button
           className={classNameButton2}
           disabled={!telefono || Object?.entries(telefono).length === 0}
-          onClick={e => { e.preventDefault(); handleDireccionAdded(dispatch) }}
+          onClick={e => { e.preventDefault(); handleTelefonoAdded(dispatch) }}
         >
           <span>Agregar</span>
           <span className="icon is-small">
@@ -144,6 +183,7 @@ const Telefonos = ({ dispatch, telefonos, telefono }) => {
           </span>
         </button>
       </>
+      <MostrarTelefonos />
     </Seccion>
   );
 }
@@ -152,7 +192,8 @@ const CrearPersona = () => {
   const { state: { persona,
     direcciones,
     telefonos,
-    direccion
+    direccion,
+    telefono
   }, dispatch } = useContext(AppContext);
 
   return (
@@ -168,6 +209,7 @@ const CrearPersona = () => {
       />
       <Telefonos
         telefonos={telefonos}
+        telefono={telefono}
         dispatch={dispatch}
       />
     </section>

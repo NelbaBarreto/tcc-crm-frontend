@@ -92,7 +92,7 @@ import ListarSucursales from "./components/educacion/sucursales/Index";
 
 import useToken from "../src/utils/useToken";
 
-const initialState = { direcciones: [] };
+const initialState = {};
 
 const MainApp = () => {
   const [state, dispatch] = useReducer(reducer, initialState);

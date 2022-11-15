@@ -26,7 +26,7 @@ const Direccion = () => {
   const {
     data: tipos,
     tiposLoading
-  } = useQuery(["tipos"], getTiposDireccion);
+  } = useQuery(["tiposDireccion"], getTiposDireccion);
 
   const opcionesPais = !paises || paisesLoading ? [] :
     paises.map(pais => ({ value: pais.pais_id, label: pais.nombre }));

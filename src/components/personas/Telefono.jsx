@@ -14,7 +14,7 @@ const Telefono = () => {
   const {
     data: tipos,
     tiposLoading
-  } = useQuery(["tipos"], getTiposTelefono);
+  } = useQuery(["tiposTelefono"], getTiposTelefono);
 
   const opcionesTipos = !tipos || tiposLoading ? [] :
     tipos.map(tipo => ({ value: tipo, label: tipo }));
@@ -49,7 +49,7 @@ const Telefono = () => {
             label="Comentario"
             name="comentario"
             value={telefono?.comentario || ""}
-            onChange={e => handleDispatch(dispatch, "comentario", e?.value, TELEFONO)}
+            onChange={e => handleDispatch(dispatch, e?.target.name, e?.target.value, TELEFONO)}
           />
         </div>
         <div className="column">
