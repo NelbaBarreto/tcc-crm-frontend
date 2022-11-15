@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
+import AppContext from "../../utils/AppContext";
 import classNames from "classnames";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
+import { handleStateCleared } from "./reducerFormularios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { classNameButton2 } from "./Componentes";
 
 export const Guardar = ({ guardar, saving = false }) => {
   return (
@@ -9,7 +12,7 @@ export const Guardar = ({ guardar, saving = false }) => {
       <div className="control">
         <button
           type="submit"
-          className={classNames("button float-right font-semibold shadow-lg text-white hover:text-white focus:text-white hover:bg-deep-purple-700 focus:bg-deep-purple-700 bg-deep-purple-400 border-deep-purple-700",
+          className={classNames(`${classNameButton2} float-right`,
             { "is-loading": saving })}
           disabled={saving}
           onClick={e => guardar(e)}
@@ -25,11 +28,18 @@ export const Guardar = ({ guardar, saving = false }) => {
 }
 
 export const Volver = ({ navigate }) => {
+  const { dispatch } = useContext(AppContext);
+
+  const volver = e => {
+    e.preventDefault();
+    handleStateCleared(dispatch);
+    navigate(-1);
+  }
+
   return (
     <button
-      className="button font-semibold shadow-lg text-white hover:text-white focus:text-white
-      hover:bg-deep-purple-700 bg-deep-purple-400 border-deep-purple-700"
-      onClick={(e) => {e.preventDefault(); navigate(-1)}}
+      className={classNameButton2}
+      onClick={e => volver(e)}
     >
       <span>Volver</span>
       <span className="icon is-small">

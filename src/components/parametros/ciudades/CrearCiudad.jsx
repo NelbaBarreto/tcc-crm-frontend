@@ -1,62 +1,84 @@
-import React, { useState } from "react";
-import Select from "react-select";
+import React, { useState, useContext } from "react";
 import { Volver, Guardar } from "../../formulario/Acciones";
 import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { createCiudad } from "../../../api/ciudades";
 import { getPaises } from "../../../api/paises";
+import AppContext from "../../../utils/AppContext";
+import Seccion from "../../formulario/Seccion";
+import MostrarMensaje from "../../formulario/MostrarMensaje";
+import { Dropdown, Input } from "../../formulario/Componentes";
+import { Titulo1 } from "../../formulario/Titulo";
+import { handleDispatch, handleStateCleared } from "../../formulario/reducerFormularios.js";
 
-const CrearCiudad = () => {
-  const [pais, setPais] = useState("");
-  const [ciudad, setCiudad] = useState({});
-  const navigate = useNavigate();
+const CIUDAD = "ciudad";
+
+const DatosCiudad = ({ ciudad, dispatch }) => {
+  const [select, setSelect] = useState({});
 
   const {
     data: paises,
-    isLoading
+    paisesLoading
   } = useQuery(["paises"], getPaises);
 
-  const options = isLoading ? [] : paises.map(pais => ({ value: pais.pais_id, label: pais.nombre }));
+  const opcionesPaises = paisesLoading || !paises ? [] :
+    paises.map(pais => ({ value: pais.pais_id, label: pais.nombre }));
+
+  return (
+    <Seccion titulo="Datos de la Ciudad">
+      <Input
+        name="nombre"
+        label="Nombre"
+        value={ciudad?.nombre || ""}
+        onChange={e => handleDispatch(dispatch, e.target?.name, e.target?.value, CIUDAD)}
+      />
+
+      <Dropdown
+        label="Paises"
+        value={select.pais}
+        options={opcionesPaises}
+        onChange={e => {
+          handleDispatch(dispatch, "pais_id", e?.value, CIUDAD);
+          setSelect({ ...select, pais: e })
+        }}
+      />
+
+
+    </Seccion>
+  );
+};
+
+const CrearCiudad = () => {
+  const { state: { ciudad }, dispatch } = useContext(AppContext);
+  const [action, setAction] = useState({});
+  const navigate = useNavigate();
 
   const crear = async e => {
     e.preventDefault();
-    await createCiudad(ciudad);
+    setAction({ saving: true, error: false, message: "" });
+    try {
+      await createCiudad({ ...ciudad });
+      setAction({ saving: false, error: false, message: "Ciudad registrada exitosamente." });
+      handleStateCleared(dispatch);
+      setTimeout(() => navigate("/parametros/ciudades"), 2000);
+    } catch (e) {
+      setAction({ saving: false, error: true, message: e.message });
+    };
   };
+
 
   return (
     <div>
       <section className="section w-full m-auto">
-        <h1 className="title is-3 text-center">Nueva Ciudad</h1>
+        <Titulo1>
+          Nueva Ciudad
+        </Titulo1>
+        {action.message ? <MostrarMensaje mensaje={action.message} error={action.error} /> : null}
         <form>
-          <div className="field">
-            <label className="label">Nombre</label>
-            <div className="control">
-              <input
-                name="nombre"
-                className="input shadow-lg"
-                type="text"
-                value={ciudad.nombre || ""}
-                onChange={e => setCiudad({ ...ciudad, [e.target.name]: e.target.value })}
-              />
-            </div>
-          </div>
-
-          <div className="field">
-            <label className="label">País</label>
-            <div className="control">
-              <Select
-                name="pais_id"
-                className="shadow-lg"
-                placeholder=""
-                onChange={e => { setCiudad({ ...ciudad, pais_id: e.value }); setPais(e) }}
-                value={pais}
-                options={options}
-              />
-            </div>
-          </div>
-          <Guardar guardar={crear} />
+          <DatosCiudad ciudad={ciudad} dispatch={dispatch} />
+          <Guardar saving={action.saving} guardar={crear} />
+          <Volver navigate={navigate} />
         </form>
-        <Volver navigate={navigate} />
       </section>
     </div>
   )

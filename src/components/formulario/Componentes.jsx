@@ -111,6 +111,8 @@ export const Button1 = ({ onClick, children }) => {
   );
 }
 
-export const classNameButton1 = "button font-semibold shadow-lg text-deep-purple-800 hover:text-white focus:text-white hover:bg-deep-purple-700 bg-deep-purple-100";
+export const classNameButton1 = 
+"button font-semibold shadow-lg text-deep-purple-800 hover:text-white focus:text-white hover:bg-deep-purple-700 bg-deep-purple-100 disabled:bg-deep-purple-700";
 
-export const classNameButton2 = "button font-semibold shadow-lg text-white hover:text-white focus:text-white hover:bg-deep-purple-700 bg-deep-purple-400 border-deep-purple-700 mb-2";
+export const classNameButton2 = 
+  "button font-semibold shadow-lg text-white hover:text-white focus:text-white hover:bg-deep-purple-700 bg-deep-purple-400 border-deep-purple-700 mb-2 disabled:bg-deep-purple-400";

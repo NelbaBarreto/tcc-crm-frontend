@@ -2,6 +2,7 @@ import React from "react";
 import DataTables from "../../DataTables";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Button1 } from "../../formulario/Componentes";
 import { useQuery } from "react-query";
 import { getSucursales } from "../../../api/sucursales";
 import { NavLink } from "react-router-dom";
@@ -40,20 +41,55 @@ const Index = () => {
       }
     },
     {
+      name: "direccion.calle_1",
+      label: "Calle 1",
+      options: {
+        filter: true,
+        filterType: "textField",
+        sort: true,
+        
+      }
+    },
+    {
+      name: "direccion.calle_2",
+      label: "Calle 2",
+      options: {
+        filter: true,
+        filterType: "textField",
+        sort: true,
+      }
+    },
+    {
+      name: "pai.nombre",
+      label: "País",
+      options: {
+        filter: true,
+        filterType: "textField",
+        sort: true,
+      }
+    },
+    {
       name: "",
       options: {
         filter: false,
         sort: false,
         empty: true,
-        customBodyRenderLite: (dataIndex, _rowIndex) => {
+        customBodyRenderLite: (_dataIndex, _rowIndex) => {
           return (
-            <button
-              className="button font-semibold shadow-lg text-white hover:text-white focus:text-white
-              hover:bg-deep-purple-700 bg-deep-purple-400 border-deep-purple-700"
-              onClick={() => console.log(sucursales[dataIndex])}
-            >
-              Editar
-            </button>
+            <div className="field is-grouped">
+              <div className="control">
+                <Button1
+                >
+                  Editar
+                </Button1>
+              </div>
+              <div className="control">
+                <Button1
+                >
+                  Eliminar
+                </Button1>
+              </div>
+            </div>
           );
         }
       }
