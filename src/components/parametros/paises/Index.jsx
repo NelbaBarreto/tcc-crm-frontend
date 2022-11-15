@@ -1,5 +1,6 @@
 import React from "react";
 import DataTables from "../../DataTables";
+import MostrarMensaje from "../../formulario/MostrarMensaje";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { classNameButton1 } from "../../formulario/Componentes";
@@ -83,7 +84,7 @@ const Index = () => {
               <div className="control">
                 <button 
                   className={classNameButton1}
-                  onClick={() => confirmDelete(tableMeta)}
+                  onClick={() => confirmDelete(tableMeta.rowData)}
                 >
                   Eliminar
                 </button>
