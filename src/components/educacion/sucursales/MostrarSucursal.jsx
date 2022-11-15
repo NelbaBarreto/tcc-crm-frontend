@@ -7,13 +7,19 @@ import { useQuery } from "react-query";
 import { useParams, useNavigate } from "react-router-dom";
 import { getSucursal } from "../../../api/sucursales";
 import { format, parseISO } from "date-fns";
-
+let aux = "";
 const DatosSucursal = ({ sucursal = {} }) => {
+    aux = sucursal.direccion.principal
+    if (aux === true) {
+        aux = "Si"
+    } else {
+        aux = "No"
+    }
     return (
         <Seccion titulo={sucursal.nombre}>
             <div className="columns">
                 <div className="column">
-                    <TextView label="País" value={sucursal.pai.nombre} />
+                    <TextView label="Tipo dirección" value={sucursal.direccion.tipo} />
                 </div>
                 <div className="column">
                     <TextView label="Fecha de Creación" value={format(parseISO(sucursal.fec_insercion), "dd/MM/yyyy hh:mm")} />
@@ -30,10 +36,24 @@ const DatosSucursal = ({ sucursal = {} }) => {
             </div>
             <div className="columns">
                 <div className="column">
-                    <TextView label="Tipo dirección" value={sucursal.direccion.tipo} />
+                    <TextView label="Código postal" value={sucursal.direccion.cod_postal} />
                 </div>
                 <div className="column">
                     <TextView label="Referencia" value={sucursal.direccion.referencia} />
+                </div>
+            </div>
+
+            <div className="columns">
+                <div className="column">
+                    <TextView label="País" value={sucursal.pai.nombre} />
+                </div>
+                <div className="column">
+                    <TextView label="Ciudad" value={sucursal.ciudad.nombre} />
+                </div>
+            </div>
+            <div className="columns">
+                <div className="column">
+                    <TextView label="Principal" value={aux} />
                 </div>
             </div>
         </Seccion >
