@@ -41,7 +41,7 @@ const Index = () => {
       }
     },
     {
-      name: "calle_1",
+      name: "direccion.calle_1",
       label: "Calle 1",
       options: {
         filter: true,
@@ -51,7 +51,7 @@ const Index = () => {
       }
     },
     {
-      name: "calle_2",
+      name: "direccion.calle_2",
       label: "Calle 2",
       options: {
         filter: true,
@@ -60,22 +60,12 @@ const Index = () => {
       }
     },
     {
-      name: "pais",
+      name: "pai.nombre",
       label: "País",
       options: {
         filter: true,
         filterType: "textField",
         sort: true,
-        // customBodyRender: (value) => {
-        //   return (
-        //     <NavLink
-        //       to={"/parametros/paises/" + value.pais_id}
-        //       className="underline text-blue-900"
-        //     >
-        //       {value.nombre}
-        //     </NavLink>
-        //   )
-        // }
       }
     },
     {
