@@ -7,14 +7,12 @@ import { useQuery } from "react-query";
 import { useParams, useNavigate } from "react-router-dom";
 import { getSucursal } from "../../../api/sucursales";
 import { format, parseISO } from "date-fns";
-let aux = "";
+
 const DatosSucursal = ({ sucursal = {} }) => {
-    aux = sucursal.direccion.principal
-    if (aux === true) {
-        aux = "Si"
-    } else {
-        aux = "No"
-    }
+    let estado_principal = sucursal.direccion.principal
+    estado_principal === true ? estado_principal = "Si" : estado_principal = "No";
+
+    
     return (
         <Seccion titulo={sucursal.nombre}>
             <div className="columns">
@@ -53,7 +51,7 @@ const DatosSucursal = ({ sucursal = {} }) => {
             </div>
             <div className="columns">
                 <div className="column">
-                    <TextView label="Principal" value={aux} />
+                    <TextView label="Principal" value={estado_principal} />
                 </div>
             </div>
         </Seccion >
