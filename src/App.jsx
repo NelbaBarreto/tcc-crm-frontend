@@ -89,6 +89,7 @@ import ListarProfesores from "./components/educacion/profesores/Index";
 // Sucursales
 import CrearSucursal from "./components/educacion/sucursales/CrearSucursal";
 import ListarSucursales from "./components/educacion/sucursales/Index";
+import MostrarSucursal from "./components/educacion/sucursales/MostrarSucursal";
 
 import useToken from "../src/utils/useToken";
 
@@ -187,6 +188,7 @@ const MainApp = () => {
             {/* Sucursales */}
             <Route exact path="/educacion/sucursales" element={<ListarSucursales />} />
             <Route path="/educacion/sucursales/nuevo" element={<CrearSucursal />} />
+            <Route path="/educacion/sucursales/:id" element={<MostrarSucursal />} />
           </Routes>
         </Layout>
       </Router>
