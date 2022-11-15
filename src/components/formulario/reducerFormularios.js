@@ -7,13 +7,19 @@ export const reducer = (state, action) => {
     case "FORM_UPDATED":
       return { ...state, [object]: { ...state[`${object}`], [name]: value } };
     case "DIRECCION_ADDED":
-      return { ...state, direcciones: [...state.direcciones, state.direccion], direccion: {} };
+      return { ...state, direcciones: [...state.direcciones || [], state.direccion], direccion: {} };
+    case "TELEFONO_ADDED":
+      return { ...state, telefonos: [...state.telefonos || [], state.telefono], telefono: {} };
     case "STATE_CLEARED":
       return {};
     case "DIRECCION_DELETED":
       const direccionesCopy = state.direcciones || [];
       direccionesCopy.splice(action.payload.index, 1);
       return { ...state, direcciones: direccionesCopy };
+    case "TELEFONO_DELETED":
+      const telefonosCopy = state.telefonos || [];
+      telefonosCopy.splice(action.payload.index, 1);
+      return { ...state, telefonos: telefonosCopy };
     default:
       return state;
   }
@@ -36,6 +42,20 @@ export const handleDireccionAdded = dispatch => {
 export const handleDireccionDeleted = (dispatch, index) => {
   dispatch({
     type: "DIRECCION_DELETED",
+    payload: { index }
+  })
+}
+
+export const handleTelefonoAdded = dispatch => {
+  dispatch({
+    type: "TELEFONO_ADDED",
+    payload: {}
+  })
+}
+
+export const handleTelefonoDeleted = (dispatch, index) => {
+  dispatch({
+    type: "TELEFONO_DELETED",
     payload: { index }
   })
 }

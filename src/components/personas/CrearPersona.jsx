@@ -5,9 +5,11 @@ import AppContext from "../../utils/AppContext";
 import { Dropdown, Input, classNameButton2 } from "../formulario/Componentes";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
-import { handleDispatch, handleDireccionAdded, handleDireccionDeleted } from "../formulario/reducerFormularios.js";
+import { handleDispatch, handleDireccionAdded, 
+  handleDireccionDeleted, handleTelefonoAdded, handleTelefonoDeleted } from "../formulario/reducerFormularios.js";
 import { useQuery } from "react-query";
 import { getTipDocumentos } from "../../api/personas";
+import Telefono from "./Telefono";
 
 const PERSONA = "persona";
 
@@ -65,7 +67,7 @@ const Persona = ({ dispatch, persona }) => {
 const Direcciones = ({ dispatch, direcciones, direccion }) => {
   const MostrarDirecciones = () => {
     return (
-      <table className="table is-striped is-narrow">
+      <table className="table is-striped">
         <thead>
           <tr>
             <th>Calle 1</th>
@@ -109,109 +111,106 @@ const Direcciones = ({ dispatch, direcciones, direccion }) => {
 
   return (
     <Seccion titulo="Direcciones">
-      <div className="columns">
-        <div className="column is-two-fifths">
-          <Direccion />
-        </div>
-        <div className="column">
-          <MostrarDirecciones />
-        </div>
-      </div>
-      <button
-        className={classNameButton2}
-        disabled={!direccion || Object?.entries(direccion).length === 0}
-        onClick={e => { e.preventDefault(); handleDireccionAdded(dispatch) }}
-      >
-        <span>Agregar</span>
-        <span className="icon is-small">
-          <FontAwesomeIcon icon={solid("plus")} />
-        </span>
-      </button>
+      <>
+        <Direccion />
+        <button
+          className={classNameButton2}
+          disabled={!direccion || Object?.entries(direccion).length === 0}
+          onClick={e => { e.preventDefault(); handleDireccionAdded(dispatch) }}
+        >
+          <span>Agregar</span>
+          <span className="icon is-small">
+            <FontAwesomeIcon icon={solid("plus")} />
+          </span>
+        </button>
+      </>
+      <MostrarDirecciones />
     </Seccion>
   );
 }
 
-const Telefonos = () => {
-  const [inputList, setInputList] = useState([]);
-
-  const onAddClick = e => {
-    e.preventDefault();
-    setInputList(inputList.concat(<Telefono key={inputList.length} />));
-  };
-
-  const Telefono = () => {
+const Telefonos = ({ dispatch, telefonos, telefono }) => {
+  const MostrarTelefonos = () => {
     return (
-      <section className="mb-2 p-4 border-gray-300 border-solid border">
-        <div className="field">
-          <label className="label">Calle 1</label>
-          <div className="control">
-            <input
-              name="nombre"
-              className="input shadow-lg"
-              type="text"
-            />
-          </div>
-        </div>
-        <div className="field">
-          <label className="label">Calle 2</label>
-          <div className="control">
-            <input
-              name="nombre"
-              className="input shadow-lg"
-              type="text"
-            />
-          </div>
-        </div>
-        <div className="field">
-          <label className="label">Código Postal</label>
-          <div className="control">
-            <input
-              name="nombre"
-              className="input shadow-lg"
-              type="text"
-            />
-          </div>
-        </div>
-      </section>
+      <table className="table is-striped">
+        <thead>
+          <tr>
+            <th>Número</th>
+            <th>Tipo</th>
+            <th>Comentario</th>
+            <th>Principal</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {telefonos?.map((telefono, idx) => {
+            return (
+              <tr key={idx}>
+                <td>{telefono.numero}</td>
+                <td>{telefono.tipo}</td>
+                <td>{telefono.comentario}</td>
+                <td>{telefono.principal ? "Sí" : "No"}</td>
+                <td>
+                  <button
+                    className="button is-danger"
+                    onClick={e => { e.preventDefault(); handleTelefonoDeleted(dispatch, idx) }}
+                  >
+                    <span className="icon is-small">
+                      <FontAwesomeIcon icon={solid("trash")} />
+                    </span>
+                  </button>
+                </td>
+              </tr>
+            )
+          })}
+        </tbody>
+      </table>
     );
   }
 
   return (
     <Seccion titulo="Teléfonos">
-      <button
-        className={classNameButton2}
-        onClick={onAddClick}
-      >
-        <span>Agregar Teléfono</span>
-        <span className="icon is-small">
-          <FontAwesomeIcon icon={solid("plus")} />
-        </span>
-      </button>
+      <>
+        <Telefono />
+        <button
+          className={classNameButton2}
+          disabled={!telefono || Object?.entries(telefono).length === 0}
+          onClick={e => { e.preventDefault(); handleTelefonoAdded(dispatch) }}
+        >
+          <span>Agregar</span>
+          <span className="icon is-small">
+            <FontAwesomeIcon icon={solid("plus")} />
+          </span>
+        </button>
+      </>
+      <MostrarTelefonos />
     </Seccion>
   );
 }
 
 const CrearPersona = () => {
-  const { state: { persona, 
-                  direcciones, 
-                  telefonos, 
-                  direccion 
-                }, dispatch } = useContext(AppContext);
+  const { state: { persona,
+    direcciones,
+    telefonos,
+    direccion,
+    telefono
+  }, dispatch } = useContext(AppContext);
 
   return (
     <section>
-      <Persona 
-        persona={persona} 
-        dispatch={dispatch} 
+      <Persona
+        persona={persona}
+        dispatch={dispatch}
       />
-      <Direcciones 
-        direcciones={direcciones} 
+      <Direcciones
+        direcciones={direcciones}
         direccion={direccion}
-        dispatch={dispatch} 
+        dispatch={dispatch}
       />
-      <Telefonos 
-        telefonos={telefonos} 
-        dispatch={dispatch} 
+      <Telefonos
+        telefonos={telefonos}
+        telefono={telefono}
+        dispatch={dispatch}
       />
     </section>
   );
