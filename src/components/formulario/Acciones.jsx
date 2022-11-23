@@ -1,8 +1,6 @@
 import React, { useContext } from "react";
-import AppContext from "../../utils/AppContext";
 import classNames from "classnames";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
-import { handleStateCleared } from "./reducerFormularios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { classNameButton2 } from "./Componentes";
 
@@ -28,18 +26,10 @@ export const Guardar = ({ guardar, saving = false }) => {
 }
 
 export const Volver = ({ navigate }) => {
-  const { dispatch } = useContext(AppContext);
-
-  const volver = e => {
-    e.preventDefault();
-    handleStateCleared(dispatch);
-    navigate(-1);
-  }
-
   return (
     <button
       className={classNameButton2}
-      onClick={e => volver(e)}
+      onClick={(e) => {e.preventDefault(); navigate(-1)}}
     >
       <span>Volver</span>
       <span className="icon is-small">
