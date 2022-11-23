@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import AppContext from "../../../utils/AppContext";
 import Seccion from "../../formulario/Seccion";
 import MostrarMensaje from "../../formulario/MostrarMensaje";
@@ -51,19 +51,21 @@ const CrearPais = () => {
   const [action, setAction] = useState({});
   const navigate = useNavigate();
 
+  useEffect(() => {
+    handleStateCleared(dispatch);
+  }, []);
+
   const crear = async e => {
     e.preventDefault();
     setAction({ saving: true, error: false, message: "" });
     try {
       await createPais({ ...pais });
       setAction({ saving: false, error: false, message: "Pais registrado exitosamente." });
-      handleStateCleared(dispatch);
       setTimeout(() => navigate("/parametros/paises"), 2000);
     } catch (e) {
       setAction({ saving: false, error: true, message: e.message });
     };
   };
-
 
   return (
     <div>

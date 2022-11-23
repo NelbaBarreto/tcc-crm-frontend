@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import AppContext from "../../../utils/AppContext";
 import Seccion from "../../formulario/Seccion";
 import MostrarMensaje from "../../formulario/MostrarMensaje";
@@ -130,13 +130,16 @@ const CrearLead = () => {
   const [action, setAction] = useState({});
   const navigate = useNavigate();
 
+  useEffect(() => {
+    handleStateCleared(dispatch);
+  }, []);
+
   const crear = async e => {
     e.preventDefault();
     setAction({ saving: true, error: false, message: "" });
     try {
       await createLead({ ...lead, persona: { ...persona, direcciones } });
       setAction({ saving: false, error: false, message: "Lead creado exitosamente." });
-      handleStateCleared(dispatch);
       setTimeout(() => navigate("/ventas/leads"), 2000);
     } catch (e) {
       setAction({ saving: false, error: true, message: e.message });

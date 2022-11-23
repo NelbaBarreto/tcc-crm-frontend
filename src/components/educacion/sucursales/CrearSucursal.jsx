@@ -29,7 +29,6 @@ const CrearSucursal = () => {
     try {
       await createSucursal({...sucursal, direccion});
       setAction({ saving: false, error: false, message: "Sede registrada exitosamente." });
-      handleStateCleared(dispatch);
       setTimeout(() => navigate("/educacion/sedes"), 2000);
     } catch (e) {
       setAction({ saving: false, error: true, message: e.message });

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Volver, Guardar } from "../../formulario/Acciones";
 import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
@@ -53,19 +53,21 @@ const CrearCiudad = () => {
   const [action, setAction] = useState({});
   const navigate = useNavigate();
 
+  useEffect(() => {
+    handleStateCleared(dispatch);
+  }, []);
+  
   const crear = async e => {
     e.preventDefault();
     setAction({ saving: true, error: false, message: "" });
     try {
       await createCiudad({ ...ciudad });
       setAction({ saving: false, error: false, message: "Ciudad registrada exitosamente." });
-      handleStateCleared(dispatch);
       setTimeout(() => navigate("/parametros/ciudades"), 2000);
     } catch (e) {
       setAction({ saving: false, error: true, message: e.message });
     };
   };
-
 
   return (
     <div>
