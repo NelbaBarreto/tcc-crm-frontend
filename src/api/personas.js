@@ -16,3 +16,8 @@ export const getTiposDireccion = async () => {
   const { data: response } = await axios.get(`${API}/direcciones/tipos`);
   return response.data;
 };
+
+export const getTiposTelefono = async () => {
+  const { data: response } = await axios.get(`${API}/telefonos/tipos`);
+  return response.data;
+};
