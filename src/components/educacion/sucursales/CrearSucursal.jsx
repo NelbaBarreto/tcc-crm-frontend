@@ -12,30 +12,13 @@ import { createSucursal } from "../../../api/sucursales";
 
 const SUCURSAL = "sucursal";
 
-const DatosSucursal = ({ sucursal, dispatch }) => {
-  return (
-    <Seccion titulo="Datos de la Sucursal">
-      <Input
-        name="nombre"
-        label="Nombre"
-        value={sucursal?.nombre || ""}
-        onChange={e => handleDispatch(dispatch, e.target?.name, e.target?.value, SUCURSAL)}
-      />
-      <div className="field">
-        <label className="label">Dirección</label>
-        <Direccion index={0} />
-      </div>
-    </Seccion>
-  );
-};
-
 const CrearSucursal = () => {
   const { state: { sucursal, 
     direccion 
   }, dispatch } = useContext(AppContext);
   const [action, setAction] = useState({});
   const navigate = useNavigate();
-
+  
   const crear = async e => {
     e.preventDefault();
     setAction({ saving: true, error: false, message: "" });
@@ -48,17 +31,33 @@ const CrearSucursal = () => {
       setAction({ saving: false, error: true, message: e.message });
     };
   };
-  
+
+  const DatosSede = ({ sede, dispatch }) => {
+    return (
+      <Seccion titulo="Datos de la Sede">
+        <Input
+          name="nombre"
+          label="Nombre"
+          value={sede?.nombre || ""}
+          onChange={e => handleDispatch(dispatch, e.target?.name, e.target?.value, SUCURSAL)}
+        />
+        <div className="field">
+          <label className="label">Dirección</label>
+          <Direccion index={0} />
+        </div>
+      </Seccion>
+    );
+  };
 
   return (
     <div>
       <section className="section w-full m-auto">
         <Titulo1>
-          Nueva Sucursal
+          Nueva Sede
         </Titulo1>
         {action.message ? <MostrarMensaje mensaje={action.message} error={action.error} /> : null}
         <form>
-          <DatosSucursal sucursal={sucursal} dispatch={dispatch} />
+          <DatosSede sede={sucursal} dispatch={dispatch} />
           <Guardar saving={action.saving} guardar={crear} />
           <Volver navigate={navigate} />
         </form>
