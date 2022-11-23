@@ -1,10 +1,11 @@
 import React from "react";
 import DataTables from "../../DataTables";
+import MostrarMensaje from "../../formulario/MostrarMensaje";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button1 } from "../../formulario/Componentes";
+import { classNameButton1 } from "../../formulario/Componentes";
 import { useQuery } from "react-query";
-import { getPaises } from "../../../api/paises";
+import { getPaises, deletePais } from "../../../api/paises";
 import { NavLink } from "react-router-dom";
 
 const Index = () => {
@@ -12,6 +13,12 @@ const Index = () => {
     data: paises,
     isLoading
   } = useQuery(["paises"], getPaises);
+
+  const confirmDelete = async rowData => {
+    if (window.confirm(`¿Está seguro de que desea eliminar el registro? (País=${rowData[1]})`) == true) {
+      await deletePais(rowData[0]);
+    }
+  }
 
   const columns = [
     {
@@ -64,20 +71,23 @@ const Index = () => {
         filter: false,
         sort: false,
         empty: true,
-        customBodyRenderLite: (_dataIndex, _rowIndex) => {
+        customBodyRender: (_value, tableMeta) => {
           return (
             <div className="field is-grouped">
               <div className="control">
-                <Button1
+                <button 
+                  className={classNameButton1}
                 >
                   Editar
-                </Button1>
+                </button>
               </div>
               <div className="control">
-                <Button1
+                <button 
+                  className={classNameButton1}
+                  onClick={() => confirmDelete(tableMeta.rowData)}
                 >
                   Eliminar
-                </Button1>
+                </button>
               </div>
             </div>
           );
