@@ -186,9 +186,9 @@ const MainApp = () => {
             <Route path="/educacion/profesores/nuevo" element={<CrearProfesor />} />
 
             {/* Sucursales */}
-            <Route exact path="/educacion/sucursales" element={<ListarSucursales />} />
-            <Route path="/educacion/sucursales/nuevo" element={<CrearSucursal />} />
-            <Route path="/educacion/sucursales/:id" element={<MostrarSucursal />} />
+            <Route exact path="/educacion/sedes" element={<ListarSucursales />} />
+            <Route path="/educacion/sedes/nuevo" element={<CrearSucursal />} />
+            <Route path="/educacion/sedes/:id" element={<MostrarSucursal />} />
           </Routes>
         </Layout>
       </Router>

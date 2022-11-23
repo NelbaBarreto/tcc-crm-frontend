@@ -9,74 +9,74 @@ import { getSucursal } from "../../../api/sucursales";
 import { format, parseISO } from "date-fns";
 
 const DatosSucursal = ({ sucursal = {} }) => {
-    let estado_principal = sucursal.direccion.principal
-    estado_principal === true ? estado_principal = "Si" : estado_principal = "No";
+  let estado_principal = sucursal.direccion.principal
+  estado_principal === true ? estado_principal = "Si" : estado_principal = "No";
 
-    
-    return (
-        <Seccion titulo={sucursal.nombre}>
-            <div className="columns">
-                <div className="column">
-                    <TextView label="Tipo dirección" value={sucursal.direccion.tipo} />
-                </div>
-                <div className="column">
-                    <TextView label="Fecha de Creación" value={format(parseISO(sucursal.fec_insercion), "dd/MM/yyyy hh:mm")} />
-                </div>
-            </div>
 
-            <div className="columns">
-                <div className="column">
-                    <TextView label="Calle 1" value={sucursal.direccion.calle_1} />
-                </div>
-                <div className="column">
-                    <TextView label="Calle 2" value={sucursal.direccion.calle_2} />
-                </div>
-            </div>
-            <div className="columns">
-                <div className="column">
-                    <TextView label="Código postal" value={sucursal.direccion.cod_postal} />
-                </div>
-                <div className="column">
-                    <TextView label="Referencia" value={sucursal.direccion.referencia} />
-                </div>
-            </div>
+  return (
+    <Seccion titulo={sucursal.nombre}>
+      <div className="columns">
+        <div className="column">
+          <TextView label="Tipo dirección" value={sucursal.direccion.tipo} />
+        </div>
+        <div className="column">
+          <TextView label="Fecha de Creación" value={format(parseISO(sucursal.fec_insercion), "dd/MM/yyyy hh:mm")} />
+        </div>
+      </div>
 
-            <div className="columns">
-                <div className="column">
-                    <TextView label="País" value={sucursal.pai.nombre} />
-                </div>
-                <div className="column">
-                    <TextView label="Ciudad" value={sucursal.ciudad.nombre} />
-                </div>
-            </div>
-            <div className="columns">
-                <div className="column">
-                    <TextView label="Principal" value={estado_principal} />
-                </div>
-            </div>
-        </Seccion >
-    );
+      <div className="columns">
+        <div className="column">
+          <TextView label="Calle 1" value={sucursal.direccion.calle_1} />
+        </div>
+        <div className="column">
+          <TextView label="Calle 2" value={sucursal.direccion.calle_2} />
+        </div>
+      </div>
+      <div className="columns">
+        <div className="column">
+          <TextView label="Código postal" value={sucursal.direccion.cod_postal} />
+        </div>
+        <div className="column">
+          <TextView label="Referencia" value={sucursal.direccion.referencia} />
+        </div>
+      </div>
+
+      <div className="columns">
+        <div className="column">
+          <TextView label="País" value={sucursal.pai.nombre} />
+        </div>
+        <div className="column">
+          <TextView label="Ciudad" value={sucursal.ciudad.nombre} />
+        </div>
+      </div>
+      <div className="columns">
+        <div className="column">
+          <TextView label="Principal" value={estado_principal} />
+        </div>
+      </div>
+    </Seccion >
+  );
 }
 
 const MostrarSucursal = () => {
-    const { id } = useParams();
-    const navigate = useNavigate();
+  const { id } = useParams();
+  const navigate = useNavigate();
 
-    const {
-        data: sucursal,
-        isLoading
-    } = useQuery(["sucursal", id], () => getSucursal(id));
+  const {
+    data: sucursal,
+    isLoading
+  } = useQuery(["sucursal", id], () => getSucursal(id));
 
-    return (
-        <section className="section w-full m-auto">
-            <div className="mb-4">
-                {isLoading ?
-                    <CircularProgress size={24} /> : <DatosSucursal sucursal={sucursal} navigate={navigate} />
-                }
-            </div>
-            <Volver navigate={navigate} />
-        </section>
-    );
+  return (
+    <section className="section w-full m-auto">
+      <div className="mb-4">
+        {isLoading ?
+          <CircularProgress size={24} /> : <DatosSucursal sucursal={sucursal} navigate={navigate} />
+        }
+      </div>
+      <Volver navigate={navigate} />
+    </section>
+  );
 }
 
 export default MostrarSucursal;

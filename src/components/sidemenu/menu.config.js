@@ -176,9 +176,9 @@ export const sideMenu = [
         to: "profesores",
       },
       {
-        label: "Sucursales",
+        label: "Sedes",
         Icon: () => <Icon iconName="school-flag" />,
-        to: "sucursales",
+        to: "sedes",
       },
     ],
   },

@@ -100,7 +100,7 @@ const Index = () => {
     <div>
       <section className="section w-full m-auto">
         <NavLink
-          to="/educacion/sucursales/nuevo"
+          to="/educacion/sedes/nuevo"
           className="button font-semibold shadow-lg text-white hover:text-white focus:text-white
               hover:bg-deep-purple-700 bg-deep-purple-400 border-deep-purple-700 mb-2"
         >
@@ -110,7 +110,7 @@ const Index = () => {
           </span>
         </NavLink>
         <DataTables
-          title="Listado de Sucursales"
+          title="Listado de Sedes"
           columns={columns}
           data={sucursales}
           isLoading={isLoading}

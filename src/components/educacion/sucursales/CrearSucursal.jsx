@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import AppContext from "../../../utils/AppContext";
 import Seccion from "../../formulario/Seccion";
 import Direccion from "../../personas/Direccion";
@@ -18,7 +18,11 @@ const CrearSucursal = () => {
   }, dispatch } = useContext(AppContext);
   const [action, setAction] = useState({});
   const navigate = useNavigate();
-  
+
+  useEffect(() => {
+    handleStateCleared(dispatch);
+  }, []);
+
   const crear = async e => {
     e.preventDefault();
     setAction({ saving: true, error: false, message: "" });
@@ -26,7 +30,7 @@ const CrearSucursal = () => {
       await createSucursal({...sucursal, direccion});
       setAction({ saving: false, error: false, message: "Sede registrada exitosamente." });
       handleStateCleared(dispatch);
-      setTimeout(() => navigate("/educacion/sucursales"), 2000);
+      setTimeout(() => navigate("/educacion/sedes"), 2000);
     } catch (e) {
       setAction({ saving: false, error: true, message: e.message });
     };
@@ -43,7 +47,7 @@ const CrearSucursal = () => {
         />
         <div className="field">
           <label className="label">Dirección</label>
-          <Direccion index={0} />
+          <Direccion />
         </div>
       </Seccion>
     );
