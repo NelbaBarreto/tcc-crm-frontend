@@ -31,7 +31,7 @@ const Index = () => {
         customBodyRender: (value, tableMeta) => {
           return (
             <NavLink
-              to={"/educacion/sucursales/" + tableMeta.rowData[0]}
+              to={"/educacion/sedes/" + tableMeta.rowData[0]}
               className="underline text-blue-900"
             >
               {value}
@@ -60,8 +60,8 @@ const Index = () => {
       }
     },
     {
-      name: "pai.nombre",
-      label: "País",
+      name: "direccion.ciudad.nombre",
+      label: "Ciudad",
       options: {
         filter: true,
         filterType: "textField",

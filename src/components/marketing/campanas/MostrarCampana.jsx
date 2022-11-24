@@ -1,12 +1,11 @@
 import React from "react";
 import Seccion from "../../formulario/Seccion";
-import { TextView } from "../../formulario/Componentes";
+import { TextView, DateFormat } from "../../formulario/Componentes";
 import { CircularProgress } from "@mui/material";
 import { Volver } from "../../formulario/Acciones";
 import { useQuery } from "react-query";
 import { useParams, useNavigate } from "react-router-dom";
 import { getCampana } from "../../../api/campanas";
-import { format, parseISO } from "date-fns";
 
 const DatosCampana = ({ campana = {} }) => {
   return (
@@ -16,7 +15,7 @@ const DatosCampana = ({ campana = {} }) => {
           <TextView label="Nombre" value={campana.nombre} />
         </div>
         <div className="column">
-          <TextView label="Fecha de Creación" value={format(parseISO(campana.fec_insercion), "dd/MM/yyyy hh:mm")} />
+          <DateFormat label="Fecha de Creación" value={campana.fec_insercion} />
         </div>
       </div>
 

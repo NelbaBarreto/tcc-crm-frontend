@@ -1,12 +1,11 @@
 import React from "react";
 import Seccion from "../../formulario/Seccion";
-import { TextView } from "../../formulario/Componentes";
+import { TextView, DateFormat } from "../../formulario/Componentes";
 import { CircularProgress } from "@mui/material";
 import { Volver } from "../../formulario/Acciones";
 import { useQuery } from "react-query";
 import { useParams, useNavigate } from "react-router-dom";
 import { getSucursal } from "../../../api/sucursales";
-import { format, parseISO } from "date-fns";
 
 const DatosSucursal = ({ sucursal = {} }) => {
   let estado_principal = sucursal.direccion.principal
@@ -20,7 +19,7 @@ const DatosSucursal = ({ sucursal = {} }) => {
           <TextView label="Tipo dirección" value={sucursal.direccion.tipo} />
         </div>
         <div className="column">
-          <TextView label="Fecha de Creación" value={format(parseISO(sucursal.fec_insercion), "dd/MM/yyyy hh:mm")} />
+          <DateFormat label="Fecha de Creación" value={sucursal.fec_insercion} />
         </div>
       </div>
 
@@ -34,19 +33,19 @@ const DatosSucursal = ({ sucursal = {} }) => {
       </div>
       <div className="columns">
         <div className="column">
-          <TextView label="Código postal" value={sucursal.direccion.cod_postal} />
+          <TextView label="Código postal" value={sucursal.direccion?.cod_postal} />
         </div>
         <div className="column">
-          <TextView label="Referencia" value={sucursal.direccion.referencia} />
+          <TextView label="Referencia" value={sucursal.direccion?.referencia} />
         </div>
       </div>
 
       <div className="columns">
         <div className="column">
-          <TextView label="País" value={sucursal.pai.nombre} />
+          <TextView label="País" value={sucursal.direccion?.ciudad?.pais?.nombre} />
         </div>
         <div className="column">
-          <TextView label="Ciudad" value={sucursal.ciudad.nombre} />
+          <TextView label="Ciudad" value={sucursal.direccion?.ciudad?.nombre} />
         </div>
       </div>
       <div className="columns">

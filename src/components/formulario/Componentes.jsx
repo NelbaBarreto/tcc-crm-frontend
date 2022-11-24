@@ -1,6 +1,7 @@
 import React from "react";
 import DatePicker from "react-datepicker";
 import Select from "react-select";
+import { format, parseISO } from "date-fns";
 
 export const Input = ({ label, name, value = "", type = "text", placeholder = "", className = "input shadow-lg", onChange }) => {
   return (
@@ -91,11 +92,20 @@ export const TextArea = ({ label, name, value = "", type = "text", placeholder =
   );
 }
 
-export const TextView = ({ label, value = "", className = "textarea shadow-lg" }) => {
+export const TextView = ({ label, value = "" }) => {
   return (
     <div>
       <label className="label">{label}</label>
       <span>{value}</span>
+    </div>
+  );
+}
+
+export const DateFormat = ({ label, value = "" }) => {
+  return (
+    <div>
+      <label className="label">{label}</label>
+      <span>{format(parseISO(value), "dd/MM/yyyy hh:mm")}</span>
     </div>
   );
 }

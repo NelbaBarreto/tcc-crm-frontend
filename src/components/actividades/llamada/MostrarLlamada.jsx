@@ -1,12 +1,11 @@
 import React from "react";
 import Seccion from "../../formulario/Seccion";
-import { TextView } from "../../formulario/Componentes";
+import { TextView, DateFormat } from "../../formulario/Componentes";
 import { CircularProgress } from "@mui/material";
 import { Volver } from "../../formulario/Acciones";
 import { useQuery } from "react-query";
 import { useParams, useNavigate } from "react-router-dom";
 import { getLlamada } from "../../../api/llamadas";
-import { format, parseISO } from "date-fns";
 
 const DatosLlamada = ({ llamada = {} }) => {
   return (
@@ -16,7 +15,7 @@ const DatosLlamada = ({ llamada = {} }) => {
           <TextView label="Estado" value={llamada.estado} />
         </div>
         <div className="column">
-          <TextView label="Fecha de Creación" value={format(parseISO(llamada.fec_insercion), "dd/MM/yyyy hh:mm")} />
+          <DateFormat label="Fecha de Creación" value={llamada.fec_insercion} />
         </div>
       </div>
       <div className="columns">

@@ -1,12 +1,11 @@
 import React from "react";
 import Seccion from "../../formulario/Seccion";
-import { TextView } from "../../formulario/Componentes";
+import { TextView, DateFormat } from "../../formulario/Componentes";
 import { CircularProgress } from "@mui/material";
 import { Volver } from "../../formulario/Acciones";
 import { useQuery } from "react-query";
 import { useParams, useNavigate } from "react-router-dom";
 import { getCaso } from "../../../api/casos";
-import { format, parseISO } from "date-fns";
 
 const DatosCaso = ({ caso = {} }) => {
   return (
@@ -32,7 +31,7 @@ const DatosCaso = ({ caso = {} }) => {
           <TextView label="Usuario Asignado" value={caso.usuario?.nom_usuario} />
         </div>
         <div className="column">
-          <TextView label="Fecha de Creación" value={format(parseISO(caso.fec_insercion), "dd/MM/yyyy hh:mm")} />
+          <DateFormat label="Fecha de Creación" value={caso.fec_insercion} />
         </div>
       </div>
       <div className="columns">
