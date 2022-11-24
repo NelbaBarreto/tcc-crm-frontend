@@ -12,6 +12,23 @@ import { createSucursal } from "../../../api/sucursales";
 
 const SUCURSAL = "sucursal";
 
+const DatosSede = ({ sede, dispatch }) => {
+  return (
+    <Seccion titulo="Datos de la Sede">
+      <Input
+        name="nombre"
+        label="Nombre"
+        value={sede?.nombre || ""}
+        onChange={e => handleDispatch(dispatch, e.target?.name, e.target?.value, SUCURSAL)}
+      />
+      <div className="field">
+        <label className="label">Dirección</label>
+        <Direccion />
+      </div>
+    </Seccion>
+  );
+};
+
 const CrearSucursal = () => {
   const { state: { sucursal, 
     direccion 
@@ -33,23 +50,6 @@ const CrearSucursal = () => {
     } catch (e) {
       setAction({ saving: false, error: true, message: e.message });
     };
-  };
-
-  const DatosSede = ({ sede, dispatch }) => {
-    return (
-      <Seccion titulo="Datos de la Sede">
-        <Input
-          name="nombre"
-          label="Nombre"
-          value={sede?.nombre || ""}
-          onChange={e => handleDispatch(dispatch, e.target?.name, e.target?.value, SUCURSAL)}
-        />
-        <div className="field">
-          <label className="label">Dirección</label>
-          <Direccion />
-        </div>
-      </Seccion>
-    );
   };
 
   return (
