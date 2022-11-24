@@ -95,14 +95,13 @@ const Login = ({ setToken }) => {
 
   const login = async e => {
     e.preventDefault();
-    let userToken;
     try {
-      userToken = await autenticarUsuarios(state.login);
-      if (userToken.token) {
-        setToken(userToken);
-        handleError("");
+      const {token, user} = await autenticarUsuarios(state.login);
+      if (token) {
+        setToken({ token, user });
+        handleError(""); 
       } else {
-        handleError(userToken?.data?.error);
+        handleError(token?.data?.error);
       }
     } catch {
       handleError("Ocurrió un error al intentar iniciar sesión");

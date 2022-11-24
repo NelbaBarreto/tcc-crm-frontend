@@ -9,8 +9,9 @@ const useToken = () => {
 
   const [token, setToken] = useState(getToken());
 
-  const saveToken = userToken => {
-    localStorage.setItem("token", JSON.stringify(userToken));
+  const saveToken = (token, user) => {
+    localStorage.setItem("token", JSON.stringify({ token: userToken.token}));
+    localStorage.setItem("usuario", JSON.stringify(user));
     setToken(userToken.token);
   };
 
