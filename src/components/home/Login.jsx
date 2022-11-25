@@ -98,7 +98,7 @@ const Login = ({ setToken }) => {
     try {
       const {token, user} = await autenticarUsuarios(state.login);
       if (token) {
-        setToken({ token, user });
+        setToken(token, user);
         handleError(""); 
       } else {
         handleError(token?.data?.error);
