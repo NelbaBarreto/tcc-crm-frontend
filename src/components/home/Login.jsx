@@ -30,14 +30,13 @@ const GoogleLoginButton = ({ loginReducer, handleError, setToken }) => {
   const { dispatch } = loginReducer;
 
   const loginGoogle = async response => {
-    let userToken;
     try {
-      userToken = await autenticarUsuarios({ email: response.profileObj.email });
-      if (userToken.token) {
-        setToken(userToken);
-        handleError("");
+      const {token, user} = await autenticarUsuarios({ email: response.profileObj.email });
+      if (token) {
+        setToken(token, user);
+        handleError(""); 
       } else {
-        handleError(userToken.error);
+        handleError(token?.data?.error);
       }
     } catch {
       handleError("Ocurrió un error al intentar iniciar sesión con google.");
@@ -95,14 +94,13 @@ const Login = ({ setToken }) => {
 
   const login = async e => {
     e.preventDefault();
-    let userToken;
     try {
-      userToken = await autenticarUsuarios(state.login);
-      if (userToken.token) {
-        setToken(userToken);
-        handleError("");
+      const {token, user} = await autenticarUsuarios(state.login);
+      if (token) {
+        setToken(token, user);
+        handleError(""); 
       } else {
-        handleError(userToken?.data?.error);
+        handleError(token?.data?.error);
       }
     } catch {
       handleError("Ocurrió un error al intentar iniciar sesión");

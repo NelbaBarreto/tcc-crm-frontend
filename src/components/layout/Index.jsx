@@ -1,17 +1,20 @@
 import React from "react";
 import Sidebar from "../sidemenu/Sidebar";
-import style from './layout.module.css';
+import Header from "./Header";
+import style from "./layout.module.css";
 
 const Layout = props => {
   const { children } = props;
 
   return (
     <div className={style.layout}>
-      <header className={style.header}></header>
+      <Header />
       <aside className={style.aside}>
         <Sidebar />
       </aside>
-      <main className={style.main}>{children}</main>
+      <main className={style.main}>
+        {children}
+      </main>
     </div>
   );
 };
