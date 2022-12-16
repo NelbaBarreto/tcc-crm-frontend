@@ -26,7 +26,7 @@ const DatosEmpleado = ({ empleado, dispatch }) => {
 };
 
 const CrearLead = () => {
-  const { state: { empleado, persona, direcciones }, dispatch } = useContext(AppContext);
+  const { state: { empleado, persona, direcciones, telefonos }, dispatch } = useContext(AppContext);
   const [action, setAction] = useState({});
   const navigate = useNavigate();
 
@@ -38,7 +38,7 @@ const CrearLead = () => {
     e.preventDefault();
     setAction({ saving: true, error: false, message: "" });
     try {
-      await createEmpleado({ ...empleado, persona: { ...persona, direcciones } });
+      await createEmpleado({ ...empleado, persona: { ...persona, direcciones, telefonos } });
       setAction({ saving: false, error: false, message: "Empleado creado exitosamente." });
       setTimeout(() => navigate("/admin/empleados"), 2000);
     } catch (e) {
