@@ -1,19 +1,26 @@
-import React, { useState, useReducer } from "react";
+import React, { useState, useContext, useEffect } from "react";
+import AppContext from "../../../utils/AppContext";
 import Seccion from "../../formulario/Seccion";
 import MostrarMensaje from "../../formulario/MostrarMensaje";
+import { handleDispatch, handleStateCleared } from "../../formulario/reducerFormularios.js";
 import { Volver, Guardar } from "../../formulario/Acciones";
 import { Titulo1 } from "../../formulario/Titulo";
-import { Dropdown } from "../../formulario/Componentes";
+import { Dropdown, Input, TextArea } from "../../formulario/Componentes";
 import { getUsuarios } from "../../../api/usuarios";
-import { getCampanas } from "../../../api/campanas";
 import { createOportunidad, getEtapas } from "../../../api/oportunidades";
-import { reducer } from "../../formulario/reducerFormularios.js";
+import { getLeads } from "../../../api/leads";
 import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 
-const DatosOportunidad = ({ onChange }) => {
+const OPORTUNIDAD = "oportunidad";
 
-  const [select, setSelect] = useState({ estado: "", origen: "", campana: "", usu_asignado: "" });
+const DatosOportunidad = ({ oportunidad, dispatch }) => {
+  const [select, setSelect] = useState({ etapa: "", usu_asignado: "" });
+
+  const {
+    data: etapasOportunidades,
+    etapasLoading
+  } = useQuery(["etapasOportunidades"], getEtapas);
 
   const {
     data: usuarios,
@@ -21,118 +28,102 @@ const DatosOportunidad = ({ onChange }) => {
   } = useQuery(["usuarios"], getUsuarios);
 
   const {
-    data: campanas,
-    campanasLoading
-  } = useQuery(["campanas"], getCampanas);
+    data: leads,
+    leadsLoading
+  } = useQuery(["leads"], getLeads);
+
+  const opcionesEtapas = etapasLoading || !etapasOportunidades ? [] :
+    etapasOportunidades.map(etapa => ({ value: etapa, label: etapa }));
 
   const opcionesUsuarios = usuariosLoading || !usuarios ? [] :
     usuarios.map(usuario => ({ value: usuario.usuario_id, label: usuario.nom_usuario }));
 
-  const opcionesCampanas = campanasLoading || !campanas ? [] :
-    campanas.map(campana => ({ value: campana.campana_id, label: campana.nombre }));
+  const opcionesLeads = leadsLoading || !leads ? [] :
+    leads.map(lead => ({ value: lead.lead_id, label: lead.persona.nombre }));    
 
   return (
     <Seccion titulo="Datos de la Oportunidad">
-      <div className="columns is-desktop">
-        <div className="column">
-          <div className="field">
-            <label className="label">Nombre</label>
-            <div className="control">
-              <input
-                name="nombre"
-                className="input shadow-lg"
-                type="number"
-                placeholder="Ingrese el nombre de la Oportunidad"
-              />
-            </div>
-          </div>
-        </div>
-        <div className="column">
-          <div className="field">
-            <label className="label">Etapa: </label>
-            <div className="control">
-              <div className="select">
-                <select>
-                  <option>Asignado</option>
-                  <option>Pendiente</option>
-                  <option>Confirmado</option>
-                  <option>Anulado</option>
-                </select>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
       <div className="columns">
         <div className="column">
-          <Dropdown
-            label="Campaña"
-            value={select.campana}
-            options={opcionesCampanas}
-            onChange={e => { onChange(e, "campana_id", e?.value); setSelect({ ...select, campana: e }) }}
+          <Input 
+            name="nombre"
+            label="Nombre"
+            value={oportunidad?.nombre || ""}
+            onChange={e => handleDispatch(dispatch, e.target?.name, e.target?.value, OPORTUNIDAD)}
           />
         </div>
+        <div className="column">
+          <Dropdown
+            label="Etapa"
+            value={select.etapa}
+            options={opcionesEtapas}
+            onChange={e => {
+              handleDispatch(dispatch, "etapa", e?.value, OPORTUNIDAD);
+              setSelect({ ...select, etapa: e })
+            }}
+          />
+        </div>
+      </div>
+      <div className="columns">
+        <div className="column">
+          <Input 
+            name="valor"
+            label="Valor"
+            value={oportunidad?.valor || ""}
+            onChange={e => handleDispatch(dispatch, e.target?.name, e.target?.value, OPORTUNIDAD)}
+          />
+        </div>         
         <div className="column">
           <Dropdown
             label="Usuario Asignado"
             value={select.usu_asignado}
             options={opcionesUsuarios}
-            onChange={e => { onChange(e, "usu_asignado_id", e?.value); setSelect({ ...select, usu_asignado: e }) }}
+            onChange={e => {
+              handleDispatch(dispatch, "usu_asignado_id", e?.value, OPORTUNIDAD);
+              setSelect({ ...select, usu_asignado: e })
+            }}
+          />
+        </div>     
+      </div>      
+      <div className="columns">
+        <div className="column">
+          <Dropdown
+            label="Lead"
+            value={select.lead}
+            options={opcionesLeads}
+            onChange={e => {
+              handleDispatch(dispatch, "lead_id", e?.value, OPORTUNIDAD);
+              setSelect({ ...select, lead: e })
+            }}
+          />
+        </div>        
+        <div className="column">
+          <TextArea 
+            label="Descripción"
+            name="descripcion"
+            value={oportunidad?.descripcion || ""}
+            onChange={e => handleDispatch(dispatch, e.target?.name, e.target?.value, OPORTUNIDAD)}            
           />
         </div>
       </div>
-
-      <div className="columns is-desktop">
-        <div className="column">
-          <div className="field">
-            <label className="label">Valor</label>
-            <div className="control">
-              <input
-                name="valor"
-                className="input shadow-lg"
-                type="text"
-                placeholder="Ingrese el valor de la Oportunidad"
-              />
-            </div>
-          </div>
-        </div>
-        <div className="column">
-          <div className="field">
-            <label className="label">Descripción</label>
-            <div className="control">
-              <textarea
-                name="desCaso"
-                className="textarea"
-                type="text"
-                placeholder="Ingrese una descripción"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-
     </Seccion>
   );
 };
 
 const CrearOportunidad = () => {
-  const [state, dispatch] = useReducer(reducer, {});
+  const {state : { oportunidad }, dispatch} = useContext(AppContext);
   const [action, setAction] = useState({});
   const navigate = useNavigate();
 
-  const handleDispatch = (e, name, value = " ") => {
-    dispatch({
-      type: "FORM_UPDATED",
-      payload: { name: e?.target?.name || name, value: e?.target?.value || value, object: "oportunidad" }
-    })
-  }
+  useEffect(() => {
+    handleStateCleared(dispatch);
+  }, []);
 
   const crear = async e => {
     e.preventDefault();
     setAction({ saving: true, error: false, message: "" });
     try {
-      await createOportunidad({ ...state.lead });
+      await createOportunidad(oportunidad);
       setAction({ saving: false, error: false, message: "Oportunidad creada exitosamente." });
       setTimeout(() => navigate("/ventas/oportunidades"), 3000);
     } catch (e) {
@@ -148,7 +139,10 @@ const CrearOportunidad = () => {
         </Titulo1>
         {action.message ? <MostrarMensaje mensaje={action.message} error={action.error} /> : null}
         <form>
-          <DatosOportunidad lead={state.lead} onChange={handleDispatch} />
+          <DatosOportunidad 
+            oportunidad={oportunidad}
+            dispatch={dispatch} 
+          />
           <Guardar saving={action.saving} guardar={crear} />
           <Volver navigate={navigate} />
         </form>
