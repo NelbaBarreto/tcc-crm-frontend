@@ -7,16 +7,26 @@ const useToken = () => {
     return userToken?.token
   };
 
-  const [token, setToken] = useState(getToken());
+  const getUsuario = () => {
+    const userString = localStorage.getItem("usuario");
+    const user = JSON.parse(userString);
+    return user?.usuario
+  };
 
-  const saveToken = userToken => {
-    localStorage.setItem("token", JSON.stringify(userToken));
-    setToken(userToken.token);
+  const [token, setToken] = useState(getToken());
+  const [usuario, setUsuario] = useState(getUsuario());
+
+  const saveToken = (token, user) => {
+    localStorage.setItem("token", JSON.stringify({ token}));
+    localStorage.setItem("usuario", JSON.stringify({ usuario: user }));
+    setToken(token);
+    setUsuario(user);
   };
 
   return {
     setToken: saveToken,
-    token
+    token,
+    usuario
   }
 };
 
