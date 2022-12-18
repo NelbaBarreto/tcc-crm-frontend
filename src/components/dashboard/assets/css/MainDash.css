@@ -1,0 +1,10 @@
+.MainDash{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.titulo{
+    font-size: 34px;
+    font-weight: 600;
+}
