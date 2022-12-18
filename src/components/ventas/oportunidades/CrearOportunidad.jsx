@@ -6,7 +6,7 @@ import { Titulo1 } from "../../formulario/Titulo";
 import { Dropdown } from "../../formulario/Componentes";
 import { getUsuarios } from "../../../api/usuarios";
 import { getCampanas } from "../../../api/campanas";
-import { createOportunidad } from "../../../api/oportunidades";
+import { createOportunidad, getEtapas } from "../../../api/oportunidades";
 import { reducer } from "../../formulario/reducerFormularios.js";
 import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
