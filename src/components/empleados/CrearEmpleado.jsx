@@ -1,47 +1,48 @@
-import React, { useState } from "react";
-import MostrarMensaje from "../formulario/MostrarMensaje";
-import ModalUsuario from "../usuarios/ModalUsuario";
-import CrearPersona from "../personas/CrearPersona";
+import React, { useState, useContext, useEffect } from "react";
+import AppContext from "../../utils/AppContext";
 import Seccion from "../formulario/Seccion";
+import MostrarMensaje from "../formulario/MostrarMensaje";
+import CrearPersona from "../personas/CrearPersona";
 import { Volver, Guardar } from "../formulario/Acciones";
 import { Titulo1 } from "../formulario/Titulo";
+import { Checkbox } from "../formulario/Componentes";
+import { createEmpleado } from "../../api/empleados";
+import { handleDispatch, handleStateCleared } from "../formulario/reducerFormularios.js";
 import { useNavigate } from "react-router-dom";
-import { createPersona } from "../../api/personas";
 
-const DatosEmpleado = ({ persona, setPersona }) => {
+const EMPLEADO = "empleado";
+
+const DatosEmpleado = ({ empleado, dispatch }) => {
   return (
     <Seccion titulo="Datos del Empleado">
-      <div className="field">
-        <label className="label">Activo</label>
-        <div className="control">
-          <input
-            name="activo"
-            className="checkbox shadow-lg"
-            value={persona.empleado.activo || false}
-            onChange={e => setPersona({ ...persona, empleado: { ...persona.empleado, [e.target.name]: e.target.checked } })}
-            type="checkbox"
-          />
-        </div>
-      </div>
+      <Checkbox
+        label="Activo"
+        name="activo"
+        value={empleado?.activo || false}
+        onChange={e => handleDispatch(dispatch, e.target.name, e?.target.checked, EMPLEADO)}
+      />
     </Seccion>
   );
 };
 
-const CrearEmpleado = () => {
-  const [persona, setPersona] = useState({ empleado: { usuario: {} } });
-  const [state, setState] = useState(false);
-  const [modalIsOpen, setIsOpen] = useState(false);
+const CrearLead = () => {
+  const { state: { empleado, persona, direcciones, telefonos }, dispatch } = useContext(AppContext);
+  const [action, setAction] = useState({});
   const navigate = useNavigate();
+
+  useEffect(() => {
+    handleStateCleared(dispatch);
+  }, []);
 
   const crear = async e => {
     e.preventDefault();
-    setState({ saving: true, error: false, message: "" });
+    setAction({ saving: true, error: false, message: "" });
     try {
-      await createPersona(persona);
-      setState({ saving: false, error: false, message: "Empleado creado exitosamente." });
-      setTimeout(() => navigate("/admin/empleados"), 3000);
+      await createEmpleado({ ...empleado, persona: { ...persona, direcciones, telefonos } });
+      setAction({ saving: false, error: false, message: "Empleado creado exitosamente." });
+      setTimeout(() => navigate("/admin/empleados"), 2000);
     } catch (e) {
-      setState({ saving: false, error: true, message: e.message });
+      setAction({ saving: false, error: true, message: e.message });
     };
   };
 
@@ -51,22 +52,19 @@ const CrearEmpleado = () => {
         <Titulo1>
           Nuevo Empleado
         </Titulo1>
-        {state.message ? <MostrarMensaje mensaje={state.message} error={state.error} /> : null}
+        {action.message ? <MostrarMensaje mensaje={action.message} error={action.error} /> : null}
         <form>
-          <CrearPersona persona={persona} setPersona={setPersona} />
-          <DatosEmpleado persona={persona} setPersona={setPersona} />
-          <ModalUsuario
-            modalIsOpen={modalIsOpen}
-            setIsOpen={setIsOpen}
-            persona={persona}
-            setPersona={setPersona}
+          <CrearPersona />
+          <DatosEmpleado
+            empleado={empleado}
+            dispatch={dispatch}
           />
-          <Guardar guardar={crear} saving={state.saving} />
+          <Guardar saving={action.saving} guardar={crear} />
           <Volver navigate={navigate} />
         </form>
       </section>
     </div>
-  );
-}
+  )
+};
 
-export default CrearEmpleado;
+export default CrearLead;

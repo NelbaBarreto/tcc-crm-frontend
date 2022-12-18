@@ -101,10 +101,10 @@ export const TextView = ({ label, value = "" }) => {
   );
 }
 
-export const DateFormat = ({ label, value = "" }) => {
+export const DateFormat = ({ label, value = "", className = "label" }) => {
   return (
     <div>
-      <label className="label">{label}</label>
+      <label className={className}>{label}</label>
       <span>{format(parseISO(value), "dd/MM/yyyy hh:mm")}</span>
     </div>
   );
