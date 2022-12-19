@@ -1,15 +1,19 @@
 import React from "react";
-import Cards from '../Cards/Cards'
-import '../css/MainDash.css'
+import Cards from "../Cards/Cards"
+import { Titulo1 } from "../../../formulario/Titulo";
+import "../css/MainDash.css"
 
 const MainDash = () => {
-    return(
-        <div className="MainDash">
-            <div className="titulo"><h1>Dashboard</h1></div>
-            
-            <Cards/>
-        </div>
-    )
+  return (
+    <section className="section w-full m-auto">
+      <Titulo1>
+        Dashboard
+      </Titulo1>
+      <div className="MainDash">
+        <Cards />
+      </div>
+    </section>
+  )
 }
 
 
