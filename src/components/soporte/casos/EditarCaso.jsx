@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import AppContext from "../../../utils/AppContext";
 import Seccion from "../../formulario/Seccion";
 import MostrarMensaje from "../../formulario/MostrarMensaje";
+import { CircularProgress } from "@mui/material";
 import { Volver, Guardar } from "../../formulario/Acciones";
 import { Titulo1 } from "../../formulario/Titulo";
 import { Dropdown, Input, TextArea } from "../../formulario/Componentes";
@@ -14,7 +15,7 @@ import { useParams, useNavigate } from "react-router-dom";
 const CASO = "caso";
 
 const DatosCaso = ({ caso, dispatch, manageSelect }) => {
-  const {setSelect, select} = manageSelect;
+  const { setSelect, select } = manageSelect;
   const {
     data: usuarios,
     usuariosLoading
@@ -156,7 +157,7 @@ const EditarCaso = () => {
 
   const {
     data: currentCaso,
-    isLoading
+    isFetching,
   } = useQuery(["caso", id], () => getCaso(id));
 
   useEffect(() => {
@@ -165,15 +166,17 @@ const EditarCaso = () => {
   }, []);
 
   useEffect(() => {
-    if (!isLoading) {
+    if (!isFetching) {
       handleDispatchEdit(dispatch, currentCaso, CASO);
-      setSelect({ estado: { label: currentCaso.estado, value: currentCaso.estado }, 
-                  origen: { label: currentCaso.origen, value: currentCaso.origen },
-                  prioridad: { label: currentCaso.prioridad, value: currentCaso.prioridad },
-                  tipo: { label: currentCaso.tipo, value: currentCaso.tipo },
-                  usu_asignado: { label: currentCaso.usuario?.nom_usuario, value: currentCaso.usuario?.usuario_id }});
+      setSelect({
+        estado: { label: currentCaso.estado, value: currentCaso.estado },
+        origen: { label: currentCaso.origen, value: currentCaso.origen },
+        prioridad: { label: currentCaso.prioridad, value: currentCaso.prioridad },
+        tipo: { label: currentCaso.tipo, value: currentCaso.tipo },
+        usu_asignado: { label: currentCaso.usuario?.nom_usuario, value: currentCaso.usuario?.usuario_id }
+      });
     }
-  }, [isLoading]);
+  }, [isFetching]);
 
   const crear = async e => {
     e.preventDefault();
@@ -189,17 +192,18 @@ const EditarCaso = () => {
 
   return (
     <div>
-      <section className="section w-full m-auto">
-        <Titulo1>
-          Editar Caso
-        </Titulo1>
-        {action.message ? <MostrarMensaje mensaje={action.message} error={action.error} /> : null}
-        <form>
-          <DatosCaso caso={caso} dispatch={dispatch} manageSelect={{ setSelect, select }} />
-          <Guardar saving={action.saving} guardar={crear} />
-          <Volver navigate={navigate} />
-        </form>
-      </section>
+      {isFetching ?
+        <CircularProgress size={24} /> : <section className="section w-full m-auto">
+          <Titulo1>
+            Editar Caso
+          </Titulo1>
+          {action.message ? <MostrarMensaje mensaje={action.message} error={action.error} /> : null}
+          <form>
+            <DatosCaso caso={caso} dispatch={dispatch} manageSelect={{ setSelect, select }} />
+            <Guardar saving={action.saving} guardar={crear} />
+            <Volver navigate={navigate} />
+          </form>
+        </section>}
     </div>
   )
 };
