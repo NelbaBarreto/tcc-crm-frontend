@@ -6,6 +6,8 @@ export const reducer = (state, action) => {
       return { ...state, login: { ...state.login, [name]: value } };
     case "FORM_UPDATED":
       return { ...state, [object]: { ...state[`${object}`], [name]: value } };
+    case "RECORD_LOADED":
+      return { ...state,  [object]: value };      
     case "DIRECCION_ADDED":
       return { ...state, direcciones: [...state.direcciones || [], state.direccion], direccion: {} };
     case "TELEFONO_ADDED":
@@ -29,6 +31,13 @@ export const handleDispatch = (dispatch, name, value, object) => {
   dispatch({
     type: "FORM_UPDATED",
     payload: { name, value, object }
+  })
+}
+
+export const handleDispatchEdit = (dispatch, value, object) => {
+  dispatch({
+    type: "RECORD_LOADED",
+    payload: { value, object }
   })
 }
 
