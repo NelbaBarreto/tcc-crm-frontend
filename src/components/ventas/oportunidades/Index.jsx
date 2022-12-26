@@ -73,7 +73,7 @@ const Index = () => {
           if (value) {
             return (
               <NavLink
-                to={"/administrador/empleados/" + value.usuario_id}
+                to={"/admin/empleados/" + value.usuario_id}
                 className="underline text-blue-900"
               >
                 {value.nom_usuario}

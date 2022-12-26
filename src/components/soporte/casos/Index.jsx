@@ -87,7 +87,7 @@ const Index = () => {
           if (value) {
             return (
               <NavLink
-                to={"/administrador/empleados/" + value.usuario_id}
+                to={"/admin/empleados/" + value.usuario_id}
                 className="underline text-blue-900"
               >
                 {value.nom_usuario}
@@ -105,7 +105,7 @@ const Index = () => {
         filter: false,
         sort: false,
         empty: true,
-        customBodyRender: (value, tableMeta) => {
+        customBodyRender: (_value, tableMeta) => {
           return (
             <div className="field is-grouped">
               <div className="control">
