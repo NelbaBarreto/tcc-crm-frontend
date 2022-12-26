@@ -2,6 +2,7 @@ import React from "react";
 import DataTables from "../../DataTables";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { classNameButton1, classNameButton2 } from "../../formulario/Componentes";
 import { useQuery } from "react-query";
 import { getLlamadas } from "../../../api/llamadas";
 import { NavLink } from "react-router-dom";
@@ -63,15 +64,18 @@ const Index = () => {
         filter: false,
         sort: false,
         empty: true,
-        customBodyRenderLite: (dataIndex, _rowIndex) => {
+        customBodyRender: (_value, tableMeta) => {
           return (
-            <button
-              className="button font-semibold shadow-lg text-white hover:text-white focus:text-white
-              hover:bg-deep-purple-700 bg-deep-purple-400 border-deep-purple-700"
-              onClick={() => console.log(llamadas[dataIndex])}
-            >
-              Editar
-            </button>
+            <div className="field is-grouped">
+              <div className="control">
+                <NavLink
+                  to={"/actividades/llamadas/editar/" + tableMeta.rowData[0]}
+                  className={classNameButton1}
+                >
+                  Editar
+                </NavLink>
+              </div>
+            </div>
           );
         }
       }

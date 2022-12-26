@@ -26,3 +26,8 @@ export const getEstados = async () => {
   const { data: response } = await axios.get(`${API}/llamadas/estados`);
   return response.data;
 };
+
+export const editLlamadas = async (id, data) => {
+  const { data: response } = await axios.put(`${API}/llamadas/${id}`, { id, llamada: data });
+  return response.data;
+};
