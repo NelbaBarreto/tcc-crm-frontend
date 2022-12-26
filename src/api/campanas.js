@@ -16,3 +16,8 @@ export const getCampana = async id => {
   const { data: response } = await axios.get(`${API}/campanas/${id}`);
   return response.data;
 };
+
+export const editCampana = async (id, data) => {
+  const { data: response } = await axios.put(`${API}/campanas/${id}`, { id, campana: data });
+  return response.data;
+};

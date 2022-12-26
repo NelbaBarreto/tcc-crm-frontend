@@ -5,15 +5,12 @@ import MostrarMensaje from "../../formulario/MostrarMensaje";
 import { CircularProgress } from "@mui/material";
 import { Volver, Guardar } from "../../formulario/Acciones";
 import { Titulo1 } from "../../formulario/Titulo";
-// import { Dropdown, Input, TextArea } from "../../formulario/Componentes";
 import { getTipos, getEstados, editLlamadas, getLlamada } from "../../../api/llamadas";
 import { handleDispatch, handleDispatchEdit, handleStateCleared } from "../../formulario/reducerFormularios.js";
 import { useQuery } from "react-query";
 import { useParams, useNavigate } from "react-router-dom";
-// import { reducer, handleDispatch } from "../../formulario/reducerFormularios";
-// import { Titulo1 } from "../../formulario/Titulo";
 import { Dropdown, Input, TextArea, Datepicker } from "../../formulario/Componentes";
-//import TimeInput from "react-input-time";
+
 
 const LLAMADA = "llamada";
 
@@ -37,7 +34,7 @@ const DatosLlamada = ({ llamada, dispatch, manageSelect }) => {
         estados.map(estado => ({ value: estado, label: estado }));
 
     return (
-        <Seccion titulo="Datos del Caso">
+        <Seccion titulo="Datos de la Llamada">
             <Input
                 label="Asunto"
                 name="asunto"
