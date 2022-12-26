@@ -19,7 +19,7 @@ const DatosEmpleado = ({ empleado }) => {
               alt="" />
           </div>
           <h1 className="text-gray-900 font-bold text-xl leading-8 my-1">{empleado.persona.nombre}</h1>
-          <h3 className="text-gray-600 font-lg text-semibold leading-6">Secretaria</h3>
+          <h3 className="text-gray-600 font-lg text-semibold leading-6">{empleado.cargo}</h3>
           <ul
             className="bg-gray-100 text-gray-600 hover:text-gray-700 hover:shadow py-2 px-3 mt-3 divide-y rounded shadow-sm">
             <li className="flex items-center py-3">

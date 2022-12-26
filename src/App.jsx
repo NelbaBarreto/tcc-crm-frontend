@@ -100,9 +100,9 @@ const MainApp = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { token, setToken } = useToken();
 
-  // if (!token) {
-  //   return <Login setToken={setToken} />
-  // };
+  if (!token) {
+    return <Login setToken={setToken} />
+  };
 
   return (
     <AppContext.Provider value={{ state, dispatch }}>

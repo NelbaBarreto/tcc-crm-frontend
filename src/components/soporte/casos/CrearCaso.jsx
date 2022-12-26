@@ -1,4 +1,5 @@
 import React, { useState, useReducer } from "react";
+import useToken from "../../../utils/useToken";
 import Seccion from "../../formulario/Seccion";
 import MostrarMensaje from "../../formulario/MostrarMensaje";
 import { Volver, Guardar } from "../../formulario/Acciones";
@@ -57,7 +58,7 @@ const DatosCaso = ({ caso, dispatch }) => {
   return (
     <Seccion titulo="Datos del Caso">
       <Input
-        label="Asunto"
+        label="Asunto*"
         name="asunto"
         value={caso?.asunto || ""}
         onChange={e => handleDispatch(dispatch, e?.target.name, e?.target.value, CASO)}
@@ -65,7 +66,7 @@ const DatosCaso = ({ caso, dispatch }) => {
       <div className="columns">
         <div className="column">
           <Dropdown
-            label="Prioridad"
+            label="Prioridad*"
             value={select.prioridad}
             options={opcionesPrioridades}
             onChange={e => {
@@ -100,7 +101,7 @@ const DatosCaso = ({ caso, dispatch }) => {
         </div>
         <div className="column">
           <Dropdown
-            label="Origen"
+            label="Origen*"
             value={select?.origen}
             options={opcionesOrigenes}
             onChange={e => {
@@ -126,7 +127,7 @@ const DatosCaso = ({ caso, dispatch }) => {
       <div className="columns">
         <div className="column">
           <TextArea
-            label="Descripción"
+            label="Descripción *"
             name="descripcion"
             value={caso?.descripcion || ""}
             onChange={e => handleDispatch(dispatch, e?.target.name, e?.target.value, CASO)}
@@ -149,13 +150,14 @@ const DatosCaso = ({ caso, dispatch }) => {
 const CrearCaso = () => {
   const [state, dispatch] = useReducer(reducer, {});
   const [action, setAction] = useState({});
+  const { usuario = {} } = useToken();
   const navigate = useNavigate();
 
   const crear = async e => {
     e.preventDefault();
     setAction({ saving: true, error: false, message: "" });
     try {
-      await createCaso({ ...state.caso });
+      await createCaso({ ...state.caso, usu_insercion: usuario.nom_usuario, usu_modificacion: usuario.nom_usuario });
       setAction({ saving: false, error: false, message: "Caso creado exitosamente." });
       setTimeout(() => navigate("/soporte/casos"), 2000);
     } catch (e) {
