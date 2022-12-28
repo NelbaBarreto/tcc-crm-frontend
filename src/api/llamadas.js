@@ -31,3 +31,8 @@ export const editLlamadas = async (id, data) => {
   const { data: response } = await axios.put(`${API}/llamadas/${id}`, { id, llamada: data });
   return response.data;
 };
+
+export const deleLlamadas = async (id, data) => {
+  const { data: response } = await axios.delete(`${API}/llamadas/${id}`, { id, llamada: data });
+  return response.data;
+};
