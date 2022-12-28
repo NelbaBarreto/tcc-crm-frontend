@@ -21,9 +21,9 @@ const Card = ({ titulo, children }) => {
 const CSAT = () => {
   return (
     <div className="section w-full m-auto">
-        <Titulo1>
-          Encuesta de Satisfacción
-        </Titulo1>
+      <Titulo1>
+        Encuesta de Satisfacción
+      </Titulo1>
       <div className="columns">
         <div className="column">
           <Card titulo="¿Cómo calificarías el servicio brindado?">
@@ -125,7 +125,7 @@ const CSAT = () => {
                 Un amigo
               </label>
               <label className="radio">
-                <input type="radio" name="answer4" className="mr-1"/>
+                <input type="radio" name="answer4" className="mr-1" />
                 Soy Cliente
               </label>
             </div>
@@ -170,6 +170,13 @@ const CSAT = () => {
               </div>
             </form>
           </Card>
+        </div>
+      </div>
+      <div className="mt-7">
+        <div className="text-center">
+          <img src="/sonriendo.png" className="m-auto" style={{ width: "60px" }} alt="" />
+          <h1 className="title is-4 mb-1">¡Gracias por darnos tu opinión!</h1>
+          <div className="mb-8">Mejoramos con tus experiencias</div>
         </div>
       </div>
     </div>
