@@ -14,8 +14,7 @@ import { useQuery } from "react-query";
 
 const CAMPANA = "campana";
 
-const DatosCampana = ( campana, dispatch, manageSelect ) => {
-     const { setSelect, select } = manageSelect;
+const DatosCampana = ( campana, dispatch ) => {
 
   return (
    
@@ -48,7 +47,6 @@ const DatosCampana = ( campana, dispatch, manageSelect ) => {
 
 const EditarCampana = () => {
     const { state: { campana }, dispatch } = useContext(AppContext);
-    const [select, setSelect] = useState({});
     const [action, setAction] = useState({});
     const { id } = useParams();
     const navigate = useNavigate();
@@ -60,13 +58,13 @@ const EditarCampana = () => {
   
     useEffect(() => {
       handleStateCleared(dispatch);
-      setSelect({});
+
     }, []);
   
     useEffect(() => {
       if (!isFetching) {
         handleDispatchEdit(dispatch, currentCampana, CAMPANA);
-        setSelect({});
+
       }
     }, [isFetching]);
   
@@ -91,7 +89,7 @@ const EditarCampana = () => {
             </Titulo1>
             {action.message ? <MostrarMensaje mensaje={action.message} error={action.error} /> : null}
             <form>
-              <DatosCampana campana={campana} dispatch={dispatch} manageSelect={{ setSelect, select }} />
+              <DatosCampana campana={campana} dispatch={dispatch} />
               <Guardar saving={action.saving} guardar={crear} />
               <Volver navigate={navigate} />
             </form>
