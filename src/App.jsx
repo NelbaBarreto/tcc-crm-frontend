@@ -24,6 +24,8 @@ import MostrarPais from "./components/parametros/paises/MostrarPais";
 import ListarCiudades from "./components/parametros/ciudades/Index";
 import CrearCiudad from "./components/parametros/ciudades/CrearCiudad";
 import MostrarCiudad from "./components/parametros/ciudades/MostrarCiudad";
+import EditarCiudad from "./components/parametros/ciudades/EditarCiudad";
+
 
 // Motivos
 import CrearMotivo from "./components/parametros/motivos/CrearMotivo";
@@ -76,6 +78,8 @@ import MostrarLlamada from "./components/actividades/llamada/MostrarLlamada";
 import ListarTarea from "./components/actividades/tarea/Index";
 import CrearTarea from "./components/actividades/tarea/CrearTarea";
 import MostrarTarea from "./components/actividades/tarea/MostrarTarea";
+import EditarTarea from "./components/actividades/tarea/EditarTarea";
+
 
 //Cursos
 import ListarCursos from "./components/educacion/cursos/Index";
@@ -127,6 +131,7 @@ const MainApp = () => {
             {/* Ciudades */}
             <Route exact path="/parametros/ciudades" element={<ListarCiudades />} />
             <Route path="/parametros/ciudades/nuevo" element={<CrearCiudad />} />
+            <Route path="/parametros/ciudades/editar/:id" element={<EditarCiudad />} />
             <Route path="/parametros/ciudades/:id" element={<MostrarCiudad />} />
 
             <Route path="/parametros/motivos" element={<CrearMotivo />} />
@@ -168,6 +173,7 @@ const MainApp = () => {
             <Route exact path="/actividades/tareas/" element={<ListarTarea />} />
             <Route path="/actividades/tareas/nuevo" element={<CrearTarea />} />
             <Route path="/actividades/tareas/:id" element={<MostrarTarea />} />
+            <Route path="/actividades/tareas/editar/:id" element={<EditarTarea />} />
 
             {/* Llamadas */}
             <Route exact path="/actividades/llamadas" element={<ListarLlamada />} />
