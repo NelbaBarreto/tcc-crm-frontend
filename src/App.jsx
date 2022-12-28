@@ -92,6 +92,8 @@ import CrearSucursal from "./components/educacion/sucursales/CrearSucursal";
 import ListarSucursales from "./components/educacion/sucursales/Index";
 import MostrarSucursal from "./components/educacion/sucursales/MostrarSucursal";
 
+import CSAT from "./components/encuestas/CSAT.jsx";
+
 import useToken from "../src/utils/useToken";
 
 const initialState = {};
@@ -191,6 +193,8 @@ const MainApp = () => {
             <Route exact path="/educacion/sedes" element={<ListarSucursales />} />
             <Route path="/educacion/sedes/nuevo" element={<CrearSucursal />} />
             <Route path="/educacion/sedes/:id" element={<MostrarSucursal />} />
+
+            <Route path="/encuesta/:token" element={<CSAT />} />
           </Routes>
         </Layout>
       </Router>
