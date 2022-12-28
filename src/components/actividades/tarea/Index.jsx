@@ -2,7 +2,7 @@ import React from "react";
 import DataTables from "../../DataTables";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button1 } from "../../formulario/Componentes";
+import { classNameButton1, classNameButton2 } from "../../formulario/Componentes";
 import { useQuery } from "react-query";
 import { getTareas } from "../../../api/tareas";
 import { NavLink } from "react-router-dom";
@@ -64,20 +64,16 @@ const Index = () => {
         filter: false,
         sort: false,
         empty: true,
-        customBodyRenderLite: (_dataIndex, _rowIndex) => {
+        customBodyRender: (_value, tableMeta) => {
           return (
             <div className="field is-grouped">
               <div className="control">
-                <Button1
+                <NavLink
+                  to={"/actividades/tareas/editar/" + tableMeta.rowData[0]}
+                  className={classNameButton1}
                 >
                   Editar
-                </Button1>
-              </div>
-              <div className="control">
-                <Button1
-                >
-                  Eliminar
-                </Button1>
+                </NavLink>
               </div>
             </div>
           );

@@ -91,7 +91,7 @@ const DatosTarea = ({ tarea, dispatch, manageSelect }) => {
                 </div>
             </div>
             <div className="columns is-desktop">
-                <div className="column">
+                {/* <div className="column">
                     <Datepicker
                         label="Fecha de Inicio"
                         selected={tarea?.fec_inicio || ""}
@@ -104,7 +104,7 @@ const DatosTarea = ({ tarea, dispatch, manageSelect }) => {
                         selected={tarea?.fec_fin || ""}
                         onChange={fecha => handleDispatch(dispatch, "fec_fin", fecha, TAREA)}
                     />
-                </div>
+                </div> */}
             </div>
             <TextArea
                 label="Descripción"
@@ -164,7 +164,7 @@ const EditarTarea = () => {
                 </Titulo1>
                 {action.message ? <MostrarMensaje mensaje={action.message} error={action.error} /> : null}
                 <form>
-                    <DatosTarea tarea={tarea} dispatch={dispatch} />
+                    <DatosTarea tarea={tarea} dispatch={dispatch} manageSelect={{ setSelect, select }}/>
                     <Guardar saving={action.saving} guardar={crear} />
                     <Volver navigate={navigate} />
                 </form>

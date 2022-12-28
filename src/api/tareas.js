@@ -31,3 +31,8 @@ export const editTarea = async (id, data) => {
   const { data: response } = await axios.put(`${API}/tareas/${id}`, { id, tarea: data });
   return response.data;
 };
+
+export const deleTarea = async (id, data) => {
+  const { data: response } = await axios.delete(`${API}/tareas/${id}`, { id, tarea: data });
+  return response.data;
+};
