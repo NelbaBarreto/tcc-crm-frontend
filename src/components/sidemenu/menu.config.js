@@ -131,21 +131,21 @@ export const sideMenu = [
     Icon: () => <Icon iconName="folder" />,
     to: "/parametros",
     children: [
-      {
-        label: "Países",
-        Icon: () => <Icon iconName="earth-americas" />,
-        to: "paises",
-      },
+      // {
+      //   label: "Países",
+      //   Icon: () => <Icon iconName="earth-americas" />,
+      //   to: "paises",
+      // },
       {
         label: "Ciudades",
         Icon: () => <Icon iconName="city" />,
         to: "ciudades",
       },
-      {
-        label: "Motivos Casos",
-        Icon: () => <Icon iconName="business-time" />,
-        to: "motivos",
-      },
+      // {
+      //   label: "Motivos Casos",
+      //   Icon: () => <Icon iconName="business-time" />,
+      //   to: "motivos",
+      // },
     ],
   },
   {
