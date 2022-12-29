@@ -178,7 +178,7 @@ const EditarCaso = () => {
     }
   }, [isFetching]);
 
-  const crear = async e => {
+  const editar = async e => {
     e.preventDefault();
     setAction({ saving: true, error: false, message: "" });
     try {
@@ -199,8 +199,15 @@ const EditarCaso = () => {
           </Titulo1>
           {action.message ? <MostrarMensaje mensaje={action.message} error={action.error} /> : null}
           <form>
-            <DatosCaso caso={caso} dispatch={dispatch} manageSelect={{ setSelect, select }} />
-            <Guardar saving={action.saving} guardar={crear} />
+            <DatosCaso 
+              caso={caso} 
+              dispatch={dispatch} 
+              manageSelect={{ setSelect, select }} 
+            />
+            <Guardar 
+              saving={action.saving} 
+              guardar={editar} 
+            />
             <Volver navigate={navigate} />
           </form>
         </section>}
