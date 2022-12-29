@@ -14,8 +14,8 @@ import { useQuery } from "react-query";
 
 const CAMPANA = "campana";
 
-const DatosCampana = ( campana, dispatch ) => {
-
+const DatosCampana = ( campana, dispatch, manageSelect ) => {
+  const { setSelect, select } = manageSelect;
   return (
    
           <Seccion titulo="Datos de la Campaña">
@@ -47,6 +47,7 @@ const DatosCampana = ( campana, dispatch ) => {
 
 const EditarCampana = () => {
     const { state: { campana }, dispatch } = useContext(AppContext);
+    const [select, setSelect] = useState({ nombre: "", fec_inicio: "", fec_fin: ""});
     const [action, setAction] = useState({});
     const { id } = useParams();
     const navigate = useNavigate();
@@ -58,13 +59,17 @@ const EditarCampana = () => {
   
     useEffect(() => {
       handleStateCleared(dispatch);
-
+      setSelect({ nombre: "", fec_inicio: "", fec_fin: "" });
     }, []);
   
     useEffect(() => {
       if (!isFetching) {
         handleDispatchEdit(dispatch, currentCampana, CAMPANA);
-
+        setSelect({
+          nombre: { label: currentCampana.nombre, value: currentCampana.nombre },
+          fec_inicio: { label: currentCampana.fec_inicio, value: currentCampana.fec_inicio },
+          fec_fin: { label: currentCampana.fec_fin, value: currentCampana.fec_fin }
+        });
       }
     }, [isFetching]);
   
@@ -89,7 +94,7 @@ const EditarCampana = () => {
             </Titulo1>
             {action.message ? <MostrarMensaje mensaje={action.message} error={action.error} /> : null}
             <form>
-              <DatosCampana campana={campana} dispatch={dispatch} />
+              <DatosCampana campana={campana} dispatch={dispatch} manageSelect={{ setSelect, select }} />
               <Guardar saving={action.saving} guardar={crear} />
               <Volver navigate={navigate} />
             </form>
