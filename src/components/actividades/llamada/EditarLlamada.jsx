@@ -5,17 +5,19 @@ import MostrarMensaje from "../../formulario/MostrarMensaje";
 import { CircularProgress } from "@mui/material";
 import { Volver, Guardar } from "../../formulario/Acciones";
 import { Titulo1 } from "../../formulario/Titulo";
-import { getTipos, getEstados, editLlamadas, getLlamada} from "../../../api/llamadas";
+import { getTipos, getEstados, editLlamadas, getLlamada } from "../../../api/llamadas";
 import { handleDispatch, handleDispatchEdit, handleStateCleared } from "../../formulario/reducerFormularios.js";
 import { useQuery } from "react-query";
 import { useParams, useNavigate } from "react-router-dom";
-import { Dropdown, Input, TextArea, Datepicker } from "../../formulario/Componentes";
+import { Dropdown, Input, TextArea, Datepicker, DateFormat } from "../../formulario/Componentes";
+import { format, parseISO } from "date-fns";
 
 
 const LLAMADA = "llamada";
 
 const DatosLlamada = ({ llamada, dispatch, manageSelect }) => {
   const { setSelect, select } = manageSelect;
+  // console.log(format(parseISO(llamada?.fec_insercion || ""), "dd/MM/yyyy hh:mm"))
 
   const {
     data: tipos,
@@ -42,33 +44,33 @@ const DatosLlamada = ({ llamada, dispatch, manageSelect }) => {
         onChange={e => handleDispatch(dispatch, e?.target.name, e?.target.value, LLAMADA)}
       />
 
-        <Dropdown
-          label="Tipo"
-          options={opcionesTipos}
-          value={select.tipo}
-          onChange={e => {
-            handleDispatch(dispatch, "tipo", e?.value, LLAMADA);
-            setSelect({ ...select, tipo: e })
-          }}
-        />
-        <Dropdown
-          label="Estado"
-          value={select.estado}
-          options={opcionesEstados}
-          onChange={e => {
-            handleDispatch(dispatch, "estado", e?.value, LLAMADA);
-            setSelect({ ...select, estado: e })
-          }}
-        />
+      <Dropdown
+        label="Tipo"
+        options={opcionesTipos}
+        value={select.tipo}
+        onChange={e => {
+          handleDispatch(dispatch, "tipo", e?.value, LLAMADA);
+          setSelect({ ...select, tipo: e })
+        }}
+      />
+      <Dropdown
+        label="Estado"
+        value={select.estado}
+        options={opcionesEstados}
+        onChange={e => {
+          handleDispatch(dispatch, "estado", e?.value, LLAMADA);
+          setSelect({ ...select, estado: e })
+        }}
+      />
+
+
 
       {/* <div className="columns is-desktop"> */}
-      {/* <div className="column">
-                    <Datepicker
-                        label="Fecha de Inicio"
-                        selected={llamada?.fec_inicio || ""}
-                        onChange={fecha => handleDispatch(dispatch, "fec_inicio", fecha, LLAMADA)}
-                    />
-                </div> */}
+      {/* <Datepicker
+          label="Fecha de Inicio"
+          selected={format(parseISO(llamada?.fec_inicio), "dd/MM/yyyy hh:mm") || ""} 
+          onChange={fecha => handleDispatch(dispatch, "fec_inicio", fecha, LLAMADA)}
+        /> */}
       <TextArea
         label=" Descripción"
         name="descripcion"
@@ -126,8 +128,10 @@ const EditarLlamada = () => {
           <Titulo1>
             Editar Llamada
           </Titulo1>
+
           {action.message ? <MostrarMensaje mensaje={action.message} error={action.error} /> : null}
           <form>
+            <DateFormat label="Fecha de Creación" value={llamada?.fec_insercion} />
             <DatosLlamada llamada={llamada} dispatch={dispatch} manageSelect={{ setSelect, select }} />
             <Guardar saving={action.saving} guardar={crear} />
             <Volver navigate={navigate} />

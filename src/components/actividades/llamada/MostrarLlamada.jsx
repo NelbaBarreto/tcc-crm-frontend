@@ -26,7 +26,9 @@ const DatosLlamada = ({ llamada = {} }) => {
           <TextView label="Descripción" value={llamada.descripcion} />
         </div>
       </div>
-
+      <div className="column">
+          <DateFormat label="Fecha de Creación" value={llamada.fec_inicio} />
+        </div>
     </Seccion>
   );
 }
