@@ -25,7 +25,7 @@ import ListarCiudades from "./components/parametros/ciudades/Index";
 import CrearCiudad from "./components/parametros/ciudades/CrearCiudad";
 import MostrarCiudad from "./components/parametros/ciudades/MostrarCiudad";
 import EditarCiudad from "./components/parametros/ciudades/EditarCiudad";
-
+import EliminarCiudad from "./components/parametros/ciudades/EliminarCiudad";
 
 // Motivos
 import CrearMotivo from "./components/parametros/motivos/CrearMotivo";
@@ -35,6 +35,7 @@ import ListarCampana from "./components/marketing/campanas/Index";
 import CrearCampana from "./components/marketing/campanas/CrearCampana";
 import EditarCampana from "./components/marketing/campanas/EditarCampana";
 import MostrarCampana from "./components/marketing/campanas/MostrarCampana";
+import EliminarCampana from "./components/marketing/campanas/EliminarCampana";
 
 // Tipo Campaña
 import ListarTipcampana from "./components/marketing/tipo_campanas/Index";
@@ -64,6 +65,7 @@ import ListarCaso from "./components/soporte/casos/Index";
 import CrearCaso from "./components/soporte/casos/CrearCaso";
 import EditarCaso from "./components/soporte/casos/EditarCaso";
 import MostrarCaso from "./components/soporte/casos/MostrarCaso";
+import EliminarCaso from "./components/soporte/casos/EliminarCaso";
 
 //Actividades
 import Calendario from "./components/actividades/calendario/Calendario";
@@ -73,6 +75,7 @@ import ListarLlamada from "./components/actividades/llamada/Index";
 import CrearLlamada from "./components/actividades/llamada/CrearLlamada";
 import EditarLlamada from "./components/actividades/llamada/EditarLlamada";
 import MostrarLlamada from "./components/actividades/llamada/MostrarLlamada";
+import EliminarLlamada from "./components/actividades/llamada/EliminarLlamada";
 
 //Tareas
 import ListarTarea from "./components/actividades/tarea/Index";
@@ -133,6 +136,7 @@ const MainApp = () => {
             <Route path="/parametros/ciudades/nuevo" element={<CrearCiudad />} />
             <Route path="/parametros/ciudades/editar/:id" element={<EditarCiudad />} />
             <Route path="/parametros/ciudades/:id" element={<MostrarCiudad />} />
+            <Route path="/parametros/ciudades/eliminar/:id" element={<EliminarCiudad />} />
 
             <Route path="/parametros/motivos" element={<CrearMotivo />} />
 
@@ -141,6 +145,7 @@ const MainApp = () => {
             <Route path="/marketing/campanas/nuevo" element={<CrearCampana />} />
             <Route path="/marketing/campanas/editar/:id" element={<EditarCampana />} />
             <Route path="/marketing/campanas/:id" element={<MostrarCampana />} />
+            <Route path="/marketing/campanas/eliminar/:id" element={<EliminarCampana />} />
 
             {/* Tipo Campañas */}
             <Route exact path="/marketing/tipocampana" element={<ListarTipcampana />} />
@@ -168,6 +173,7 @@ const MainApp = () => {
             <Route path="/soporte/casos/nuevo" element={<CrearCaso />} />
             <Route path="/soporte/casos/editar/:id" element={<EditarCaso />} />
             <Route path="/soporte/casos/:id" element={<MostrarCaso />} />
+            <Route path="/soporte/casos/eliminar/:id" element={<EliminarCaso />} />
 
             {/* Tareas */}
             <Route exact path="/actividades/tareas/" element={<ListarTarea />} />
@@ -181,6 +187,7 @@ const MainApp = () => {
             <Route path="/actividades/llamadas/nuevo" element={<CrearLlamada />} />
             <Route path="/actividades/llamadas/editar/:id" element={<EditarLlamada />} />
             <Route path="/actividades/llamadas/:id" element={<MostrarLlamada />} />
+            <Route path="/actividades/llamadas/eliminar/:id" element={<EliminarLlamada />} />
 
             {/* Calendarios */}
             <Route path="/actividades/calendario" element={<Calendario />} />

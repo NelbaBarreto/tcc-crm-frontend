@@ -5,7 +5,7 @@ import MostrarMensaje from "../../formulario/MostrarMensaje";
 import { CircularProgress } from "@mui/material";
 import { Volver, Guardar } from "../../formulario/Acciones";
 import { Titulo1 } from "../../formulario/Titulo";
-import { getTipos, getEstados, editLlamadas, getLlamada, deleLlamadas } from "../../../api/llamadas";
+import { getTipos, getEstados, editLlamadas, getLlamada} from "../../../api/llamadas";
 import { handleDispatch, handleDispatchEdit, handleStateCleared } from "../../formulario/reducerFormularios.js";
 import { useQuery } from "react-query";
 import { useParams, useNavigate } from "react-router-dom";
@@ -137,63 +137,5 @@ const EditarLlamada = () => {
   )
 
 };
-
-// const EliminarLlamada = () => {
-//   const { state: { llamada }, dispatch } = useContext(AppContext);
-//   const [select, setSelect] = useState({ estado: "", tipo: "" });
-//   const [action, setAction] = useState({});
-//   const { id } = useParams();
-//   const navigate = useNavigate();
-
-//   const {
-//     data: currentLlamada,
-//     isFetching,
-//   } = useQuery(["llamada", id], () => getLlamada(id));
-
-//   useEffect(() => {
-//     handleStateCleared(dispatch);
-//     setSelect({ estado: "", tipo: "" });
-//   }, []);
-
-//   useEffect(() => {
-//     if (!isFetching) {
-//       handleDispatchEdit(dispatch, currentLlamada, LLAMADA);
-//       setSelect({
-//         estado: { label: currentLlamada.estado, value: currentLlamada.estado },
-//         tipo: { label: currentLlamada.tipo, value: currentLlamada.tipo },
-//       });
-//     }
-//   }, [isFetching]);
-
-//   const crear = async e => {
-//     e.preventDefault();
-//     setAction({ saving: true, error: false, message: "" });
-//     try {
-//       await deleLlamadas(llamada.llamada_id, { ...llamada });
-//       setAction({ saving: false, error: false, message: "Llamada eliminada exitosamente." });
-//       setTimeout(() => navigate("/actividades/llamadas"), 2000);
-//     } catch (e) {
-//       setAction({ saving: false, error: true, message: e.message });
-//     };
-//   };
-
-//   return (
-//     <div>
-//       {isFetching ?
-//         <CircularProgress size={24} /> : <section className="section w-full m-auto">
-//           <Titulo1>
-//             Eliminar Llamada
-//           </Titulo1>
-//           {action.message ? <MostrarMensaje mensaje={action.message} error={action.error} /> : null}
-//           <form>
-//             <DatosLlamada llamada={llamada} dispatch={dispatch} manageSelect={{ setSelect, select }} />
-//             <Guardar saving={action.saving} guardar={crear} />
-//             <Volver navigate={navigate} />
-//           </form>
-//         </section>}
-//     </div>
-//   )
-
-// };
 
 export default EditarLlamada;
