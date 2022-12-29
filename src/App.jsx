@@ -79,7 +79,7 @@ import ListarTarea from "./components/actividades/tarea/Index";
 import CrearTarea from "./components/actividades/tarea/CrearTarea";
 import MostrarTarea from "./components/actividades/tarea/MostrarTarea";
 import EditarTarea from "./components/actividades/tarea/EditarTarea";
-
+import EliminarTarea from "./components/actividades/tarea/EliminarTarea";
 
 //Cursos
 import ListarCursos from "./components/educacion/cursos/Index";
@@ -174,6 +174,7 @@ const MainApp = () => {
             <Route path="/actividades/tareas/nuevo" element={<CrearTarea />} />
             <Route path="/actividades/tareas/:id" element={<MostrarTarea />} />
             <Route path="/actividades/tareas/editar/:id" element={<EditarTarea />} />
+            <Route path="/actividades/tareas/eliminar/:id" element={<EliminarTarea />} />
 
             {/* Llamadas */}
             <Route exact path="/actividades/llamadas" element={<ListarLlamada />} />

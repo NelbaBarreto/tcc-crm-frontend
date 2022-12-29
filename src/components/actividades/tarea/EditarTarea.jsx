@@ -160,7 +160,7 @@ const EditarTarea = () => {
         <div>
             <section className="section w-full m-auto">
                 <Titulo1>
-                    Nueva Tarea
+                    Editar Tarea
                 </Titulo1>
                 {action.message ? <MostrarMensaje mensaje={action.message} error={action.error} /> : null}
                 <form>

@@ -32,7 +32,7 @@ export const editTarea = async (id, data) => {
   return response.data;
 };
 
-export const deleTarea = async (id, data) => {
-  const { data: response } = await axios.delete(`${API}/tareas/${id}`, { id, tarea: data });
+export const deleTarea = async (id) => {
+  const { data: response } = await axios.delete(`${API}/tareas/${id}`);
   return response.data;
 };
