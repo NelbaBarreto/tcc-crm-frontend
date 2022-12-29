@@ -88,9 +88,10 @@ import EliminarTarea from "./components/actividades/tarea/EliminarTarea";
 import ListarCursos from "./components/educacion/cursos/Index";
 import CrearCurso from "./components/educacion/cursos/CrearCurso";
 import MostrarCurso from "./components/educacion/cursos/MostrarCurso";
+import EliminarCurso from "./components/educacion/cursos/EliminarCurso";
 
 // Ciclos
-import CrearCiclo from "./components/educacion/ciclos/CrearCiclo";
+// import CrearCiclo from "./components/educacion/ciclos/CrearCiclo";
 
 // Profesores
 import CrearProfesor from "./components/educacion/profesores/CrearProfesor";
@@ -197,9 +198,10 @@ const MainApp = () => {
             <Route exact path="/educacion/cursos" element={<ListarCursos />} />
             <Route path="/educacion/cursos/nuevo" element={<CrearCurso />} />
             <Route path="/educacion/cursos/:id" element={<MostrarCurso />} />
+            <Route path="/educacion/cursos/eliminar/:id" element={<EliminarCurso />} />
 
             {/* Ciclos */}
-            <Route exact path="/educacion/cursos/:curso_id/ciclos/nuevo" element={<CrearCiclo />} />
+            {/* <Route exact path="/educacion/cursos/:curso_id/ciclos/nuevo" element={<CrearCiclo />} /> */}
 
             {/* Educación */}
             <Route exact path="/educacion/profesores" element={<ListarProfesores />} />
