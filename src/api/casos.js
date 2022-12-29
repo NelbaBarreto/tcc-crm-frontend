@@ -41,3 +41,8 @@ export const editCaso = async (id, data) => {
   const { data: response } = await axios.put(`${API}/casos/${id}`, { id, caso: data });
   return response.data;
 };
+
+export const deleCaso = async (id) => {
+  const { data: response } = await axios.delete(`${API}/casos/${id}`);
+  return response.data;
+};
