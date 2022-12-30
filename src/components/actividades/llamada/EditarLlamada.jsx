@@ -15,9 +15,8 @@ import { format, parseISO } from "date-fns";
 
 const LLAMADA = "llamada";
 
-const DatosLlamada = ({ llamada, dispatch, manageSelect }) => {
+const DatosLlamada = ({ llamada={}, dispatch, manageSelect }) => {
   const { setSelect, select } = manageSelect;
-  // console.log(format(parseISO(llamada?.fec_insercion || ""), "dd/MM/yyyy hh:mm"))
 
   const {
     data: tipos,
@@ -62,15 +61,11 @@ const DatosLlamada = ({ llamada, dispatch, manageSelect }) => {
           setSelect({ ...select, estado: e })
         }}
       />
-
-
-
-      {/* <div className="columns is-desktop"> */}
-      {/* <Datepicker
-          label="Fecha de Inicio"
-          selected={format(parseISO(llamada?.fec_inicio), "dd/MM/yyyy hh:mm") || ""} 
-          onChange={fecha => handleDispatch(dispatch, "fec_inicio", fecha, LLAMADA)}
-        /> */}
+        <Datepicker
+            label="Fecha de Inicio"
+            selected={llamada.fec_inicio || ""} 
+            onChange={fecha => handleDispatch(dispatch, "fec_inicio", fecha, LLAMADA)}
+          />
       <TextArea
         label=" Descripción"
         name="descripcion"
@@ -131,7 +126,6 @@ const EditarLlamada = () => {
 
           {action.message ? <MostrarMensaje mensaje={action.message} error={action.error} /> : null}
           <form>
-            <DateFormat label="Fecha de Creación" value={llamada?.fec_insercion} />
             <DatosLlamada llamada={llamada} dispatch={dispatch} manageSelect={{ setSelect, select }} />
             <Guardar saving={action.saving} guardar={crear} />
             <Volver navigate={navigate} />
