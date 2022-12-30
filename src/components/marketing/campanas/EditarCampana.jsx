@@ -7,15 +7,15 @@ import { Volver, Guardar } from "../../formulario/Acciones";
 import { Titulo1 } from "../../formulario/Titulo";
 import { Datepicker, Input } from "../../formulario/Componentes";
 import { useParams, useNavigate } from "react-router-dom";
-import { createCampana, getCampana, editCampana } from "../../../api/campanas";
+import {  getCampana, editCampana } from "../../../api/campanas";
 import { handleDispatch, handleDispatchEdit, handleStateCleared } from "../../formulario/reducerFormularios.js";
 import { useQuery } from "react-query";
+import { format, parseISO } from "date-fns";
 
 
 const CAMPANA = "campana";
 
-const DatosCampana = ( campana, dispatch, manageSelect ) => {
-  const { setSelect, select } = manageSelect;
+const DatosCampana = ( {campana={}, dispatch} ) => {
   return (
    
           <Seccion titulo="Datos de la Campaña">
@@ -47,11 +47,10 @@ const DatosCampana = ( campana, dispatch, manageSelect ) => {
 
 const EditarCampana = () => {
     const { state: { campana }, dispatch } = useContext(AppContext);
-    const [select, setSelect] = useState({ nombre: "", fec_inicio: "", fec_fin: ""});
     const [action, setAction] = useState({});
     const { id } = useParams();
     const navigate = useNavigate();
-  
+
     const {
       data: currentCampana,
       isFetching,
@@ -59,17 +58,12 @@ const EditarCampana = () => {
   
     useEffect(() => {
       handleStateCleared(dispatch);
-      setSelect({ nombre: "", fec_inicio: "", fec_fin: "" });
     }, []);
   
     useEffect(() => {
       if (!isFetching) {
         handleDispatchEdit(dispatch, currentCampana, CAMPANA);
-        setSelect({
-          nombre: { label: currentCampana.nombre, value: currentCampana.nombre },
-          fec_inicio: { label: currentCampana.fec_inicio, value: currentCampana.fec_inicio },
-          fec_fin: { label: currentCampana.fec_fin, value: currentCampana.fec_fin }
-        });
+
       }
     }, [isFetching]);
   
@@ -94,7 +88,7 @@ const EditarCampana = () => {
             </Titulo1>
             {action.message ? <MostrarMensaje mensaje={action.message} error={action.error} /> : null}
             <form>
-              <DatosCampana campana={campana} dispatch={dispatch} manageSelect={{ setSelect, select }} />
+              <DatosCampana campana={campana} dispatch={dispatch} />
               <Guardar saving={action.saving} guardar={crear} />
               <Volver navigate={navigate} />
             </form>
@@ -102,5 +96,7 @@ const EditarCampana = () => {
       </div>
     )
   };
+
+  // format(fec_inicio, "dd/MM/yyyy hh:mm")
   
   export default EditarCampana;
