@@ -1,4 +1,5 @@
 import axios from "axios";
+import { format, parseISO } from "date-fns";
 
 const API = process.env.REACT_APP_API || "http://localhost:8080/api"
 
@@ -14,7 +15,8 @@ export const getLlamadas = async () => {
 
 export const getLlamada = async id => {
   const { data: response } = await axios.get(`${API}/llamadas/${id}`);
-  return response.data;
+  const data = { ...response.data, fec_inicio: parseISO(response.data.fec_inicio) }
+  return data;
 };
 
 export const getTipos = async () => {
@@ -29,5 +31,10 @@ export const getEstados = async () => {
 
 export const editLlamadas = async (id, data) => {
   const { data: response } = await axios.put(`${API}/llamadas/${id}`, { id, llamada: data });
+  return response.data;
+};
+
+export const deleLlamada = async (id) => {
+  const { data: response } = await axios.delete(`${API}/llamadas/${id}`);
   return response.data;
 };

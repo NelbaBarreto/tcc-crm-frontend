@@ -6,6 +6,7 @@ import { Volver } from "../../formulario/Acciones";
 import { useQuery } from "react-query";
 import { useParams, useNavigate } from "react-router-dom";
 import { getLlamada } from "../../../api/llamadas";
+import { format, parseISO } from "date-fns";
 
 const DatosLlamada = ({ llamada = {} }) => {
   return (
@@ -26,7 +27,11 @@ const DatosLlamada = ({ llamada = {} }) => {
           <TextView label="Descripción" value={llamada.descripcion} />
         </div>
       </div>
-
+      <div className="columns">
+        <div className="column">
+          <TextView label="Fecha de Inicio" value={format(llamada.fec_inicio, "dd/MM/yyyy hh:mm")} />
+        </div>
+      </div>
     </Seccion>
   );
 }

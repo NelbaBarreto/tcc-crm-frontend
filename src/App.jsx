@@ -24,6 +24,8 @@ import MostrarPais from "./components/parametros/paises/MostrarPais";
 import ListarCiudades from "./components/parametros/ciudades/Index";
 import CrearCiudad from "./components/parametros/ciudades/CrearCiudad";
 import MostrarCiudad from "./components/parametros/ciudades/MostrarCiudad";
+import EditarCiudad from "./components/parametros/ciudades/EditarCiudad";
+import EliminarCiudad from "./components/parametros/ciudades/EliminarCiudad";
 
 // Motivos
 import CrearMotivo from "./components/parametros/motivos/CrearMotivo";
@@ -31,7 +33,9 @@ import CrearMotivo from "./components/parametros/motivos/CrearMotivo";
 // Campañas
 import ListarCampana from "./components/marketing/campanas/Index";
 import CrearCampana from "./components/marketing/campanas/CrearCampana";
+import EditarCampana from "./components/marketing/campanas/EditarCampana";
 import MostrarCampana from "./components/marketing/campanas/MostrarCampana";
+import EliminarCampana from "./components/marketing/campanas/EliminarCampana";
 
 // Tipo Campaña
 import ListarTipcampana from "./components/marketing/tipo_campanas/Index";
@@ -61,6 +65,7 @@ import ListarCaso from "./components/soporte/casos/Index";
 import CrearCaso from "./components/soporte/casos/CrearCaso";
 import EditarCaso from "./components/soporte/casos/EditarCaso";
 import MostrarCaso from "./components/soporte/casos/MostrarCaso";
+import EliminarCaso from "./components/soporte/casos/EliminarCaso";
 
 //Actividades
 import Calendario from "./components/actividades/calendario/Calendario";
@@ -70,19 +75,23 @@ import ListarLlamada from "./components/actividades/llamada/Index";
 import CrearLlamada from "./components/actividades/llamada/CrearLlamada";
 import EditarLlamada from "./components/actividades/llamada/EditarLlamada";
 import MostrarLlamada from "./components/actividades/llamada/MostrarLlamada";
+import EliminarLlamada from "./components/actividades/llamada/EliminarLlamada";
 
 //Tareas
 import ListarTarea from "./components/actividades/tarea/Index";
 import CrearTarea from "./components/actividades/tarea/CrearTarea";
 import MostrarTarea from "./components/actividades/tarea/MostrarTarea";
+import EditarTarea from "./components/actividades/tarea/EditarTarea";
+import EliminarTarea from "./components/actividades/tarea/EliminarTarea";
 
 //Cursos
 import ListarCursos from "./components/educacion/cursos/Index";
 import CrearCurso from "./components/educacion/cursos/CrearCurso";
 import MostrarCurso from "./components/educacion/cursos/MostrarCurso";
+import EliminarCurso from "./components/educacion/cursos/EliminarCurso";
 
 // Ciclos
-import CrearCiclo from "./components/educacion/ciclos/CrearCiclo";
+// import CrearCiclo from "./components/educacion/ciclos/CrearCiclo";
 
 // Profesores
 import CrearProfesor from "./components/educacion/profesores/CrearProfesor";
@@ -126,14 +135,18 @@ const MainApp = () => {
             {/* Ciudades */}
             <Route exact path="/parametros/ciudades" element={<ListarCiudades />} />
             <Route path="/parametros/ciudades/nuevo" element={<CrearCiudad />} />
+            <Route path="/parametros/ciudades/editar/:id" element={<EditarCiudad />} />
             <Route path="/parametros/ciudades/:id" element={<MostrarCiudad />} />
+            <Route path="/parametros/ciudades/eliminar/:id" element={<EliminarCiudad />} />
 
             <Route path="/parametros/motivos" element={<CrearMotivo />} />
 
             {/* Campañas */}
             <Route exact path="/marketing/campanas" element={<ListarCampana />} />
             <Route path="/marketing/campanas/nuevo" element={<CrearCampana />} />
+            <Route path="/marketing/campanas/editar/:id" element={<EditarCampana />} />
             <Route path="/marketing/campanas/:id" element={<MostrarCampana />} />
+            <Route path="/marketing/campanas/eliminar/:id" element={<EliminarCampana />} />
 
             {/* Tipo Campañas */}
             <Route exact path="/marketing/tipocampana" element={<ListarTipcampana />} />
@@ -161,17 +174,21 @@ const MainApp = () => {
             <Route path="/soporte/casos/nuevo" element={<CrearCaso />} />
             <Route path="/soporte/casos/editar/:id" element={<EditarCaso />} />
             <Route path="/soporte/casos/:id" element={<MostrarCaso />} />
+            <Route path="/soporte/casos/eliminar/:id" element={<EliminarCaso />} />
 
             {/* Tareas */}
             <Route exact path="/actividades/tareas/" element={<ListarTarea />} />
             <Route path="/actividades/tareas/nuevo" element={<CrearTarea />} />
             <Route path="/actividades/tareas/:id" element={<MostrarTarea />} />
+            <Route path="/actividades/tareas/editar/:id" element={<EditarTarea />} />
+            <Route path="/actividades/tareas/eliminar/:id" element={<EliminarTarea />} />
 
             {/* Llamadas */}
             <Route exact path="/actividades/llamadas" element={<ListarLlamada />} />
             <Route path="/actividades/llamadas/nuevo" element={<CrearLlamada />} />
             <Route path="/actividades/llamadas/editar/:id" element={<EditarLlamada />} />
             <Route path="/actividades/llamadas/:id" element={<MostrarLlamada />} />
+            <Route path="/actividades/llamadas/eliminar/:id" element={<EliminarLlamada />} />
 
             {/* Calendarios */}
             <Route path="/actividades/calendario" element={<Calendario />} />
@@ -181,9 +198,10 @@ const MainApp = () => {
             <Route exact path="/educacion/cursos" element={<ListarCursos />} />
             <Route path="/educacion/cursos/nuevo" element={<CrearCurso />} />
             <Route path="/educacion/cursos/:id" element={<MostrarCurso />} />
+            <Route path="/educacion/cursos/eliminar/:id" element={<EliminarCurso />} />
 
             {/* Ciclos */}
-            <Route exact path="/educacion/cursos/:curso_id/ciclos/nuevo" element={<CrearCiclo />} />
+            {/* <Route exact path="/educacion/cursos/:curso_id/ciclos/nuevo" element={<CrearCiclo />} /> */}
 
             {/* Educación */}
             <Route exact path="/educacion/profesores" element={<ListarProfesores />} />

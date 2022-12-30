@@ -80,6 +80,28 @@ const Index = () => {
         }
       }
     },
+    {
+      name: "",
+      options: {
+        filter: false,
+        sort: false,
+        empty: true,
+        customBodyRender: (_value, tableMeta) => {
+          return (
+            <div className="field is-grouped">
+              <div className="control">
+                <NavLink
+                  to={"/actividades/llamadas/eliminar/" + tableMeta.rowData[0]}
+                  className={classNameButton1}
+                >
+                  Eliminar
+                </NavLink>
+              </div>
+            </div>
+          );
+        }
+      }
+    },
   ];
 
   return (

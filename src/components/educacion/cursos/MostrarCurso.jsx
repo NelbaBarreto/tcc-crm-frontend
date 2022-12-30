@@ -20,10 +20,11 @@ const DatosCurso = ({ curso = {}, navigate }) => {
           <TextView label="Descripción" value={curso.descripcion} />
         </div>
       </div>
-      <div className="field mt-3">
+      {/* <div className="field mt-3">
         <div className="control">
           <Button1
-            onClick={navigate(`/educacion/cursos/${curso.curso_id}/ciclos/nuevo`)}
+             onClick={navigate(`/educacion/cursos/${curso.curso_id}/ciclos/nuevo`)}
+           
           >
             <span>Crear Ciclo</span>
             <span className="icon is-small">
@@ -31,7 +32,7 @@ const DatosCurso = ({ curso = {}, navigate }) => {
             </span>
           </Button1>
         </div>
-      </div>
+      </div> */}
     </Seccion>
   );
 }
