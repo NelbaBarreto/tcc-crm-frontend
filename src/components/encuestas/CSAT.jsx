@@ -1,5 +1,6 @@
 import React from "react";
 import { Titulo1 } from "../formulario/Titulo";
+import { classNameButton2 } from "../formulario/Componentes";
 
 const Card = ({ titulo, children }) => {
   return (
@@ -172,6 +173,9 @@ const CSAT = () => {
           </Card>
         </div>
       </div>
+      <button className={classNameButton2}>
+        Enviar Encuesta
+      </button>
       <div className="mt-7">
         <div className="text-center">
           <img src="/sonriendo.png" className="m-auto" style={{ width: "60px" }} alt="" />
