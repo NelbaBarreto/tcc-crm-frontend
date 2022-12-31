@@ -362,11 +362,48 @@ const MainApp = () => {
           />                                                
 
           {/* Llamadas */}
-          <Route exact path="/actividades/llamadas" element={<ListarLlamada />} />
-          <Route path="/actividades/llamadas/nuevo" element={<CrearLlamada />} />
-          <Route path="/actividades/llamadas/editar/:id" element={<EditarLlamada />} />
-          <Route path="/actividades/llamadas/:id" element={<MostrarLlamada />} />
-          <Route path="/actividades/llamadas/eliminar/:id" element={<EliminarLlamada />} />
+          <Route
+            exact
+            path="/actividades/llamadas"
+            element={
+              <ProtectedRoute usuario={usuario}>
+                <ListarLlamada />
+              </ProtectedRoute>
+            }
+          /> 
+          <Route
+            path="/actividades/llamadas/nuevo"
+            element={
+              <ProtectedRoute usuario={usuario}>
+                <CrearLlamada />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/actividades/llamadas/editar/:id"
+            element={
+              <ProtectedRoute usuario={usuario}>
+                <EditarLlamada />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            exact
+            path="/actividades/llamadas/:id"
+            element={
+              <ProtectedRoute usuario={usuario}>
+                <MostrarLlamada />
+              </ProtectedRoute>
+            }
+          /> 
+          <Route
+            path="/actividades/llamadas/eliminar/:id"
+            element={
+              <ProtectedRoute usuario={usuario}>
+                <EliminarLlamada />
+              </ProtectedRoute>
+            }
+          />                                                           
 
           {/* Calendarios */}
           <Route path="/actividades/calendario" element={<Calendario />} />
