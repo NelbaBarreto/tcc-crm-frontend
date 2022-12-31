@@ -8,6 +8,7 @@
 .header {
   grid-area: 1 / 1 / 2 / 3;
   border-bottom: 1px solid #eaecf3;
+  background-color: #311B92;
 }
 
 .aside {

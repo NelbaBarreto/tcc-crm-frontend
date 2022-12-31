@@ -6,13 +6,13 @@ import classNames from "classnames";
 
 const resolveLinkPath = (childTo, parentTo) => `${parentTo}/${childTo}`;
 
-const NavItemHeader = props => {
+const NavItemHeader = (props) => {
   const { item } = props;
   const { label, Icon, to: headerToPath, children } = item;
   const location = useLocation();
 
-  const className = "flex items-center no-underline py-3 px-5 text-deep-purple-900 hover:bg-deep-purple-100 hover:text-deep-purple-900 w-full border-none bg-transparent cursor-pointer outline-none";
-  const activeClassName = "flex items-center no-underline py-3 px-5 text-deep-purple-900 hover:text-deep-purple-900 w-full border-none bg-deep-purple-100 cursor-pointer outline-none";
+  const className = "p-2.5 mt-3 flex items-center rounded-md px-5 duration-300 cursor-pointer bg-purple-50 hover:bg-purple-200  text-deep-purple-900 hover:text-deep-purple-900";
+  const activeClassName = "p-2.5 mt-3 flex items-center rounded-md px-5 duration-300 cursor-pointer hover:bg-purple-200 bg-purple-200 text-deep-purple-900 hover:text-deep-purple-900";
 
   const [expanded, setExpand] = useState(
     location.pathname.includes(headerToPath)
@@ -25,40 +25,27 @@ const NavItemHeader = props => {
 
   return (
     <>
-      <button
-        className="flex items-center no-underline py-3 px-5 text-deep-purple-900 hover:bg-deep-purple-100
-                   hover:text-deep-purple-900 w-full border-none bg-transparent cursor-pointer outline-none"
+      <div
+        className="p-2.5 mt-3 flex items-center rounded-md px-5 duration-300 cursor-pointer bg-white hover:bg-purple-200  text-deep-purple-900 hover:text-deep-purple-900"
         onClick={onExpandChange}
       >
         <Icon />
-        <span className="text-deep-purple-900 hover:text-deep-purple-900 text-base">{label}</span>
-        <span className="icon">
-          <FontAwesomeIcon 
-            className={classNames("text-deep-purple-900 ml-auto w-3 h-3", { "rotate-180": expanded })} 
-            icon={solid("chevron-down")} 
-          />
-        </span>
-      </button>
-
+        <div className="flex justify-between w-full items-center">
+          <span className="text-[15px] ml-4 font-bold">{label}</span>
+          <span className="icon">
+            <FontAwesomeIcon
+              className={classNames("text-sm", { "rotate-180": expanded })}
+              icon={solid("chevron-down")}
+            />
+          </span>
+        </div>
+      </div>
       {expanded && (
-        <div className="deep-purple-300">
+        <div className="text-left text-sm mt-2 w-4/5 mx-auto font-bold bg-purple-50 rounded-md">
           {children.map((item, index) => {
             const key = `${item.label}-${index}`;
 
-            const { label, Icon, children } = item;
-
-            if (children) {
-              return (
-                <div key={key}>
-                  <NavItemHeader
-                    item={{
-                      ...item,
-                      to: resolveLinkPath(item.to, props.item.to),
-                    }}
-                  />
-                </div>
-              );
-            }
+            const { label, Icon } = item;
 
             return (
               <NavLink
@@ -67,12 +54,13 @@ const NavItemHeader = props => {
                 className={nav => (nav.isActive ? activeClassName : className)} 
               >
                 <Icon />
-                <span className="text-deep-purple-700 hover:text-deep-purple-900 text-base">{label}</span>
+                <span>{label}</span>
               </NavLink>
             );
           })}
         </div>
       )}
+      
     </>
   );
 };

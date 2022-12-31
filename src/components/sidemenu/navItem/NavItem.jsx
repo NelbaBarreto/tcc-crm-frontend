@@ -2,23 +2,26 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import NavItemHeader from "./NavItemHeader.jsx";
 
+
 const NavItem = ({ item }) => {
   const { label, Icon, to, children } = item;
-  const className = "flex items-center no-underline py-3 px-5 text-deep-purple-900 hover:bg-deep-purple-100 hover:text-deep-purple-900 w-full border-none bg-transparent cursor-pointer outline-none";
-  const activeClassName = "flex items-center no-underline py-3 px-5 text-deep-purple-900 hover:text-deep-purple-900 w-full border-none bg-deep-purple-100 cursor-pointer outline-none";
+  const className = "p-2.5 mt-3 flex items-center rounded-md px-5 duration-300 cursor-pointer bg-white hover:bg-purple-200  text-deep-purple-900 hover:text-deep-purple-900";
+  const activeClassName = "p-2.5 mt-3 flex items-center rounded-md px-5 duration-300 cursor-pointer hover:bg-purple-200 bg-purple-200 text-deep-purple-900 hover:text-white hover:text-deep-purple-900";
 
   if (children) {
     return <NavItemHeader item={item} />;
   }
 
   return (
-    <NavLink
-      to={to}
-      className={nav => (nav.isActive ? activeClassName : className)} 
-    >
-      <Icon />
-      <span className="text-deep-purple-900 hover:text-deep-purple-900 text-base">{label}</span>
-    </NavLink>
+    <>
+      <NavLink
+        to={to}
+        className={nav => (nav.isActive ? activeClassName : className)}
+      >
+        <Icon />
+        <span className="text-[15px] ml-4 font-bold">{label}</span>
+      </NavLink>
+    </>
   );
 };
 
