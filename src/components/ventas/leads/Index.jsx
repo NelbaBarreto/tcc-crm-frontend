@@ -27,11 +27,11 @@ const Index = () => {
         filter: true,
         filterType: "textField",
         sort: true,
-        customBodyRender: value => {
+        customBodyRender: (value, tableMeta) => {
           if (value) {
             return (
               <NavLink
-                to={"/ventas/leads/" + value.lead_id}
+                to={"/ventas/leads/" + tableMeta.rowData[0]}
                 className="underline text-blue-900"
               >
                 {value.nombre}

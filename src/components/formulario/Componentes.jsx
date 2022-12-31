@@ -114,7 +114,7 @@ export const Button1 = ({ onClick, children }) => {
   return (
     <button
       className="button font-semibold shadow-lg text-deep-purple-800 hover:text-white focus:text-white hover:bg-deep-purple-700 bg-deep-purple-100"
-      onClick={() => onClick}
+      // onClick={() => onClick}
     >
       {children}
     </button>

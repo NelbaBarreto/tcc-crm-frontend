@@ -26,3 +26,13 @@ export const getEstados = async () => {
   const { data: response } = await axios.get(`${API}/tareas/estados`);
   return response.data;
 };
+
+export const editTarea = async (id, data) => {
+  const { data: response } = await axios.put(`${API}/tareas/${id}`, { id, tarea: data });
+  return response.data;
+};
+
+export const deleTarea = async (id) => {
+  const { data: response } = await axios.delete(`${API}/tareas/${id}`);
+  return response.data;
+};

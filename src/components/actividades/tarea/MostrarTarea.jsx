@@ -27,7 +27,7 @@ const DatosTarea = ({ tarea = {} }) => {
           <TextView label="Fecha Fin" value={tarea.fec_fin} />
         </div>
       </div>
-      
+
       <div className="columns">
         <div className="column">
           <TextView label="Prioridad" value={tarea.prioridad} />
@@ -36,7 +36,12 @@ const DatosTarea = ({ tarea = {} }) => {
           <TextView label="Descripcion" value={tarea.descripcion} />
         </div>
       </div>
-    </Seccion>
+      <div className="columns">
+      <div className="column">
+        <TextView label="Usuario Asignado" value={tarea.usuario.nom_usuario} />
+      </div>
+    </div>
+    </Seccion >
   );
 }
 

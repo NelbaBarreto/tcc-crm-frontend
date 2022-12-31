@@ -16,3 +16,8 @@ export const getCurso = async id => {
   const { data: response } = await axios.get(`${API}/cursos/${id}`);
   return response.data;
 };
+
+export const deleCurso = async (id) => {
+  const { data: response } = await axios.delete(`${API}/cursos/${id}`);
+  return response.data;
+};

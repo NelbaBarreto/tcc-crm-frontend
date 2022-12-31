@@ -1,4 +1,5 @@
 import axios from "axios";
+import { format, parseISO } from "date-fns";
 
 const API = process.env.REACT_APP_API || "http://localhost:8080/api"
 
@@ -14,5 +15,17 @@ export const getCampanas = async () => {
 
 export const getCampana = async id => {
   const { data: response } = await axios.get(`${API}/campanas/${id}`);
+  const data = { ...response.data, fec_inicio: parseISO(response.data.fec_inicio),
+    fec_fin: parseISO(response.data.fec_fin) }
+  return data;
+};
+
+export const editCampana = async (id, data) => {
+  const { data: response } = await axios.put(`${API}/campanas/${id}`, { id, campana: data });
+  return response.data;
+};
+
+export const deleCampana = async (id) => {
+  const { data: response } = await axios.delete(`${API}/campanas/${id}`);
   return response.data;
 };
