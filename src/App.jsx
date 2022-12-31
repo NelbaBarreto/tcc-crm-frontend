@@ -178,11 +178,49 @@ const MainApp = () => {
           <Route path="/parametros/motivos" element={<CrearMotivo />} />
 
           {/* Campañas */}
-          <Route exact path="/marketing/campanas" element={<ListarCampana />} />
-          <Route path="/marketing/campanas/nuevo" element={<CrearCampana />} />
-          <Route path="/marketing/campanas/editar/:id" element={<EditarCampana />} />
-          <Route path="/marketing/campanas/:id" element={<MostrarCampana />} />
-          <Route path="/marketing/campanas/eliminar/:id" element={<EliminarCampana />} />
+          <Route
+            exact
+            path="/marketing/campanas"
+            element={
+              <ProtectedRoute usuario={usuario}>
+                <ListarCampana />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/marketing/campanas/nuevo"
+            element={
+              <ProtectedRoute usuario={usuario}>
+                <CrearCampana />
+              </ProtectedRoute>
+            }
+          /> 
+          <Route
+            path="/marketing/campanas/editar/:id"
+            element={
+              <ProtectedRoute usuario={usuario}>
+                <EditarCampana />
+              </ProtectedRoute>
+            }
+          />  
+          <Route
+            exact
+            path="/marketing/campanas/:id"
+            element={
+              <ProtectedRoute usuario={usuario}>
+                <MostrarCampana />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            exact
+            path="/marketing/campanas/eliminar/:id"
+            element={
+              <ProtectedRoute usuario={usuario}>
+                <EliminarCampana />
+              </ProtectedRoute>
+            }
+          />
 
           {/* Tipo Campañas */}
           <Route exact path="/marketing/tipocampana" element={<ListarTipcampana />} />
