@@ -205,7 +205,7 @@ const MainApp = () => {
                 <CrearLead />
               </ProtectedRoute>
             }
-          />  
+          />
           <Route
             path="/ventas/leads/:id"
             element={
@@ -213,19 +213,64 @@ const MainApp = () => {
                 <MostrarLead />
               </ProtectedRoute>
             }
-          />                      
+          />
 
           {/* Contactos */}
-          <Route exact path="/ventas/contactos" element={<ListarContactos />} />
-          <Route path="/ventas/contactos/nuevo" element={<CrearContacto />} />
+          <Route
+            exact
+            path="/ventas/contactos"
+            element={
+              <ProtectedRoute usuario={usuario}>
+                <ListarContactos />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/ventas/contactos/nuevo"
+            element={
+              <ProtectedRoute usuario={usuario}>
+                <CrearContacto />
+              </ProtectedRoute>
+            }
+          />
 
           {/* Organizaciones */}
-          <Route exact path="/ventas/organizaciones" element={<ListarOrganizaciones />} />
-          <Route path="/ventas/organizaciones/nuevo" element={<CrearOrganizacion />} />
+          <Route
+            exact
+            path="/ventas/organizaciones"
+            element={
+              <ProtectedRoute usuario={usuario}>
+                <ListarOrganizaciones />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/ventas/organizaciones/nuevo"
+            element={
+              <ProtectedRoute usuario={usuario}>
+                <CrearOrganizacion />
+              </ProtectedRoute>
+            }
+          />
 
           {/* Oportunidades */}
-          <Route path="/ventas/oportunidades" element={<ListarOportunidades />} />
-          <Route path="/ventas/oportunidades/nuevo" element={<CrearOportunidad />} />
+          <Route
+            exact
+            path="/ventas/oportunidades"
+            element={
+              <ProtectedRoute usuario={usuario}>
+                <ListarOportunidades />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/ventas/oportunidades/nuevo"
+            element={
+              <ProtectedRoute usuario={usuario}>
+                <CrearOportunidad />
+              </ProtectedRoute>
+            }
+          />
 
           {/* Casos */}
           <Route exact path="soporte/casos" element={<ListarCaso />} />
