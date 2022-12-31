@@ -326,7 +326,7 @@ const MainApp = () => {
                 <ListarTarea />
               </ProtectedRoute>
             }
-          /> 
+          />
           <Route
             path="/actividades/tareas/nuevo"
             element={
@@ -334,7 +334,7 @@ const MainApp = () => {
                 <CrearTarea />
               </ProtectedRoute>
             }
-          /> 
+          />
           <Route
             exact
             path="/actividades/tareas/:id"
@@ -343,7 +343,7 @@ const MainApp = () => {
                 <MostrarTarea />
               </ProtectedRoute>
             }
-          />  
+          />
           <Route
             path="/actividades/tareas/editar/:id"
             element={
@@ -351,7 +351,7 @@ const MainApp = () => {
                 <EditarTarea />
               </ProtectedRoute>
             }
-          />   
+          />
           <Route
             path="/actividades/tareas/eliminar/:id"
             element={
@@ -359,7 +359,7 @@ const MainApp = () => {
                 <EliminarTarea />
               </ProtectedRoute>
             }
-          />                                                
+          />
 
           {/* Llamadas */}
           <Route
@@ -370,7 +370,7 @@ const MainApp = () => {
                 <ListarLlamada />
               </ProtectedRoute>
             }
-          /> 
+          />
           <Route
             path="/actividades/llamadas/nuevo"
             element={
@@ -395,7 +395,7 @@ const MainApp = () => {
                 <MostrarLlamada />
               </ProtectedRoute>
             }
-          /> 
+          />
           <Route
             path="/actividades/llamadas/eliminar/:id"
             element={
@@ -403,34 +403,107 @@ const MainApp = () => {
                 <EliminarLlamada />
               </ProtectedRoute>
             }
-          />                                                           
+          />
 
           {/* Calendarios */}
-          <Route path="/actividades/calendario" element={<Calendario />} />
-
+          <Route
+            path="/actividades/calendario"
+            element={
+              <ProtectedRoute usuario={usuario}>
+                <Calendario />
+              </ProtectedRoute>
+            }
+          />
 
           {/* Cursos */}
-          <Route exact path="/educacion/cursos" element={<ListarCursos />} />
-          <Route path="/educacion/cursos/nuevo" element={<CrearCurso />} />
-          <Route path="/educacion/cursos/:id" element={<MostrarCurso />} />
-          <Route path="/educacion/cursos/eliminar/:id" element={<EliminarCurso />} />
+          <Route
+            exact
+            path="/educacion/cursos"
+            element={
+              <ProtectedRoute usuario={usuario}>
+                <ListarCursos />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/educacion/cursos/nuevo"
+            element={
+              <ProtectedRoute usuario={usuario}>
+                <CrearCurso />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            exact
+            path="/educacion/cursos/:id"
+            element={
+              <ProtectedRoute usuario={usuario}>
+                <MostrarCurso />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/educacion/cursos/eliminar/:id"
+            element={
+              <ProtectedRoute usuario={usuario}>
+                <EliminarCurso />
+              </ProtectedRoute>
+            }
+          />
 
           {/* Ciclos */}
           {/* <Route exact path="/educacion/cursos/:curso_id/ciclos/nuevo" element={<CrearCiclo />} /> */}
 
           {/* Educación */}
-          <Route exact path="/educacion/profesores" element={<ListarProfesores />} />
-          <Route path="/educacion/profesores/nuevo" element={<CrearProfesor />} />
+          <Route
+            exact
+            path="/educacion/profesores"
+            element={
+              <ProtectedRoute usuario={usuario}>
+                <ListarProfesores />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/educacion/profesores/nuevo"
+            element={
+              <ProtectedRoute usuario={usuario}>
+                <CrearProfesor />
+              </ProtectedRoute>
+            }
+          />
 
           {/* Sucursales */}
-          <Route exact path="/educacion/sedes" element={<ListarSucursales />} />
-          <Route path="/educacion/sedes/nuevo" element={<CrearSucursal />} />
-          <Route path="/educacion/sedes/:id" element={<MostrarSucursal />} />
-
+          <Route
+            exact
+            path="/educacion/sedes"
+            element={
+              <ProtectedRoute usuario={usuario}>
+                <ListarSucursales />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/educacion/sedes/nuevo"
+            element={
+              <ProtectedRoute usuario={usuario}>
+                <CrearSucursal />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/educacion/sedes/:id"
+            element={
+              <ProtectedRoute usuario={usuario}>
+                <MostrarSucursal />
+              </ProtectedRoute>
+            }
+          />          
+          
+          {/* Rutas Públicas */}
           <Route path="/encuesta/:token" element={<CSAT />} />
           <Route path="*" element={<p>La página no existe: 404!</p>} />
         </Routes>
-        {/* </Layout> */}
       </Router>
     </AppContext.Provider>
   );
