@@ -1,5 +1,6 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
+import Layout from "../layout/Index";
 
 const ProtectedRoute = ({
   usuario,
@@ -10,7 +11,7 @@ const ProtectedRoute = ({
     return <Navigate to={redirectPath} replace />;
   }
 
-  return children;
+  return <Layout>{children}</Layout>;
 };
 
 export default ProtectedRoute;

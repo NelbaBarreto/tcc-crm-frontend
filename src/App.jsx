@@ -6,7 +6,6 @@ import {
 import "react-datepicker/dist/react-datepicker.css";
 
 import Login from "./components/home/Login";
-import Layout from "./components/layout/Index";
 import Dashboard from "./components/dashboard/assets/js/MainDash";
 import AppContext from "./utils/AppContext";
 
@@ -117,135 +116,164 @@ const MainApp = () => {
   return (
     <AppContext.Provider value={{ state, dispatch }}>
       <Router>
-        <Layout>
-          <Routes>
-            <Route path="/login" element={<Login setToken={setToken} />} />
-            <Route
-              exact
-              path="/"
-              element={
-                <ProtectedRoute usuario={usuario}>
-                  <Dashboard />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/dashboard"
-              element={
-                <ProtectedRoute usuario={usuario}>
-                  <Dashboard />
-                </ProtectedRoute>
-              }
-            />
-            {/* Empleados */}
-            <Route
-              exact
-              path="/admin/empleados"
-              element={
-                <ProtectedRoute usuario={usuario}>
-                  <ListarEmpleados />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/admin/empleados/nuevo"
-              element={
-                <ProtectedRoute usuario={usuario}>
-                  <CrearEmpleado />
-                </ProtectedRoute>
-              }
-            />
-            <Route exact path="/admin/empleados/:id" element={<MostrarEmpleado />} />
+        {/* <Layout> */}
+        <Routes>
+          <Route path="/login" element={<Login setToken={setToken} />} />
+          <Route
+            exact
+            path="/"
+            element={
+              <ProtectedRoute usuario={usuario}>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute usuario={usuario}>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+          {/* Empleados */}
+          <Route
+            exact
+            path="/admin/empleados"
+            element={
+              <ProtectedRoute usuario={usuario}>
+                <ListarEmpleados />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/empleados/nuevo"
+            element={
+              <ProtectedRoute usuario={usuario}>
+                <CrearEmpleado />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/empleados/:id"
+            element={
+              <ProtectedRoute usuario={usuario}>
+                <MostrarEmpleado />
+              </ProtectedRoute>
+            }
+          />
 
-            {/* Países */}
-            <Route exact path="/parametros/paises" element={<ListarPaises />} />
-            <Route path="/parametros/paises/nuevo" element={<CrearPais />} />
-            <Route path="/parametros/paises/:id" element={<MostrarPais />} />
+          {/* Países */}
+          <Route exact path="/parametros/paises" element={<ListarPaises />} />
+          <Route path="/parametros/paises/nuevo" element={<CrearPais />} />
+          <Route path="/parametros/paises/:id" element={<MostrarPais />} />
 
-            {/* Ciudades */}
-            <Route exact path="/parametros/ciudades" element={<ListarCiudades />} />
-            <Route path="/parametros/ciudades/nuevo" element={<CrearCiudad />} />
-            <Route path="/parametros/ciudades/editar/:id" element={<EditarCiudad />} />
-            <Route path="/parametros/ciudades/:id" element={<MostrarCiudad />} />
-            <Route path="/parametros/ciudades/eliminar/:id" element={<EliminarCiudad />} />
+          {/* Ciudades */}
+          <Route exact path="/parametros/ciudades" element={<ListarCiudades />} />
+          <Route path="/parametros/ciudades/nuevo" element={<CrearCiudad />} />
+          <Route path="/parametros/ciudades/editar/:id" element={<EditarCiudad />} />
+          <Route path="/parametros/ciudades/:id" element={<MostrarCiudad />} />
+          <Route path="/parametros/ciudades/eliminar/:id" element={<EliminarCiudad />} />
 
-            <Route path="/parametros/motivos" element={<CrearMotivo />} />
+          <Route path="/parametros/motivos" element={<CrearMotivo />} />
 
-            {/* Campañas */}
-            <Route exact path="/marketing/campanas" element={<ListarCampana />} />
-            <Route path="/marketing/campanas/nuevo" element={<CrearCampana />} />
-            <Route path="/marketing/campanas/editar/:id" element={<EditarCampana />} />
-            <Route path="/marketing/campanas/:id" element={<MostrarCampana />} />
-            <Route path="/marketing/campanas/eliminar/:id" element={<EliminarCampana />} />
+          {/* Campañas */}
+          <Route exact path="/marketing/campanas" element={<ListarCampana />} />
+          <Route path="/marketing/campanas/nuevo" element={<CrearCampana />} />
+          <Route path="/marketing/campanas/editar/:id" element={<EditarCampana />} />
+          <Route path="/marketing/campanas/:id" element={<MostrarCampana />} />
+          <Route path="/marketing/campanas/eliminar/:id" element={<EliminarCampana />} />
 
-            {/* Tipo Campañas */}
-            <Route exact path="/marketing/tipocampana" element={<ListarTipcampana />} />
-            <Route path="/marketing/tipocampana/nuevo" element={<CrearTipoCampana />} />
+          {/* Tipo Campañas */}
+          <Route exact path="/marketing/tipocampana" element={<ListarTipcampana />} />
+          <Route path="/marketing/tipocampana/nuevo" element={<CrearTipoCampana />} />
 
-            {/* Leads */}
-            <Route exact path="/ventas/leads" element={<ListarLeads />} />
-            <Route path="/ventas/leads/nuevo" element={<CrearLead />} />
-            <Route path="/ventas/leads/:id" element={<MostrarLead />} />
+          {/* Leads */}
+          <Route
+            exact
+            path="/ventas/leads"
+            element={
+              <ProtectedRoute usuario={usuario}>
+                <ListarLeads />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/ventas/leads/nuevo"
+            element={
+              <ProtectedRoute usuario={usuario}>
+                <CrearLead />
+              </ProtectedRoute>
+            }
+          />  
+          <Route
+            path="/ventas/leads/:id"
+            element={
+              <ProtectedRoute usuario={usuario}>
+                <MostrarLead />
+              </ProtectedRoute>
+            }
+          />                      
 
-            {/* Contactos */}
-            <Route exact path="/ventas/contactos" element={<ListarContactos />} />
-            <Route path="/ventas/contactos/nuevo" element={<CrearContacto />} />
+          {/* Contactos */}
+          <Route exact path="/ventas/contactos" element={<ListarContactos />} />
+          <Route path="/ventas/contactos/nuevo" element={<CrearContacto />} />
 
-            {/* Organizaciones */}
-            <Route exact path="/ventas/organizaciones" element={<ListarOrganizaciones />} />
-            <Route path="/ventas/organizaciones/nuevo" element={<CrearOrganizacion />} />
+          {/* Organizaciones */}
+          <Route exact path="/ventas/organizaciones" element={<ListarOrganizaciones />} />
+          <Route path="/ventas/organizaciones/nuevo" element={<CrearOrganizacion />} />
 
-            {/* Oportunidades */}
-            <Route path="/ventas/oportunidades" element={<ListarOportunidades />} />
-            <Route path="/ventas/oportunidades/nuevo" element={<CrearOportunidad />} />
+          {/* Oportunidades */}
+          <Route path="/ventas/oportunidades" element={<ListarOportunidades />} />
+          <Route path="/ventas/oportunidades/nuevo" element={<CrearOportunidad />} />
 
-            {/* Casos */}
-            <Route exact path="soporte/casos" element={<ListarCaso />} />
-            <Route path="/soporte/casos/nuevo" element={<CrearCaso />} />
-            <Route path="/soporte/casos/editar/:id" element={<EditarCaso />} />
-            <Route path="/soporte/casos/:id" element={<MostrarCaso />} />
-            <Route path="/soporte/casos/eliminar/:id" element={<EliminarCaso />} />
+          {/* Casos */}
+          <Route exact path="soporte/casos" element={<ListarCaso />} />
+          <Route path="/soporte/casos/nuevo" element={<CrearCaso />} />
+          <Route path="/soporte/casos/editar/:id" element={<EditarCaso />} />
+          <Route path="/soporte/casos/:id" element={<MostrarCaso />} />
+          <Route path="/soporte/casos/eliminar/:id" element={<EliminarCaso />} />
 
-            {/* Tareas */}
-            <Route exact path="/actividades/tareas/" element={<ListarTarea />} />
-            <Route path="/actividades/tareas/nuevo" element={<CrearTarea />} />
-            <Route path="/actividades/tareas/:id" element={<MostrarTarea />} />
-            <Route path="/actividades/tareas/editar/:id" element={<EditarTarea />} />
-            <Route path="/actividades/tareas/eliminar/:id" element={<EliminarTarea />} />
+          {/* Tareas */}
+          <Route exact path="/actividades/tareas/" element={<ListarTarea />} />
+          <Route path="/actividades/tareas/nuevo" element={<CrearTarea />} />
+          <Route path="/actividades/tareas/:id" element={<MostrarTarea />} />
+          <Route path="/actividades/tareas/editar/:id" element={<EditarTarea />} />
+          <Route path="/actividades/tareas/eliminar/:id" element={<EliminarTarea />} />
 
-            {/* Llamadas */}
-            <Route exact path="/actividades/llamadas" element={<ListarLlamada />} />
-            <Route path="/actividades/llamadas/nuevo" element={<CrearLlamada />} />
-            <Route path="/actividades/llamadas/editar/:id" element={<EditarLlamada />} />
-            <Route path="/actividades/llamadas/:id" element={<MostrarLlamada />} />
-            <Route path="/actividades/llamadas/eliminar/:id" element={<EliminarLlamada />} />
+          {/* Llamadas */}
+          <Route exact path="/actividades/llamadas" element={<ListarLlamada />} />
+          <Route path="/actividades/llamadas/nuevo" element={<CrearLlamada />} />
+          <Route path="/actividades/llamadas/editar/:id" element={<EditarLlamada />} />
+          <Route path="/actividades/llamadas/:id" element={<MostrarLlamada />} />
+          <Route path="/actividades/llamadas/eliminar/:id" element={<EliminarLlamada />} />
 
-            {/* Calendarios */}
-            <Route path="/actividades/calendario" element={<Calendario />} />
+          {/* Calendarios */}
+          <Route path="/actividades/calendario" element={<Calendario />} />
 
 
-            {/* Cursos */}
-            <Route exact path="/educacion/cursos" element={<ListarCursos />} />
-            <Route path="/educacion/cursos/nuevo" element={<CrearCurso />} />
-            <Route path="/educacion/cursos/:id" element={<MostrarCurso />} />
-            <Route path="/educacion/cursos/eliminar/:id" element={<EliminarCurso />} />
+          {/* Cursos */}
+          <Route exact path="/educacion/cursos" element={<ListarCursos />} />
+          <Route path="/educacion/cursos/nuevo" element={<CrearCurso />} />
+          <Route path="/educacion/cursos/:id" element={<MostrarCurso />} />
+          <Route path="/educacion/cursos/eliminar/:id" element={<EliminarCurso />} />
 
-            {/* Ciclos */}
-            {/* <Route exact path="/educacion/cursos/:curso_id/ciclos/nuevo" element={<CrearCiclo />} /> */}
+          {/* Ciclos */}
+          {/* <Route exact path="/educacion/cursos/:curso_id/ciclos/nuevo" element={<CrearCiclo />} /> */}
 
-            {/* Educación */}
-            <Route exact path="/educacion/profesores" element={<ListarProfesores />} />
-            <Route path="/educacion/profesores/nuevo" element={<CrearProfesor />} />
+          {/* Educación */}
+          <Route exact path="/educacion/profesores" element={<ListarProfesores />} />
+          <Route path="/educacion/profesores/nuevo" element={<CrearProfesor />} />
 
-            {/* Sucursales */}
-            <Route exact path="/educacion/sedes" element={<ListarSucursales />} />
-            <Route path="/educacion/sedes/nuevo" element={<CrearSucursal />} />
-            <Route path="/educacion/sedes/:id" element={<MostrarSucursal />} />
+          {/* Sucursales */}
+          <Route exact path="/educacion/sedes" element={<ListarSucursales />} />
+          <Route path="/educacion/sedes/nuevo" element={<CrearSucursal />} />
+          <Route path="/educacion/sedes/:id" element={<MostrarSucursal />} />
 
-            <Route path="/encuesta/:token" element={<CSAT />} />
-            <Route path="*" element={<p>La página no existe: 404!</p>} />
-          </Routes>
-        </Layout>
+          <Route path="/encuesta/:token" element={<CSAT />} />
+          <Route path="*" element={<p>La página no existe: 404!</p>} />
+        </Routes>
+        {/* </Layout> */}
       </Router>
     </AppContext.Provider>
   );
