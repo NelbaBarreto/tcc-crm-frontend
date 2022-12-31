@@ -10,6 +10,8 @@ import Layout from "./components/layout/Index";
 import Dashboard from "./components/dashboard/assets/js/MainDash";
 import AppContext from "./utils/AppContext";
 
+import ProtectedRoute from "./components/home/ProtectedRoute.jsx";
+
 // Empleado
 import ListarEmpleados from "./components/empleados/Index";
 import CrearEmpleado from "./components/empleados/CrearEmpleado";
@@ -110,23 +112,49 @@ const initialState = {};
 
 const MainApp = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { token, setToken } = useToken();
-
-  if (!token) {
-    return <Login setToken={setToken} />
-  };
+  const { setToken, usuario } = useToken();
 
   return (
     <AppContext.Provider value={{ state, dispatch }}>
       <Router>
         <Layout>
           <Routes>
-            <Route exact path="/" element={<Dashboard />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-
+            <Route path="/login" element={<Login setToken={setToken} />} />
+            <Route
+              exact
+              path="/"
+              element={
+                <ProtectedRoute usuario={usuario}>
+                  <Dashboard />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/dashboard"
+              element={
+                <ProtectedRoute usuario={usuario}>
+                  <Dashboard />
+                </ProtectedRoute>
+              }
+            />
             {/* Empleados */}
-            <Route exact path="/admin/empleados" element={<ListarEmpleados />} />
-            <Route path="/admin/empleados/nuevo" element={<CrearEmpleado />} />
+            <Route
+              exact
+              path="/admin/empleados"
+              element={
+                <ProtectedRoute usuario={usuario}>
+                  <ListarEmpleados />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/empleados/nuevo"
+              element={
+                <ProtectedRoute usuario={usuario}>
+                  <CrearEmpleado />
+                </ProtectedRoute>
+              }
+            />
             <Route exact path="/admin/empleados/:id" element={<MostrarEmpleado />} />
 
             {/* Países */}
@@ -215,6 +243,7 @@ const MainApp = () => {
             <Route path="/educacion/sedes/:id" element={<MostrarSucursal />} />
 
             <Route path="/encuesta/:token" element={<CSAT />} />
+            <Route path="*" element={<p>La página no existe: 404!</p>} />
           </Routes>
         </Layout>
       </Router>
