@@ -273,11 +273,49 @@ const MainApp = () => {
           />
 
           {/* Casos */}
-          <Route exact path="soporte/casos" element={<ListarCaso />} />
-          <Route path="/soporte/casos/nuevo" element={<CrearCaso />} />
-          <Route path="/soporte/casos/editar/:id" element={<EditarCaso />} />
-          <Route path="/soporte/casos/:id" element={<MostrarCaso />} />
-          <Route path="/soporte/casos/eliminar/:id" element={<EliminarCaso />} />
+          <Route
+            exact
+            path="/soporte/casos"
+            element={
+              <ProtectedRoute usuario={usuario}>
+                <ListarCaso />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/soporte/casos/nuevo"
+            element={
+              <ProtectedRoute usuario={usuario}>
+                <CrearCaso />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/soporte/casos/editar/:id"
+            element={
+              <ProtectedRoute usuario={usuario}>
+                <EditarCaso />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            exact
+            path="/soporte/casos/:id"
+            element={
+              <ProtectedRoute usuario={usuario}>
+                <MostrarCaso />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            exact
+            path="/soporte/casos/eliminar/:id"
+            element={
+              <ProtectedRoute usuario={usuario}>
+                <EliminarCaso />
+              </ProtectedRoute>
+            }
+          />
 
           {/* Tareas */}
           <Route exact path="/actividades/tareas/" element={<ListarTarea />} />
