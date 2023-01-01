@@ -1,4 +1,5 @@
 import axios from "axios";
+import { format, parseISO } from "date-fns";
 
 const API = process.env.REACT_APP_API || "http://localhost:8080/api"
 
@@ -14,7 +15,9 @@ export const getTareas = async () => {
 
 export const getTarea = async id => {
   const { data: response } = await axios.get(`${API}/tareas/${id}`);
-  return response.data;
+  const data = { ...response.data, fec_inicio: parseISO(response.data.fec_inicio),
+    fec_fin: parseISO(response.data.fec_fin) }
+  return data;
 };
 
 export const getPrioridades = async () => {

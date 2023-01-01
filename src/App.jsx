@@ -90,6 +90,7 @@ import ListarCursos from "./components/educacion/cursos/Index";
 import CrearCurso from "./components/educacion/cursos/CrearCurso";
 import MostrarCurso from "./components/educacion/cursos/MostrarCurso";
 import EliminarCurso from "./components/educacion/cursos/EliminarCurso";
+import EditarCurso from "./components/educacion/cursos/EditarCurso";
 
 // Ciclos
 // import CrearCiclo from "./components/educacion/ciclos/CrearCiclo";
@@ -485,6 +486,14 @@ const MainApp = () => {
             element={
               <ProtectedRoute usuario={usuario}>
                 <EliminarCurso />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/educacion/cursos/editar/:id"
+            element={
+              <ProtectedRoute usuario={usuario}>
+                <EditarCurso />
               </ProtectedRoute>
             }
           />

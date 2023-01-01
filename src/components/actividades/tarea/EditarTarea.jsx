@@ -91,7 +91,7 @@ const DatosTarea = ({ tarea, dispatch, manageSelect }) => {
                 </div>
             </div>
             <div className="columns is-desktop">
-                {/* <div className="column">
+                <div className="column">
                     <Datepicker
                         label="Fecha de Inicio"
                         selected={tarea?.fec_inicio || ""}
@@ -104,7 +104,7 @@ const DatosTarea = ({ tarea, dispatch, manageSelect }) => {
                         selected={tarea?.fec_fin || ""}
                         onChange={fecha => handleDispatch(dispatch, "fec_fin", fecha, TAREA)}
                     />
-                </div> */}
+                </div>
             </div>
             <TextArea
                 label="Descripción"
@@ -122,38 +122,38 @@ const EditarTarea = () => {
     const [action, setAction] = useState({});
     const { id } = useParams();
     const navigate = useNavigate();
-  
+
     const {
-      data: currentTarea,
-      isFetching,
+        data: currentTarea,
+        isFetching,
     } = useQuery(["tarea", id], () => getTarea(id));
-  
+
     useEffect(() => {
-      handleStateCleared(dispatch);
-      setSelect({ estado: "", prioridad: "" });
+        handleStateCleared(dispatch);
+        setSelect({ estado: "", prioridad: "" });
     }, []);
-  
+
     useEffect(() => {
-      if (!isFetching) {
-        handleDispatchEdit(dispatch, currentTarea, TAREA);
-        setSelect({
-          estado: { label: currentTarea.estado, value: currentTarea.estado },
-          prioridad: { label: currentTarea.prioridad, value: currentTarea.prioridad },
-          usu_asignado: { label: currentTarea.usuario?.nom_usuario, value: currentTarea.usuario?.usuario_id }
-        });
-      }
+        if (!isFetching) {
+            handleDispatchEdit(dispatch, currentTarea, TAREA);
+            setSelect({
+                estado: { label: currentTarea.estado, value: currentTarea.estado },
+                prioridad: { label: currentTarea.prioridad, value: currentTarea.prioridad },
+                usu_asignado: { label: currentTarea.usuario?.nom_usuario, value: currentTarea.usuario?.usuario_id }
+            });
+        }
     }, [isFetching]);
-  
+
     const crear = async e => {
-      e.preventDefault();
-      setAction({ saving: true, error: false, message: "" });
-      try {
-        await editTarea(tarea.tarea_id, { ...tarea });
-        setAction({ saving: false, error: false, message: "Tarea editada exitosamente." });
-        setTimeout(() => navigate("/actividades/tareas"), 2000);
-      } catch (e) {
-        setAction({ saving: false, error: true, message: e.message });
-      };
+        e.preventDefault();
+        setAction({ saving: true, error: false, message: "" });
+        try {
+            await editTarea(tarea.tarea_id, { ...tarea });
+            setAction({ saving: false, error: false, message: "Tarea editada exitosamente." });
+            setTimeout(() => navigate("/actividades/tareas"), 2000);
+        } catch (e) {
+            setAction({ saving: false, error: true, message: e.message });
+        };
     };
 
     return (
@@ -164,7 +164,7 @@ const EditarTarea = () => {
                 </Titulo1>
                 {action.message ? <MostrarMensaje mensaje={action.message} error={action.error} /> : null}
                 <form>
-                    <DatosTarea tarea={tarea} dispatch={dispatch} manageSelect={{ setSelect, select }}/>
+                    <DatosTarea tarea={tarea} dispatch={dispatch} manageSelect={{ setSelect, select }} />
                     <Guardar saving={action.saving} guardar={crear} />
                     <Volver navigate={navigate} />
                 </form>
