@@ -1,10 +1,17 @@
 import React from "react";
 import NavItem from "./navItem/NavItem.jsx";
 import useToken from "../../utils/useToken";
+import { useNavigate } from "react-router-dom";
 import { sideMenu, logout } from "./menu.config.js";
 
 const Sidebar = () => {
   const { usuario = {} } = useToken();
+  const navigate = useNavigate();
+
+  const cerrarSesion = () => {
+    localStorage.clear();
+    navigate("/login");
+  }
 
   return (
     <div
@@ -22,7 +29,13 @@ const Sidebar = () => {
         return <NavItem key={`${item.label}-${index}`} item={item} />;
       })}
       <div className="my-2 bg-gray-300 h-[1px]"></div>
-      <NavItem item={logout} />
+      <div
+        className="p-2.5 mt-3 flex items-center rounded-md px-5 duration-300 cursor-pointer bg-white hover:bg-purple-200  text-deep-purple-900 hover:text-deep-purple-900"
+        onClick={() => cerrarSesion()}
+      >
+        <logout.Icon />
+        <span className="text-[15px] ml-4 font-bold">{logout.label}</span>
+      </div>
     </div>
   );
 };

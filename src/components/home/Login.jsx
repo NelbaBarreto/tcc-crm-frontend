@@ -1,4 +1,5 @@
 import React, { useEffect, useReducer } from "react";
+import { useNavigate } from "react-router-dom";
 import MostrarMensaje from "../formulario/MostrarMensaje";
 import { Input } from "../formulario/Componentes";
 import { GoogleLogin } from "react-google-login";
@@ -28,6 +29,7 @@ const IniciarSesion = () => {
 
 const GoogleLoginButton = ({ loginReducer, handleError, setToken }) => {
   const { dispatch } = loginReducer;
+  const navigate = useNavigate();
 
   const loginGoogle = async response => {
     try {
@@ -35,6 +37,7 @@ const GoogleLoginButton = ({ loginReducer, handleError, setToken }) => {
       if (token) {
         setToken(token, user);
         handleError(""); 
+        navigate("/dashboard");
       } else {
         handleError(token?.data?.error);
       }
@@ -73,7 +76,8 @@ const GoogleLoginButton = ({ loginReducer, handleError, setToken }) => {
 
 const Login = ({ setToken }) => {
   const [state, dispatch] = useReducer(reducer, {});
-
+  const navigate = useNavigate();
+  
   useEffect(() => {
     const initClient = () => {
       gapi.client.init({
@@ -99,6 +103,7 @@ const Login = ({ setToken }) => {
       if (token) {
         setToken(token, user);
         handleError(""); 
+        navigate("/dashboard");
       } else {
         handleError(token?.data?.error);
       }
@@ -110,7 +115,11 @@ const Login = ({ setToken }) => {
   return (
     <div className="hero is-fullheight bg-deep-purple-400">
       <section className="section sm:w-1/2 w-full m-auto hero shadow-lg shadow-gray-800 bg-white">
-        <h1 className="title is-3 text-center">Lorem Ipsum CRM</h1>
+      <div className="text-gray-100 text-xl">
+        <div className="p-2.5 mt-1 flex items-center">
+          <img src="/logo.png" className="m-auto" style={{ height: "55px" }} alt="" />
+        </div>
+      </div>
         {state.login?.error ? <MostrarMensaje mensaje={state.login.error} error={true} /> : null}
         <GoogleLoginButton 
           loginReducer={{ state, dispatch }} 
