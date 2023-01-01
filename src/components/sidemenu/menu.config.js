@@ -3,7 +3,7 @@ import {
   faBullhorn, faGauge, faHeadphonesSimple, faHouse, faListCheck, faMoneyBillTrendUp,
   faFolder, faPhone, faCalendar, faClipboardCheck, faBullseye, faUsers, faAddressCard, faEarth,
   faCity, faPersonChalkboard, faListUl, faFile, faPersonCircleCheck, faPersonCirclePlus, faBuilding, faHandshakeAlt,
-  faBriefcase, faBusinessTime, faGear, faGraduationCap, faSchool, faUserGraduate, faChalkboardUser
+  faBriefcase, faBusinessTime, faGear, faGraduationCap, faSchool, faUserGraduate, faChalkboardUser, faRightFromBracket
 } from "@fortawesome/free-solid-svg-icons";
 
 const myIcons = {
@@ -36,6 +36,7 @@ const myIcons = {
   "chalkboard-user": faChalkboardUser,
   "school-flag": faSchool,
   "gear": faGear,
+  "right-from-bracket": faRightFromBracket
 }
 
 const Icon = ({ iconName }) => {
@@ -191,13 +192,13 @@ export const CardsData = [
       backGround: "linear-gradient(180deg, #bb67ff 0%, #c484f3 100%)",
       boxShadow: "0px 10px 20px 0px #e0c6f5",
     },
-    barValue:70,
+    barValue: 70,
     value: "25,970",
-    png:() => <Icon iconName="school-flag" />,
-    series:[
+    png: () => <Icon iconName="school-flag" />,
+    series: [
       {
-      name:"Sales",
-      data: [31,40,28,51,42,109,100],
+        name: "Sales",
+        data: [31, 40, 28, 51, 42, 109, 100],
       },
     ],
   },
@@ -207,31 +208,38 @@ export const CardsData = [
       backGround: "linear-gradient(180deg, #FF919D 0%, #FC929D 100%)",
       boxShadow: "0px 10px 20px 0px #FDC0C7",
     },
-    barValue:70,
+    barValue: 70,
     value: "14,270",
     png: () => <Icon iconName="chalkboard-user" />,
-    series:[
+    series: [
       {
-      name:"Renueve",
-      data: [10,100,50,70,80,30,40],
+        name: "Renueve",
+        data: [10, 100, 50, 70, 80, 30, 40],
       },
     ],
   },
   {
     title: "Expenses",
     color: {
-      backGround: 
-      "linear-gradient(rgb(248,212,154) -146.42%, rgb(255 202 113) -43.42%)",
+      backGround:
+        "linear-gradient(rgb(248,212,154) -146.42%, rgb(255 202 113) -43.42%)",
       boxShadow: "0px 10px 20px 0px #F9D59B",
     },
-    barValue:60,
+    barValue: 60,
     value: "4,270",
     png: () => <Icon iconName="user-graduate" />,
-    series:[
+    series: [
       {
-      name:"Expenses",
-      data: [10,25,15,30,12,15,20],
+        name: "Expenses",
+        data: [10, 25, 15, 30, 12, 15, 20],
       },
     ],
   },
 ]
+
+export const logout =
+{
+  label: "Cerrar Sesión",
+  Icon: () => <Icon iconName="right-from-bracket" />,
+  to: "/",
+};

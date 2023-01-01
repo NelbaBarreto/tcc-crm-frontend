@@ -13,15 +13,13 @@ const NavItem = ({ item }) => {
   }
 
   return (
-    <>
-      <NavLink
-        to={to}
-        className={nav => (nav.isActive ? activeClassName : className)}
-      >
-        <Icon />
-        <span className="text-[15px] ml-4 font-bold">{label}</span>
-      </NavLink>
-    </>
+    <NavLink
+      to={to}
+      className={nav => (nav.isActive ? activeClassName : className)}
+    >
+      <Icon />
+      <span className="text-[15px] ml-4 font-bold">{label}</span>
+    </NavLink>
   );
 };
 
