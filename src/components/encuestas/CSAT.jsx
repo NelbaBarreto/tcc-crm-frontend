@@ -60,7 +60,7 @@ const Score = () => {
 
 const CSAT = () => {
   return (
-    <div className="section w-9/12 m-auto">
+    <div className="section lg:w-9/12 md:w-full sm:w-full m-auto">
       <Titulo1>
         Encuesta de Satisfacción
       </Titulo1>
