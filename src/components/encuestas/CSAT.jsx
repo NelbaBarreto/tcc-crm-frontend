@@ -23,7 +23,7 @@ const Card = ({ titulo, children }) => {
 
 const Score = () => {
   return (
-    <div className="grid grid-cols-5">
+    <div className="grid sm:grid-rows-5 sm:grid-cols-1 md:grid-cols-5 md:grid-rows-1">
       <button className="flex flex-col justify-between m-1 bg-gray-50 rounded-md hover:border hover:border-gray-300 hover:bg-gray-200 text-center">
         <span className="self-center">
           <FontAwesomeIcon className="text-red-400 text-4xl" icon={solid("face-angry")} />
