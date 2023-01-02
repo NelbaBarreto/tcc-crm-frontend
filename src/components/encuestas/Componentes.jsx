@@ -17,12 +17,13 @@ export const Card = ({ titulo, children }) => {
   )
 }
 
-export const Button = ({ label, name, Icon, onChange }) => {
+export const Button = ({ label, Icon, nombre, valor, activo = false, onClick }) => {
+  const className = !activo ? "flex flex-col p-3 justify-between m-1 bg-gray-50 rounded-md hover:border hover:border-gray-300 hover:bg-gray-200 text-center" :
+  "flex flex-col p-3 justify-between m-1 bg-gray-50 rounded-md hover:border border hover:border-gray-300 border-gray-300 hover:bg-gray-200 bg-gray-200 text-center";
   return (
     <button 
-      className="flex flex-col p-3 justify-between m-1 bg-gray-50 rounded-md hover:border hover:border-gray-300 hover:bg-gray-200 text-center"
-      name={name}
-      // onChange={() => onChange()}
+      className={className}
+      onClick={() => onClick(nombre, valor)}
     >
       <span className="self-center">
         <Icon />
