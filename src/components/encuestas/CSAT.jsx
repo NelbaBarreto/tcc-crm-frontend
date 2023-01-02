@@ -24,35 +24,35 @@ const Card = ({ titulo, children }) => {
 const Score = () => {
   return (
     <div className="grid grid-cols-5">
-      <button className="flex flex-col p-2 justify-between m-1 bg-gray-50 rounded-md hover:border hover:border-gray-300 hover:bg-gray-200">
-        <span className="text-center">
+      <button className="flex flex-col justify-between m-1 bg-gray-50 rounded-md hover:border hover:border-gray-300 hover:bg-gray-200 text-center">
+        <span className="self-center">
           <FontAwesomeIcon className="text-red-400 text-4xl" icon={solid("face-angry")} />
         </span>
-        <span className="text-sm font-semibold mt-2  text-center">Muy Insatisfecho</span>
+        <span className="text-sm font-semibold mt-2 self-center">Muy Insatisfecho</span>
       </button>
-      <button className="flex flex-col p-2 justify-between m-1 bg-gray-50 rounded-md hover:border hover:border-gray-300 hover:bg-gray-200">
-        <span className=" text-center">
+      <button className="flex flex-col justify-between m-1 bg-gray-50 rounded-md hover:border hover:border-gray-300 hover:bg-gray-200 ">
+        <span className="self-center">
           <FontAwesomeIcon className="text-orange-400 text-4xl cursor-pointer" icon={solid("face-frown")} />
         </span>
-        <span className="text-sm font-semibold mt-2  text-center">Insatisfecho</span>
+        <span className="text-sm font-semibold mt-2 self-center">Insatisfecho</span>
       </button>
-      <button className="flex flex-col p-2 justify-between m-1 bg-gray-50 rounded-md hover:border hover:border-gray-300 hover:bg-gray-200">
-        <span className=" text-center">
+      <button className="flex flex-col justify-between m-1 bg-gray-50 rounded-md hover:border hover:border-gray-300 hover:bg-gray-200 ">
+        <span className="self-center">
           <FontAwesomeIcon className="text-yellow-400 text-4xl cursor-pointer" icon={solid("face-meh")} />
         </span>
-        <span className="text-sm font-semibold mt-2 text-center">Neutral</span>
+        <span className="text-sm font-semibold mt-2 self-center">Neutral</span>
       </button>
-      <button className="flex flex-col p-2 justify-between m-1 bg-gray-50 rounded-md hover:border hover:border-gray-300 hover:bg-gray-200">
-        <span className=" text-center">
+      <button className="flex flex-col justify-between m-1 bg-gray-50 rounded-md hover:border hover:border-gray-300 hover:bg-gray-200 ">
+        <span className="self-center">
           <FontAwesomeIcon className="text-lime-400 text-4xl cursor-pointer" icon={solid("face-smile-beam")} />
         </span>
-        <span className="text-sm font-semibold mt-2 text-center">Satisfecho</span>
+        <span className="text-sm font-semibold mt-2 self-center">Satisfecho</span>
       </button>
-      <button className="flex flex-col p-2 justify-between m-1 bg-gray-50 rounded-md hover:border hover:border-gray-300 hover:bg-gray-200">
-        <span className=" text-center">
+      <button className="flex flex-col justify-between m-1 bg-gray-50 rounded-md hover:border hover:border-gray-300 hover:bg-gray-200 text-center">
+        <span className="self-center">
           <FontAwesomeIcon className="text-green-400 text-4xl cursor-pointer" icon={solid("face-laugh-beam")} />
         </span>
-        <span className="text-sm font-semibold mt-2  text-center">Muy Satisfecho</span>
+        <span className="text-sm font-semibold mt-2 self-center">Muy Satisfecho</span>
       </button>
     </div>
   )
@@ -78,7 +78,7 @@ const CSAT = () => {
           </Card>
         </div>
       </div>
-      <div className="columns">
+      {/* <div className="columns">
         <div className="column">
           <Card titulo="¿Cómo calificarías la experiencia de compra?">
             <div className="control">
@@ -171,7 +171,7 @@ const CSAT = () => {
             </form>
           </Card>
         </div>
-      </div>
+      </div> */}
       <button className={classNameButton2}>
         Enviar Encuesta
       </button>
