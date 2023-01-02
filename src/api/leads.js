@@ -26,8 +26,3 @@ export const getOrigenes = async () => {
   const { data: response } = await axios.get(`${API}/leads/origenes`);
   return response.data;
 };
-
-export const getTokenEncuesta = async (lead, oportunidad) => {
-  const { data: response } = await axios.get(`${API}/generarTokenEncuesta/${lead}/${oportunidad}`);
-  return response.data;
-};

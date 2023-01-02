@@ -16,3 +16,8 @@ export const getContacto = async id => {
   const { data: response } = await axios.get(`${API}/contactos/${id}`);
   return response.data;
 };
+
+export const getTokenEncuesta = async (contacto_id, oportunidad_id) => {
+  const { data: response } = await axios.get(`${API}/generarTokenEncuesta/${contacto_id}/${oportunidad_id}`);
+  return response.data;
+};
