@@ -16,3 +16,13 @@ export const getSucursal = async id => {
   const { data: response } = await axios.get(`${API}/sucursales/${id}`);
   return response.data;
 };
+
+export const deleteSucursal = async (id) => {
+  const { data: response } = await axios.delete(`${API}/sucursales/${id}`);
+  return response.data;
+};
+
+export const deleteDireccion = async (id) => {
+  const { data: response } = await axios.delete(`${API}/direcciones/${id}`);
+  return response.data;
+};

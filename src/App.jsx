@@ -103,6 +103,7 @@ import ListarProfesores from "./components/educacion/profesores/Index";
 import CrearSucursal from "./components/educacion/sucursales/CrearSucursal";
 import ListarSucursales from "./components/educacion/sucursales/Index";
 import MostrarSucursal from "./components/educacion/sucursales/MostrarSucursal";
+import EliminarSucursal from "./components/educacion/sucursales/EliminarSucursal";
 
 import CSAT from "./components/encuestas/CSAT.jsx";
 
@@ -195,7 +196,7 @@ const MainApp = () => {
                 <CrearCampana />
               </ProtectedRoute>
             }
-          /> 
+          />
           <Route
             path="/marketing/campanas/editar/:id"
             element={
@@ -203,7 +204,7 @@ const MainApp = () => {
                 <EditarCampana />
               </ProtectedRoute>
             }
-          />  
+          />
           <Route
             exact
             path="/marketing/campanas/:id"
@@ -545,8 +546,15 @@ const MainApp = () => {
                 <MostrarSucursal />
               </ProtectedRoute>
             }
-          />          
-          
+          />
+          <Route path="/educacion/sedes/eliminar/:id"
+            element={
+              <ProtectedRoute usuario={usuario}>
+                <EliminarSucursal />
+              </ProtectedRoute>
+            }
+          />
+
           {/* Rutas Públicas */}
           <Route path="/encuesta/:token" element={<CSAT />} />
           <Route path="*" element={<p>La página no existe: 404!</p>} />
