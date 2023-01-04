@@ -120,11 +120,11 @@ export const sideMenu = [
         Icon: () => <Icon iconName="list-check" />,
         to: "tareas",
       },
-      {
-        label: "Calendario",
-        Icon: () => <Icon iconName="calendar" />,
-        to: "calendario",
-      },
+      // {
+      //   label: "Calendario",
+      //   Icon: () => <Icon iconName="calendar" />,
+      //   to: "calendario",
+      // },
     ],
   },
   // {
