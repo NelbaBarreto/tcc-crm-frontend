@@ -81,7 +81,7 @@ const CSAT = () => {
                               label={opcion.etiqueta}
                               onClick={handleRespuesta}
                               valor={opcion.valor}
-                              activo={respuestas.find(respuesta => respuesta.pregunta_id === pregunta.pregunta_id).valor === opcion.valor ? true : false}
+                              activo={respuestas.find(respuesta => respuesta?.pregunta_id === pregunta?.pregunta_id)?.valor === opcion.valor ? true : false}
                             />
                           )
                         })}
@@ -90,7 +90,7 @@ const CSAT = () => {
                       <TextArea
                         label=""
                         name={`respuesta_${pregunta.pregunta_id}`}
-                        value={respuestas.find(respuesta => respuesta.pregunta_id === pregunta.pregunta_id).valor || ""}
+                        value={respuestas.find(respuesta => respuesta.pregunta_id === pregunta.pregunta_id)?.valor || ""}
                         onChange={e => handleRespuesta(pregunta.pregunta_id, e?.target.value)}
                       />
                     }
