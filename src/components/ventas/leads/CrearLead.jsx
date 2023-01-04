@@ -47,6 +47,12 @@ const DatosLead = ({ dispatch }) => {
     origenesLoading
   } = useQuery(["origenes"], getOrigenes);
 
+  useEffect(() => {
+    if (estados) {
+      setSelect({ ...select, estado: { label: estados[0], value: estados[0] }});
+    }
+  }, [estados]);
+
   const opcionesUsuarios = usuariosLoading || !usuarios ? [] :
     usuarios.map(usuario => ({ value: usuario.usuario_id, label: usuario.nom_usuario }));
 
