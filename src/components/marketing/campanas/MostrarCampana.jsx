@@ -19,14 +19,17 @@ const DatosCampana = ({ campana = {} }) => {
         </div>
       </div>
 
-      <div className="columns">
+      {/* <div className="columns">
+        <div className="column">
+          <TextView label="Fecha Fin" value={campana?.fec_fin} />
+        </div>
+        <div className="column">
+          <TextView label="Fecha de Inicio" value={campana?.fec_inicio} />
+        </div>
+      </div> */}
       <div className="column">
-        <TextView label="Fecha Fin" value={campana.fec_fin} />
+        <TextView label="Descripción" value={campana.descripcion} />
       </div>
-      <div className="column">
-        <TextView label="Fecha de Inicio" value={campana.fec_inicio} />
-      </div>
-    </div>
     </Seccion >
   );
 }
