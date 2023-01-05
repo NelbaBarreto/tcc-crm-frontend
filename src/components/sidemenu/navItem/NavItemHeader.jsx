@@ -34,8 +34,8 @@ const NavItemHeader = (props) => {
           <span className="text-[15px] ml-4 font-bold">{label}</span>
           <span className="icon">
             <FontAwesomeIcon
-              className={classNames("text-sm", { "rotate-180": expanded })}
-              icon={solid("chevron-down")}
+              className={classNames("text-base", { "rotate-180": expanded })}
+              icon={solid("caret-down")}
             />
           </span>
         </div>
