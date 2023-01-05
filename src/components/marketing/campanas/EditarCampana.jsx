@@ -41,6 +41,12 @@ const DatosCampana = ( {campana={}, dispatch} ) => {
                 />
               </div>
             </div>
+            <Input
+              name="descripcion"
+              label="Descripcion"
+              value={campana?.descripcion || ""}
+              onChange={e => handleDispatch(dispatch, e.target?.name, e.target?.value, CAMPANA)}
+            />
           </Seccion>
   )
 };

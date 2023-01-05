@@ -18,6 +18,7 @@ export const getCampana = async id => {
   const data = { ...response.data, fec_inicio: parseISO(response.data.fec_inicio),
     fec_fin: parseISO(response.data.fec_fin) }
   return data;
+  // return response.data;
 };
 
 export const editCampana = async (id, data) => {
