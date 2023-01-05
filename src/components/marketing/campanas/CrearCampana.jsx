@@ -1,7 +1,7 @@
 import React, { useState, useReducer } from "react";
 import MostrarMensaje from "../../formulario/MostrarMensaje";
 import Seccion from "../../formulario/Seccion";
-import { Datepicker, Input } from "../../formulario/Componentes";
+import { Datepicker, Input, TextArea } from "../../formulario/Componentes";
 import { Volver, Guardar } from "../../formulario/Acciones";
 import { Titulo1 } from "../../formulario/Titulo";
 import { useNavigate } from "react-router-dom";
@@ -57,6 +57,14 @@ const CrearCampana = () => {
                   onChange={fecha => handleDispatch(dispatch, "fec_fin", fecha, CAMPANA)}
                 />
               </div>
+            </div>
+            <div className="column">
+              <TextArea
+                label="Descripción"
+                name="descripcion"
+                value={state.campana?.descripcion || ""}
+                onChange={e => handleDispatch(dispatch, e?.target.name, e?.target.value, CAMPANA)}
+              />
             </div>
           </Seccion>
           <Guardar guardar={crear} saving={action.saving} />
