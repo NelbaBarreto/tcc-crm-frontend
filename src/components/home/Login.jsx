@@ -117,7 +117,7 @@ const Login = ({ setToken }) => {
       <section className="section sm:w-1/2 w-full m-auto hero shadow-lg shadow-gray-800 bg-white">
       <div className="text-gray-100 text-xl">
         <div className="p-2.5 mt-1 flex items-center">
-          <img src="/logo.png" className="m-auto" style={{ height: "55px" }} alt="" />
+          <img src="/logo.png" className="m-auto" style={{ height: "90px" }} alt="" />
         </div>
       </div>
         {state.login?.error ? <MostrarMensaje mensaje={state.login.error} error={true} /> : null}

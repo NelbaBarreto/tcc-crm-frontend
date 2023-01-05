@@ -58,13 +58,15 @@ const CrearLlamada = () => {
             <div className="columns is-vcentered">
               <div className="column">
                 <Input
-                  label="Asunto"
+                  label="Asunto *"
                   name="asunto"
                   value={state?.llamada?.asunto || ""}
                   onChange={e => handleDispatch(dispatch, e?.target.name, e?.target.value, LLAMADA)}
                 />
               </div>
-              <div className="column is-2">
+            </div>
+            <div className="columns">
+              <div className="column">
                 <Dropdown
                   label="Tipo"
                   options={opcionesTipos}
@@ -75,7 +77,7 @@ const CrearLlamada = () => {
                   }}
                 />
               </div>
-              <div className="column is-3">
+              <div className="column">
                 <Dropdown
                   label="Estado"
                   value={select.estado}
