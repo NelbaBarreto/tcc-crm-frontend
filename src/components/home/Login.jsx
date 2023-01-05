@@ -33,10 +33,10 @@ const GoogleLoginButton = ({ loginReducer, handleError, setToken }) => {
 
   const loginGoogle = async response => {
     try {
-      const {token, user} = await autenticarUsuarios({ email: response.profileObj.email });
+      const { token, user } = await autenticarUsuarios({ email: response.profileObj.email });
       if (token) {
         setToken(token, user);
-        handleError(""); 
+        handleError("");
         navigate("/dashboard");
       } else {
         handleError(token?.data?.error);
@@ -77,7 +77,7 @@ const GoogleLoginButton = ({ loginReducer, handleError, setToken }) => {
 const Login = ({ setToken }) => {
   const [state, dispatch] = useReducer(reducer, {});
   const navigate = useNavigate();
-  
+
   useEffect(() => {
     const initClient = () => {
       gapi.client.init({
@@ -99,10 +99,10 @@ const Login = ({ setToken }) => {
   const login = async e => {
     e.preventDefault();
     try {
-      const {token, user} = await autenticarUsuarios(state.login);
+      const { token, user } = await autenticarUsuarios(state.login);
       if (token) {
         setToken(token, user);
-        handleError(""); 
+        handleError("");
         navigate("/dashboard");
       } else {
         handleError(token?.data?.error);
@@ -115,16 +115,16 @@ const Login = ({ setToken }) => {
   return (
     <div className="hero is-fullheight bg-deep-purple-400">
       <section className="section sm:w-1/2 w-full m-auto hero shadow-lg shadow-gray-800 bg-white">
-      <div className="text-gray-100 text-xl">
-        <div className="p-2.5 mt-1 flex items-center">
-          <img src="/logo.png" className="m-auto" style={{ height: "90px" }} alt="" />
+        <div className="text-gray-100 text-xl">
+          <div className="p-2.5 mt-1 flex items-center">
+            <img src="/logo.png" className="m-auto" style={{ height: "90px" }} alt="" />
+          </div>
         </div>
-      </div>
         {state.login?.error ? <MostrarMensaje mensaje={state.login.error} error={true} /> : null}
-        <GoogleLoginButton 
-          loginReducer={{ state, dispatch }} 
+        <GoogleLoginButton
+          loginReducer={{ state, dispatch }}
           handleError={handleError}
-          setToken={setToken} 
+          setToken={setToken}
         />
         <div className="divider">O</div>
         <form onSubmit={login}>
