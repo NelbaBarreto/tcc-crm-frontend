@@ -8,7 +8,8 @@ import { Titulo1 } from "../../formulario/Titulo";
 import { Dropdown, Input, TextArea } from "../../formulario/Componentes";
 import { getUsuarios } from "../../../api/usuarios";
 import { createOportunidad, getEtapas } from "../../../api/oportunidades";
-import { getLeads } from "../../../api/leads";
+import { getCampanas } from "../../../api/campanas";
+import { getContactos } from "../../../api/contactos";
 import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 
@@ -28,9 +29,14 @@ const DatosOportunidad = ({ oportunidad, dispatch }) => {
   } = useQuery(["usuarios"], getUsuarios);
 
   const {
-    data: leads,
-    leadsLoading
-  } = useQuery(["leads"], getLeads);
+    data: campanas,
+    campanasLoading
+  } = useQuery(["campanas"], getCampanas);
+
+  const {
+    data: contactos,
+    contactosLoading
+  } = useQuery(["contactos"], getContactos);
 
   const opcionesEtapas = etapasLoading || !etapasOportunidades ? [] :
     etapasOportunidades.map(etapa => ({ value: etapa, label: etapa }));
@@ -38,20 +44,36 @@ const DatosOportunidad = ({ oportunidad, dispatch }) => {
   const opcionesUsuarios = usuariosLoading || !usuarios ? [] :
     usuarios.map(usuario => ({ value: usuario.usuario_id, label: usuario.nom_usuario }));
 
-  const opcionesLeads = leadsLoading || !leads ? [] :
-    leads.map(lead => ({ value: lead.lead_id, label: lead.persona.nombre }));    
+  const opcionesCampanas = campanasLoading || !campanas ? [] :
+    campanas.map(campana => ({ value: campana.campana_id, label: campana.nombre }));
+
+  const opcionesContactos = contactosLoading || !contactos ? [] :
+    contactos.map(contacto => ({ value: contacto.contacto_id, label: contacto?.persona.nombre }));
 
   return (
     <Seccion titulo="Datos de la Oportunidad">
       <div className="columns">
         <div className="column">
-          <Input 
+          <Input
             name="nombre"
             label="Nombre"
             value={oportunidad?.nombre || ""}
             onChange={e => handleDispatch(dispatch, e.target?.name, e.target?.value, OPORTUNIDAD)}
           />
         </div>
+        <div className="column">
+          <Dropdown
+            label="Contacto"
+            value={select.contacto}
+            options={opcionesContactos}
+            onChange={e => {
+              handleDispatch(dispatch, "contacto_id", e?.value, OPORTUNIDAD);
+              setSelect({ ...select, contacto: e })
+            }}
+          />
+        </div>
+      </div>
+      <div className="columns">
         <div className="column">
           <Dropdown
             label="Etapa"
@@ -63,16 +85,28 @@ const DatosOportunidad = ({ oportunidad, dispatch }) => {
             }}
           />
         </div>
+        <div className="column">
+          <Dropdown
+            label="Campaña"
+            value={select.campana}
+            options={opcionesCampanas}
+            onChange={e => {
+              handleDispatch(dispatch, "campana_id", e?.value, OPORTUNIDAD);
+              setSelect({ ...select, campana: e })
+            }}
+          />
+        </div>
       </div>
       <div className="columns">
         <div className="column">
-          <Input 
+          <Input
             name="valor"
             label="Valor"
+            type="number"
             value={oportunidad?.valor || ""}
             onChange={e => handleDispatch(dispatch, e.target?.name, e.target?.value, OPORTUNIDAD)}
           />
-        </div>         
+        </div>
         <div className="column">
           <Dropdown
             label="Usuario Asignado"
@@ -83,26 +117,15 @@ const DatosOportunidad = ({ oportunidad, dispatch }) => {
               setSelect({ ...select, usu_asignado: e })
             }}
           />
-        </div>     
-      </div>      
+        </div>
+      </div>
       <div className="columns">
         <div className="column">
-          <Dropdown
-            label="Lead"
-            value={select.lead}
-            options={opcionesLeads}
-            onChange={e => {
-              handleDispatch(dispatch, "lead_id", e?.value, OPORTUNIDAD);
-              setSelect({ ...select, lead: e })
-            }}
-          />
-        </div>        
-        <div className="column">
-          <TextArea 
+          <TextArea
             label="Descripción"
             name="descripcion"
             value={oportunidad?.descripcion || ""}
-            onChange={e => handleDispatch(dispatch, e.target?.name, e.target?.value, OPORTUNIDAD)}            
+            onChange={e => handleDispatch(dispatch, e.target?.name, e.target?.value, OPORTUNIDAD)}
           />
         </div>
       </div>
@@ -111,7 +134,7 @@ const DatosOportunidad = ({ oportunidad, dispatch }) => {
 };
 
 const CrearOportunidad = () => {
-  const {state : { oportunidad }, dispatch} = useContext(AppContext);
+  const { state: { oportunidad }, dispatch } = useContext(AppContext);
   const [action, setAction] = useState({});
   const navigate = useNavigate();
 
@@ -139,9 +162,9 @@ const CrearOportunidad = () => {
         </Titulo1>
         {action.message ? <MostrarMensaje mensaje={action.message} error={action.error} /> : null}
         <form>
-          <DatosOportunidad 
+          <DatosOportunidad
             oportunidad={oportunidad}
-            dispatch={dispatch} 
+            dispatch={dispatch}
           />
           <Guardar saving={action.saving} guardar={crear} />
           <Volver navigate={navigate} />
