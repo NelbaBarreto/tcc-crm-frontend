@@ -75,6 +75,7 @@ const CrearLead = () => {
     e.preventDefault();
     setAction({ saving: true, error: false, message: "" });
     const auditoria = { usu_insercion: currentUser.nom_usuario, usu_modificacion: currentUser.nom_usuario };
+    
     try {
       await createEmpleado({...empleado,
         persona: { ...persona, direcciones, telefonos, ...auditoria },
