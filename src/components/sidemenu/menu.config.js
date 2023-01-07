@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faBullhorn, faGauge, faHeadphonesSimple, faHouse, faListCheck, faMoneyBillTrendUp,
+  faBullhorn, faGauge, faHeadphonesSimple, faHouse, faListCheck, faMoneyBillTrendUp, faUser,
   faFolder, faPhone, faCalendar, faClipboardCheck, faBullseye, faUsers, faAddressCard, faEarth,
   faCity, faPersonChalkboard, faListUl, faFile, faPersonCircleCheck, faPersonCirclePlus, faBuilding, faHandshakeAlt,
   faBriefcase, faBusinessTime, faGear, faGraduationCap, faSchool, faUserGraduate, faChalkboardUser, faRightFromBracket
@@ -36,7 +36,8 @@ const myIcons = {
   "chalkboard-user": faChalkboardUser,
   "school-flag": faSchool,
   "gear": faGear,
-  "right-from-bracket": faRightFromBracket
+  "right-from-bracket": faRightFromBracket,
+  "user": faUser,
 }
 
 const Icon = ({ iconName }) => {
@@ -86,11 +87,6 @@ export const sideMenu = [
         Icon: () => <Icon iconName="person-chalkboard" />,
         to: "campanas",
       },
-      // {
-      //   label: "Tipos de Campaña",
-      //   Icon: () => <Icon iconName="list-ul" />,
-      //   to: "tipocampana",
-      // },
     ],
   },
   {
@@ -120,35 +116,8 @@ export const sideMenu = [
         Icon: () => <Icon iconName="list-check" />,
         to: "tareas",
       },
-      // {
-      //   label: "Calendario",
-      //   Icon: () => <Icon iconName="calendar" />,
-      //   to: "calendario",
-      // },
     ],
   },
-  // {
-  //   label: "Parámetros",
-  //   Icon: () => <Icon iconName="folder" />,
-  //   to: "/parametros",
-  //   children: [
-  //     {
-  //       label: "Países",
-  //       Icon: () => <Icon iconName="earth-americas" />,
-  //       to: "paises",
-  //     },
-  //     {
-  //       label: "Ciudades",
-  //       Icon: () => <Icon iconName="city" />,
-  //       to: "ciudades",
-  //     },
-  //     {
-  //       label: "Motivos Casos",
-  //       Icon: () => <Icon iconName="business-time" />,
-  //       to: "motivos",
-  //     },
-  //   ],
-  // },
   {
     label: "Administrador",
     Icon: () => <Icon iconName="gear" />,
@@ -182,6 +151,11 @@ export const sideMenu = [
         to: "sedes",
       },
     ],
+  },
+  {
+    label: "Perfil",
+    Icon: () => <Icon iconName="user" />,
+    to: "/perfil",
   },
 ];
 

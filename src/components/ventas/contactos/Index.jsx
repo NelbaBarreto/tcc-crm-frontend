@@ -21,24 +21,28 @@ const Index = () => {
       }
     },
     {
-      name: "persona.nombre",
+      name: "persona",
       label: "Nombre",
       options: {
         filter: true,
         filterType: "textField",
         sort: true,
         customBodyRender: (value, tableMeta) => {
-          return (
-            <NavLink
-              to={"/admin/empleados/" + tableMeta.rowData[0]}
-              className="underline text-blue-900"
-            >
-              {value}
-            </NavLink>
-          )
+          if (value) {
+            return (
+              <NavLink
+                to={"/ventas/contactos/" + tableMeta.rowData[0]}
+                className="underline text-blue-900"
+              >
+                {value.nombre}
+              </NavLink>
+            );
+          } else {
+            return null;
+          }
         }
       }
-    },
+    }, 
     {
       name: "persona.email",
       label: "Email",
@@ -46,8 +50,54 @@ const Index = () => {
         filter: true,
         filterType: "textField",
         sort: true,
+        customBodyRender: (value) => {
+          if (value) {
+            return (
+              <a 
+                className="text-blue-900" 
+                href={`mailto:${value}`}
+              >
+                {value}
+              </a>
+            );
+          } else {
+            return null;
+          }
+        }
       }
     },
+    {
+      name: "origen",
+      label: "Origen",
+      options: {
+        filter: true,
+        filterType: "textField",
+        sort: true,
+      }
+    },
+    {
+      name: "organizacion",
+      label: "Organización",
+      options: {
+        filter: true,
+        filterType: "textField",
+        sort: true,
+        customBodyRender: value => {
+          if (value) {
+            return (
+              <NavLink
+                to={"/ventas/organizaciones/" + value.organizacion_id}
+                className="underline text-blue-900"
+              >
+                {value.persona?.nombre}
+              </NavLink>
+            );
+          } else {
+            return null;
+          }
+        }
+      }
+    },       
     {
       name: "",
       options: {

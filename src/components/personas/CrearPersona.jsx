@@ -202,7 +202,7 @@ const CrearPersona = () => {
         persona={persona}
         dispatch={dispatch}
       />
-      <Direcciones
+      {/* <Direcciones
         direcciones={direcciones}
         direccion={direccion}
         dispatch={dispatch}
@@ -211,7 +211,7 @@ const CrearPersona = () => {
         telefonos={telefonos}
         telefono={telefono}
         dispatch={dispatch}
-      />
+      /> */}
     </section>
   );
 }
