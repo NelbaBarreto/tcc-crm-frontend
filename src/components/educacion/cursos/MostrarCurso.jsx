@@ -15,8 +15,6 @@ const DatosCurso = ({ curso = {}, navigate }) => {
       <div className="columns">
         <div className="column">
           <TextView label="Nombre" value={curso.nombre} />
-        </div>
-        <div className="column">
           <TextView label="Descripción" value={curso.descripcion} />
         </div>
       </div>

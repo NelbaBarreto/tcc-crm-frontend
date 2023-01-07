@@ -41,15 +41,6 @@ const Index = () => {
       }
     },
     {
-      name: "descripcion",
-      label: "Descripción",
-      options: {
-        filter: true,
-        filterType: "textField",
-        sort: false,
-      }
-    },
-    {
       name: "",
       options: {
         filter: false,

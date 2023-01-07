@@ -11,7 +11,7 @@ const Index = () => {
     data: leads,
     isLoading
   } = useQuery(["leads"], getLeads);
-
+console.log(leads)
   const columns = [
     {
       name: "lead_id",
@@ -108,7 +108,7 @@ const Index = () => {
       }
     },
     {
-      name: "usuario",
+      name: "usu_asignado",
       label: "Usuario Asignado",
       options: {
         filter: true,

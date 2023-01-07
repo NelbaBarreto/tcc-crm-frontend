@@ -3,6 +3,7 @@ import AppContext from "../../../utils/AppContext";
 import Seccion from "../../formulario/Seccion";
 import MostrarMensaje from "../../formulario/MostrarMensaje";
 import CrearPersona from "../../personas/CrearPersona";
+import useToken from "../../../utils/useToken";
 import { Volver, Guardar } from "../../formulario/Acciones";
 import { Titulo1 } from "../../formulario/Titulo";
 import { Dropdown } from "../../formulario/Componentes";
@@ -112,7 +113,7 @@ const DatosLead = ({ dispatch }) => {
             value={select.usu_asignado}
             options={opcionesUsuarios}
             onChange={e => {
-              handleDispatch(dispatch, "usuario_asignado_id", e?.value, LEAD);
+              handleDispatch(dispatch, "usu_asignado_id", e?.value, LEAD);
               setSelect({ ...select, usu_asignado: e })
             }}
           />
@@ -135,6 +136,7 @@ const CrearLead = () => {
   const {state : { lead, persona, direcciones }, dispatch} = useContext(AppContext);
   const [action, setAction] = useState({});
   const navigate = useNavigate();
+  const currentUser = useToken().usuario;
 
   useEffect(() => {
     handleStateCleared(dispatch);
@@ -143,8 +145,13 @@ const CrearLead = () => {
   const crear = async e => {
     e.preventDefault();
     setAction({ saving: true, error: false, message: "" });
+    const auditoria = { usu_insercion: currentUser.nom_usuario, usu_modificacion: currentUser.nom_usuario };
+
     try {
-      await createLead({ ...lead, persona: { ...persona, direcciones } });
+      await createLead({ ...lead, 
+        ...auditoria,
+        persona: { ...persona, direcciones, ...auditoria } 
+      });
       setAction({ saving: false, error: false, message: "Lead creado exitosamente." });
       setTimeout(() => navigate("/ventas/leads"), 2000);
     } catch (e) {
