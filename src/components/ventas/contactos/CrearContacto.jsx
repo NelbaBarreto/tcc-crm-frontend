@@ -7,7 +7,6 @@ import useToken from "../../../utils/useToken";
 import { Volver, Guardar } from "../../formulario/Acciones";
 import { Titulo1 } from "../../formulario/Titulo";
 import { Dropdown } from "../../formulario/Componentes";
-import { getCampanas } from "../../../api/campanas";
 import { createContacto, getOrigenes } from "../../../api/contactos";
 import { getOrganizaciones } from "../../../api/organizaciones";
 import { handleDispatch, handleStateCleared } from "../../formulario/reducerFormularios.js";
@@ -20,11 +19,6 @@ const DatosContacto = ({ dispatch }) => {
   const [select, setSelect] = useState({ origen: "", campana: "" });
 
   const {
-    data: campanas,
-    campanasLoading
-  } = useQuery(["campanas"], getCampanas);
-
-  const {
     data: origenesContactos,
     origenesLoading
   } = useQuery(["origenesContactos"], getOrigenes);
@@ -33,9 +27,6 @@ const DatosContacto = ({ dispatch }) => {
     data: organizaciones,
     organizacionesLoading
   } = useQuery(["organizaciones"], getOrganizaciones);
-
-  const opcionesCampanas = campanasLoading || !campanas ? [] :
-    campanas.map(campana => ({ value: campana.campana_id, label: campana.nombre }));
 
   const opcionesOrigen = origenesLoading || !origenesContactos ? [] :
     origenesContactos.map(origen => ({ value: origen, label: origen }));
@@ -59,17 +50,6 @@ const DatosContacto = ({ dispatch }) => {
         </div>
       </div>
       <div className="columns">
-        <div className="column">
-          <Dropdown
-            label="Campaña"
-            value={select.campana}
-            options={opcionesCampanas}
-            onChange={e => {
-              handleDispatch(dispatch, "campana_id", e?.value, CONTACTO);
-              setSelect({ ...select, campana: e })
-            }}
-          />
-        </div>
         <div className="column">
           <Dropdown
             label="Origen del Lead"
