@@ -21,21 +21,23 @@ const Index = () => {
       }
     },
     {
-      name: "raz_social",
-      label: "Razon Social",
+      name: "persona",
+      label: "Nombre",
       options: {
         filter: true,
         filterType: "textField",
         sort: true,
         customBodyRender: (value, tableMeta) => {
-          return (
-            <NavLink
-              to={"/ventas/organizaciones/" + tableMeta.rowData[0]}
-              className="underline text-blue-900"
-            >
-              {value}
-            </NavLink>
-          )
+          if (value) {
+            return (
+              <NavLink
+                to={"/ventas/organizaciones/" + tableMeta.rowData[0]}
+                className="underline text-blue-900"
+              >
+                {value.nombre}
+              </NavLink>
+            )
+          }
         }
       }
     },
@@ -46,15 +48,19 @@ const Index = () => {
         filter: true,
         filterType: "textField",
         sort: true,
-        customBodyRender: (value, tableMeta) => {
-          return (
-            <NavLink
-              to={"/ventas/organizaciones/" + tableMeta.rowData[0]}
-              className="underline text-blue-900"
-            >
-              {value}
-            </NavLink>
-          )
+        customBodyRender: value => {
+          if (value) {
+            return (
+              <a 
+                className="underline text-blue-900" 
+                href={value}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {value}
+              </a>
+            )
+          }
         }
       }
     },
