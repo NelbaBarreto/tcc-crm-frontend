@@ -20,7 +20,7 @@ const DatosEmpleado = ({ empleado, dispatch }) => {
       <div className="columns">
         <div className="column">
           <Input
-            label="Cargo"
+            label="Cargo*"
             name="cargo"
             value={empleado?.cargo || ""}
             onChange={e => handleDispatch(dispatch, e.target.name, e?.target.value, EMPLEADO)}
@@ -28,7 +28,7 @@ const DatosEmpleado = ({ empleado, dispatch }) => {
         </div>
         <div className="column">
           <Checkbox
-            label="Activo"
+            label="Activo*"
             name="activo"
             value={empleado?.activo || false}
             onChange={e => handleDispatch(dispatch, e.target.name, e?.target.checked, EMPLEADO)}
@@ -45,7 +45,7 @@ const DatosUsuario = ({ usuario, dispatch }) => {
       <div className="columns">
         <div className="column is-half">
           <Input
-            label="Nombre de Usuario"
+            label="Nombre de Usuario*"
             name="nom_usuario"
             value={usuario?.nom_usuario || ""}
             onChange={e => handleDispatch(dispatch, e.target.name, e?.target.value, USUARIO)}
