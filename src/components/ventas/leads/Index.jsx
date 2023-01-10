@@ -11,7 +11,7 @@ const Index = () => {
     data: leads,
     isLoading
   } = useQuery(["leads"], getLeads);
-console.log(leads)
+
   const columns = [
     {
       name: "lead_id",

@@ -10,8 +10,10 @@ import { getUsuarios } from "../../../api/usuarios";
 import { createOportunidad, getEtapas } from "../../../api/oportunidades";
 import { getCampanas } from "../../../api/campanas";
 import { getContactos } from "../../../api/contactos";
+import { getCursos } from "../../../api/cursos";
 import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
+import useToken from "../../../utils/useToken";
 
 const OPORTUNIDAD = "oportunidad";
 
@@ -38,6 +40,11 @@ const DatosOportunidad = ({ oportunidad, dispatch }) => {
     contactosLoading
   } = useQuery(["contactos"], getContactos);
 
+  const {
+    data: cursos,
+    cursosLoading
+  } = useQuery(["cursos"], getCursos);
+
   const opcionesEtapas = etapasLoading || !etapasOportunidades ? [] :
     etapasOportunidades.map(etapa => ({ value: etapa, label: etapa }));
 
@@ -50,20 +57,25 @@ const DatosOportunidad = ({ oportunidad, dispatch }) => {
   const opcionesContactos = contactosLoading || !contactos ? [] :
     contactos.map(contacto => ({ value: contacto.contacto_id, label: contacto?.persona.nombre }));
 
+  const opcionesCursos = cursosLoading || !cursos ? [] :
+    cursos.map(curso => ({ value: curso.curso_id, label: curso.nombre }));
+
   return (
     <Seccion titulo="Datos de la Oportunidad">
       <div className="columns">
         <div className="column">
           <Input
             name="nombre"
-            label="Nombre"
+            label="Nombre*"
             value={oportunidad?.nombre || ""}
             onChange={e => handleDispatch(dispatch, e.target?.name, e.target?.value, OPORTUNIDAD)}
           />
         </div>
+      </div>
+      <div className="columns">
         <div className="column">
           <Dropdown
-            label="Contacto"
+            label="Contacto*"
             value={select.contacto}
             options={opcionesContactos}
             onChange={e => {
@@ -72,11 +84,22 @@ const DatosOportunidad = ({ oportunidad, dispatch }) => {
             }}
           />
         </div>
+        <div className="column">
+          <Dropdown
+            label="Curso/Interés*"
+            value={select.curso}
+            options={opcionesCursos}
+            onChange={e => {
+              handleDispatch(dispatch, "curso_id", e?.value, OPORTUNIDAD);
+              setSelect({ ...select, curso: e })
+            }}
+          />
+        </div>
       </div>
       <div className="columns">
         <div className="column">
           <Dropdown
-            label="Etapa"
+            label="Etapa*"
             value={select.etapa}
             options={opcionesEtapas}
             onChange={e => {
@@ -86,6 +109,17 @@ const DatosOportunidad = ({ oportunidad, dispatch }) => {
           />
         </div>
         <div className="column">
+          <Input
+            name="valor"
+            label="Valor"
+            type="number"
+            value={oportunidad?.valor || ""}
+            onChange={e => handleDispatch(dispatch, e.target?.name, e.target?.value, OPORTUNIDAD)}
+          />
+        </div>
+      </div>
+      <div className="columns">
+        <div className="column">
           <Dropdown
             label="Campaña"
             value={select.campana}
@@ -94,17 +128,6 @@ const DatosOportunidad = ({ oportunidad, dispatch }) => {
               handleDispatch(dispatch, "campana_id", e?.value, OPORTUNIDAD);
               setSelect({ ...select, campana: e })
             }}
-          />
-        </div>
-      </div>
-      <div className="columns">
-        <div className="column">
-          <Input
-            name="valor"
-            label="Valor"
-            type="number"
-            value={oportunidad?.valor || ""}
-            onChange={e => handleDispatch(dispatch, e.target?.name, e.target?.value, OPORTUNIDAD)}
           />
         </div>
         <div className="column">
@@ -137,6 +160,7 @@ const CrearOportunidad = () => {
   const { state: { oportunidad }, dispatch } = useContext(AppContext);
   const [action, setAction] = useState({});
   const navigate = useNavigate();
+  const currentUser = useToken().usuario;
 
   useEffect(() => {
     handleStateCleared(dispatch);
@@ -145,10 +169,15 @@ const CrearOportunidad = () => {
   const crear = async e => {
     e.preventDefault();
     setAction({ saving: true, error: false, message: "" });
+    const auditoria = { usu_insercion: currentUser.nom_usuario, usu_modificacion: currentUser.nom_usuario };
+
     try {
-      await createOportunidad(oportunidad);
+      await createOportunidad({
+        ...oportunidad,
+        ...auditoria
+      });
       setAction({ saving: false, error: false, message: "Oportunidad creada exitosamente." });
-      setTimeout(() => navigate("/ventas/oportunidades"), 3000);
+      setTimeout(() => navigate("/ventas/oportunidades"), 2000);
     } catch (e) {
       setAction({ saving: false, error: true, message: e.message });
     };

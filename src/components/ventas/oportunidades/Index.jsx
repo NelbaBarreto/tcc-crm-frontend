@@ -40,22 +40,40 @@ const Index = () => {
       }
     },
     {
-      name: "lead",
-      label: "Lead",
+      name: "valor",
+      label: "Valor",
       options: {
         filter: true,
         filterType: "textField",
         sort: true,
-        customBodyRender: (value) => {
+      }
+    },
+    {
+      name: "etapa",
+      label: "Etapa",
+      options: {
+        filter: true,
+        filterType: "textField",
+        sort: true,
+      }
+    },
+    {
+      name: "curso",
+      label: "Curso/Interés",
+      options: {
+        filter: true,
+        filterType: "dropdown",
+        sort: true,
+        customBodyRender: value => {
           if (value) {
             return (
               <NavLink
-                to={"/ventas/leads/" + value.lead_id}
+                to={"/educacion/cursos/" + value.curso_id}
                 className="underline text-blue-900"
               >
-                {value.persona?.nombre}
+                {value.nombre}
               </NavLink>
-            )
+            );
           } else {
             return null;
           }
@@ -83,24 +101,6 @@ const Index = () => {
             return null;
           }
         }
-      }
-    },
-    {
-      name: "valor",
-      label: "Valor",
-      options: {
-        filter: true,
-        filterType: "textField",
-        sort: true,
-      }
-    },
-    {
-      name: "etapa",
-      label: "Etapa",
-      options: {
-        filter: true,
-        filterType: "textField",
-        sort: true,
       }
     },
     {
