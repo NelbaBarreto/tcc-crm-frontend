@@ -6,6 +6,7 @@ import { Volver } from "../../formulario/Acciones";
 import { useQuery } from "react-query";
 import { useParams, useNavigate } from "react-router-dom";
 import { getTarea } from "../../../api/tareas";
+import { format, parseISO } from "date-fns";
 
 const DatosTarea = ({ tarea = {} }) => {
   return (
@@ -21,10 +22,10 @@ const DatosTarea = ({ tarea = {} }) => {
 
       <div className="columns">
         <div className="column">
-          <TextView label="Fecha de Inicio" value={tarea.fec_inicio} />
+          <TextView label="Fecha de Inicio" value={format(tarea.fec_inicio, "dd/MM/yyyy hh:mm")} />
         </div>
         <div className="column">
-          <TextView label="Fecha Fin" value={tarea.fec_fin} />
+          <TextView label="Fecha Fin" value={format(tarea.fec_fin, "dd/MM/yyyy hh:mm")} />
         </div>
       </div>
 
