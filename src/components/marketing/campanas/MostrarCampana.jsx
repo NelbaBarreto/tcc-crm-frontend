@@ -6,29 +6,27 @@ import { Volver } from "../../formulario/Acciones";
 import { useQuery } from "react-query";
 import { useParams, useNavigate } from "react-router-dom";
 import { getCampana } from "../../../api/campanas";
+import { format, parseISO } from "date-fns";
 
 const DatosCampana = ({ campana = {} }) => {
   return (
     <Seccion titulo={campana.nombre}>
       <div className="columns">
         <div className="column">
-          <TextView label="Nombre" value={campana.nombre} />
+          <TextView label="Fecha de Inicio" value={format(campana?.fec_inicio, "dd/MM/yyyy hh:mm")} />
         </div>
         <div className="column">
-          <DateFormat label="Fecha de Creación" value={campana.fec_insercion} />
+          <TextView label="Fecha Fin" value={format(campana?.fec_fin, "dd/MM/yyyy hh:mm")} />
         </div>
       </div>
 
-      {/* <div className="columns">
+      <div className="columns">
         <div className="column">
-          <TextView label="Fecha Fin" value={campana?.fec_fin} />
+        <DateFormat label="Fecha de Creación" value={campana.fec_insercion} />
         </div>
         <div className="column">
-          <TextView label="Fecha de Inicio" value={campana?.fec_inicio} />
+          <TextView label="Descripción" value={campana.descripcion} />
         </div>
-      </div> */}
-      <div className="column">
-        <TextView label="Descripción" value={campana.descripcion} />
       </div>
     </Seccion >
   );
