@@ -111,7 +111,7 @@ const Index = () => {
               <div className="control">
                 <NavLink
                   to={"/soporte/casos/editar/" + tableMeta.rowData[0]}
-                  className={classNameButton1}
+                  className={classNameButton2}
                 >
                   Editar
                 </NavLink>
