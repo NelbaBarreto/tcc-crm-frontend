@@ -9,9 +9,7 @@ import { getTipos, getEstados, editLlamadas, getLlamada } from "../../../api/lla
 import { handleDispatch, handleDispatchEdit, handleStateCleared } from "../../formulario/reducerFormularios.js";
 import { useQuery } from "react-query";
 import { useParams, useNavigate } from "react-router-dom";
-import { Dropdown, Input, TextArea, Datepicker, DateFormat } from "../../formulario/Componentes";
-import { format, parseISO } from "date-fns";
-
+import { Dropdown, Input, TextArea, Datepicker } from "../../formulario/Componentes";
 
 const LLAMADA = "llamada";
 
@@ -119,7 +117,7 @@ const EditarLlamada = () => {
   return (
     <div>
       {isFetching ?
-        <CircularProgress size={24} /> : <section className="section w-full m-auto">
+        <CircularProgress size={24} className="fixed top-1/2 left-1/2" /> : <section className="section w-full m-auto">
           <Titulo1>
             Editar Llamada
           </Titulo1>

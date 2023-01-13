@@ -53,7 +53,7 @@ const MostrarEmpleado = () => {
     <section className="section w-full m-auto">
       <div className="mb-4">
         {isLoading ?
-          <CircularProgress size={24} /> : <DatosEmpleado empleado={empleado} navigate={navigate} />
+          <CircularProgress size={24} className="fixed top-1/2 left-1/2" /> : <DatosEmpleado empleado={empleado} navigate={navigate} />
         }
       </div>
       <Volver navigate={navigate} />
