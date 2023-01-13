@@ -193,20 +193,20 @@ const EditarCaso = () => {
   return (
     <div>
       {isFetching ?
-        <CircularProgress size={24} /> : <section className="section w-full m-auto">
+        <CircularProgress size={24} className="fixed top-1/2 left-1/2" /> : <section className="section w-full m-auto">
           <Titulo1>
             Editar Caso
           </Titulo1>
           {action.message ? <MostrarMensaje mensaje={action.message} error={action.error} /> : null}
           <form>
-            <DatosCaso 
-              caso={caso} 
-              dispatch={dispatch} 
-              manageSelect={{ setSelect, select }} 
+            <DatosCaso
+              caso={caso}
+              dispatch={dispatch}
+              manageSelect={{ setSelect, select }}
             />
-            <Guardar 
-              saving={action.saving} 
-              guardar={editar} 
+            <Guardar
+              saving={action.saving}
+              guardar={editar}
             />
             <Volver navigate={navigate} />
           </form>

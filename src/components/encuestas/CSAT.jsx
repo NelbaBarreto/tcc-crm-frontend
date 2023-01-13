@@ -38,7 +38,7 @@ const CSAT = () => {
   const [respuestas, setRespuestas] = useState([]);
 
   const handleRespuesta = (pregunta_id, valor) => {
-    let updatedArray = respuestas.map(a => {return {...a}})
+    let updatedArray = respuestas.map(a => { return { ...a } })
     updatedArray.find(a => a.pregunta_id === pregunta_id).valor = valor;
     setRespuestas(updatedArray);
   }
@@ -50,15 +50,17 @@ const CSAT = () => {
 
   useEffect(() => {
     const valorInicialRespuestas = preguntas?.map((pregunta) =>
-    ({pregunta_id: pregunta.pregunta_id, valor: null,
-      obligatorio: pregunta.obligatorio})) || [];
+    ({
+      pregunta_id: pregunta.pregunta_id, valor: null,
+      obligatorio: pregunta.obligatorio
+    })) || [];
     setRespuestas(valorInicialRespuestas);
   }, [preguntas]);
 
   return (
     <div className="bg-deep-purple-50 w-full h-full min-h-screen">
       {isLoading ?
-        <CircularProgress size={24} className="m-auto" /> :
+        <CircularProgress size={24} className="fixed top-1/2 left-1/2" /> :
         <div className="section lg:w-9/12 md:w-full sm:w-full m-auto">
           <Titulo1>
             Encuesta de Satisfacción
@@ -68,7 +70,7 @@ const CSAT = () => {
               <div className="columns" key={idx}>
                 <div className="column">
                   <Card titulo={`${pregunta.pregunta}${pregunta.obligatorio ? ' *' : ''}`}>
-                    {pregunta.opciones.length  ?
+                    {pregunta.opciones.length ?
                       <div
                         className="grid sm:grid-rows-5 sm:grid-cols-1 md:grid-cols-5 md:grid-rows-1"
                       >

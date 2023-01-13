@@ -59,7 +59,7 @@ const MostrarCaso = () => {
     <section className="section w-full m-auto">
       <div className="mb-4">
         {isLoading ?
-          <CircularProgress size={24} /> : <DatosCaso caso={caso} navigate={navigate} />
+          <CircularProgress size={24} className="fixed top-1/2 left-1/2" /> : <DatosCaso caso={caso} navigate={navigate} />
         }
       </div>
       <Volver navigate={navigate} />
