@@ -68,7 +68,7 @@ const CrearLlamada = () => {
             <div className="columns">
               <div className="column">
                 <Dropdown
-                  label="Tipo"
+                  label="Tipo*"
                   options={opcionesTipos}
                   value={select.tipo}
                   onChange={e => {
@@ -79,7 +79,7 @@ const CrearLlamada = () => {
               </div>
               <div className="column">
                 <Dropdown
-                  label="Estado"
+                  label="Estado*"
                   value={select.estado}
                   options={opcionesEstados}
                   onChange={e => {
@@ -92,7 +92,7 @@ const CrearLlamada = () => {
             <div className="columns is-desktop">
               <div className="column">
                 <Datepicker
-                  label="Fecha de Inicio"
+                  label="Fecha de Inicio*"
                   selected={state.llamada?.fec_inicio || ""}
                   onChange={fecha => handleDispatch(dispatch, "fec_inicio", fecha, LLAMADA)}
                 />

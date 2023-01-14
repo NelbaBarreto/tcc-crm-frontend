@@ -1,8 +1,6 @@
 import React from "react";
 import Seccion from "../../formulario/Seccion";
-import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button1, TextView } from "../../formulario/Componentes";
+import { TextView } from "../../formulario/Componentes";
 import { Volver } from "../../formulario/Acciones";
 import { useQuery } from "react-query";
 import { useParams, useNavigate } from "react-router-dom";
@@ -18,19 +16,6 @@ const DatosCurso = ({ curso = {}, navigate }) => {
           <TextView label="Descripción" value={curso.descripcion} />
         </div>
       </div>
-      {/* <div className="field mt-3">
-        <div className="control">
-          <Button1
-             onClick={navigate(`/educacion/cursos/${curso.curso_id}/ciclos/nuevo`)}
-           
-          >
-            <span>Crear Ciclo</span>
-            <span className="icon is-small">
-              <FontAwesomeIcon icon={solid("arrows-spin")} />
-            </span>
-          </Button1>
-        </div>
-      </div> */}
     </Seccion>
   );
 }
@@ -48,7 +33,7 @@ const MostrarEmpleado = () => {
     <section className="section w-full m-auto">
       <div className="mb-4">
         {isLoading ?
-          <CircularProgress size={24} /> : <DatosCurso curso={curso} navigate={navigate} />
+          <CircularProgress size={24} className="fixed top-1/2 left-1/2" /> : <DatosCurso curso={curso} navigate={navigate} />
         }
       </div>
       <Volver navigate={navigate} />

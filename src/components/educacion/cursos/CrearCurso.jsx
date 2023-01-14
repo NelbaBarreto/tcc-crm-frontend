@@ -15,13 +15,13 @@ const DatosCurso = ({ curso, dispatch }) => {
     <Seccion titulo="Datos del Curso">
       <Input
         name="nombre"
-        label="Nombre"
+        label="Nombre*"
         value={curso?.nombre || ""}
         onChange={e => handleDispatch(dispatch, e.target?.name, e.target?.value, CURSO)}
       />
       <TextArea
         name="descripcion"
-        label="Descripción"
+        label="Descripción*"
         value={curso?.descripcion || ""}
         onChange={e => handleDispatch(dispatch, e.target?.name, e.target?.value, CURSO)}
       />

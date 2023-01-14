@@ -44,7 +44,7 @@ const DatosTarea = ({ tarea, dispatch }) => {
       <div className="columns is-desktop">
         <div className="column">
           <Input
-            label="Asunto"
+            label="Asunto*"
             name="asunto"
             value={tarea?.asunto || ""}
             onChange={e => handleDispatch(dispatch, e?.target.name, e?.target.value, TAREA)}
@@ -52,7 +52,7 @@ const DatosTarea = ({ tarea, dispatch }) => {
         </div>
         <div className="column">
           <Dropdown
-            label="Estado"
+            label="Estado*"
             value={select.estado}
             options={opcionesEstados}
             onChange={e => {
@@ -66,7 +66,7 @@ const DatosTarea = ({ tarea, dispatch }) => {
       <div className="columns is-desktop">
         <div className="column">
           <Dropdown
-            label="Usuario Asignado"
+            label="Usuario Asignado*"
             value={select.usu_asignado}
             options={opcionesUsuarios}
             onChange={e => {
@@ -78,7 +78,7 @@ const DatosTarea = ({ tarea, dispatch }) => {
 
         <div className="column">
           <Dropdown
-            label="Prioridad"
+            label="Prioridad*"
             value={select.prioridad}
             options={opcionesPrioridades}
             onChange={e => {
@@ -91,14 +91,14 @@ const DatosTarea = ({ tarea, dispatch }) => {
       <div className="columns is-desktop">
         <div className="column">
           <Datepicker
-            label="Fecha de Inicio"
+            label="Fecha de Inicio*"
             selected={tarea?.fec_inicio || ""}
             onChange={fecha => handleDispatch(dispatch, "fec_inicio", fecha, TAREA)}
           />
         </div>
         <div className="column">
             <Datepicker
-              label="Fecha Fin"
+              label="Fecha Fin*"
               selected={tarea?.fec_fin || ""}
               onChange={fecha => handleDispatch(dispatch, "fec_fin", fecha, TAREA)}
             />

@@ -6,7 +6,7 @@ import { Volver } from "../../formulario/Acciones";
 import { useQuery } from "react-query";
 import { useParams, useNavigate } from "react-router-dom";
 import { getLlamada } from "../../../api/llamadas";
-import { format, parseISO } from "date-fns";
+import { format } from "date-fns";
 
 const DatosLlamada = ({ llamada = {} }) => {
   return (
@@ -49,7 +49,7 @@ const MostrarLlamada = () => {
     <section className="section w-full m-auto">
       <div className="mb-4">
         {isLoading ?
-          <CircularProgress size={24} /> : <DatosLlamada llamada={llamada} navigate={navigate} />
+          <CircularProgress size={24} className="fixed top-1/2 left-1/2" /> : <DatosLlamada llamada={llamada} navigate={navigate} />
         }
       </div>
       <Volver navigate={navigate} />

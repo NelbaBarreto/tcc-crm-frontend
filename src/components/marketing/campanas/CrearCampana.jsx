@@ -38,33 +38,35 @@ const CrearCampana = () => {
           <Seccion titulo="Datos de la Campaña">
             <Input
               name="nombre"
-              label="Nombre"
+              label="Nombre*"
               value={state.campana?.nombre || ""}
               onChange={e => handleDispatch(dispatch, e.target?.name, e.target?.value, CAMPANA)}
             />
             <div className="columns">
               <div className="column">
                 <Datepicker
-                  label="Fecha de Inicio"
+                  label="Fecha de Inicio*"
                   selected={state.campana?.fec_inicio || ""}
                   onChange={fecha => handleDispatch(dispatch, "fec_inicio", fecha, CAMPANA)}
                 />
               </div>
               <div className="column">
                 <Datepicker
-                  label="Fecha Fin"
+                  label="Fecha Fin*"
                   selected={state.campana?.fec_fin || ""}
                   onChange={fecha => handleDispatch(dispatch, "fec_fin", fecha, CAMPANA)}
                 />
               </div>
             </div>
-            <div className="column">
-              <TextArea
-                label="Descripción"
-                name="descripcion"
-                value={state.campana?.descripcion || ""}
-                onChange={e => handleDispatch(dispatch, e?.target.name, e?.target.value, CAMPANA)}
-              />
+            <div className="columns">
+              <div className="column">
+                <TextArea
+                  label="Descripción"
+                  name="descripcion"
+                  value={state.campana?.descripcion || ""}
+                  onChange={e => handleDispatch(dispatch, e?.target.name, e?.target.value, CAMPANA)}
+                />
+              </div>
             </div>
           </Seccion>
           <Guardar guardar={crear} saving={action.saving} />
