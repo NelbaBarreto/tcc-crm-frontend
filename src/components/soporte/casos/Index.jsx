@@ -2,7 +2,7 @@ import React from "react";
 import DataTables from "../../DataTables";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { classNameButton1, classNameButton2 } from "../../formulario/Componentes";
+import { classNameButton2 } from "../../formulario/Componentes";
 import { useQuery } from "react-query";
 import { getCasos } from "../../../api/casos";
 import { NavLink } from "react-router-dom";
@@ -47,6 +47,15 @@ const Index = () => {
         filter: true,
         filterType: "dropdown",
         sort: true,
+        customBodyRender: (value) => {
+          if (value === "Alta") {
+            return <span className="tag is-light is-danger font-bold">{value}</span>
+          } else if (value === "Media") {
+            return <span className="tag is-light is-warning font-bold">{value}</span>
+          } else {
+            return <span className="tag is-light is-info font-bold">{value}</span>
+          }
+        },
       }
     },
     {
@@ -111,29 +120,15 @@ const Index = () => {
               <div className="control">
                 <NavLink
                   to={"/soporte/casos/editar/" + tableMeta.rowData[0]}
-                  className={classNameButton1}
+                  className={classNameButton2}
                 >
                   Editar
                 </NavLink>
               </div>
-            </div>
-          );
-        }
-      }
-    },
-    {
-      name: "",
-      options: {
-        filter: false,
-        sort: false,
-        empty: true,
-        customBodyRender: (_value, tableMeta) => {
-          return (
-            <div className="field is-grouped">
               <div className="control">
                 <NavLink
                   to={"/soporte/casos/eliminar/" + tableMeta.rowData[0]}
-                  className={classNameButton1}
+                  className={classNameButton2}
                 >
                   Eliminar
                 </NavLink>

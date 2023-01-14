@@ -17,6 +17,12 @@ export const getLead = async id => {
   return response.data;
 };
 
+export const editLead = async (id, data) => {
+  const { data: response } = await axios.put(`${API}/leads/${id}`, { id, lead: data });
+  return response.data;
+};
+
+
 export const getEstados = async () => {
   const { data: response } = await axios.get(`${API}/leads/estados`);
   return response.data;

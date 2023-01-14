@@ -47,6 +47,7 @@ import CrearTipoCampana from "./components/marketing/tipo_campanas/CrearTipoCamp
 import ListarLeads from "./components/ventas/leads/Index";
 import CrearLead from "./components/ventas/leads/CrearLead";
 import MostrarLead from "./components/ventas/leads/MostrarLead";
+import EditarLead from "./components/ventas/leads/EditarLead";
 
 //Contactos
 import ListarContactos from "./components/ventas/contactos/Index";
@@ -247,10 +248,19 @@ const MainApp = () => {
             }
           />
           <Route
+            exact
             path="/ventas/leads/:id"
             element={
               <ProtectedRoute usuario={usuario}>
                 <MostrarLead />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/ventas/leads/editar/:id"
+            element={
+              <ProtectedRoute usuario={usuario}>
+                <EditarLead />
               </ProtectedRoute>
             }
           />
