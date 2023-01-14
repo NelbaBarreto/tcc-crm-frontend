@@ -60,6 +60,7 @@ import CrearOrganizacion from "./components/ventas/organizaciones/CrearOrganizac
 //Oportunidades
 import ListarOportunidades from "./components/ventas/oportunidades/Index";
 import CrearOportunidad from "./components/ventas/oportunidades/CrearOportunidad";
+import EditarOportunidad from "./components/ventas/oportunidades/EditarOportunidad.jsx";
 
 //Soporte
 //Caso
@@ -318,6 +319,14 @@ const MainApp = () => {
             element={
               <ProtectedRoute usuario={usuario}>
                 <CrearOportunidad />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/ventas/oportunidades/editar/:id"
+            element={
+              <ProtectedRoute usuario={usuario}>
+                <EditarOportunidad />
               </ProtectedRoute>
             }
           />

@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useQuery } from "react-query";
 import { getOportunidades } from "../../../api/oportunidades";
 import { NavLink } from "react-router-dom";
+import { classNameButton2 } from "../../formulario/Componentes";
 
 const Index = () => {
   const {
@@ -109,15 +110,18 @@ const Index = () => {
         filter: false,
         sort: false,
         empty: true,
-        customBodyRenderLite: (dataIndex, _rowIndex) => {
+        customBodyRender: (_value, tableMeta) => {
           return (
-            <button
-              className="button font-semibold shadow-lg text-white hover:text-white focus:text-white
-              hover:bg-deep-purple-700 bg-deep-purple-400 border-deep-purple-700"
-              onClick={() => console.log(oportunidades[dataIndex])}
-            >
-              Editar
-            </button>
+            <div className="field is-grouped">
+              <div className="control">
+                <NavLink
+                  to={"/ventas/oportunidades/editar/" + tableMeta.rowData[0]}
+                  className={classNameButton2}
+                >
+                  Editar
+                </NavLink>
+              </div>
+            </div>
           );
         }
       }
