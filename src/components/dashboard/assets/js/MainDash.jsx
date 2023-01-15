@@ -12,7 +12,7 @@ import { Titulo1 } from "../../../formulario/Titulo";
 import "../css/MainDash.css"
 
 const MainDash = () => {
-  const [userData, setUserData] = useState({});
+  const [userData, setUserData] = useState({ datasets: [] });
 
   const {
     data: casosPorEstado,
@@ -22,20 +22,14 @@ const MainDash = () => {
   useEffect(() => {
     if (!isFetching) {
       setUserData({
-        labels: casosPorEstado.map((data) => data?.estado),
+        labels: casosPorEstado?.map((data) => data.estado),
         datasets: [{
-          label: "Casos por Estado",
-          data: casosPorEstado.map((data) => data?.total),
-          // backgroundColor: ["purple", "orange"],
-          // borderColor: "black",
-          // borderWidth: 2,
-        },]
-    
+          label: "Cantidad de Casos",
+          data: casosPorEstado?.map((data) => data.total),
+        },],
       });
     }
-}, [isFetching]);
-
-// console.log(casosPorEstado);
+  }, [casosPorEstado, isFetching]);
 
   return (
     <section className="section w-full m-auto">
@@ -43,39 +37,42 @@ const MainDash = () => {
         Dashboard
       </Titulo1>
       <div className="MainDash">
-        <div>
+        {/* <div>
           <Cards />
-        </div>
-        {/* <div class="columns">
-          <div class="column">
+        </div> */}
+        {/* <div className="columns">
+          <div className="column">
             <br />
-            <div class="box">
+            <div className="box">
               <div style={{ width: 450 }}>
                 <BarChart chartData={userData} />
               </div>
             </div>
           </div> */}
-          {/* <div class="column">
+        {/* <div className="column">
             <br />
-            <div class="box">
+            <div className="box">
               <div style={{ width: 450 }}>
                 <LineChart chartData={userData} />
               </div>
             </div>
           </div> */}
         {/* </div> */}
-        <div class="columns">
-          <div class="column">
+        <div className="columns">
+          <div className="column">
             <br />
-            <div class="box">
+            <div className="box">
               <div style={{ width: 400 }}>
-                <PieChart chartData={casosPorEstado} />
+                <PieChart
+                  chartData={userData}
+                  title="Casos Por Estado"
+                />
               </div>
             </div>
           </div>
-          {/* <div class="column">
+          {/* <div className="column">
             <br />
-            <div class="box">
+            <div className="box">
               <div style={{ width: 400 }}>
                 <PolarChart chartData={casosPo} />
               </div>
