@@ -21,3 +21,8 @@ export const getEtapas = async id => {
   const { data: response } = await axios.get(`${API}/oportunidades/etapas`);
   return response.data;
 };
+
+export const editOportunidad = async (id, data) => {
+  const { data: response } = await axios.put(`${API}/oportunidades/${id}`, { id, oportunidad: data });
+  return response.data;
+};
