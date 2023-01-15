@@ -188,14 +188,11 @@ const EditarOportunidad = () => {
   const editar = async e => {
     e.preventDefault();
     setAction({ saving: true, error: false, message: "" });
-    const auditoria = { usu_insercion: currentUser.nom_usuario, usu_modificacion: currentUser.nom_usuario };
+    const auditoria = { fec_modificacion: new Date(), usu_modificacion: currentUser.nom_usuario };
 
     try {
-      await editOportunidad({
-        ...oportunidad,
-        ...auditoria
-      });
-      setAction({ saving: false, error: false, message: "Oportunidad creada exitosamente." });
+      await editOportunidad(oportunidad.oportunidad_id, { ...oportunidad, ...auditoria });
+      setAction({ saving: false, error: false, message: "Oportunidad guardada exitosamente." });
       setTimeout(() => navigate("/ventas/oportunidades"), 2000);
     } catch (e) {
       setAction({ saving: false, error: true, message: e.message });
@@ -215,7 +212,10 @@ const EditarOportunidad = () => {
             dispatch={dispatch}
             manageSelect={{ setSelect, select }}
           />
-          <Guardar saving={action.saving} guardar={editar} />
+          <Guardar 
+            saving={action.saving} 
+            guardar={editar} 
+          />
           <Volver navigate={navigate} />
         </form>
       </section>
