@@ -47,6 +47,7 @@ import CrearTipoCampana from "./components/marketing/tipo_campanas/CrearTipoCamp
 import ListarLeads from "./components/ventas/leads/Index";
 import CrearLead from "./components/ventas/leads/CrearLead";
 import MostrarLead from "./components/ventas/leads/MostrarLead";
+import EditarLead from "./components/ventas/leads/EditarLead";
 
 //Contactos
 import ListarContactos from "./components/ventas/contactos/Index";
@@ -59,6 +60,7 @@ import CrearOrganizacion from "./components/ventas/organizaciones/CrearOrganizac
 //Oportunidades
 import ListarOportunidades from "./components/ventas/oportunidades/Index";
 import CrearOportunidad from "./components/ventas/oportunidades/CrearOportunidad";
+import EditarOportunidad from "./components/ventas/oportunidades/EditarOportunidad.jsx";
 
 //Soporte
 //Caso
@@ -247,10 +249,19 @@ const MainApp = () => {
             }
           />
           <Route
+            exact
             path="/ventas/leads/:id"
             element={
               <ProtectedRoute usuario={usuario}>
                 <MostrarLead />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/ventas/leads/editar/:id"
+            element={
+              <ProtectedRoute usuario={usuario}>
+                <EditarLead />
               </ProtectedRoute>
             }
           />
@@ -308,6 +319,14 @@ const MainApp = () => {
             element={
               <ProtectedRoute usuario={usuario}>
                 <CrearOportunidad />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/ventas/oportunidades/editar/:id"
+            element={
+              <ProtectedRoute usuario={usuario}>
+                <EditarOportunidad />
               </ProtectedRoute>
             }
           />

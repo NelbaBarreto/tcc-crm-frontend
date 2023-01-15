@@ -6,7 +6,7 @@ import { Volver } from "../../formulario/Acciones";
 import { useQuery } from "react-query";
 import { useParams, useNavigate } from "react-router-dom";
 import { getCampana } from "../../../api/campanas";
-import { format, parseISO } from "date-fns";
+import { format } from "date-fns";
 
 const DatosCampana = ({ campana = {} }) => {
   return (
@@ -22,7 +22,7 @@ const DatosCampana = ({ campana = {} }) => {
 
       <div className="columns">
         <div className="column">
-        <DateFormat label="Fecha de Creación" value={campana.fec_insercion} />
+          <DateFormat label="Fecha de Creación" value={campana.fec_insercion} />
         </div>
         <div className="column">
           <TextView label="Descripción" value={campana.descripcion} />
@@ -45,7 +45,7 @@ const MostrarCampana = () => {
     <section className="section w-full m-auto">
       <div className="mb-4">
         {isLoading ?
-          <CircularProgress size={24} /> : <DatosCampana campana={campana} navigate={navigate} />
+          <CircularProgress size={24} className="fixed top-1/2 left-1/2" /> : <DatosCampana campana={campana} navigate={navigate} />
         }
       </div>
       <Volver navigate={navigate} />
