@@ -13,7 +13,6 @@ export const validarToken = async (data) => {
 };
 
 export const enviarEncuesta = async (data) => {
-  console.log(data)
   const { data: response } = await axios.post(`${API}/encuesta/enviar`, data);
   return response.data;
 };

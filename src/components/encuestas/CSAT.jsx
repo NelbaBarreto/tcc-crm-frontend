@@ -89,7 +89,17 @@ const CSAT = () => {
     };
   };
 
-  if (decodedData.valid === true || isLoading) {
+  if (action.surveySent) {
+    return (
+      <div className="mt-7">
+        <div className="text-center">
+          <img src="/sonriendo.png" className="m-auto" style={{ width: "60px" }} alt="" />
+          <h1 className="title is-4 mb-1">¡Gracias por darnos tu opinión!</h1>
+          <div className="mb-8">Mejoramos con tus experiencias</div>
+        </div>
+      </div>
+    )
+  } else if (decodedData.valid || isLoading) {
     return (
       <div className="bg-deep-purple-50 w-full h-full min-h-screen">
         {isLoading ?
@@ -135,18 +145,11 @@ const CSAT = () => {
               )
             })}
             <Guardar
-              // saving={}
+              saving={action.saving}
               disabled={respuestas.some(respuesta => respuesta.obligatorio && !respuesta.valor)}
               guardar={enviar}
               label="Enviar Encuesta"
             />
-            {action.surveySent ? <div className="mt-7">
-              <div className="text-center">
-                <img src="/sonriendo.png" className="m-auto" style={{ width: "60px" }} alt="" />
-                <h1 className="title is-4 mb-1">¡Gracias por darnos tu opinión!</h1>
-                <div className="mb-8">Mejoramos con tus experiencias</div>
-              </div>
-            </div> : null}
           </div>
 
         }
