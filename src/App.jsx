@@ -95,7 +95,7 @@ import EliminarCurso from "./components/educacion/cursos/EliminarCurso";
 import EditarCurso from "./components/educacion/cursos/EditarCurso";
 
 // Ciclos
-// import CrearCiclo from "./components/educacion/ciclos/CrearCiclo";
+import CrearCiclo from "./components/educacion/ciclos/CrearCiclo";
 
 // Profesores
 import CrearProfesor from "./components/educacion/profesores/CrearProfesor";
@@ -519,7 +519,14 @@ const MainApp = () => {
           />
 
           {/* Ciclos */}
-          {/* <Route exact path="/educacion/cursos/:curso_id/ciclos/nuevo" element={<CrearCiclo />} /> */}
+          <Route
+            path="/educacion/cursos/:curso_id/ciclos/nuevo"
+            element={
+              <ProtectedRoute usuario={usuario}>
+                <CrearCiclo />
+              </ProtectedRoute>
+            }
+          />
 
           {/* Educación */}
           <Route
