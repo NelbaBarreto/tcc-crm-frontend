@@ -1,9 +1,10 @@
 import React from 'react';
-import { PolarArea } from 'react-chartjs-2';
+import { Doughnut } from 'react-chartjs-2';
 import { Chart as ChartJS } from 'chart.js/auto'
 
-function LineChart({chartData}){
-    return <PolarArea 
+
+function DoughnutChart({chartData}){
+    return <Doughnut 
     data={chartData}
     options={{
         plugins: {
@@ -12,10 +13,10 @@ function LineChart({chartData}){
             },
             title: {
                 display: true,
-                text: "Casos por prioridad" 
+                text: "Llamadas por Estado"
             }
         }
-    }} />;
+    }}  />;
 }
 
-export default LineChart;
+export default DoughnutChart;
