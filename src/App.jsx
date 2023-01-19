@@ -7,6 +7,7 @@ import "react-datepicker/dist/react-datepicker.css";
 
 import Login from "./components/home/Login";
 import Dashboard from "./components/dashboard/assets/js/MainDash";
+import NotFound from "./components/NotFound.jsx";
 import AppContext from "./utils/AppContext";
 
 import ProtectedRoute from "./components/home/ProtectedRoute.jsx";
@@ -95,17 +96,17 @@ import EliminarCurso from "./components/educacion/cursos/EliminarCurso";
 import EditarCurso from "./components/educacion/cursos/EditarCurso";
 
 // Ciclos
-// import CrearCiclo from "./components/educacion/ciclos/CrearCiclo";
+import CrearCiclo from "./components/educacion/ciclos/CrearCiclo";
 
 // Profesores
 import CrearProfesor from "./components/educacion/profesores/CrearProfesor";
 import ListarProfesores from "./components/educacion/profesores/Index";
 
-// Sucursales
-import CrearSucursal from "./components/educacion/sucursales/CrearSucursal";
-import ListarSucursales from "./components/educacion/sucursales/Index";
-import MostrarSucursal from "./components/educacion/sucursales/MostrarSucursal";
-import EliminarSucursal from "./components/educacion/sucursales/EliminarSucursal";
+// Sedes
+import CrearSede from "./components/educacion/sedes/CrearSede";
+import ListarSedes from "./components/educacion/sedes/Index";
+import MostrarSede from "./components/educacion/sedes/MostrarSede";
+import EliminarSede from "./components/educacion/sedes/EliminarSede";
 
 import CSAT from "./components/encuestas/CSAT.jsx";
 
@@ -519,7 +520,14 @@ const MainApp = () => {
           />
 
           {/* Ciclos */}
-          {/* <Route exact path="/educacion/cursos/:curso_id/ciclos/nuevo" element={<CrearCiclo />} /> */}
+          <Route
+            path="/educacion/cursos/:curso_id/ciclos/nuevo"
+            element={
+              <ProtectedRoute usuario={usuario}>
+                <CrearCiclo />
+              </ProtectedRoute>
+            }
+          />
 
           {/* Educación */}
           <Route
@@ -540,13 +548,13 @@ const MainApp = () => {
             }
           />
 
-          {/* Sucursales */}
+          {/* Sedes */}
           <Route
             exact
             path="/educacion/sedes"
             element={
               <ProtectedRoute usuario={usuario}>
-                <ListarSucursales />
+                <ListarSedes />
               </ProtectedRoute>
             }
           />
@@ -554,7 +562,7 @@ const MainApp = () => {
             path="/educacion/sedes/nuevo"
             element={
               <ProtectedRoute usuario={usuario}>
-                <CrearSucursal />
+                <CrearSede />
               </ProtectedRoute>
             }
           />
@@ -562,21 +570,21 @@ const MainApp = () => {
             path="/educacion/sedes/:id"
             element={
               <ProtectedRoute usuario={usuario}>
-                <MostrarSucursal />
+                <MostrarSede />
               </ProtectedRoute>
             }
           />
           <Route path="/educacion/sedes/eliminar/:id"
             element={
               <ProtectedRoute usuario={usuario}>
-                <EliminarSucursal />
+                <EliminarSede />
               </ProtectedRoute>
             }
           />
 
           {/* Rutas Públicas */}
           <Route path="/encuesta/:token" element={<CSAT />} />
-          <Route path="*" element={<p>La página no existe: 404!</p>} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
     </AppContext.Provider>

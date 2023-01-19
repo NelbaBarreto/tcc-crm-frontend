@@ -173,9 +173,17 @@ const CrearCaso = () => {
         </Titulo1>
         {action.message ? <MostrarMensaje mensaje={action.message} error={action.error} /> : null}
         <form>
-          <DatosCaso caso={state.caso} dispatch={dispatch} />
-          <Guardar saving={action.saving} guardar={crear} />
-          <Volver navigate={navigate} />
+          <DatosCaso 
+            caso={state.caso} 
+            dispatch={dispatch} 
+          />
+          <Guardar 
+            saving={action.saving} 
+            guardar={crear} 
+          />
+          <Volver 
+            navigate={navigate} 
+          />
         </form>
       </section>
     </div>

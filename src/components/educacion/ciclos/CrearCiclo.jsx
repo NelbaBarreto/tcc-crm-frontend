@@ -10,18 +10,18 @@ import { reducer } from "../../formulario/reducerFormularios.js";
 import { useNavigate } from "react-router-dom";
 import { createCurso } from "../../../api/cursos";
 import { useQuery } from "react-query";
-import { getSucursales } from "../../../api/sucursales";
+import { getSedes } from "../../../api/sedes";
 
 const DatosCiclo = ({ onChange, curso }) => {
   const [select, setSelect] = useState({ nivel: "" });
 
   const {
-    data: sucursales,
-    sucursalesLoading
-  } = useQuery(["sucursales"], getSucursales);
+    data: sedes,
+    sedesLoading
+  } = useQuery(["sedes"], getSedes);
 
-  const opcionesSucursal = sucursalesLoading || !sucursales ? [] :
-    sucursales.map(sucursal => ({ value: sucursal.sucursal_id, label: sucursal.nombre }));
+  const opcionesSede = sedesLoading || !sedes ? [] :
+    sedes.map(sede => ({ value: sede.sede_id, label: sede.nombre }));
 
   return (
     <Seccion titulo="Datos del Ciclo">
@@ -37,9 +37,9 @@ const DatosCiclo = ({ onChange, curso }) => {
         <div className="column">
           <Dropdown
             label="Sede"
-            onChange={e => { onChange(e, "sucursal_id", e?.value); setSelect({ ...select, sucursal: e }) }}
-            value={select.sucursal}
-            options={opcionesSucursal}
+            onChange={e => { onChange(e, "sede_id", e?.value); setSelect({ ...select, sede: e }) }}
+            value={select.sede}
+            options={opcionesSede}
           />
         </div>
       </div>
@@ -58,7 +58,7 @@ const DatosCiclo = ({ onChange, curso }) => {
             onChange={e => { onChange(e, "modalidad", e?.value); setSelect({ ...select, modalidad: e }) }}
             value={select.modalidad}
             options={[{ label: "Presencial", value: "presencial" }]}
-          //options={opcionesSucursal}
+          //options={opcionesSede}
           />
         </div>
       </div>

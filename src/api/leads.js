@@ -22,7 +22,6 @@ export const editLead = async (id, data) => {
   return response.data;
 };
 
-
 export const getEstados = async () => {
   const { data: response } = await axios.get(`${API}/leads/estados`);
   return response.data;

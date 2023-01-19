@@ -6,3 +6,13 @@ export const getPreguntas = async () => {
   const { data: response } = await axios.get(`${API}/encuesta/preguntas`);
   return response.data;
 };
+
+export const validarToken = async (data) => {
+  const { data: response } = await axios.post(`${API}/encuesta/validarToken`, data);
+  return response.data;
+};
+
+export const enviarEncuesta = async (data) => {
+  const { data: response } = await axios.post(`${API}/encuesta/enviar`, data);
+  return response.data;
+};

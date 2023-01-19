@@ -3,23 +3,23 @@ import AppContext from "../../../utils/AppContext";
 import MostrarMensaje from "../../formulario/MostrarMensaje";
 import { Volver, Eliminar } from "../../formulario/Acciones";
 import { Titulo1 } from "../../formulario/Titulo";
-import { deleteSucursal, getSucursal, deleteDireccion } from "../../../api/sucursales";
+import { deleteSede, getSede, deleteDireccion } from "../../../api/sedes";
 import { handleDispatch, handleDispatchEdit, handleStateCleared } from "../../formulario/reducerFormularios.js";
 import { useQuery } from "react-query";
 import { useParams, useNavigate } from "react-router-dom";
 
-const SUCURSAL = "sucursal";
+const SEDE = "sede";
 
-const EliminarSucursal = () => {
-    const { state: { sucursal, direccion }, dispatch } = useContext(AppContext);
+const EliminarSede = () => {
+    const { state: { sede, direccion }, dispatch } = useContext(AppContext);
     const [action, setAction] = useState({});
     const { id } = useParams();
     const navigate = useNavigate();
   
     const {
-      data: currentSucursal,
+      data: currentSede,
       isFetching,
-    } = useQuery(["sucursal", id], () => getSucursal(id));
+    } = useQuery(["sede", id], () => getSede(id));
   
     useEffect(() => {
       handleStateCleared(dispatch);
@@ -27,7 +27,7 @@ const EliminarSucursal = () => {
   
     useEffect(() => {
       if (!isFetching) {
-        handleDispatchEdit(dispatch, currentSucursal, SUCURSAL);
+        handleDispatchEdit(dispatch, currentSede, SEDE);
       }
     }, [isFetching]);
   
@@ -35,8 +35,8 @@ const EliminarSucursal = () => {
       e.preventDefault();
       setAction({ saving: true, error: false, message: "" });
       try {
-      await deleteDireccion(sucursal.direccion.direccion_id);
-      await deleteSucursal(sucursal.sucursal_id);
+      await deleteDireccion(sede.direccion.direccion_id);
+      await deleteSede(sede.sede_id);
         setAction({ saving: false, error: false, message: "Sede eliminada exitosamente." });
         setTimeout(() => navigate("/educacion/sedes"), 2000);
       } catch (e) {
@@ -60,4 +60,4 @@ const EliminarSucursal = () => {
     )
 };
 
-export default EliminarSucursal;
+export default EliminarSede;

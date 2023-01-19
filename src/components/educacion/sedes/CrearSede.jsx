@@ -8,9 +8,9 @@ import { Volver, Guardar } from "../../formulario/Acciones";
 import { Titulo1 } from "../../formulario/Titulo";
 import { useNavigate } from "react-router-dom";
 import { handleDispatch, handleStateCleared } from "../../formulario/reducerFormularios.js";
-import { createSucursal } from "../../../api/sucursales";
+import { createSede } from "../../../api/sedes";
 
-const SUCURSAL = "sucursal";
+const SEDE = "sede";
 
 const DatosSede = ({ sede, dispatch }) => {
   return (
@@ -19,7 +19,7 @@ const DatosSede = ({ sede, dispatch }) => {
         name="nombre"
         label="Nombre"
         value={sede?.nombre || ""}
-        onChange={e => handleDispatch(dispatch, e.target?.name, e.target?.value, SUCURSAL)}
+        onChange={e => handleDispatch(dispatch, e.target?.name, e.target?.value, SEDE)}
       />
       <div className="field">
         <label className="label">Dirección</label>
@@ -29,8 +29,8 @@ const DatosSede = ({ sede, dispatch }) => {
   );
 };
 
-const CrearSucursal = () => {
-  const { state: { sucursal, 
+const CrearSede = () => {
+  const { state: { sede, 
     direccion 
   }, dispatch } = useContext(AppContext);
   const [action, setAction] = useState({});
@@ -44,7 +44,7 @@ const CrearSucursal = () => {
     e.preventDefault();
     setAction({ saving: true, error: false, message: "" });
     try {
-      await createSucursal({...sucursal, direccion});
+      await createSede({...sede, direccion});
       setAction({ saving: false, error: false, message: "Sede registrada exitosamente." });
       setTimeout(() => navigate("/educacion/sedes"), 2000);
     } catch (e) {
@@ -60,7 +60,7 @@ const CrearSucursal = () => {
         </Titulo1>
         {action.message ? <MostrarMensaje mensaje={action.message} error={action.error} /> : null}
         <form>
-          <DatosSede sede={sucursal} dispatch={dispatch} />
+          <DatosSede sede={sede} dispatch={dispatch} />
           <Guardar saving={action.saving} guardar={crear} />
           <Volver navigate={navigate} />
         </form>
@@ -69,4 +69,4 @@ const CrearSucursal = () => {
   )
 };
 
-export default CrearSucursal;
+export default CrearSede;
