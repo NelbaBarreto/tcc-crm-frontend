@@ -5,47 +5,47 @@ import { CircularProgress } from "@mui/material";
 import { Volver } from "../../formulario/Acciones";
 import { useQuery } from "react-query";
 import { useParams, useNavigate } from "react-router-dom";
-import { getSucursal } from "../../../api/sucursales";
+import { getSede } from "../../../api/sedes";
 
-const DatosSucursal = ({ sucursal = {} }) => {
-  let estado_principal = sucursal.direccion.principal
+const DatosSede = ({ sede = {} }) => {
+  let estado_principal = sede.direccion.principal
   estado_principal === true ? estado_principal = "Si" : estado_principal = "No";
 
 
   return (
-    <Seccion titulo={sucursal.nombre}>
+    <Seccion titulo={sede.nombre}>
       <div className="columns">
         <div className="column">
-          <TextView label="Tipo dirección" value={sucursal.direccion.tipo} />
+          <TextView label="Tipo dirección" value={sede.direccion.tipo} />
         </div>
         <div className="column">
-          <DateFormat label="Fecha de Creación" value={sucursal.fec_insercion} />
+          <DateFormat label="Fecha de Creación" value={sede.fec_insercion} />
         </div>
       </div>
 
       <div className="columns">
         <div className="column">
-          <TextView label="Calle 1" value={sucursal.direccion.calle_1} />
+          <TextView label="Calle 1" value={sede.direccion.calle_1} />
         </div>
         <div className="column">
-          <TextView label="Calle 2" value={sucursal.direccion.calle_2} />
+          <TextView label="Calle 2" value={sede.direccion.calle_2} />
         </div>
       </div>
       <div className="columns">
         <div className="column">
-          <TextView label="Código postal" value={sucursal.direccion?.cod_postal} />
+          <TextView label="Código postal" value={sede.direccion?.cod_postal} />
         </div>
         <div className="column">
-          <TextView label="Referencia" value={sucursal.direccion?.referencia} />
+          <TextView label="Referencia" value={sede.direccion?.referencia} />
         </div>
       </div>
 
       <div className="columns">
         <div className="column">
-          <TextView label="País" value={sucursal.direccion?.ciudad?.pais?.nombre} />
+          <TextView label="País" value={sede.direccion?.ciudad?.pais?.nombre} />
         </div>
         <div className="column">
-          <TextView label="Ciudad" value={sucursal.direccion?.ciudad?.nombre} />
+          <TextView label="Ciudad" value={sede.direccion?.ciudad?.nombre} />
         </div>
       </div>
       <div className="columns">
@@ -57,20 +57,20 @@ const DatosSucursal = ({ sucursal = {} }) => {
   );
 }
 
-const MostrarSucursal = () => {
+const MostrarSede = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
   const {
-    data: sucursal,
+    data: sede,
     isLoading
-  } = useQuery(["sucursal", id], () => getSucursal(id));
+  } = useQuery(["sede", id], () => getSede(id));
 
   return (
     <section className="section w-full m-auto">
       <div className="mb-4">
         {isLoading ?
-          <CircularProgress size={24} className="fixed top-1/2 left-1/2" /> : <DatosSucursal sucursal={sucursal} navigate={navigate} />
+          <CircularProgress size={24} className="fixed top-1/2 left-1/2" /> : <DatosSede sede={sede} navigate={navigate} />
         }
       </div>
       <Volver navigate={navigate} />
@@ -78,4 +78,4 @@ const MostrarSucursal = () => {
   );
 }
 
-export default MostrarSucursal;
+export default MostrarSede;

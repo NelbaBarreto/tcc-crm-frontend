@@ -102,11 +102,11 @@ import CrearCiclo from "./components/educacion/ciclos/CrearCiclo";
 import CrearProfesor from "./components/educacion/profesores/CrearProfesor";
 import ListarProfesores from "./components/educacion/profesores/Index";
 
-// Sucursales
-import CrearSucursal from "./components/educacion/sucursales/CrearSucursal";
-import ListarSucursales from "./components/educacion/sucursales/Index";
-import MostrarSucursal from "./components/educacion/sucursales/MostrarSucursal";
-import EliminarSucursal from "./components/educacion/sucursales/EliminarSucursal";
+// Sedes
+import CrearSede from "./components/educacion/sedes/CrearSede";
+import ListarSedes from "./components/educacion/sedes/Index";
+import MostrarSede from "./components/educacion/sedes/MostrarSede";
+import EliminarSede from "./components/educacion/sedes/EliminarSede";
 
 import CSAT from "./components/encuestas/CSAT.jsx";
 
@@ -548,13 +548,13 @@ const MainApp = () => {
             }
           />
 
-          {/* Sucursales */}
+          {/* Sedes */}
           <Route
             exact
             path="/educacion/sedes"
             element={
               <ProtectedRoute usuario={usuario}>
-                <ListarSucursales />
+                <ListarSedes />
               </ProtectedRoute>
             }
           />
@@ -562,7 +562,7 @@ const MainApp = () => {
             path="/educacion/sedes/nuevo"
             element={
               <ProtectedRoute usuario={usuario}>
-                <CrearSucursal />
+                <CrearSede />
               </ProtectedRoute>
             }
           />
@@ -570,14 +570,14 @@ const MainApp = () => {
             path="/educacion/sedes/:id"
             element={
               <ProtectedRoute usuario={usuario}>
-                <MostrarSucursal />
+                <MostrarSede />
               </ProtectedRoute>
             }
           />
           <Route path="/educacion/sedes/eliminar/:id"
             element={
               <ProtectedRoute usuario={usuario}>
-                <EliminarSucursal />
+                <EliminarSede />
               </ProtectedRoute>
             }
           />
