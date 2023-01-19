@@ -2,7 +2,7 @@ import React, { useState, useReducer } from "react";
 import Seccion from "../../formulario/Seccion";
 import MostrarMensaje from "../../formulario/MostrarMensaje";
 import { Titulo1 } from "../../formulario/Titulo";
-import { Input, TextArea } from "../../formulario/Componentes";
+import { Input, TextArea, Image } from "../../formulario/Componentes";
 import { Volver, Guardar } from "../../formulario/Acciones";
 import { reducer, handleDispatch } from "../../formulario/reducerFormularios.js";
 import { useNavigate } from "react-router-dom";
@@ -24,6 +24,10 @@ const DatosCurso = ({ curso, dispatch }) => {
         label="Descripción*"
         value={curso?.descripcion || ""}
         onChange={e => handleDispatch(dispatch, e.target?.name, e.target?.value, CURSO)}
+      />
+      <Image 
+        name="portada"
+        label="Portada"
       />
     </Seccion>
   );

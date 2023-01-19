@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import Select from "react-select";
+import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { format, parseISO } from "date-fns";
 
 export const Input = ({ label, name, value = "", type = "text", placeholder = "", className = "input shadow-lg", onChange }) => {
@@ -110,19 +112,54 @@ export const DateFormat = ({ label, value = "", className = "label" }) => {
   );
 }
 
+export const Image = ({ label, value = "", className = "label" }) => {
+  const [url, setUrl] = useState("");
+  const handleChange = e => {
+    e.preventDefault();
+    if (e.target.files && e.target.files[0]) {
+      setUrl(URL.createObjectURL(e.target.files[0]));
+    }
+  }
+
+  return (
+    <>
+      <label className={className}>{label}</label>
+      {url ? <img className="h-52 mb-3" src={url} alt="Portada del curso" /> : null}
+      <div className="file is-light">
+        <label className="file-label">
+          <input
+            className="file-input"
+            type="file"
+            name="resume"
+            onChange={handleChange}
+          />
+          <span className="file-cta">
+            <span className="file-icon">
+              <FontAwesomeIcon icon={solid("upload")} />
+            </span>
+            <span className="file-label font-bold">
+              Subir Imagen
+            </span>
+          </span>
+        </label>
+      </div>
+    </>
+  );
+}
+
 export const Button1 = ({ onClick, children }) => {
   return (
     <button
       className="button font-semibold shadow-lg text-deep-purple-800 hover:text-white focus:text-white hover:bg-deep-purple-700 bg-deep-purple-100"
-      // onClick={() => onClick}
+    // onClick={() => onClick}
     >
       {children}
     </button>
   );
 }
 
-export const classNameButton1 = 
-"button font-semibold shadow-lg text-deep-purple-800 hover:text-white focus:text-white hover:bg-deep-purple-700 bg-deep-purple-100 disabled:bg-deep-purple-700";
+export const classNameButton1 =
+  "button font-semibold shadow-lg text-deep-purple-800 hover:text-white focus:text-white hover:bg-deep-purple-700 bg-deep-purple-100 disabled:bg-deep-purple-700";
 
-export const classNameButton2 = 
+export const classNameButton2 =
   "button font-semibold shadow-lg text-white hover:text-white focus:text-white hover:bg-deep-purple-700 bg-deep-purple-400 border-deep-purple-700 mb-2 disabled:bg-deep-purple-400";
