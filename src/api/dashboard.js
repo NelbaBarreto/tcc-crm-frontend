@@ -7,3 +7,18 @@ export const getCasosPorEstado = async () => {
   return response.data;
 };
 
+export const getLeadsPorEstado = async () => {
+  const { data: response } = await axios.get(`${API}/dashboard/leadsPorEstado`);
+  return response.data;
+};
+
+export const getLlamadasPorEstado = async () => {
+  const { data: response } = await axios.get(`${API}/dashboard/llamadasPorEstado`);
+  return response.data;
+};
+
+export const getCasosPorPrioridad = async () => {
+  const { data: response } = await axios.get(`${API}/dashboard/casosPorPrioridad`);
+  return response.data;
+};
+
