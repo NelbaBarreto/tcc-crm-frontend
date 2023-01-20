@@ -1,4 +1,4 @@
-import React, { useState, useReducer } from "react";
+import React, { useState, useContext } from "react";
 import Seccion from "../../formulario/Seccion";
 import MostrarMensaje from "../../formulario/MostrarMensaje";
 import { Titulo1 } from "../../formulario/Titulo";
@@ -6,11 +6,11 @@ import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Dropdown, Datepicker, Input, Button1 } from "../../formulario/Componentes";
 import { Volver, Guardar } from "../../formulario/Acciones";
-import { reducer } from "../../formulario/reducerFormularios.js";
 import { useNavigate } from "react-router-dom";
-import { createCurso } from "../../../api/cursos";
 import { useQuery } from "react-query";
 import { getSedes } from "../../../api/sedes";
+import { CheckboxGroup } from "../../formulario/Componentes";
+import AppContext from "../../../utils/AppContext";
 
 const DatosCiclo = ({ onChange, curso }) => {
   const [select, setSelect] = useState({ nivel: "" });
@@ -100,7 +100,7 @@ const MostrarAulas = () => {
   );
 }
 
-const DatosAulas = ({ onChange }) => {
+const DatosAulas = ({ aula }) => {
   const [select, setSelect] = useState({ dias: [] });
   const opcionesDias = [
     { label: "Lunes", value: "lunes" },
@@ -130,12 +130,12 @@ const DatosAulas = ({ onChange }) => {
                 //value={curso?.precio}
                 onChange={onChange}
               />
-              <Dropdown
-                label="Horario Semanal"
-                onChange={e => { onChange(e, "dias", e.value); setSelect({ ...select, dias: e }) }}
-                value={select.dias}
-                isMulti={true}
+              <CheckboxGroup 
+                label={"Días de clases"} 
                 options={opcionesDias}
+                name="dias"
+                value={"Lunes"}
+                onChange={e => console.log(e)}
               />
             </div>
             <div className="column">
@@ -175,28 +175,21 @@ const DatosAulas = ({ onChange }) => {
 }
 
 const CrearCiclo = () => {
-  const [state, dispatch] = useReducer(reducer, {});
+  const { state: { aula }, dispatch } = useContext(AppContext);
   const [action, setAction] = useState({});
   const navigate = useNavigate();
 
   const crear = async e => {
     e.preventDefault();
-    setAction({ saving: true, error: false, message: "" });
-    try {
-      await createCurso(state.curso);
-      setAction({ saving: false, error: false, message: "Curso creado exitosamente." });
-      setTimeout(() => navigate("/educacion/cursos"), 3000);
-    } catch (e) {
-      setAction({ saving: false, error: true, message: e.message });
-    };
+    // setAction({ saving: true, error: false, message: "" });
+    // try {
+    //   await createCurso(state.curso);
+    //   setAction({ saving: false, error: false, message: "Curso creado exitosamente." });
+    //   setTimeout(() => navigate("/educacion/cursos"), 3000);
+    // } catch (e) {
+    //   setAction({ saving: false, error: true, message: e.message });
+    // };
   };
-
-  const handleDispatch = (e, name, value) => {
-    dispatch({
-      type: "FORM_UPDATED",
-      payload: { name: e?.target?.name || name, value: e?.target?.value || value, object: "curso" }
-    })
-  }
 
   return (
     <div>
@@ -206,8 +199,15 @@ const CrearCiclo = () => {
         </Titulo1>
         {action.message ? <MostrarMensaje mensaje={action.message} error={action.error} /> : null}
         <form>
-          <DatosCiclo onChange={handleDispatch} curso={state.curso} />
-          <DatosAulas onChange={handleDispatch} curso={state.curso} />
+          <DatosCiclo 
+            onChange={handleDispatch} 
+            curso={state.curso} 
+
+          />
+          <DatosAulas 
+            // onChange={handleDispatch} 
+            aula={aula} 
+          />
           <Guardar saving={action.saving} guardar={crear} />
           <Volver navigate={navigate} />
         </form>
