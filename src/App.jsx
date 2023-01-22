@@ -112,7 +112,7 @@ import CSAT from "./components/encuestas/CSAT.jsx";
 
 import useToken from "../src/utils/useToken";
 
-const initialState = {};
+const initialState = { select: {} };
 
 const MainApp = () => {
   const [state, dispatch] = useReducer(reducer, initialState);

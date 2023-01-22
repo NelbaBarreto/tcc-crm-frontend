@@ -7,7 +7,7 @@ import { Volver, Guardar } from "../../formulario/Acciones";
 import { Titulo1 } from "../../formulario/Titulo";
 import { Dropdown, Input, TextArea } from "../../formulario/Componentes";
 import { getUsuarios } from "../../../api/usuarios";
-import { createOportunidad, getEtapas } from "../../../api/oportunidades";
+import { createOportunidad, getEstados } from "../../../api/oportunidades";
 import { getCampanas } from "../../../api/campanas";
 import { getContactos } from "../../../api/contactos";
 import { getCursos } from "../../../api/cursos";
@@ -18,12 +18,11 @@ import useToken from "../../../utils/useToken";
 const OPORTUNIDAD = "oportunidad";
 
 const DatosOportunidad = ({ oportunidad, dispatch }) => {
-  const [select, setSelect] = useState({ etapa: "", usu_asignado: "" });
+  const [select, setSelect] = useState({ estado: "", usu_asignado: "" });
 
   const {
-    data: etapasOportunidades,
-    etapasLoading
-  } = useQuery(["etapasOportunidades"], getEtapas);
+    data: estadosOportunidades,
+  } = useQuery(["estadosOportunidades"], getEstados);
 
   const {
     data: usuarios,
@@ -44,9 +43,6 @@ const DatosOportunidad = ({ oportunidad, dispatch }) => {
     data: cursos,
     cursosLoading
   } = useQuery(["cursos"], getCursos);
-
-  const opcionesEtapas = etapasLoading || !etapasOportunidades ? [] :
-    etapasOportunidades.map(etapa => ({ value: etapa, label: etapa }));
 
   const opcionesUsuarios = usuariosLoading || !usuarios ? [] :
     usuarios.map(usuario => ({ value: usuario.usuario_id, label: usuario.nom_usuario }));
@@ -99,12 +95,12 @@ const DatosOportunidad = ({ oportunidad, dispatch }) => {
       <div className="columns">
         <div className="column">
           <Dropdown
-            label="Etapa*"
-            value={select.etapa}
-            options={opcionesEtapas}
+            label="Estado*"
+            value={select.estado}
+            options={estadosOportunidades || []}
             onChange={e => {
-              handleDispatch(dispatch, "etapa", e?.value, OPORTUNIDAD);
-              setSelect({ ...select, etapa: e })
+              handleDispatch(dispatch, "estado", e?.value, OPORTUNIDAD);
+              setSelect({ ...select, estado: e })
             }}
           />
         </div>
@@ -195,8 +191,13 @@ const CrearOportunidad = () => {
             oportunidad={oportunidad}
             dispatch={dispatch}
           />
-          <Guardar saving={action.saving} guardar={crear} />
-          <Volver navigate={navigate} />
+          <Guardar 
+            saving={action.saving} 
+            guardar={crear}
+          />
+          <Volver 
+            navigate={navigate} 
+          />
         </form>
       </section>
     </div>
