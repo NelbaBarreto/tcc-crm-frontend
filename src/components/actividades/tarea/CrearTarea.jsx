@@ -5,6 +5,8 @@ import { Volver, Guardar } from "../../formulario/Acciones";
 import { Titulo1 } from "../../formulario/Titulo";
 import { Dropdown, Input, TextArea, Datepicker } from "../../formulario/Componentes";
 import { getUsuarios } from "../../../api/usuarios";
+import { getLeads } from "../../../api/leads";
+import { getContactos } from "../../../api/contactos";
 import { createTarea, getPrioridades, getEstados } from "../../../api/tareas";
 import { reducer, handleDispatch } from "../../formulario/reducerFormularios.js";
 import { useQuery } from "react-query";
@@ -21,6 +23,16 @@ const DatosTarea = ({ tarea, dispatch }) => {
   } = useQuery(["usuarios"], getUsuarios);
 
   const {
+    data: leads,
+    leadsLoading
+  } = useQuery(["leads"], getLeads);
+
+  const {
+    data: contactos,
+    contactosLoading
+  } = useQuery(["contactos"], getContactos);
+
+  const {
     data: prioridades,
     prioridadesLoading
   } = useQuery(["prioridades"], getPrioridades);
@@ -35,6 +47,12 @@ const DatosTarea = ({ tarea, dispatch }) => {
 
   const opcionesPrioridades = prioridadesLoading || !prioridades ? [] :
     prioridades.map(prioridad => ({ value: prioridad, label: prioridad }));
+
+  const opcionesLeads = leadsLoading || !leads ? [] :
+    leads.map(lead => ({ value: lead.lead_id, label: lead.lead_id }));
+
+  const opcionesContactos = contactosLoading || !contactos ? [] :
+    contactos.map(contacto => ({ value: contacto.contacto_id, label: contacto.contacto_id }));
 
   const opcionesEstados = estadosLoading || !estados ? [] :
     estados.map(estado => ({ value: estado, label: estado }));
@@ -89,6 +107,30 @@ const DatosTarea = ({ tarea, dispatch }) => {
         </div>
       </div>
       <div className="columns is-desktop">
+              <div className="column">
+                <Dropdown
+                  label="Lead*"
+                  options={opcionesLeads}
+                  value={select.lead}
+                  onChange={e => {
+                    handleDispatch(dispatch, "lead_id", e?.value, TAREA);
+                    setSelect({ ...select, lead: e })
+                  }}
+                />
+              </div>
+              <div className="column">
+                <Dropdown
+                  label="Contacto*"
+                  options={opcionesContactos}
+                  value={select.contacto}
+                  onChange={e => {
+                    handleDispatch(dispatch, "contacto_id", e?.value, TAREA);
+                    setSelect({ ...select, contacto: e })
+                  }}
+                />
+              </div>
+            </div>
+      <div className="columns is-desktop">
         <div className="column">
           <Datepicker
             label="Fecha de Inicio*"
@@ -97,19 +139,19 @@ const DatosTarea = ({ tarea, dispatch }) => {
           />
         </div>
         <div className="column">
-            <Datepicker
-              label="Fecha Fin*"
-              selected={tarea?.fec_fin || ""}
-              onChange={fecha => handleDispatch(dispatch, "fec_fin", fecha, TAREA)}
-            />
+          <Datepicker
+            label="Fecha Fin*"
+            selected={tarea?.fec_fin || ""}
+            onChange={fecha => handleDispatch(dispatch, "fec_fin", fecha, TAREA)}
+          />
         </div>
       </div>
-        <TextArea
-          label="Descripción"
-          name="descripcion"
-          value={tarea?.descripcion || ""}
-          onChange={e => handleDispatch(dispatch, e?.target.name, e?.target.value, TAREA)}
-        />
+      <TextArea
+        label="Descripción"
+        name="descripcion"
+        value={tarea?.descripcion || ""}
+        onChange={e => handleDispatch(dispatch, e?.target.name, e?.target.value, TAREA)}
+      />
     </Seccion >
   );
 };

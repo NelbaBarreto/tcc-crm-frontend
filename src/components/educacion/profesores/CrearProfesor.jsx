@@ -23,7 +23,7 @@ const CrearProfesor = () => {
     e.preventDefault();
     setAction({ saving: true, error: false, message: "" });
     try {
-      await createProfesor(state.profesor);
+      await createProfesor(state.personas?.persona_id);
       setAction({ saving: false, error: false, message: "Profesor registrado exitosamente." });
       setTimeout(() => navigate("/educacion/profesores"), 3000);
     } catch (e) {

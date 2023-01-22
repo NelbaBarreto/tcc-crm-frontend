@@ -6,6 +6,8 @@ import { Volver, Guardar } from "../../formulario/Acciones";
 import { Titulo1 } from "../../formulario/Titulo";
 import { Dropdown, Input, TextArea } from "../../formulario/Componentes";
 import { getUsuarios } from "../../../api/usuarios";
+import { getLeads } from "../../../api/leads";
+import { getContactos } from "../../../api/contactos";
 import { createCaso, getOrigenes, getPrioridades, getEstados, getTipos } from "../../../api/casos";
 import { reducer, handleDispatch } from "../../formulario/reducerFormularios.js";
 import { useQuery } from "react-query";
@@ -27,6 +29,16 @@ const DatosCaso = ({ caso, dispatch }) => {
   } = useQuery(["origenes"], getOrigenes);
 
   const {
+    data: leads,
+    leadsLoading
+  } = useQuery(["leads"], getLeads);
+
+  const {
+    data: contactos,
+    contactosLoading
+  } = useQuery(["contactos"], getContactos);
+
+  const {
     data: prioridades,
     prioridadesLoading
   } = useQuery(["prioridades"], getPrioridades);
@@ -46,6 +58,12 @@ const DatosCaso = ({ caso, dispatch }) => {
 
   const opcionesOrigenes = origenesLoading || !origenes ? [] :
     origenes.map(origen => ({ value: origen, label: origen }));
+
+  const opcionesLeads = leadsLoading || !leads ? [] :
+    leads.map(lead => ({ value: lead.lead_id, label: lead.lead_id }));
+
+  const opcionesContactos = contactosLoading || !contactos ? [] :
+    contactos.map(contacto => ({ value: contacto.contacto_id, label: contacto.contacto_id }));
 
   const opcionesPrioridades = prioridadesLoading || !prioridades ? [] :
     prioridades.map(prioridad => ({ value: prioridad, label: prioridad }));
@@ -107,6 +125,30 @@ const DatosCaso = ({ caso, dispatch }) => {
             onChange={e => {
               handleDispatch(dispatch, "origen", e?.value, CASO);
               setSelect({ ...select, origen: e })
+            }}
+          />
+        </div>
+      </div>
+      <div className="columns is-desktop">
+        <div className="column">
+          <Dropdown
+            label="Lead*"
+            options={opcionesLeads}
+            value={select.lead}
+            onChange={e => {
+              handleDispatch(dispatch, "lead_id", e?.value, CASO);
+              setSelect({ ...select, lead: e })
+            }}
+          />
+        </div>
+        <div className="column">
+          <Dropdown
+            label="Contacto*"
+            options={opcionesContactos}
+            value={select.contacto}
+            onChange={e => {
+              handleDispatch(dispatch, "contacto_id", e?.value, CASO);
+              setSelect({ ...select, contacto: e })
             }}
           />
         </div>
@@ -173,16 +215,16 @@ const CrearCaso = () => {
         </Titulo1>
         {action.message ? <MostrarMensaje mensaje={action.message} error={action.error} /> : null}
         <form>
-          <DatosCaso 
-            caso={state.caso} 
-            dispatch={dispatch} 
+          <DatosCaso
+            caso={state.caso}
+            dispatch={dispatch}
           />
-          <Guardar 
-            saving={action.saving} 
-            guardar={crear} 
+          <Guardar
+            saving={action.saving}
+            guardar={crear}
           />
-          <Volver 
-            navigate={navigate} 
+          <Volver
+            navigate={navigate}
           />
         </form>
       </section>
