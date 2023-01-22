@@ -13,7 +13,7 @@ import { Dropdown, Input, TextArea, Datepicker } from "../../formulario/Componen
 
 const LLAMADA = "llamada";
 
-const DatosLlamada = ({ llamada={}, dispatch, manageSelect }) => {
+const DatosLlamada = ({ llamada = {}, dispatch, manageSelect }) => {
   const { setSelect, select } = manageSelect;
 
   const {
@@ -34,42 +34,42 @@ const DatosLlamada = ({ llamada={}, dispatch, manageSelect }) => {
 
   return (
     <Seccion titulo="Datos de la Llamada">
-      <Input
-        label="Asunto"
-        name="asunto"
-        value={llamada?.asunto || ""}
-        onChange={e => handleDispatch(dispatch, e?.target.name, e?.target.value, LLAMADA)}
-      />
+        <Input
+          label="Asunto"
+          name="asunto"
+          value={llamada?.asunto || ""}
+          onChange={e => handleDispatch(dispatch, e?.target.name, e?.target.value, LLAMADA)}
+        />
 
-      <Dropdown
-        label="Tipo"
-        options={opcionesTipos}
-        value={select.tipo}
-        onChange={e => {
-          handleDispatch(dispatch, "tipo", e?.value, LLAMADA);
-          setSelect({ ...select, tipo: e })
-        }}
-      />
-      <Dropdown
-        label="Estado"
-        value={select.estado}
-        options={opcionesEstados}
-        onChange={e => {
-          handleDispatch(dispatch, "estado", e?.value, LLAMADA);
-          setSelect({ ...select, estado: e })
-        }}
-      />
+        <Dropdown
+          label="Tipo"
+          options={opcionesTipos}
+          value={select.tipo}
+          onChange={e => {
+            handleDispatch(dispatch, "tipo", e?.value, LLAMADA);
+            setSelect({ ...select, tipo: e })
+          }}
+        />
+        <Dropdown
+          label="Estado"
+          value={select.estado}
+          options={opcionesEstados}
+          onChange={e => {
+            handleDispatch(dispatch, "estado", e?.value, LLAMADA);
+            setSelect({ ...select, estado: e })
+          }}
+        />
         <Datepicker
-            label="Fecha de Inicio"
-            selected={llamada.fec_inicio || ""} 
-            onChange={fecha => handleDispatch(dispatch, "fec_inicio", fecha, LLAMADA)}
-          />
-      <TextArea
-        label=" Descripción"
-        name="descripcion"
-        value={llamada?.descripcion || ""}
-        onChange={e => handleDispatch(dispatch, e?.target.name, e?.target.value, LLAMADA)}
-      />
+          label="Fecha de Inicio"
+          selected={llamada.fec_inicio || ""}
+          onChange={fecha => handleDispatch(dispatch, "fec_inicio", fecha, LLAMADA)}
+        />
+        <TextArea
+          label=" Descripción"
+          name="descripcion"
+          value={llamada?.descripcion || ""}
+          onChange={e => handleDispatch(dispatch, e?.target.name, e?.target.value, LLAMADA)}
+        />
     </Seccion >
 
   )

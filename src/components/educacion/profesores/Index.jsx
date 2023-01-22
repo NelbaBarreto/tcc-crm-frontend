@@ -2,10 +2,10 @@ import React from "react";
 import DataTables from "../../DataTables";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { classNameButton1, classNameButton2 } from "../../formulario/Componentes";
 import { useQuery } from "react-query";
 import { getProfesores } from "../../../api/profesores";
 import { NavLink } from "react-router-dom";
-import { classNameButton2 } from "../../formulario/Componentes";
 
 const Index = () => {
   const {
@@ -15,14 +15,15 @@ const Index = () => {
 
   const columns = [
     {
-      name: "lead_id",
+      name: "profesor_id",
       options: {
         display: "excluded",
         filter: false
       }
     },
+    
     {
-      name: "nombre",
+      name: "persona.nombre",
       label: "Nombre",
       options: {
         filter: true,
@@ -41,19 +42,49 @@ const Index = () => {
       }
     },
     {
+      name: "persona.nro_documento",
+      label: "Numero de Documento",
+      options: {
+        filter: true,
+        filterType: "textField",
+        sort: true,
+      }
+    },
+    {
+      name: "persona.email",
+      label: "Correo",
+      options: {
+        filter: true,
+        filterType: "textField",
+        sort: true,
+      }
+    },
+    {
       name: "",
       options: {
         filter: false,
         sort: false,
         empty: true,
-        customBodyRenderLite: (dataIndex, _rowIndex) => {
+        customBodyRender: (_value, tableMeta) => {
           return (
-            <button
-              className={classNameButton2}
-              onClick={() => console.log(profesores[dataIndex])}
-            >
-              Editar
-            </button>
+            <div className="field is-grouped">
+              <div className="control">
+                <NavLink
+                  to={"/educacion/profesores/editar/" + tableMeta.rowData[0]}
+                  className={classNameButton1}
+                >
+                  Editar
+                </NavLink>
+              </div>
+              <div className="control">
+                <NavLink
+                  to={"/educacion/profesores/eliminar/" + tableMeta.rowData[0]}
+                  className={classNameButton1}
+                >
+                  Eliminar
+                </NavLink>
+              </div>
+            </div>
           );
         }
       }

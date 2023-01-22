@@ -2,6 +2,8 @@ import React, { useState, useReducer } from "react";
 import MostrarMensaje from "../../formulario/MostrarMensaje";
 import Seccion from "../../formulario/Seccion";
 import { getTipos, getEstados, createLlamada } from "../../../api/llamadas";
+import { getLeads } from "../../../api/leads";
+import { getContactos } from "../../../api/contactos";
 import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { reducer, handleDispatch } from "../../formulario/reducerFormularios";
@@ -24,12 +26,28 @@ const CrearLlamada = () => {
   } = useQuery(["tipos"], getTipos);
 
   const {
+    data: leads,
+    leadsLoading
+  } = useQuery(["leads"], getLeads);
+
+  const {
+    data: contactos,
+    contactosLoading
+  } = useQuery(["contactos"], getContactos);
+
+  const {
     data: estados,
     estadosLoading
   } = useQuery(["estados"], getEstados);
 
   const opcionesTipos = tiposLoading || !tipos ? [] :
     tipos.map(tipo => ({ value: tipo, label: tipo }));
+
+  const opcionesLeads = leadsLoading || !leads ? [] :
+    leads.map(lead => ({ value: lead.lead_id, label: lead.lead_id }));
+
+  const opcionesContactos = contactosLoading || !contactos ? [] :
+    contactos.map(contacto => ({ value: contacto.contacto_id, label: contacto.contacto_id }));
 
   const opcionesEstados = estadosLoading || !estados ? [] :
     estados.map(estado => ({ value: estado, label: estado }));
@@ -91,6 +109,30 @@ const CrearLlamada = () => {
             </div>
             <div className="columns is-desktop">
               <div className="column">
+                <Dropdown
+                  label="Lead*"
+                  options={opcionesLeads}
+                  value={select.lead}
+                  onChange={e => {
+                    handleDispatch(dispatch, "lead_id", e?.value, LLAMADA);
+                    setSelect({ ...select, lead: e })
+                  }}
+                />
+              </div>
+              <div className="column">
+                <Dropdown
+                  label="Contacto*"
+                  options={opcionesContactos}
+                  value={select.contacto}
+                  onChange={e => {
+                    handleDispatch(dispatch, "contacto_id", e?.value, LLAMADA);
+                    setSelect({ ...select, contacto: e })
+                  }}
+                />
+              </div>
+            </div>
+            <div className="columns is-desktop">
+              <div className="column">
                 <Datepicker
                   label="Fecha de Inicio*"
                   selected={state.llamada?.fec_inicio || ""}
@@ -106,6 +148,7 @@ const CrearLlamada = () => {
                 />
               </div>
             </div>
+
           </Seccion>
           <Guardar saving={action.saving} guardar={crear} />
           <Volver navigate={navigate} />

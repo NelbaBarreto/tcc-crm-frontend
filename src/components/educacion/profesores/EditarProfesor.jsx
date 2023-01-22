@@ -6,34 +6,52 @@ import CrearPersona from "../../personas/CrearPersona";
 import useToken from "../../../utils/useToken";
 import { Volver, Guardar } from "../../formulario/Acciones";
 import { Titulo1 } from "../../formulario/Titulo";
-import { Dropdown } from "../../formulario/Componentes";
-import { createProfesor } from "../../../api/profesores";
-import { handleDispatch, handleStateCleared } from "../../formulario/reducerFormularios.js";
+import { editProfesor, getProfesor } from "../../../api/profesores";
+import { handleDispatch, handleStateCleared, handleDispatchEdit } from "../../formulario/reducerFormularios.js";
 import { useQuery } from "react-query";
-import { useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
+const PROFESOR = "profesor";
 
-const CrearProfesor = () => {
-  const {state : { profesor, persona, direcciones }, dispatch} = useContext(AppContext);
+const EditarProfesor = () => {
+  const { state: { profesor, persona, direcciones }, dispatch } = useContext(AppContext);
+  const [select, setSelect] = useState({ tip_documento: "" });
   const [action, setAction] = useState({});
+  const { id } = useParams();
   const navigate = useNavigate();
   const currentUser = useToken().usuario;
 
+  const {
+    data: currentProfesor,
+    isFetching,
+  } = useQuery(["profesor", id], () => getProfesor(id));
+
   useEffect(() => {
     handleStateCleared(dispatch);
+    setSelect({ tip_documento: "" });
   }, []);
 
-  const crear = async e => {
+  useEffect(() => {
+    if (!isFetching) {
+      handleDispatchEdit(dispatch, currentProfesor, PROFESOR);
+      setSelect({
+        tip_documento: { label: currentProfesor.tip_documento, value: currentProfesor.tip_documento },
+      });
+    }
+  }, [isFetching]);
+
+  const editar = async e => {
     e.preventDefault();
     setAction({ saving: true, error: false, message: "" });
-    const auditoria = { usu_insercion: currentUser.nom_usuario, usu_modificacion: currentUser.nom_usuario };
+    const auditoria = { fec_modificacion: new Date(), usu_modificacion: currentUser.nom_usuario };
 
     try {
-      await createProfesor({ ...profesor, 
+      await editProfesor({
+        ...profesor,
         ...auditoria,
-        persona: { ...persona, direcciones, ...auditoria } 
+        persona: { ...persona, direcciones, ...auditoria }
       });
-      setAction({ saving: false, error: false, message: "Profesor creado exitosamente." });
+      setAction({ saving: false, error: false, message: "Profesor editado exitosamente." });
       setTimeout(() => navigate("/educacion/profesores"), 2000);
     } catch (e) {
       setAction({ saving: false, error: true, message: e.message });
@@ -50,7 +68,7 @@ const CrearProfesor = () => {
         <form>
           <CrearPersona />
           
-          <Guardar saving={action.saving} guardar={crear} />
+          <Guardar saving={action.saving} guardar={editar} />
           <Volver navigate={navigate} />
         </form>
       </section>
@@ -58,4 +76,4 @@ const CrearProfesor = () => {
   )
 };
 
-export default CrearProfesor;
+export default EditarProfesor;
