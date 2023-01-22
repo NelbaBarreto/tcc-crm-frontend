@@ -194,16 +194,16 @@ const CrearPersona = () => {
         select={select}
         dispatch={dispatch}
       />
-      {/* <Direcciones
+      <Direcciones
         direccion={direccion}
         direcciones={direcciones}
         dispatch={dispatch}
-      /> */}
-      {/* <Telefonos
+      />
+      <Telefonos
         telefonos={telefonos}
         telefono={telefono}
         dispatch={dispatch}
-      /> */}
+      />
     </section>
   );
 }

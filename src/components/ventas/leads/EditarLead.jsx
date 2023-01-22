@@ -132,15 +132,19 @@ const EditarCaso = () => {
   useEffect(() => {
     if (!isFetching) {
       handleDispatchEdit(dispatch, currentLead, LEAD);
+      handleDispatchEdit(dispatch, currentLead.persona, "persona");
+      handleDispatchEdit(dispatch, currentLead.persona.telefonos, "telefonos");
+      handleDispatchEdit(dispatch, currentLead.persona.direcciones, "direcciones");
       handleDispatchEdit(dispatch, {
         estado: { label: currentLead.estado, value: currentLead.estado },
         origen: { label: currentLead.origen, value: currentLead.origen },
         campana: { label: currentLead.campana?.nombre, value: currentLead.campana?.campana_id },
         usu_asignado: { label: currentLead.usu_asignado?.nom_usuario, value: currentLead.usu_asignado?.usuario_id },
-        curso: { label: currentLead.curso?.nombre, value: currentLead.curso?.curso_id }
+        curso: { label: currentLead.curso?.nombre, value: currentLead.curso?.curso_id },
+        tip_documento: { label: currentLead.persona?.tip_documento, value: currentLead.persona?.tip_documento }
       }, "select");
     }
-  }, [isFetching]);
+  }, []);
 
   const editar = async e => {
     e.preventDefault();
