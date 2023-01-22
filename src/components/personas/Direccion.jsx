@@ -49,9 +49,9 @@ const Direccion = () => {
             name="tipo"
             onChange={e => {
               handleDispatch(dispatch, "tipo", e?.value, DIRECCION);
-              handleDispatch(dispatch, "tipo", e?.value, "select")
+              handleDispatch(dispatch, "tip_direccion", e, "select")
             }}
-            value={select?.tipo}
+            value={select?.tip_direccion}
             options={tipos}
           />
         </div>

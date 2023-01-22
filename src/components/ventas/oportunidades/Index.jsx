@@ -50,8 +50,8 @@ const Index = () => {
       }
     },
     {
-      name: "etapa",
-      label: "Etapa",
+      name: "estado",
+      label: "Estado",
       options: {
         filter: true,
         filterType: "textField",
