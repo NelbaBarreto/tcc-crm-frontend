@@ -101,6 +101,9 @@ import CrearCiclo from "./components/educacion/ciclos/CrearCiclo";
 // Profesores
 import CrearProfesor from "./components/educacion/profesores/CrearProfesor";
 import ListarProfesores from "./components/educacion/profesores/Index";
+import MostrarProfesor from "./components/educacion/profesores/MostrarProfesor";
+import EditarProfesor from "./components/educacion/profesores/EditarProfesor";
+import EliminarProfesor from "./components/educacion/profesores/EliminarProfesor";
 
 // Sedes
 import CrearSede from "./components/educacion/sedes/CrearSede";
@@ -544,6 +547,30 @@ const MainApp = () => {
             element={
               <ProtectedRoute usuario={usuario}>
                 <CrearProfesor />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/educacion/profesores/:id"
+            element={
+              <ProtectedRoute usuario={usuario}>
+                <MostrarProfesor />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/educacion/profesores/editar/:id"
+            element={
+              <ProtectedRoute usuario={usuario}>
+                <EditarProfesor />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/educacion/profesores/eliminar/:id"
+            element={
+              <ProtectedRoute usuario={usuario}>
+                <EliminarProfesor />
               </ProtectedRoute>
             }
           />
