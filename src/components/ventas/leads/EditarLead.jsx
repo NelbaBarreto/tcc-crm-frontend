@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import AppContext from "../../../utils/AppContext";
 import Seccion from "../../formulario/Seccion";
 import MostrarMensaje from "../../formulario/MostrarMensaje";
-import CrearPersona from "../../personas/CrearPersona";
+import EditarPersona from "../../personas/EditarPersona";
 import useToken from "../../../utils/useToken";
 import { Volver, Guardar } from "../../formulario/Acciones";
 import { Titulo1 } from "../../formulario/Titulo";
@@ -116,6 +116,7 @@ const DatosLead = ({ dispatch, select = {} }) => {
 const EditarCaso = () => {
   const { state: { lead, persona, direcciones, select }, dispatch } = useContext(AppContext);
   const [action, setAction] = useState({});
+  const [enabled, setEnabled] = useState(true);
   const { id } = useParams();
   const navigate = useNavigate();
   const currentUser = useToken().usuario;
@@ -130,7 +131,8 @@ const EditarCaso = () => {
   }, []);
 
   useEffect(() => {
-    if (!isFetching) {
+    if (!isFetching && enabled) {
+      setEnabled(false);
       handleDispatchEdit(dispatch, currentLead, LEAD);
       handleDispatchEdit(dispatch, currentLead.persona, "persona");
       handleDispatchEdit(dispatch, currentLead.persona.telefonos, "telefonos");
@@ -144,7 +146,7 @@ const EditarCaso = () => {
         tip_documento: { label: currentLead.persona?.tip_documento, value: currentLead.persona?.tip_documento }
       }, "select");
     }
-  }, []);
+  }, [isFetching]);
 
   const editar = async e => {
     e.preventDefault();
@@ -171,7 +173,7 @@ const EditarCaso = () => {
         </Titulo1>
         {action.message ? <MostrarMensaje mensaje={action.message} error={action.error} /> : null}
         <form>
-          <CrearPersona />
+          <EditarPersona />
           <DatosLead
             lead={lead}
             select={select}

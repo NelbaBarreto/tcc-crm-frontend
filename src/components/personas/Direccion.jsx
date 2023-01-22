@@ -51,7 +51,7 @@ const Direccion = () => {
               handleDispatch(dispatch, "tipo", e?.value, DIRECCION);
               handleDispatch(dispatch, "tipo", e?.value, "select")
             }}
-            value={select.tipo}
+            value={select?.tipo}
             options={tipos}
           />
         </div>
