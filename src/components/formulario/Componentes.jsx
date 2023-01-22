@@ -5,7 +5,9 @@ import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { format, parseISO } from "date-fns";
 
-export const Input = ({ label, name, value = "", type = "text", placeholder = "", className = "input shadow-lg", onChange }) => {
+export const Input = ({ 
+  label, name, value = "", type = "text", placeholder = "", className = "input shadow-lg", readOnly, onChange
+}) => {
   return (
     <div className="field">
       <label className="label">{label}</label>
@@ -15,6 +17,7 @@ export const Input = ({ label, name, value = "", type = "text", placeholder = ""
           className={className}
           placeholder={placeholder}
           type={type}
+          readOnly={readOnly}
           value={value}
           onChange={onChange}
         />

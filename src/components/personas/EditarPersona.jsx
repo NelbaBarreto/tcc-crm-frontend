@@ -23,13 +23,17 @@ const Persona = ({ dispatch, persona = {}, select = {}}) => {
       <Input
         label="Nombre*"
         name="nombre"
+        className="input shadow-lg is-static"
         value={persona.nombre || ""}
+        readOnly={true}
         onChange={e => handleDispatch(dispatch, e?.target.name, e?.target.value, PERSONA)}
       />
       <Input
         label="Email*"
         name="email"
+        className="input shadow-lg is-static"
         value={persona.email || ""}
+        readOnly={true}
         onChange={e => handleDispatch(dispatch, e?.target.name, e?.target.value, PERSONA)}
       />
       <div className="columns">

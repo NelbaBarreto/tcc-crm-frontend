@@ -7,7 +7,7 @@ import { Volver, Guardar } from "../../formulario/Acciones";
 import { Titulo1 } from "../../formulario/Titulo";
 import { Dropdown, Input, TextArea } from "../../formulario/Componentes";
 import { getUsuarios } from "../../../api/usuarios";
-import { editOportunidad, getEtapas, getOportunidad } from "../../../api/oportunidades";
+import { editOportunidad, getEstados, getOportunidad } from "../../../api/oportunidades";
 import { getCampanas } from "../../../api/campanas";
 import { getContactos } from "../../../api/contactos";
 import { getCursos } from "../../../api/cursos";
@@ -20,9 +20,8 @@ const OPORTUNIDAD = "oportunidad";
 const DatosOportunidad = ({ oportunidad, dispatch, manageSelect }) => {
   const { setSelect, select } = manageSelect;
   const {
-    data: etapasOportunidades,
-    etapasLoading
-  } = useQuery(["etapasOportunidades"], getEtapas);
+    data: estadosOportunidades,
+  } = useQuery(["estadosOportunidades"], getEstados);
 
   const {
     data: usuarios,
@@ -43,9 +42,6 @@ const DatosOportunidad = ({ oportunidad, dispatch, manageSelect }) => {
     data: cursos,
     cursosLoading
   } = useQuery(["cursos"], getCursos);
-
-  const opcionesEtapas = etapasLoading || !etapasOportunidades ? [] :
-    etapasOportunidades.map(etapa => ({ value: etapa, label: etapa }));
 
   const opcionesUsuarios = usuariosLoading || !usuarios ? [] :
     usuarios.map(usuario => ({ value: usuario.usuario_id, label: usuario.nom_usuario }));
@@ -100,7 +96,7 @@ const DatosOportunidad = ({ oportunidad, dispatch, manageSelect }) => {
           <Dropdown
             label="Etapa*"
             value={select.etapa}
-            options={opcionesEtapas}
+            options={estadosOportunidades || []}
             onChange={e => {
               handleDispatch(dispatch, "etapa", e?.value, OPORTUNIDAD);
               setSelect({ ...select, etapa: e })

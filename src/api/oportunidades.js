@@ -17,8 +17,8 @@ export const getOportunidad = async id => {
   return response.data;
 };
 
-export const getEtapas = async id => {
-  const { data: response } = await axios.get(`${API}/oportunidades/etapas`);
+export const getEstados = async id => {
+  const { data: response } = await axios.get(`${API}/oportunidades/estados`);
   return response.data;
 };
 
