@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useQuery } from "react-query";
 import { getProfesores } from "../../../api/profesores";
 import { NavLink } from "react-router-dom";
+import { classNameButton2 } from "../../formulario/Componentes";
 
 const Index = () => {
   const {
@@ -48,8 +49,7 @@ const Index = () => {
         customBodyRenderLite: (dataIndex, _rowIndex) => {
           return (
             <button
-              className="button font-semibold shadow-lg text-white hover:text-white focus:text-white
-              hover:bg-deep-purple-700 bg-deep-purple-400 border-deep-purple-700"
+              className={classNameButton2}
               onClick={() => console.log(profesores[dataIndex])}
             >
               Editar

@@ -143,7 +143,6 @@ const Login = ({ setToken }) => {
             placeholder="Ingresa tu contraseña"
             onChange={handleDispatch}
           />
-          <a href="/" className="font-bold has-text-link text">¿Olvidaste tu contraseña?</a>
           <IniciarSesion />
         </form>
       </section>
