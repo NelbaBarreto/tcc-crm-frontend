@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useQuery } from "react-query";
 import { getLeads } from "../../../api/leads";
 import { NavLink } from "react-router-dom";
-import { classNameButton2 } from "../../formulario/Componentes";
+import { classNameButton1, classNameButton2 } from "../../formulario/Componentes";
 
 const Index = () => {
   const {
@@ -144,7 +144,7 @@ const Index = () => {
               <div className="control">
                 <NavLink
                   to={"/ventas/leads/editar/" + tableMeta.rowData[0]}
-                  className={classNameButton2}
+                  className={classNameButton1}
                 >
                   Editar
                 </NavLink>
@@ -161,8 +161,7 @@ const Index = () => {
       <section className="section w-full m-auto">
         <NavLink
           to="/ventas/leads/nuevo"
-          className="button font-semibold shadow-lg text-white hover:text-white focus:text-white
-              hover:bg-deep-purple-700 bg-deep-purple-400 border-deep-purple-700 mb-2"
+          className={classNameButton2}
         >
           <span>Crear Nuevo</span>
           <span className="icon is-small">

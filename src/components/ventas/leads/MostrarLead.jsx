@@ -10,6 +10,7 @@ import { CircularProgress } from "@mui/material";
 const DatosLead = ({ lead }) => {
   return (
     <Seccion titulo="Datos del lead">
+
       <div className="columns">
         <div className="column">
           <TextView label="Nombre" value={lead.nombre} />
@@ -33,6 +34,28 @@ const MostrarEmpleado = () => {
 
   return (
     <section className="section w-full m-auto">
+      <div className="buttons has-addons">
+        <button
+          className="button font-bold is-active"
+        >
+          Intereses
+        </button>
+        <button
+          className="button font-bold"
+        >
+          Casos
+        </button>
+        <button
+          className="button font-bold"
+        >
+          Llamadas
+        </button>
+        <button
+          className="button font-bold"
+        >
+          Tareas
+        </button>
+      </div>
       <div className="mb-4">
         {isLoading ?
           <CircularProgress size={24} className="fixed top-1/2 left-1/2" /> : <DatosLead lead={lead} navigate={navigate} />

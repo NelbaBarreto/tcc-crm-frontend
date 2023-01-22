@@ -57,20 +57,6 @@ const Index = () => {
                   Editar
                 </NavLink>
               </div>
-            </div>
-          );
-        }
-      }
-    },
-    {
-      name: "",
-      options: {
-        filter: false,
-        sort: false,
-        empty: true,
-        customBodyRender: (_value, tableMeta) => {
-          return (
-            <div className="field is-grouped">
               <div className="control">
                 <NavLink
                   to={"/educacion/cursos/eliminar/" + tableMeta.rowData[0]}
@@ -91,8 +77,7 @@ const Index = () => {
       <section className="section w-full m-auto">
         <NavLink
           to="/educacion/cursos/nuevo"
-          className="button font-semibold shadow-lg text-white hover:text-white focus:text-white
-              hover:bg-deep-purple-700 bg-deep-purple-400 border-deep-purple-700 mb-2"
+          className={classNameButton2}
         >
           <span>Crear Nuevo</span>
           <span className="icon is-small">
