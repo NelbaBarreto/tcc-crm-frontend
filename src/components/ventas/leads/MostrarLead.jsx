@@ -28,7 +28,7 @@ const DatosLead = ({ lead }) => {
   );
 }
 
-const MostrarEmpleado = () => {
+const MostrarLead = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -71,4 +71,4 @@ const MostrarEmpleado = () => {
   );
 }
 
-export default MostrarEmpleado;
+export default MostrarLead;
