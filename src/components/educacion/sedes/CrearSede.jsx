@@ -3,6 +3,7 @@ import AppContext from "../../../utils/AppContext";
 import Seccion from "../../formulario/Seccion";
 import Direccion from "../../personas/Direccion";
 import MostrarMensaje from "../../formulario/MostrarMensaje";
+import useToken from "../../../utils/useToken";
 import { Input } from "../../formulario/Componentes";
 import { Volver, Guardar } from "../../formulario/Acciones";
 import { Titulo1 } from "../../formulario/Titulo";
@@ -35,6 +36,7 @@ const CrearSede = () => {
   }, dispatch } = useContext(AppContext);
   const [action, setAction] = useState({});
   const navigate = useNavigate();
+  const currentUser = useToken().usuario;
 
   useEffect(() => {
     handleStateCleared(dispatch);
@@ -44,7 +46,8 @@ const CrearSede = () => {
     e.preventDefault();
     setAction({ saving: true, error: false, message: "" });
     try {
-      await createSede({...sede, direccion});
+      const auditoria = { usu_insercion: currentUser.nom_usuario, usu_modificacion: currentUser.nom_usuario };
+      await createSede({...sede, ...auditoria, direccion: { ...direccion, ...auditoria } });
       setAction({ saving: false, error: false, message: "Sede registrada exitosamente." });
       setTimeout(() => navigate("/educacion/sedes"), 2000);
     } catch (e) {
