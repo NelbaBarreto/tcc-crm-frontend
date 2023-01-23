@@ -140,7 +140,8 @@ const EditarCaso = () => {
       handleDispatchEdit(dispatch, {
         estado: { label: currentLead.estado, value: currentLead.estado },
         origen: { label: currentLead.origen, value: currentLead.origen },
-        campana: { label: currentLead.campana?.nombre, value: currentLead.campana?.campana_id },
+        campana: currentLead.campana ? 
+          { label: currentLead.campana?.nombre, value: currentLead.campana?.campana_id } : "",
         usu_asignado: { label: currentLead.usu_asignado?.nom_usuario, value: currentLead.usu_asignado?.usuario_id },
         curso: { label: currentLead.curso?.nombre, value: currentLead.curso?.curso_id },
         tip_documento: { label: currentLead.persona?.tip_documento, value: currentLead.persona?.tip_documento },
@@ -179,8 +180,8 @@ const EditarCaso = () => {
             select={select}
             dispatch={dispatch}
           />
-          <Guardar 
-            saving={action.saving} 
+          <Guardar
+            saving={action.saving}
             guardar={editar}
           />
           <Volver navigate={navigate} />
