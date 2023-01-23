@@ -42,7 +42,7 @@ const DatosCaso = ({ caso, dispatch, select = {} }) => {
   return (
     <Seccion titulo="Datos del Caso">
       <Input
-        label="Asunto"
+        label="Asunto*"
         name="asunto"
         value={caso?.asunto || ""}
         onChange={e => handleDispatch(dispatch, e?.target.name, e?.target.value, CASO)}

@@ -152,11 +152,11 @@ export const sideMenu = [
       },
     ],
   },
-  {
-    label: "Perfil",
-    Icon: () => <Icon iconName="user" />,
-    to: "/perfil",
-  },
+  // {
+  //   label: "Perfil",
+  //   Icon: () => <Icon iconName="user" />,
+  //   to: "/perfil",
+  // },
 ];
 
 export const CardsData = [
