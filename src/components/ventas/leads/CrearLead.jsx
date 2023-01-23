@@ -84,7 +84,7 @@ const DatosLead = ({ select, dispatch }) => {
             options={opcionesCampanas}
             onChange={e => {
               handleDispatch(dispatch, "campana_id", e?.value, LEAD);
-              handleDispatch(dispatch, "campana_id", e, "select")
+              handleDispatch(dispatch, "campana", e, "select")
             }}
           />
         </div>
