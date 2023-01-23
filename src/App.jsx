@@ -58,6 +58,7 @@ import MostrarContacto from "./components/ventas/contactos/MostrarContacto";
 //Organizaciones
 import ListarOrganizaciones from "./components/ventas/organizaciones/Index";
 import CrearOrganizacion from "./components/ventas/organizaciones/CrearOrganizacion";
+import MostrarOrganizacion from "./components/ventas/organizaciones/MostrarOrganizacion";
 
 //Oportunidades
 import ListarOportunidades from "./components/ventas/oportunidades/Index";
@@ -297,7 +298,7 @@ const MainApp = () => {
                 <MostrarContacto />
               </ProtectedRoute>
             }
-          />          
+          />
 
           {/* Organizaciones */}
           <Route
@@ -314,6 +315,15 @@ const MainApp = () => {
             element={
               <ProtectedRoute usuario={usuario}>
                 <CrearOrganizacion />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            exact
+            path="/ventas/organizaciones/:id"
+            element={
+              <ProtectedRoute usuario={usuario}>
+                <MostrarOrganizacion />
               </ProtectedRoute>
             }
           />

@@ -74,7 +74,7 @@ const Direcciones = ({ direcciones }) => {
   );
 }
 
-const DatosPersona = ({ persona }) => {
+const DatosPersona = ({ persona = {} }) => {
   return (
     <>
       <Seccion titulo="Datos Personales">
