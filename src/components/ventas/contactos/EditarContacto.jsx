@@ -37,8 +37,8 @@ const DatosContacto = ({ dispatch, select = {} }) => {
             value={select.organizacion}
             options={opcionesOrganizaciones}
             onChange={e => {
-              handleDispatch(dispatch, "campana_id", e?.value, CONTACTO);
-              handleDispatch(dispatch, "campana", e, "select")
+              handleDispatch(dispatch, "organizacion_id", e?.value, CONTACTO);
+              handleDispatch(dispatch, "organizacion", e, "select")
             }}
           />
         </div>
