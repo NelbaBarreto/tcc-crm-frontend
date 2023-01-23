@@ -53,6 +53,7 @@ import EditarLead from "./components/ventas/leads/EditarLead";
 //Contactos
 import ListarContactos from "./components/ventas/contactos/Index";
 import CrearContacto from "./components/ventas/contactos/CrearContacto";
+import MostrarContacto from "./components/ventas/contactos/MostrarContacto";
 
 //Organizaciones
 import ListarOrganizaciones from "./components/ventas/organizaciones/Index";
@@ -288,6 +289,15 @@ const MainApp = () => {
               </ProtectedRoute>
             }
           />
+          <Route
+            exact
+            path="/ventas/contactos/:id"
+            element={
+              <ProtectedRoute usuario={usuario}>
+                <MostrarContacto />
+              </ProtectedRoute>
+            }
+          />          
 
           {/* Organizaciones */}
           <Route
