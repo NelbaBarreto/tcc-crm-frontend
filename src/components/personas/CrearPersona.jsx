@@ -35,7 +35,7 @@ const Persona = ({ dispatch, persona = {}, select = {}}) => {
       <div className="columns">
         <div className="column">
           <Input
-            label="Número de Documento*"
+            label="Número de Documento"
             name="nro_documento"
             value={persona.nro_documento || ""}
             onChange={e => handleDispatch(dispatch, e?.target.name, e?.target.value, PERSONA)}
@@ -43,7 +43,7 @@ const Persona = ({ dispatch, persona = {}, select = {}}) => {
         </div>
         <div className="column">
           <Dropdown
-            label="Tipo de Documento*"
+            label="Tipo de Documento"
             name="tip_documento"
             onChange={e => {
               handleDispatch(dispatch, "tip_documento", e?.value, PERSONA);
