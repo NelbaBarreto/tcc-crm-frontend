@@ -54,8 +54,17 @@ const Index = () => {
       label: "Prioridad",
       options: {
         filter: true,
-        filterType: "textField",
+        filterType: "dropdown",
         sort: true,
+        customBodyRender: (value) => {
+          if (value === "Alta") {
+            return <span className="tag is-light is-danger font-bold">{value}</span>
+          } else if (value === "Media") {
+            return <span className="tag is-light is-warning font-bold">{value}</span>
+          } else {
+            return <span className="tag is-light is-info font-bold">{value}</span>
+          }
+        },
       }
     },
     {
@@ -82,7 +91,7 @@ const Index = () => {
                 >
                   Eliminar
                 </NavLink>
-              </div>              
+              </div>
             </div>
           );
         }

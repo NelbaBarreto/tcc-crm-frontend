@@ -156,7 +156,11 @@ const EditarCaso = () => {
         origen: { label: currentCaso.origen, value: currentCaso.origen },
         prioridad: { label: currentCaso.prioridad, value: currentCaso.prioridad },
         tipo: { label: currentCaso.tipo, value: currentCaso.tipo },
-        usu_asignado: { label: currentCaso.usuario?.nom_usuario, value: currentCaso.usuario?.usuario_id }
+        usu_asignado: { label: currentCaso.usuario?.nom_usuario, value: currentCaso.usuario?.usuario_id },
+        lead: currentCaso.contacto ?
+          { value: currentCaso.lead?.lead_id, label: `${currentCaso.lead?.lead_id}-${currentCaso.lead?.persona.nombre}` } : "",
+        contacto: currentCaso.contacto ?
+          { value: currentCaso.contacto?.contacto_id, label: `${currentCaso.contacto?.contacto_id}-${currentCaso.contacto?.persona.nombre}` } : "",
       }, "select");
     }
   }, [isFetching]);

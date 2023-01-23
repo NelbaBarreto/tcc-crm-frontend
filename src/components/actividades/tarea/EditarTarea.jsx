@@ -13,9 +13,7 @@ import { useParams, useNavigate } from "react-router-dom";
 
 const TAREA = "tarea";
 
-const DatosTarea = ({ tarea, dispatch, manageSelect }) => {
-  const { setSelect, select } = manageSelect;
-
+const DatosTarea = ({ tarea, dispatch, select = {} }) => {
   const {
     data: usuarios,
     usuariosLoading
@@ -23,22 +21,14 @@ const DatosTarea = ({ tarea, dispatch, manageSelect }) => {
 
   const {
     data: prioridades,
-    prioridadesLoading
   } = useQuery(["prioridades"], getPrioridades);
 
   const {
     data: estados,
-    estadosLoading
   } = useQuery(["estados"], getEstados);
 
   const opcionesUsuarios = usuariosLoading || !usuarios ? [] :
     usuarios.map(usuario => ({ value: usuario.usuario_id, label: usuario.nom_usuario }));
-
-  const opcionesPrioridades = prioridadesLoading || !prioridades ? [] :
-    prioridades.map(prioridad => ({ value: prioridad, label: prioridad }));
-
-  const opcionesEstados = estadosLoading || !estados ? [] :
-    estados.map(estado => ({ value: estado, label: estado }));
 
   return (
     <Seccion titulo="Datos de la Tarea">
@@ -55,10 +45,10 @@ const DatosTarea = ({ tarea, dispatch, manageSelect }) => {
           <Dropdown
             label="Estado"
             value={select.estado}
-            options={opcionesEstados}
+            options={estados}
             onChange={e => {
               handleDispatch(dispatch, "estado", e?.value, TAREA);
-              setSelect({ ...select, estado: e })
+              handleDispatch(dispatch, "estado", e, "select")
             }}
           />
         </div>
@@ -68,11 +58,11 @@ const DatosTarea = ({ tarea, dispatch, manageSelect }) => {
         <div className="column">
           <Dropdown
             label="Usuario Asignado"
-            value={select.usu_asignado}
+            value={select.usuario}
             options={opcionesUsuarios}
             onChange={e => {
               handleDispatch(dispatch, "usu_asignado_id", e?.value, TAREA);
-              setSelect({ ...select, usu_asignado: e })
+              handleDispatch(dispatch, "usuario", e, "select")
             }}
           />
         </div>
@@ -81,10 +71,10 @@ const DatosTarea = ({ tarea, dispatch, manageSelect }) => {
           <Dropdown
             label="Prioridad"
             value={select.prioridad}
-            options={opcionesPrioridades}
+            options={prioridades}
             onChange={e => {
               handleDispatch(dispatch, "prioridad", e?.value, TAREA);
-              setSelect({ ...select, prioridad: e })
+              handleDispatch(dispatch, "prioridad", e, "select")
             }}
           />
         </div>
@@ -116,8 +106,7 @@ const DatosTarea = ({ tarea, dispatch, manageSelect }) => {
 };
 
 const EditarTarea = () => {
-  const { state: { tarea }, dispatch } = useContext(AppContext);
-  const [select, setSelect] = useState({ estado: "", prioridad: "" });
+  const { state: { tarea, select }, dispatch } = useContext(AppContext);
   const [action, setAction] = useState({});
   const { id } = useParams();
   const navigate = useNavigate();
@@ -129,17 +118,21 @@ const EditarTarea = () => {
 
   useEffect(() => {
     handleStateCleared(dispatch);
-    setSelect({ estado: "", prioridad: "" });
   }, []);
 
   useEffect(() => {
     if (!isFetching) {
       handleDispatchEdit(dispatch, currentTarea, TAREA);
-      setSelect({
+      handleDispatchEdit(dispatch, {
         estado: { label: currentTarea.estado, value: currentTarea.estado },
         prioridad: { label: currentTarea.prioridad, value: currentTarea.prioridad },
-        usu_asignado: { label: currentTarea.usuario?.nom_usuario, value: currentTarea.usuario?.usuario_id }
-      });
+        usuario: currentTarea.usuario ?
+          { label: currentTarea.usuario?.nom_usuario, value: currentTarea.usuario?.usuario_id } : "",
+        lead: currentTarea.contacto ?
+          { value: currentTarea.lead?.lead_id, label: `${currentTarea.lead?.lead_id}-${currentTarea.lead?.persona.nombre}` } : "",
+        contacto: currentTarea.contacto ?
+          { value: currentTarea.contacto?.contacto_id, label: `${currentTarea.contacto?.contacto_id}-${currentTarea.contacto?.persona.nombre}` } : "",
+      }, "select");
     }
   }, [isFetching]);
 
@@ -163,8 +156,15 @@ const EditarTarea = () => {
         </Titulo1>
         {action.message ? <MostrarMensaje mensaje={action.message} error={action.error} /> : null}
         <form>
-          <DatosTarea tarea={tarea} dispatch={dispatch} manageSelect={{ setSelect, select }} />
-          <Guardar saving={action.saving} guardar={crear} />
+          <DatosTarea
+            tarea={tarea}
+            dispatch={dispatch}
+            select={select}
+          />
+          <Guardar
+            saving={action.saving}
+            guardar={crear}
+          />
           <Volver navigate={navigate} />
         </form>
       </section>
