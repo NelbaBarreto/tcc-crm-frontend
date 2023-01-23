@@ -17,9 +17,7 @@ import useToken from "../../../utils/useToken";
 
 const OPORTUNIDAD = "oportunidad";
 
-const DatosOportunidad = ({ oportunidad, dispatch }) => {
-  const [select, setSelect] = useState({ estado: "", usu_asignado: "" });
-
+const DatosOportunidad = ({ oportunidad, dispatch, select }) => {
   const {
     data: estadosOportunidades,
   } = useQuery(["estadosOportunidades"], getEstados);
@@ -76,7 +74,7 @@ const DatosOportunidad = ({ oportunidad, dispatch }) => {
             options={opcionesContactos}
             onChange={e => {
               handleDispatch(dispatch, "contacto_id", e?.value, OPORTUNIDAD);
-              setSelect({ ...select, contacto: e })
+              handleDispatch(dispatch, "contacto", e, "select")
             }}
           />
         </div>
@@ -87,7 +85,7 @@ const DatosOportunidad = ({ oportunidad, dispatch }) => {
             options={opcionesCursos}
             onChange={e => {
               handleDispatch(dispatch, "curso_id", e?.value, OPORTUNIDAD);
-              setSelect({ ...select, curso: e })
+              handleDispatch(dispatch, "curso", e, "select")
             }}
           />
         </div>
@@ -100,7 +98,7 @@ const DatosOportunidad = ({ oportunidad, dispatch }) => {
             options={estadosOportunidades || []}
             onChange={e => {
               handleDispatch(dispatch, "estado", e?.value, OPORTUNIDAD);
-              setSelect({ ...select, estado: e })
+              handleDispatch(dispatch, "estado", e, "select")
             }}
           />
         </div>
@@ -122,7 +120,7 @@ const DatosOportunidad = ({ oportunidad, dispatch }) => {
             options={opcionesCampanas}
             onChange={e => {
               handleDispatch(dispatch, "campana_id", e?.value, OPORTUNIDAD);
-              setSelect({ ...select, campana: e })
+              handleDispatch(dispatch, "campana", e, "select")
             }}
           />
         </div>
@@ -133,7 +131,7 @@ const DatosOportunidad = ({ oportunidad, dispatch }) => {
             options={opcionesUsuarios}
             onChange={e => {
               handleDispatch(dispatch, "usu_asignado_id", e?.value, OPORTUNIDAD);
-              setSelect({ ...select, usu_asignado: e })
+              handleDispatch(dispatch, "usu_asignado", e, "select")
             }}
           />
         </div>
@@ -153,7 +151,7 @@ const DatosOportunidad = ({ oportunidad, dispatch }) => {
 };
 
 const CrearOportunidad = () => {
-  const { state: { oportunidad }, dispatch } = useContext(AppContext);
+  const { state: { oportunidad, select }, dispatch } = useContext(AppContext);
   const [action, setAction] = useState({});
   const navigate = useNavigate();
   const currentUser = useToken().usuario;
@@ -189,6 +187,7 @@ const CrearOportunidad = () => {
         <form>
           <DatosOportunidad
             oportunidad={oportunidad}
+            select={select}
             dispatch={dispatch}
           />
           <Guardar 

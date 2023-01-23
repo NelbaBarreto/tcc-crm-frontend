@@ -1,4 +1,5 @@
-import React, { useState, useReducer } from "react";
+import React, { useState, useContext, useEffect } from "react";
+import AppContext from "../../../utils/AppContext";
 import Seccion from "../../formulario/Seccion";
 import MostrarMensaje from "../../formulario/MostrarMensaje";
 import { Volver, Guardar } from "../../formulario/Acciones";
@@ -8,15 +9,13 @@ import { getUsuarios } from "../../../api/usuarios";
 import { getLeads } from "../../../api/leads";
 import { getContactos } from "../../../api/contactos";
 import { createTarea, getPrioridades, getEstados } from "../../../api/tareas";
-import { reducer, handleDispatch } from "../../formulario/reducerFormularios.js";
+import { handleDispatch } from "../../formulario/reducerFormularios.js";
 import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 
 const TAREA = "tarea";
 
-const DatosTarea = ({ tarea, dispatch }) => {
-  const [select, setSelect] = useState({ estado: "", prioridad: "" });
-
+const DatosTarea = ({ tarea, dispatch, select = {} }) => {
   const {
     data: usuarios,
     usuariosLoading
@@ -34,28 +33,20 @@ const DatosTarea = ({ tarea, dispatch }) => {
 
   const {
     data: prioridades,
-    prioridadesLoading
   } = useQuery(["prioridades"], getPrioridades);
 
   const {
     data: estados,
-    estadosLoading
   } = useQuery(["estados"], getEstados);
 
   const opcionesUsuarios = usuariosLoading || !usuarios ? [] :
     usuarios.map(usuario => ({ value: usuario.usuario_id, label: usuario.nom_usuario }));
 
-  const opcionesPrioridades = prioridadesLoading || !prioridades ? [] :
-    prioridades.map(prioridad => ({ value: prioridad, label: prioridad }));
-
   const opcionesLeads = leadsLoading || !leads ? [] :
     leads.map(lead => ({ value: lead.lead_id, label: lead.lead_id }));
 
   const opcionesContactos = contactosLoading || !contactos ? [] :
-    contactos.map(contacto => ({ value: contacto.contacto_id, label: contacto.contacto_id }));
-
-  const opcionesEstados = estadosLoading || !estados ? [] :
-    estados.map(estado => ({ value: estado, label: estado }));
+    contactos.map(contacto => ({ value: contacto.contacto_id, label: `${contacto.contacto_id}-${contacto.persona.nombre}` }));
 
   return (
     <Seccion titulo="Datos de la Tarea">
@@ -72,10 +63,10 @@ const DatosTarea = ({ tarea, dispatch }) => {
           <Dropdown
             label="Estado*"
             value={select.estado}
-            options={opcionesEstados}
+            options={estados}
             onChange={e => {
               handleDispatch(dispatch, "estado", e?.value, TAREA);
-              setSelect({ ...select, estado: e })
+              handleDispatch(dispatch, "estado", e, "select")
             }}
           />
         </div>
@@ -89,7 +80,7 @@ const DatosTarea = ({ tarea, dispatch }) => {
             options={opcionesUsuarios}
             onChange={e => {
               handleDispatch(dispatch, "usu_asignado_id", e?.value, TAREA);
-              setSelect({ ...select, usu_asignado: e })
+              handleDispatch(dispatch, "usu_asignado", e, "select")
             }}
           />
         </div>
@@ -98,38 +89,38 @@ const DatosTarea = ({ tarea, dispatch }) => {
           <Dropdown
             label="Prioridad*"
             value={select.prioridad}
-            options={opcionesPrioridades}
+            options={prioridades}
             onChange={e => {
               handleDispatch(dispatch, "prioridad", e?.value, TAREA);
-              setSelect({ ...select, prioridad: e })
+              handleDispatch(dispatch, "prioridad", e, "select")
             }}
           />
         </div>
       </div>
       <div className="columns is-desktop">
-              <div className="column">
-                <Dropdown
-                  label="Lead*"
-                  options={opcionesLeads}
-                  value={select.lead}
-                  onChange={e => {
-                    handleDispatch(dispatch, "lead_id", e?.value, TAREA);
-                    setSelect({ ...select, lead: e })
-                  }}
-                />
-              </div>
-              <div className="column">
-                <Dropdown
-                  label="Contacto*"
-                  options={opcionesContactos}
-                  value={select.contacto}
-                  onChange={e => {
-                    handleDispatch(dispatch, "contacto_id", e?.value, TAREA);
-                    setSelect({ ...select, contacto: e })
-                  }}
-                />
-              </div>
-            </div>
+        <div className="column">
+          <Dropdown
+            label="Lead"
+            options={opcionesLeads}
+            value={select.lead}
+            onChange={e => {
+              handleDispatch(dispatch, "lead_id", e?.value, TAREA);
+              handleDispatch(dispatch, "lead", e, "select")
+            }}
+          />
+        </div>
+        <div className="column">
+          <Dropdown
+            label="Contacto"
+            options={opcionesContactos}
+            value={select.contacto}
+            onChange={e => {
+              handleDispatch(dispatch, "contacto_id", e?.value, TAREA);
+              handleDispatch(dispatch, "contacto", e, "select")
+            }}
+          />
+        </div>
+      </div>
       <div className="columns is-desktop">
         <div className="column">
           <Datepicker
@@ -147,7 +138,7 @@ const DatosTarea = ({ tarea, dispatch }) => {
         </div>
       </div>
       <TextArea
-        label="Descripción"
+        label="Descripción*"
         name="descripcion"
         value={tarea?.descripcion || ""}
         onChange={e => handleDispatch(dispatch, e?.target.name, e?.target.value, TAREA)}
@@ -157,7 +148,7 @@ const DatosTarea = ({ tarea, dispatch }) => {
 };
 
 const CrearTarea = () => {
-  const [state, dispatch] = useReducer(reducer, {});
+  const { state: { tarea, select }, dispatch } = useContext(AppContext);
   const [action, setAction] = useState({});
   const navigate = useNavigate();
 
@@ -165,7 +156,7 @@ const CrearTarea = () => {
     e.preventDefault();
     setAction({ saving: true, error: false, message: "" });
     try {
-      await createTarea({ ...state.tarea });
+      await createTarea({ ...tarea });
       setAction({ saving: false, error: false, message: "Tarea creada exitosamente." });
       setTimeout(() => navigate("/actividades/tareas"), 3000);
     } catch (e) {
@@ -181,9 +172,18 @@ const CrearTarea = () => {
         </Titulo1>
         {action.message ? <MostrarMensaje mensaje={action.message} error={action.error} /> : null}
         <form>
-          <DatosTarea tarea={state.tarea} dispatch={dispatch} />
-          <Guardar saving={action.saving} guardar={crear} />
-          <Volver navigate={navigate} />
+          <DatosTarea
+            tarea={tarea}
+            dispatch={dispatch}
+            select={select}
+          />
+          <Guardar
+            saving={action.saving}
+            guardar={crear}
+          />
+          <Volver
+            navigate={navigate}
+          />
         </form>
       </section>
     </div>

@@ -31,9 +31,9 @@ const Telefono = () => {
             name="tipo"
             onChange={e => {
               handleDispatch(dispatch, "tipo", e?.value, TELEFONO);
-              handleDispatch(dispatch, "tipo", e, "select");
+              handleDispatch(dispatch, "tip_telefono", e, "select");
             }}
-            value={select?.tipo}
+            value={select?.tip_telefono}
             options={tipos}
           />
         </div>

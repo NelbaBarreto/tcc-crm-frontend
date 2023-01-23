@@ -17,8 +17,7 @@ import useToken from "../../../utils/useToken";
 
 const OPORTUNIDAD = "oportunidad";
 
-const DatosOportunidad = ({ oportunidad, dispatch, manageSelect }) => {
-  const { setSelect, select } = manageSelect;
+const DatosOportunidad = ({ oportunidad, dispatch, select = {} }) => {
   const {
     data: estadosOportunidades,
   } = useQuery(["estadosOportunidades"], getEstados);
@@ -75,7 +74,7 @@ const DatosOportunidad = ({ oportunidad, dispatch, manageSelect }) => {
             options={opcionesContactos}
             onChange={e => {
               handleDispatch(dispatch, "contacto_id", e?.value, OPORTUNIDAD);
-              setSelect({ ...select, contacto: e })
+              handleDispatch(dispatch, "contacto", e, "select")
             }}
           />
         </div>
@@ -86,7 +85,7 @@ const DatosOportunidad = ({ oportunidad, dispatch, manageSelect }) => {
             options={opcionesCursos}
             onChange={e => {
               handleDispatch(dispatch, "curso_id", e?.value, OPORTUNIDAD);
-              setSelect({ ...select, curso: e })
+              handleDispatch(dispatch, "curso", e, "select")
             }}
           />
         </div>
@@ -94,12 +93,12 @@ const DatosOportunidad = ({ oportunidad, dispatch, manageSelect }) => {
       <div className="columns">
         <div className="column">
           <Dropdown
-            label="Etapa*"
-            value={select.etapa}
+            label="Estado*"
+            value={select?.estado}
             options={estadosOportunidades || []}
             onChange={e => {
-              handleDispatch(dispatch, "etapa", e?.value, OPORTUNIDAD);
-              setSelect({ ...select, etapa: e })
+              handleDispatch(dispatch, "estado", e?.value, OPORTUNIDAD);
+              handleDispatch(dispatch, "estado", e, "select")
             }}
           />
         </div>
@@ -121,7 +120,7 @@ const DatosOportunidad = ({ oportunidad, dispatch, manageSelect }) => {
             options={opcionesCampanas}
             onChange={e => {
               handleDispatch(dispatch, "campana_id", e?.value, OPORTUNIDAD);
-              setSelect({ ...select, campana: e })
+              handleDispatch(dispatch, "campana", e, "select")
             }}
           />
         </div>
@@ -132,7 +131,7 @@ const DatosOportunidad = ({ oportunidad, dispatch, manageSelect }) => {
             options={opcionesUsuarios}
             onChange={e => {
               handleDispatch(dispatch, "usu_asignado_id", e?.value, OPORTUNIDAD);
-              setSelect({ ...select, usu_asignado: e })
+              handleDispatch(dispatch, "usu_asignado", e, "select")
             }}
           />
         </div>
@@ -152,13 +151,13 @@ const DatosOportunidad = ({ oportunidad, dispatch, manageSelect }) => {
 };
 
 const EditarOportunidad = () => {
-  const { state: { oportunidad }, dispatch } = useContext(AppContext);
-  const [select, setSelect] = useState({ etapa: "", usu_asignado: "", contacto: "", campana: "" });
+  const { state: { oportunidad, select }, dispatch } = useContext(AppContext);
   const [action, setAction] = useState({});
+  const [enabled, setEnabled] = useState(true);
   const navigate = useNavigate();
   const { id } = useParams();
   const currentUser = useToken().usuario;
-  
+
   const {
     data: currentOportunidad,
     isFetching,
@@ -169,15 +168,16 @@ const EditarOportunidad = () => {
   }, []);
 
   useEffect(() => {
-    if (!isFetching) {
+    if (!isFetching && enabled) {
+      setEnabled(false);
       handleDispatchEdit(dispatch, currentOportunidad, OPORTUNIDAD);
-      setSelect({
-        etapa: { label: currentOportunidad.etapa, value: currentOportunidad.etapa },
+      handleDispatchEdit(dispatch, {
+        estado: { label: currentOportunidad.estado, value: currentOportunidad.estado },
         campana: { label: currentOportunidad.campana?.nombre, value: currentOportunidad.campana?.campana_id },
         curso: { label: currentOportunidad.curso?.nombre, value: currentOportunidad.curso?.curso_id },
         usu_asignado: { label: currentOportunidad.usuario?.nom_usuario, value: currentOportunidad.usuario?.usuario_id },
         contacto: { label: currentOportunidad.contacto?.persona?.nombre, value: currentOportunidad.contacto?.contacto_id }
-      });
+      }, "select");
     }
   }, [isFetching]);
 
@@ -206,7 +206,7 @@ const EditarOportunidad = () => {
           <DatosOportunidad
             oportunidad={oportunidad}
             dispatch={dispatch}
-            manageSelect={{ setSelect, select }}
+            select={select}
           />
           <Guardar 
             saving={action.saving} 
