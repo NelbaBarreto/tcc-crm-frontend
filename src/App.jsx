@@ -54,11 +54,13 @@ import EditarLead from "./components/ventas/leads/EditarLead";
 import ListarContactos from "./components/ventas/contactos/Index";
 import CrearContacto from "./components/ventas/contactos/CrearContacto";
 import MostrarContacto from "./components/ventas/contactos/MostrarContacto";
+import EditarContacto from "./components/ventas/contactos/EditarContacto";
 
 //Organizaciones
 import ListarOrganizaciones from "./components/ventas/organizaciones/Index";
 import CrearOrganizacion from "./components/ventas/organizaciones/CrearOrganizacion";
 import MostrarOrganizacion from "./components/ventas/organizaciones/MostrarOrganizacion";
+import EditarOrganizacion from "./components/ventas/organizaciones/EditarOrganizacion";
 
 //Oportunidades
 import ListarOportunidades from "./components/ventas/oportunidades/Index";
@@ -300,6 +302,15 @@ const MainApp = () => {
               </ProtectedRoute>
             }
           />
+          <Route
+            exact
+            path="/ventas/contactos/editar/:id"
+            element={
+              <ProtectedRoute usuario={usuario}>
+                <EditarContacto />
+              </ProtectedRoute>
+            }
+          />
 
           {/* Organizaciones */}
           <Route
@@ -328,6 +339,15 @@ const MainApp = () => {
               </ProtectedRoute>
             }
           />
+          <Route
+            exact
+            path="/ventas/organizaciones/editar/:id"
+            element={
+              <ProtectedRoute usuario={usuario}>
+                <EditarOrganizacion />
+              </ProtectedRoute>
+            }
+          />          
 
           {/* Oportunidades */}
           <Route

@@ -7,6 +7,11 @@ export const createOrganizacion = async (data) => {
   return response.data;
 };
 
+export const editOrganizacion = async (id, data) => {
+  const { data: response } = await axios.put(`${API}/organizaciones/${id}`, { id, organizacion: data });
+  return response.data;
+};
+
 export const getOrganizaciones = async () => {
   const { data: response } = await axios.get(`${API}/organizaciones`);
   return response.data;

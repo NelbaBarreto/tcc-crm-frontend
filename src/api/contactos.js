@@ -7,6 +7,11 @@ export const createContacto = async (data) => {
   return response.data;
 };
 
+export const editContacto = async (id, data) => {
+  const { data: response } = await axios.put(`${API}/contactos/${id}`, { id, contacto: data });
+  return response.data;
+};
+
 export const getContactos = async () => {
   const { data: response } = await axios.get(`${API}/contactos`);
   return response.data;
