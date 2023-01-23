@@ -157,7 +157,7 @@ const EditarOportunidad = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const currentUser = useToken().usuario;
-  
+
   const {
     data: currentOportunidad,
     isFetching,
