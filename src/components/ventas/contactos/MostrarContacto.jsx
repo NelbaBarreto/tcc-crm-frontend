@@ -4,23 +4,23 @@ import { TextView } from "../../formulario/Componentes";
 import { Volver } from "../../formulario/Acciones";
 import { useQuery } from "react-query";
 import { useParams, useNavigate } from "react-router-dom";
-import { getLead } from "../../../api/leads";
+import { getContacto } from "../../../api/contactos";
 import { CircularProgress } from "@mui/material";
 import DatosPersona from "../../personas/DatosPersona";
 
-const DatosLead = ({ lead }) => {
+const DatosContacto = ({ contacto }) => {
   return (
     <>
       <DatosPersona
-        persona={lead.persona}
+        persona={contacto.persona}
       />
-      <Seccion titulo="Datos del Lead">
+      <Seccion titulo="Datos del Contacto">
         <div className="columns">
           <div className="column">
-            <TextView label="Interés/Curso" value={lead.curso.nombre} />
+            <TextView label="Origen" value={contacto.origen} />
           </div>
           <div className="column">
-            <TextView label="Usuario Asignado" value={lead.usu_asignado?.nom_usuario} />
+            <TextView label="Organización" value={contacto.organizacion?.persona?.nombre} />
           </div>
         </div>
       </Seccion>
@@ -28,14 +28,14 @@ const DatosLead = ({ lead }) => {
   );
 }
 
-const MostrarLead = () => {
+const MostrarContacto = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
   const {
-    data: lead,
+    data: contacto,
     isLoading
-  } = useQuery(["lead", id], () => getLead(id));
+  } = useQuery(["contacto", id], () => getContacto(id));
 
   return (
     <section className="section w-full m-auto">
@@ -63,7 +63,7 @@ const MostrarLead = () => {
       </div>
       <div className="mb-4">
         {isLoading ?
-          <CircularProgress size={24} className="fixed top-1/2 left-1/2" /> : <DatosLead lead={lead} navigate={navigate} />
+          <CircularProgress size={24} className="fixed top-1/2 left-1/2" /> : <DatosContacto contacto={contacto} navigate={navigate} />
         }
       </div>
       <Volver navigate={navigate} />
@@ -71,4 +71,4 @@ const MostrarLead = () => {
   );
 }
 
-export default MostrarLead;
+export default MostrarContacto;

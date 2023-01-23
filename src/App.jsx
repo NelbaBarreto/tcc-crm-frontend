@@ -53,14 +53,17 @@ import EditarLead from "./components/ventas/leads/EditarLead";
 //Contactos
 import ListarContactos from "./components/ventas/contactos/Index";
 import CrearContacto from "./components/ventas/contactos/CrearContacto";
+import MostrarContacto from "./components/ventas/contactos/MostrarContacto";
 
 //Organizaciones
 import ListarOrganizaciones from "./components/ventas/organizaciones/Index";
 import CrearOrganizacion from "./components/ventas/organizaciones/CrearOrganizacion";
+import MostrarOrganizacion from "./components/ventas/organizaciones/MostrarOrganizacion";
 
 //Oportunidades
 import ListarOportunidades from "./components/ventas/oportunidades/Index";
 import CrearOportunidad from "./components/ventas/oportunidades/CrearOportunidad";
+import MostrarOportunidad from "./components/ventas/oportunidades/MostrarOportunidad";
 import EditarOportunidad from "./components/ventas/oportunidades/EditarOportunidad.jsx";
 
 //Soporte
@@ -288,6 +291,15 @@ const MainApp = () => {
               </ProtectedRoute>
             }
           />
+          <Route
+            exact
+            path="/ventas/contactos/:id"
+            element={
+              <ProtectedRoute usuario={usuario}>
+                <MostrarContacto />
+              </ProtectedRoute>
+            }
+          />
 
           {/* Organizaciones */}
           <Route
@@ -307,6 +319,15 @@ const MainApp = () => {
               </ProtectedRoute>
             }
           />
+          <Route
+            exact
+            path="/ventas/organizaciones/:id"
+            element={
+              <ProtectedRoute usuario={usuario}>
+                <MostrarOrganizacion />
+              </ProtectedRoute>
+            }
+          />
 
           {/* Oportunidades */}
           <Route
@@ -323,6 +344,15 @@ const MainApp = () => {
             element={
               <ProtectedRoute usuario={usuario}>
                 <CrearOportunidad />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            exact
+            path="/ventas/oportunidades/:id"
+            element={
+              <ProtectedRoute usuario={usuario}>
+                <MostrarOportunidad />
               </ProtectedRoute>
             }
           />

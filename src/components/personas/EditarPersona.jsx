@@ -71,8 +71,6 @@ const Direcciones = ({ dispatch, direcciones, direccion }) => {
             <th>Calle 1</th>
             <th>Calle 2</th>
             <th>Código Postal</th>
-            <th>País</th>
-            <th>Ciudad</th>
             <th>Referencia</th>
             <th></th>
           </tr>
@@ -84,8 +82,6 @@ const Direcciones = ({ dispatch, direcciones, direccion }) => {
                 <td>{direccion.calle_1}</td>
                 <td>{direccion.calle_2}</td>
                 <td>{direccion.cod_postal}</td>
-                <td>{direccion.pais}</td>
-                <td>{direccion.ciudad}</td>
                 <td>{direccion.referencia}</td>
                 <td>
                   <button
