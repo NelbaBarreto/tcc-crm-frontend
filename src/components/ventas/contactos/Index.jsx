@@ -105,14 +105,18 @@ const Index = () => {
         filter: false,
         sort: false,
         empty: true,
-        customBodyRenderLite: (dataIndex, _rowIndex) => {
+        customBodyRender: (_value, tableMeta) => {
           return (
-            <button
-              className={classNameButton1}
-              onClick={() => console.log(contactos[dataIndex])}
-            >
-              Editar
-            </button>
+            <div className="field is-grouped">
+              <div className="control">
+                <NavLink
+                  to={"/ventas/contactos/editar/" + tableMeta.rowData[0]}
+                  className={classNameButton1}
+                >
+                  Editar
+                </NavLink>
+              </div>
+            </div>
           );
         }
       }
