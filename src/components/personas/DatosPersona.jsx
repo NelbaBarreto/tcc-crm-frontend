@@ -1,6 +1,6 @@
 import React from "react";
-import { DateFormat } from "../formulario/Componentes";
 import Seccion from "../formulario/Seccion";
+import { TextView } from "../formulario/Componentes";
 
 const Telefonos = ({ telefonos }) => {
   const MostrarTelefonos = () => {
@@ -11,7 +11,6 @@ const Telefonos = ({ telefonos }) => {
             <th>Número</th>
             <th>Tipo</th>
             <th>Comentario</th>
-            <th>Principal</th>
             <th></th>
           </tr>
         </thead>
@@ -22,7 +21,6 @@ const Telefonos = ({ telefonos }) => {
                 <td>{telefono.numero}</td>
                 <td>{telefono.tipo}</td>
                 <td>{telefono.comentario}</td>
-                <td>{telefono.principal ? "Sí" : "No"}</td>
               </tr>
             )
           })}
@@ -47,10 +45,8 @@ const Direcciones = ({ direcciones }) => {
             <th>Calle 1</th>
             <th>Calle 2</th>
             <th>Código Postal</th>
-            <th>País</th>
-            <th>Ciudad</th>
+            {/* <th>Ciudad</th> */}
             <th>Referencia</th>
-            <th>Principal</th>
             <th></th>
           </tr>
         </thead>
@@ -61,10 +57,8 @@ const Direcciones = ({ direcciones }) => {
                 <td>{direccion.calle_1}</td>
                 <td>{direccion.calle_2}</td>
                 <td>{direccion.cod_postal}</td>
-                <td>{direccion.pais}</td>
-                <td>{direccion.ciudad}</td>
+                {/* <td>{direccion.ciudad}</td> */}
                 <td>{direccion.referencia}</td>
-                <td>{direccion.principal ? "Sí" : "No"}</td>
               </tr>
             )
           })}
@@ -82,36 +76,32 @@ const Direcciones = ({ direcciones }) => {
 
 const DatosPersona = ({ persona }) => {
   return (
-    <div className="w-full md:w-9/12 mx-2 h-64">
+    <>
       <Seccion titulo="Datos Personales">
-        <div className="text-gray-700">
-          <div className="columns">
-            <div className="column">
-              <div className="px-4 py-2 font-semibold">Nombre</div>
-              <div className="px-4 py-2">{persona.nombre}</div>
-            </div>
-            <div className="column">
-              <div className="px-4 py-2 font-semibold">Email</div>
-              <div className="px-4 py-2">
-                <a className="text-blue-800" href={`mailto:${persona.email}`}>{persona.email}</a>
-              </div>
-            </div>
+        <div className="columns">
+          <div className="column">
+            <TextView label="Nombre" value={persona.nombre} />
+          </div>
+          <div className="column">
+            <TextView label="Email" value={persona.email} />
           </div>
         </div>
         <div className="columns">
           <div className="column">
-            <div className="px-4 py-2 font-semibold">Número de Documento</div>
-            <div className="px-4 py-2">{persona.nro_documento}</div>
+            <TextView label="Tipo de Documento" value={persona.tip_documento} />
           </div>
           <div className="column">
-            <div className="px-4 py-2 font-semibold">Tipo de Documento</div>
-            <div className="px-4 py-2">{persona.tip_documento}</div>
+            <TextView label="Número de Documento" value={persona.nro_documento} />
           </div>
         </div>
       </Seccion>
-      <Telefonos telefonos={persona.telefonos} />
-      <Direcciones direcciones={persona.direcciones} />
-    </div>
+      <Telefonos
+        telefonos={persona.telefonos}
+      />
+      <Direcciones
+        direcciones={persona.direcciones}
+      />
+    </>
   )
 }
 export default DatosPersona;

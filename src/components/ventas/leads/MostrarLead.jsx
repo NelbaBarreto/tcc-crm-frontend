@@ -6,20 +6,25 @@ import { useQuery } from "react-query";
 import { useParams, useNavigate } from "react-router-dom";
 import { getLead } from "../../../api/leads";
 import { CircularProgress } from "@mui/material";
+import DatosPersona from "../../personas/DatosPersona";
 
 const DatosLead = ({ lead }) => {
   return (
-    <Seccion titulo="Datos del lead">
-
-      <div className="columns">
-        <div className="column">
-          <TextView label="Nombre" value={lead.nombre} />
+    <>
+      <DatosPersona
+        persona={lead.persona}
+      />
+      <Seccion titulo="Datos del Lead">
+        <div className="columns">
+          <div className="column">
+            <TextView label="Interés/Curso" value={lead.curso.nombre} />
+          </div>
+          <div className="column">
+            <TextView label="Usuario Asignado" value={lead.usu_asignado?.nom_usuario} />
+          </div>
         </div>
-        <div className="column">
-          <TextView label="Descripción" value={lead.descripcion} />
-        </div>
-      </div>
-    </Seccion>
+      </Seccion>
+    </>
   );
 }
 
