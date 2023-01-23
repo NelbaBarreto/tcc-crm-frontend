@@ -63,6 +63,7 @@ import MostrarOrganizacion from "./components/ventas/organizaciones/MostrarOrgan
 //Oportunidades
 import ListarOportunidades from "./components/ventas/oportunidades/Index";
 import CrearOportunidad from "./components/ventas/oportunidades/CrearOportunidad";
+import MostrarOportunidad from "./components/ventas/oportunidades/MostrarOportunidad";
 import EditarOportunidad from "./components/ventas/oportunidades/EditarOportunidad.jsx";
 
 //Soporte
@@ -343,6 +344,15 @@ const MainApp = () => {
             element={
               <ProtectedRoute usuario={usuario}>
                 <CrearOportunidad />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            exact
+            path="/ventas/oportunidades/:id"
+            element={
+              <ProtectedRoute usuario={usuario}>
+                <MostrarOportunidad />
               </ProtectedRoute>
             }
           />
