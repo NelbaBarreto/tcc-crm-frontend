@@ -6,7 +6,6 @@ import { useQuery } from "react-query";
 import {
   getCasosPorEstado, getCasosActivosPorPrioridad, getCasosPorTipo, getCasosPorOrigen
 } from "../../../../api/dashboard";
-import { Titulo1 } from "../../../formulario/Titulo";
 
 const MainDash = () => {
   const [estadoData, setEstadoData] = useState({ datasets: [] });
@@ -88,11 +87,7 @@ const MainDash = () => {
 
   return (
     <section className="section w-full m-auto">
-      <Titulo1>
-        Dashboard
-      </Titulo1>
       <div className="MainDash">
-
         <div className="columns">
           <div className="column">
             <div className="box">
