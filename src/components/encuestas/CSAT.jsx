@@ -52,7 +52,7 @@ const CSAT = () => {
     data: preguntas,
     isLoading
   } = useQuery(["preguntas"], getPreguntas);
-
+console.log(respuestas)
 
   useEffect(() => {
     const valorInicialRespuestas = preguntas?.map((pregunta) =>

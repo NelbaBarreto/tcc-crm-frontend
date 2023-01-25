@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Casos from "./Casos";
+import CSAT from "./CSAT";
 import { Titulo1 } from "../../../formulario/Titulo";
 
 const Tab = ({ tab, activeTab, changeActiveTab })=> {
@@ -51,7 +52,7 @@ const tabList = [
   {
     name: "CSAT",
     icon: "",
-    content: "Stuff 4"
+    content: <CSAT />
   }
 ];
 
