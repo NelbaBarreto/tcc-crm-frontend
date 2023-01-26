@@ -5,6 +5,8 @@ import MostrarMensaje from "../../formulario/MostrarMensaje";
 import { CircularProgress } from "@mui/material";
 import { Volver, Guardar } from "../../formulario/Acciones";
 import { Titulo1 } from "../../formulario/Titulo";
+import { getLeads } from "../../../api/leads";
+import { getContactos } from "../../../api/contactos";
 import { Dropdown, Input, TextArea } from "../../formulario/Componentes";
 import { getUsuarios } from "../../../api/usuarios";
 import { editCaso, getOrigenes, getPrioridades, getEstados, getTipos, getCaso } from "../../../api/casos";
@@ -36,9 +38,26 @@ const DatosCaso = ({ caso, dispatch, select = {} }) => {
     data: tipos,
   } = useQuery(["tipos"], getTipos);
 
+  const {
+    data: leads,
+    leadsLoading
+  } = useQuery(["leads"], getLeads);
+
+  const {
+    data: contactos,
+    contactosLoading
+  } = useQuery(["contactos"], getContactos);
+
   const opcionesUsuarios = usuariosLoading || !usuarios ? [] :
     usuarios.map(usuario => ({ value: usuario.usuario_id, label: usuario.nom_usuario }));
-  
+
+  const opcionesLeads = leadsLoading || !leads ? [] :
+    leads.map(lead => ({ value: lead.lead_id, label: `${lead.lead_id}-${lead.persona.nombre}` }));
+
+  const opcionesContactos = contactosLoading || !contactos ? [] :
+    contactos.map(contacto => ({ value: contacto.contacto_id, label: `${contacto.contacto_id}-${contacto.persona.nombre}` }));
+
+
   return (
     <Seccion titulo="Datos del Caso">
       <Input
@@ -91,6 +110,30 @@ const DatosCaso = ({ caso, dispatch, select = {} }) => {
             onChange={e => {
               handleDispatch(dispatch, "origen", e?.value, CASO);
               handleDispatch(dispatch, "origen", e, "select")
+            }}
+          />
+        </div>
+      </div>
+      <div className="columns is-desktop">
+        <div className="column">
+          <Dropdown
+            label="Lead"
+            options={opcionesLeads}
+            value={select.lead}
+            onChange={e => {
+              handleDispatch(dispatch, "lead_id", e?.value, CASO);
+              handleDispatch(dispatch, "lead", e, "select")
+            }}
+          />
+        </div>
+        <div className="column">
+          <Dropdown
+            label="Contacto"
+            options={opcionesContactos}
+            value={select.contacto}
+            onChange={e => {
+              handleDispatch(dispatch, "contacto_id", e?.value, CASO);
+              handleDispatch(dispatch, "contacto", e, "select")
             }}
           />
         </div>
@@ -195,7 +238,7 @@ const EditarCaso = () => {
               saving={action.saving}
               guardar={editar}
             />
-            <Volver 
+            <Volver
               navigate={navigate}
             />
           </form>
