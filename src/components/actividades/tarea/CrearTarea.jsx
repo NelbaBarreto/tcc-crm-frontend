@@ -42,8 +42,8 @@ const DatosTarea = ({ tarea, dispatch, select = {} }) => {
   const opcionesUsuarios = usuariosLoading || !usuarios ? [] :
     usuarios.map(usuario => ({ value: usuario.usuario_id, label: usuario.nom_usuario }));
 
-  const opcionesLeads = leadsLoading || !leads ? [] :
-    leads.map(lead => ({ value: lead.lead_id, label: lead.lead_id }));
+    const opcionesLeads = leadsLoading || !leads ? [] :
+    leads.map(lead => ({ value: lead.lead_id, label: `${lead.lead_id}-${lead.persona.nombre}` }));
 
   const opcionesContactos = contactosLoading || !contactos ? [] :
     contactos.map(contacto => ({ value: contacto.contacto_id, label: `${contacto.contacto_id}-${contacto.persona.nombre}` }));

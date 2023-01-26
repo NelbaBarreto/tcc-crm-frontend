@@ -42,7 +42,7 @@ const CrearLlamada = () => {
   } = useQuery(["estados"], getEstados);
 
   const opcionesLeads = leadsLoading || !leads ? [] :
-    leads.map(lead => ({ value: lead.lead_id, label: lead.lead_id }));
+    leads.map(lead => ({ value: lead.lead_id, label: `${lead.lead_id}-${lead.persona.nombre}` }));
 
   const opcionesContactos = contactosLoading || !contactos ? [] :
     contactos.map(contacto => ({ value: contacto.contacto_id, label: `${contacto.contacto_id}-${contacto.persona.nombre}` }));
