@@ -17,6 +17,11 @@ export const getLeadsPorEstado = async () => {
   return response.data;
 };
 
+export const getTareasPorEstado = async () => {
+  const { data: response } = await axios.get(`${API}/dashboard/tareasPorEstado`);
+  return response.data;
+};
+
 export const getLlamadasPorEstado = async () => {
   const { data: response } = await axios.get(`${API}/dashboard/llamadasPorEstado`);
   return response.data;
@@ -32,3 +37,12 @@ export const getCasosPorOrigen = async () => {
   return response.data;
 };
 
+export const getTareasActivasPorPrioridad = async () => {
+  const { data: response } = await axios.get(`${API}/dashboard/tareasActivasPorPrioridad`);
+  return response.data;
+};
+
+export const getLeadsPorOrigen = async () => {
+  const { data: response } = await axios.get(`${API}/dashboard/leadsPorOrigen`);
+  return response.data;
+};

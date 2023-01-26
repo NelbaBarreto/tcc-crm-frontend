@@ -1,12 +1,12 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import DoughnutChart from "./Doughnut";
+import DoughnutChart from "./assets/js/Doughnut";
 import { useQuery } from "react-query";
 import {
   getCasosActivosPorPrioridad
-} from "../../../../api/dashboard";
+} from "../../api/dashboard";
 
-const MainDash = () => {
+const CSAT = () => {
   const [prioridadData, setPrioridadData] = useState({ datasets: [] });
 
   const {
@@ -28,25 +28,19 @@ const MainDash = () => {
   }, [casosPorPrioridad, casosPFetching]);
 
   return (
-    <section className="section w-full m-auto">
-      <div className="MainDash">
-        <div className="columns">
-          <div className="column is-half">
-            <div className="box">
-              <div style={{ width: 400, height: 400 }}>
-                <DoughnutChart
-                  chartData={prioridadData}
-                  half={true}
-                  title="Customer Satisfaction Score"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
+    <div
+      className="grid grid-cols-2"
+    >
+      <div className="rounded-md shadow-md bg-white p-2">
+        <DoughnutChart
+          chartData={prioridadData}
+          half={true}
+          title="Customer Satisfaction Score"
+        />
       </div>
-    </section>
+    </div>
   )
 }
 
 
-export default MainDash;
+export default CSAT;

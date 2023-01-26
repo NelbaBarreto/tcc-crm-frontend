@@ -42,9 +42,9 @@ const CSAT = () => {
   const [action, setAction] = useState({ surveySent: false, saving: false });
   const { token } = useParams();
 
-  const handleRespuesta = (pregunta_id, valor) => {
+  const handleRespuesta = (pregunta_id, valor, campo = "valor") => {
     let updatedArray = respuestas.map(a => { return { ...a } })
-    updatedArray.find(a => a.pregunta_id === pregunta_id).valor = valor;
+    updatedArray.find(a => a.pregunta_id === pregunta_id)[`${campo}`] = valor;
     setRespuestas(updatedArray);
   }
 
@@ -52,7 +52,6 @@ const CSAT = () => {
     data: preguntas,
     isLoading
   } = useQuery(["preguntas"], getPreguntas);
-console.log(respuestas)
 
   useEffect(() => {
     const valorInicialRespuestas = preguntas?.map((pregunta) =>
@@ -79,8 +78,6 @@ console.log(respuestas)
       await enviarEncuesta({
         oportunidad_id: decodedData.oportunidad_id,
         contacto_id: decodedData.contacto_id,
-        // json: preguntas,
-        json: {},
         respuestas: respuestas
       });
       setAction({ saving: false, surveySent: true });
@@ -135,8 +132,8 @@ console.log(respuestas)
                         <TextArea
                           label=""
                           name={`respuesta_${pregunta.pregunta_id}`}
-                          value={respuestas.find(respuesta => respuesta.pregunta_id === pregunta.pregunta_id)?.valor || ""}
-                          onChange={e => handleRespuesta(pregunta.pregunta_id, e?.target.value)}
+                          value={respuestas.find(respuesta => respuesta.pregunta_id === pregunta.pregunta_id)?.valor_texto || ""}
+                          onChange={e => handleRespuesta(pregunta.pregunta_id, e?.target.value, "valor_texto")}
                         />
                       }
                     </Card>

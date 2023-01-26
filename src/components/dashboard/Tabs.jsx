@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import Casos from "./Casos";
 import CSAT from "./CSAT";
-import { Titulo1 } from "../../../formulario/Titulo";
+import Ventas from "./Ventas";
+import Actividades from "./Actividades";
+import { Titulo1 } from "../formulario/Titulo";
 
 const Tab = ({ tab, activeTab, changeActiveTab })=> {
 
   return (
-    <li className={tab.name === activeTab && "is-active"} onClick={() => changeActiveTab(tab.name)}>
+    <li className={tab.name === activeTab ? "is-active" : ""} onClick={() => changeActiveTab(tab.name)}>
       <a>
         <span>{tab.name}</span>
       </a>
@@ -16,7 +18,7 @@ const Tab = ({ tab, activeTab, changeActiveTab })=> {
 
 const Tabs = ({ tabList, activeTab, changeActiveTab }) => {
   return (
-    <div className="tabs">
+    <div className="tabs is-boxed">
       <ul>
         {tabList.map(tab =>
           <Tab 
@@ -37,7 +39,7 @@ const tabList = [
   {
     name: "Ventas",
     icon: "",   
-    content: "Stuff 1"
+    content: <Ventas />
   }, 
   {
     name: "Soporte",
@@ -47,7 +49,7 @@ const tabList = [
   {
     name: "Actividades",
     icon: "",
-    content: "Stuff 3"
+    content: <Actividades />
   }, 
   {
     name: "CSAT",

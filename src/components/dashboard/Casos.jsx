@@ -1,11 +1,11 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import PieChart from "./Piechart";
-import DoughnutChart from "./Doughnut";
+import PieChart from "./assets/js/Piechart";
+import DoughnutChart from "./assets/js/Doughnut";
 import { useQuery } from "react-query";
 import {
   getCasosPorEstado, getCasosActivosPorPrioridad, getCasosPorTipo, getCasosPorOrigen
-} from "../../../../api/dashboard";
+} from "../../api/dashboard";
 
 const MainDash = () => {
   const [estadoData, setEstadoData] = useState({ datasets: [] });
@@ -38,7 +38,7 @@ const MainDash = () => {
       setEstadoData({
         labels: casosPorEstado?.map((data) => data.estado),
         datasets: [{
-          label: "Cantidad de Casos",
+          label: "Casos",
           data: casosPorEstado?.map((data) => data.total),
           backgroundColor: ["#3296ed", "#96d44e", "#c398f5", "#50d4cd"]
         },],
@@ -51,7 +51,7 @@ const MainDash = () => {
       setPrioridadData({
         labels: casosPorPrioridad?.map((data) => data.prioridad),
         datasets: [{
-          label: "Cantidad de Casos",
+          label: "Casos",
           data: casosPorPrioridad?.map((data) => data.total),
           backgroundColor: ["#ff562f", "#ffab00", "#35b47f"]
         },],
@@ -64,7 +64,7 @@ const MainDash = () => {
       setTipoData({
         labels: casosPorTipo?.map((data) => data.tipo),
         datasets: [{
-          label: "Cantidad de Casos",
+          label: "Casos",
           data: casosPorTipo?.map((data) => data.total),
           backgroundColor: ["#16bfdb", "#5969ff", "#f0346e", "#209CEE"]
         },],
@@ -77,7 +77,7 @@ const MainDash = () => {
       setOrigenData({
         labels: casosPorOrigen?.map((data) => data.origen),
         datasets: [{
-          label: "Cantidad de Casos",
+          label: "Casos",
           data: casosPorOrigen?.map((data) => data.total),
           backgroundColor: ["#bd0000", "#3e51b5", "#4caf4f", "#07a9f3", "#f9ce1d"]
         },],
@@ -86,55 +86,34 @@ const MainDash = () => {
   }, [casosPorOrigen, casosOFetching]);
 
   return (
-    <section className="section w-full m-auto">
-      <div className="MainDash">
-        <div className="columns">
-          <div className="column">
-            <div className="box">
-              <div style={{ width: 400 }}>
-                <PieChart
-                  chartData={estadoData}
-                  title="Casos Por Estado"
-                />
-              </div>
-            </div>
-          </div>
-          <div className="column">
-            <div className="box">
-              <div style={{ width: 400, height: 400 }}>
-                <DoughnutChart
-                  chartData={prioridadData}
-                  title="Casos Activos Por Prioridad"
-                />
-              </div>
-            </div>
-          </div>
-
-        </div>
-        <div className="columns">
-          <div className="column">
-            <div className="box">
-              <div style={{ width: 400 }}>
-                <PieChart
-                  chartData={tipoData}
-                  title="Casos Por Tipo"
-                />
-              </div>
-            </div>
-          </div>
-          <div className="column">
-            <div className="box">
-              <div style={{ width: 400 }}>
-                <DoughnutChart
-                  chartData={origenData}
-                  title="Casos Por Origen"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
+    <div
+      className="grid sm:grid-rows-3 sm:grid-cols-1 md:grid-cols-3 md:grid-rows-1 gap-1"
+    >
+      <div className="rounded-md shadow-md bg-white p-2">
+        <PieChart
+          chartData={estadoData}
+          title="Casos Por Estado"
+        />
       </div>
-    </section>
+      <div className="rounded-md shadow-md bg-white p-2">
+        <DoughnutChart
+          chartData={prioridadData}
+          title="Casos Activos Por Prioridad"
+        />
+      </div>
+      <div className="rounded-md shadow-md bg-white p-2">
+        <PieChart
+          chartData={tipoData}
+          title="Casos Por Tipo"
+        />
+      </div>
+      <div className="rounded-md shadow-md bg-white p-2">
+        <DoughnutChart
+          chartData={origenData}
+          title="Casos Por Origen"
+        />
+      </div>
+    </div>
   )
 }
 

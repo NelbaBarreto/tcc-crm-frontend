@@ -14,9 +14,9 @@ const PieAreaChart = ({ chartData, title }) => {
 					title: {
 						display: true,
 						text: title
-					}
+					},
 				}
-			}} 
+			}}
 		/>
 	);
 }
