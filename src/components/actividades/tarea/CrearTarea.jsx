@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useContext, useEffect } from "react";
 import AppContext from "../../../utils/AppContext";
 import Seccion from "../../formulario/Seccion";
@@ -9,7 +10,7 @@ import { getUsuarios } from "../../../api/usuarios";
 import { getLeads } from "../../../api/leads";
 import { getContactos } from "../../../api/contactos";
 import { createTarea, getPrioridades, getEstados } from "../../../api/tareas";
-import { handleDispatch } from "../../formulario/reducerFormularios.js";
+import { handleDispatch, handleStateCleared } from "../../formulario/reducerFormularios.js";
 import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 
@@ -151,6 +152,10 @@ const CrearTarea = () => {
   const { state: { tarea, select }, dispatch } = useContext(AppContext);
   const [action, setAction] = useState({});
   const navigate = useNavigate();
+
+  useEffect(() => {
+    handleStateCleared(dispatch);
+  }, []);
 
   const crear = async e => {
     e.preventDefault();
