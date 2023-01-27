@@ -5,6 +5,8 @@ import Seccion from "../../formulario/Seccion";
 import MostrarMensaje from "../../formulario/MostrarMensaje";
 import { Volver, Guardar } from "../../formulario/Acciones";
 import { Titulo1 } from "../../formulario/Titulo";
+import { getLeads } from "../../../api/leads";
+import { getContactos } from "../../../api/contactos";
 import { Dropdown, Input, TextArea, Datepicker } from "../../formulario/Componentes";
 import { getUsuarios } from "../../../api/usuarios";
 import { editTarea, getPrioridades, getEstados, getTarea } from "../../../api/tareas";
@@ -28,8 +30,24 @@ const DatosTarea = ({ tarea, dispatch, select = {} }) => {
     data: estados,
   } = useQuery(["estados"], getEstados);
 
+  const {
+    data: leads,
+    leadsLoading
+  } = useQuery(["leads"], getLeads);
+
+  const {
+    data: contactos,
+    contactosLoading
+  } = useQuery(["contactos"], getContactos);
+
   const opcionesUsuarios = usuariosLoading || !usuarios ? [] :
     usuarios.map(usuario => ({ value: usuario.usuario_id, label: usuario.nom_usuario }));
+
+  const opcionesLeads = leadsLoading || !leads ? [] :
+    leads.map(lead => ({ value: lead.lead_id, label: `${lead.lead_id}-${lead.persona.nombre}` }));
+
+  const opcionesContactos = contactosLoading || !contactos ? [] :
+    contactos.map(contacto => ({ value: contacto.contacto_id, label: `${contacto.contacto_id}-${contacto.persona.nombre}` }));
 
   return (
     <Seccion titulo="Datos de la Tarea">
@@ -76,6 +94,30 @@ const DatosTarea = ({ tarea, dispatch, select = {} }) => {
             onChange={e => {
               handleDispatch(dispatch, "prioridad", e?.value, TAREA);
               handleDispatch(dispatch, "prioridad", e, "select")
+            }}
+          />
+        </div>
+      </div>
+      <div className="columns is-desktop">
+        <div className="column">
+          <Dropdown
+            label="Lead"
+            options={opcionesLeads}
+            value={select.lead}
+            onChange={e => {
+              handleDispatch(dispatch, "lead_id", e?.value, TAREA);
+              handleDispatch(dispatch, "lead", e, "select")
+            }}
+          />
+        </div>
+        <div className="column">
+          <Dropdown
+            label="Contacto"
+            options={opcionesContactos}
+            value={select.contacto}
+            onChange={e => {
+              handleDispatch(dispatch, "contacto_id", e?.value, TAREA);
+              handleDispatch(dispatch, "contacto", e, "select")
             }}
           />
         </div>
