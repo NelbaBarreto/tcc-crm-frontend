@@ -55,9 +55,6 @@ import EditarCaso from "./components/soporte/casos/EditarCaso";
 import MostrarCaso from "./components/soporte/casos/MostrarCaso";
 import EliminarCaso from "./components/soporte/casos/EliminarCaso";
 
-//Actividades
-import Calendario from "./components/actividades/calendario/Calendario";
-
 //Llamadas
 import ListarLlamada from "./components/actividades/llamada/Index";
 import CrearLlamada from "./components/actividades/llamada/CrearLlamada";
@@ -199,7 +196,7 @@ const MainApp = () => {
               </ProtectedRoute>
             }
           />
-          
+
           {/* Leads */}
           <Route
             exact
@@ -475,16 +472,6 @@ const MainApp = () => {
             element={
               <ProtectedRoute usuario={usuario}>
                 <EliminarLlamada />
-              </ProtectedRoute>
-            }
-          />
-
-          {/* Calendarios */}
-          <Route
-            path="/actividades/calendario"
-            element={
-              <ProtectedRoute usuario={usuario}>
-                <Calendario />
               </ProtectedRoute>
             }
           />
