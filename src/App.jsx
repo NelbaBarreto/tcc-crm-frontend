@@ -17,21 +17,6 @@ import ListarEmpleados from "./components/empleados/Index";
 import CrearEmpleado from "./components/empleados/CrearEmpleado";
 import MostrarEmpleado from "./components/empleados/MostrarEmpleado";
 
-//Países
-import ListarPaises from "./components/parametros/paises/Index";
-import CrearPais from "./components/parametros/paises/CrearPais";
-import MostrarPais from "./components/parametros/paises/MostrarPais";
-
-// Ciudades
-import ListarCiudades from "./components/parametros/ciudades/Index";
-import CrearCiudad from "./components/parametros/ciudades/CrearCiudad";
-import MostrarCiudad from "./components/parametros/ciudades/MostrarCiudad";
-import EditarCiudad from "./components/parametros/ciudades/EditarCiudad";
-import EliminarCiudad from "./components/parametros/ciudades/EliminarCiudad";
-
-// Motivos
-import CrearMotivo from "./components/parametros/motivos/CrearMotivo";
-
 // Campañas
 import ListarCampana from "./components/marketing/campanas/Index";
 import CrearCampana from "./components/marketing/campanas/CrearCampana";
@@ -39,11 +24,6 @@ import EditarCampana from "./components/marketing/campanas/EditarCampana";
 import MostrarCampana from "./components/marketing/campanas/MostrarCampana";
 import EliminarCampana from "./components/marketing/campanas/EliminarCampana";
 
-// Tipo Campaña
-import ListarTipcampana from "./components/marketing/tipo_campanas/Index";
-import CrearTipoCampana from "./components/marketing/tipo_campanas/CrearTipoCampana";
-
-//Ventas
 //Leads
 import ListarLeads from "./components/ventas/leads/Index";
 import CrearLead from "./components/ventas/leads/CrearLead";
@@ -68,8 +48,7 @@ import CrearOportunidad from "./components/ventas/oportunidades/CrearOportunidad
 import MostrarOportunidad from "./components/ventas/oportunidades/MostrarOportunidad";
 import EditarOportunidad from "./components/ventas/oportunidades/EditarOportunidad.jsx";
 
-//Soporte
-//Caso
+//Casos
 import ListarCaso from "./components/soporte/casos/Index";
 import CrearCaso from "./components/soporte/casos/CrearCaso";
 import EditarCaso from "./components/soporte/casos/EditarCaso";
@@ -176,20 +155,6 @@ const MainApp = () => {
             }
           />
 
-          {/* Países */}
-          <Route exact path="/parametros/paises" element={<ListarPaises />} />
-          <Route path="/parametros/paises/nuevo" element={<CrearPais />} />
-          <Route path="/parametros/paises/:id" element={<MostrarPais />} />
-
-          {/* Ciudades */}
-          <Route exact path="/parametros/ciudades" element={<ListarCiudades />} />
-          <Route path="/parametros/ciudades/nuevo" element={<CrearCiudad />} />
-          <Route path="/parametros/ciudades/editar/:id" element={<EditarCiudad />} />
-          <Route path="/parametros/ciudades/:id" element={<MostrarCiudad />} />
-          <Route path="/parametros/ciudades/eliminar/:id" element={<EliminarCiudad />} />
-
-          <Route path="/parametros/motivos" element={<CrearMotivo />} />
-
           {/* Campañas */}
           <Route
             exact
@@ -234,11 +199,7 @@ const MainApp = () => {
               </ProtectedRoute>
             }
           />
-
-          {/* Tipo Campañas */}
-          <Route exact path="/marketing/tipocampana" element={<ListarTipcampana />} />
-          <Route path="/marketing/tipocampana/nuevo" element={<CrearTipoCampana />} />
-
+          
           {/* Leads */}
           <Route
             exact
