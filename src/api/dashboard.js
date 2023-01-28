@@ -46,3 +46,13 @@ export const getLeadsPorOrigen = async () => {
   const { data: response } = await axios.get(`${API}/dashboard/leadsPorOrigen`);
   return response.data;
 };
+
+export const getRespuestasPorValor = async () => {
+  const { data: response } = await axios.get(`${API}/dashboard/respuestasPorValor`);
+  return response.data;
+};
+
+export const getCsat = async () => {
+  const { data: response } = await axios.get(`${API}/dashboard/csat`);
+  return response.data;
+};
