@@ -3,40 +3,58 @@ import { useState, useEffect } from "react";
 import DoughnutChart from "./assets/js/Doughnut";
 import { useQuery } from "react-query";
 import {
-  getCasosActivosPorPrioridad
+  getCsat, getRespuestasPorValor
 } from "../../api/dashboard";
 
 const CSAT = () => {
   const [prioridadData, setPrioridadData] = useState({ datasets: [] });
+  const [csatData, setCsatData] = useState();
 
   const {
-    data: casosPorPrioridad,
-    casosPFetching
-  } = useQuery(["casosPorPrioridad"], getCasosActivosPorPrioridad);
+    data: respuestasPorValor,
+    respuestasVFetching
+  } = useQuery(["respuestasPorValor"], getRespuestasPorValor);
+
+  const {
+    data: csat,
+    csatPFetching
+  } = useQuery(["csat"], getCsat);
 
   useEffect(() => {
-    if (!casosPFetching) {
+    if (!respuestasVFetching) {
       setPrioridadData({
-        labels: casosPorPrioridad?.map((data) => data.prioridad),
+        labels: respuestasPorValor?.map((data) => data.etiqueta),
         datasets: [{
-          label: "Cantidad de Casos",
-          data: casosPorPrioridad?.map((data) => data.total),
+          label: "Respuestas",
+          data: respuestasPorValor?.map((data) => data.total),
           backgroundColor: ["#ff562f", "#ffab00", "#35b47f"]
         },],
       });
     }
-  }, [casosPorPrioridad, casosPFetching]);
+  }, [respuestasPorValor, respuestasVFetching]);
+
+  useEffect(() => {
+    if (!csatPFetching) {
+      setCsatData(csat?.length ? csat[0] : "");
+    }
+  }, [csat, csatPFetching]);
 
   return (
     <div
-      className="grid grid-cols-2"
+      className="grid grid-cols-2 gap-1"
     >
       <div className="rounded-md shadow-md bg-white p-2">
         <DoughnutChart
           chartData={prioridadData}
           half={true}
-          title="Customer Satisfaction Score"
+          title="Encuesta de Satisfacción"
         />
+      </div>
+      <div className="rounded-md shadow-md bg-white p-2 grid grid-rows-2 gap-1">
+        <h5 className="title is-5">Customer Satisfaction Score (CSAT)</h5>
+        <p className="text-6xl text-center">
+          {csatData?.csat}%
+        </p>
       </div>
     </div>
   )
