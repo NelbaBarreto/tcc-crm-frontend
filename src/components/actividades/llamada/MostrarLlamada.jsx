@@ -6,9 +6,21 @@ import { Volver } from "../../formulario/Acciones";
 import { useQuery } from "react-query";
 import { useParams, useNavigate } from "react-router-dom";
 import { getLlamada } from "../../../api/llamadas";
+import { getLead } from "../../../api/leads";
+import { getContacto } from "../../../api/contactos";
 import { format } from "date-fns";
 
 const DatosLlamada = ({ llamada = {} }) => {
+  const { id } = useParams();
+
+  const {
+    data: lead,
+  } = useQuery(["lead", llamada.lead_id], () => getLead(llamada.lead_id));
+
+  const {
+    data: contacto,
+  } = useQuery(["contacto", llamada.contacto_id], () => getContacto(llamada.contacto_id));
+
   return (
     <Seccion titulo={llamada.asunto}>
       <div className="columns">
@@ -25,6 +37,14 @@ const DatosLlamada = ({ llamada = {} }) => {
         </div>
         <div className="column">
           <TextView label="Descripción" value={llamada.descripcion} />
+        </div>
+      </div>
+      <div className="columns">
+        <div className="column">
+          <TextView label="Contacto" value={`${contacto.contacto_id}-${contacto.persona.nombre}`} />
+        </div>
+        <div className="column">
+          <TextView label="Lead" value={`${lead.lead_id}-${lead.persona.nombre}`} />
         </div>
       </div>
       <div className="columns">

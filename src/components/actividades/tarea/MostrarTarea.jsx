@@ -6,9 +6,22 @@ import { Volver } from "../../formulario/Acciones";
 import { useQuery } from "react-query";
 import { useParams, useNavigate } from "react-router-dom";
 import { getTarea } from "../../../api/tareas";
+import { getLead } from "../../../api/leads";
+import { getContacto } from "../../../api/contactos";
 import { format, parseISO } from "date-fns";
 
 const DatosTarea = ({ tarea = {} }) => {
+
+  const {
+    data: lead,
+  } = useQuery(["lead", tarea.lead_id], () => getLead(tarea.lead_id));
+
+  const {
+    data: contacto,
+  } = useQuery(["contacto", tarea.contacto_id], () => getContacto(tarea.contacto_id));
+
+  console.log(contacto);
+
   return (
     <Seccion titulo={tarea.asunto}>
       <div className="columns">
@@ -38,10 +51,18 @@ const DatosTarea = ({ tarea = {} }) => {
         </div>
       </div>
       <div className="columns">
-      <div className="column">
-        <TextView label="Usuario Asignado" value={tarea.usuario.nom_usuario} />
+        <div className="column">
+          <TextView label="Usuario Asignado" value={tarea.usuario.nom_usuario} />
+        </div>
       </div>
-    </div>
+      <div className="columns">
+        <div className="column">
+          <TextView label="Contacto" value={`${contacto.contacto_id}-${contacto.persona.nombre}`} />
+        </div>
+        <div className="column">
+          <TextView label="Lead" value={`${lead.lead_id}-${lead.persona.nombre}`} />
+        </div>
+      </div>
     </Seccion >
   );
 }
