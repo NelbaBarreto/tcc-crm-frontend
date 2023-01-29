@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Titulo1 } from "./formulario/Titulo";
 
-const Tab = ({ tab, activeTab, changeActiveTab })=> {
+const Tab = ({ tab, activeTab, changeActiveTab }) => {
 
   return (
     <li className={tab.name === activeTab ? "is-active" : ""} onClick={() => changeActiveTab(tab.name)}>
@@ -17,7 +17,7 @@ const Tabs = ({ tabList, activeTab, changeActiveTab }) => {
     <div className="tabs is-boxed is-fullwidth font-bold">
       <ul>
         {tabList.map(tab =>
-          <Tab 
+          <Tab
             tab={tab}
             key={tab.name}
             activeTab={activeTab}
@@ -31,7 +31,7 @@ const Tabs = ({ tabList, activeTab, changeActiveTab }) => {
 
 const ActiveTabContent = (props) => <div>{props.content}</div>;
 
-const App = ({ tabList }) => {
+const App = ({ tabList, titulo }) => {
   const [activeTab, setActiveTab] = useState(tabList[0]?.name);
 
   const changeActiveTab = (tab) => {
@@ -47,16 +47,16 @@ const App = ({ tabList }) => {
 
   return (
     <section className="section w-full m-auto">
-      <Titulo1>
-        Dashboard
-      </Titulo1>
+      {titulo && <Titulo1>
+        {titulo}
+      </Titulo1>}
       <div className="container">
-        <Tabs 
+        <Tabs
           tabList={tabList}
           activeTab={activeTab}
           changeActiveTab={changeActiveTab}
         />
-        <ActiveTabContent key={activeTab} content={<TabContent/>} />
+        <ActiveTabContent key={activeTab} content={<TabContent />} />
       </div>
     </section>
   );

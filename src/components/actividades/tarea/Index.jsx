@@ -7,6 +7,7 @@ import { classNameButton2 } from "../../formulario/Componentes";
 import { useQuery } from "react-query";
 import { getTareas } from "../../../api/tareas";
 import { NavLink } from "react-router-dom";
+import { format, parseISO } from "date-fns";
 
 const Index = ({ lead_id }) => {
   const {
@@ -42,15 +43,6 @@ const Index = ({ lead_id }) => {
       }
     },
     {
-      name: "estado",
-      label: "Estado",
-      options: {
-        filter: true,
-        filterType: "dropdown",
-        sort: true,
-      }
-    },
-    {
       name: "prioridad",
       label: "Prioridad",
       options: {
@@ -67,7 +59,100 @@ const Index = ({ lead_id }) => {
           }
         },
       }
+    },    
+    {
+      name: "estado",
+      label: "Estado",
+      options: {
+        filter: true,
+        filterType: "dropdown",
+        sort: true,
+      }
     },
+    {
+      name: "lead",
+      label: "Lead",
+      options: {
+        filter: true,
+        filterType: "textField",
+        sort: true,
+        customBodyRender: (value) => {
+          if (value) {
+            return (
+              <NavLink
+                to={"/ventas/leads/" + value.lead_id}
+                className="underline text-blue-900"
+              >
+                {value.persona?.nombre}
+              </NavLink>
+            )
+          } else {
+            return null;
+          }
+        }
+      }
+    },
+    {
+      name: "contacto",
+      label: "Contacto",
+      options: {
+        filter: true,
+        filterType: "textField",
+        sort: true,
+        customBodyRender: (value) => {
+          if (value) {
+            return (
+              <NavLink
+                to={"/ventas/contactos/" + value.contacto_id}
+                className="underline text-blue-900"
+              >
+                {value.persona?.nombre}
+              </NavLink>
+            )
+          } else {
+            return null;
+          }
+        }
+      }
+    },
+    {
+      name: "usuario",
+      label: "Usuario Asignado",
+      options: {
+        filter: true,
+        filterType: "textField",
+        sort: true,
+        customBodyRender: (value) => {
+          if (value) {
+            return (
+              <span>
+                {value.nom_usuario}
+              </span>
+            )
+          } else {
+            return null;
+          }
+        }
+      }
+    },
+    {
+      name: "fec_insercion",
+      label: "Fecha de Creación",
+      options: {
+        filter: true,
+        filterType: "textField",
+        sort: true,
+        customBodyRender: (value) => {
+          if (value) {
+            return (
+              <span>{format(parseISO(value), "dd/MM/yyyy hh:mm")}</span>
+            )
+          } else {
+            return null;
+          }
+        }
+      }
+    },    
     {
       name: "",
       options: {

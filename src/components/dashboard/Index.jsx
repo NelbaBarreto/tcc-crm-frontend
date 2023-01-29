@@ -26,7 +26,10 @@ const tabList = [
 
 const Index = () => {
   return (
-    <Tabs tabList={tabList} />
+    <Tabs 
+      tabList={tabList} 
+      titulo="Dashboard"
+    />
   )
 }
 
