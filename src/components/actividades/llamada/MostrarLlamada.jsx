@@ -37,6 +37,14 @@ const DatosLlamada = ({ llamada = {} }) => {
       </div>
       <div className="columns">
         <div className="column">
+          <TextView label="Contacto" value={llamada.contacto?.nombre} />
+        </div>
+        <div className="column">
+          <TextView label="Lead" value={llamada.lead?.nombre}/>
+        </div>
+      </div>
+      <div className="columns">
+        <div className="column">
           <TextView label="Fecha de Inicio" value={format(llamada.fec_inicio, "dd/MM/yyyy hh:mm")} />
         </div>
         <div className="column">
