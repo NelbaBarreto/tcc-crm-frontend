@@ -1,9 +1,5 @@
 import React, { useState } from "react";
-import Casos from "./Casos";
-import CSAT from "./CSAT";
-import Ventas from "./Ventas";
-import Actividades from "./Actividades";
-import { Titulo1 } from "../formulario/Titulo";
+import { Titulo1 } from "./formulario/Titulo";
 
 const Tab = ({ tab, activeTab, changeActiveTab })=> {
 
@@ -18,7 +14,7 @@ const Tab = ({ tab, activeTab, changeActiveTab })=> {
 
 const Tabs = ({ tabList, activeTab, changeActiveTab }) => {
   return (
-    <div className="tabs is-boxed">
+    <div className="tabs is-boxed is-fullwidth font-bold">
       <ul>
         {tabList.map(tab =>
           <Tab 
@@ -35,31 +31,8 @@ const Tabs = ({ tabList, activeTab, changeActiveTab }) => {
 
 const ActiveTabContent = (props) => <div>{props.content}</div>;
 
-const tabList = [
-  {
-    name: "Ventas",
-    icon: "",   
-    content: <Ventas />
-  }, 
-  {
-    name: "Soporte",
-    icon: "",
-    content: <Casos/>
-  }, 
-  {
-    name: "Actividades",
-    icon: "",
-    content: <Actividades />
-  }, 
-  {
-    name: "CSAT",
-    icon: "",
-    content: <CSAT />
-  }
-];
-
-const App = () => {
-  const [activeTab, setActiveTab] = useState("Ventas");
+const App = ({ tabList }) => {
+  const [activeTab, setActiveTab] = useState(tabList[0]?.name);
 
   const changeActiveTab = (tab) => {
     setActiveTab(tab);

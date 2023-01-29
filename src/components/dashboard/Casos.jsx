@@ -7,7 +7,7 @@ import {
   getCasosPorEstado, getCasosActivosPorPrioridad, getCasosPorTipo, getCasosPorOrigen
 } from "../../api/dashboard";
 
-const MainDash = () => {
+const Casos = () => {
   const [estadoData, setEstadoData] = useState({ datasets: [] });
   const [prioridadData, setPrioridadData] = useState({ datasets: [] });
   const [tipoData, setTipoData] = useState({ datasets: [] });
@@ -117,5 +117,4 @@ const MainDash = () => {
   )
 }
 
-
-export default MainDash;
+export default Casos;

@@ -1,5 +1,6 @@
 import React from "react";
 import DataTables from "../../DataTables";
+import classNames from "classnames";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { classNameButton1, classNameButton2 } from "../../formulario/Componentes";
@@ -7,11 +8,11 @@ import { useQuery } from "react-query";
 import { getLlamadas } from "../../../api/llamadas";
 import { NavLink } from "react-router-dom";
 
-const Index = () => {
+const Index = ({ lead_id }) => {
   const {
     data: llamadas,
     isLoading
-  } = useQuery(["llamadas"], getLlamadas);
+  } = useQuery(["llamadas", lead_id], () => getLlamadas({ lead_id }));
 
   const columns = [
     {
@@ -82,7 +83,7 @@ const Index = () => {
                 >
                   Eliminar
                 </NavLink>
-              </div>              
+              </div>
             </div>
           );
         }
@@ -91,25 +92,23 @@ const Index = () => {
   ];
 
   return (
-    <div>
-      <section className="section w-full m-auto">
-        <NavLink
-          to="/actividades/llamadas/nuevo"
-          className={classNameButton2}
-        >
-          <span>Crear Nuevo</span>
-          <span className="icon is-small">
-            <FontAwesomeIcon icon={solid("plus")} />
-          </span>
-        </NavLink>
-        <DataTables
-          title="Listado de Llamadas"
-          columns={columns}
-          data={llamadas}
-          isLoading={isLoading}
-        />
-      </section>
-    </div>
+    <section className={classNames("w-full m-auto", { "section": !lead_id })}>
+      {!lead_id && <NavLink
+        to="/actividades/llamadas/nuevo"
+        className={classNameButton2}
+      >
+        <span>Crear Nuevo</span>
+        <span className="icon is-small">
+          <FontAwesomeIcon icon={solid("plus")} />
+        </span>
+      </NavLink>}
+      <DataTables
+        title="Listado de Llamadas"
+        columns={columns}
+        data={llamadas}
+        isLoading={isLoading}
+      />
+    </section>
   )
 }
 

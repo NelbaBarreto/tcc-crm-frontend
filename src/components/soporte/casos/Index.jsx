@@ -1,5 +1,6 @@
 import React from "react";
 import DataTables from "../../DataTables";
+import classNames from "classnames";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { classNameButton1, classNameButton2 } from "../../formulario/Componentes";
@@ -7,11 +8,11 @@ import { useQuery } from "react-query";
 import { getCasos } from "../../../api/casos";
 import { NavLink } from "react-router-dom";
 
-const Index = () => {
+const Index = ({ lead_id }) => {
   const {
     data: casos,
     isLoading
-  } = useQuery(["casos"], getCasos);
+  } = useQuery(["casos", lead_id], () => getCasos({ lead_id }));
 
   const columns = [
     {
@@ -77,12 +78,49 @@ const Index = () => {
       }
     },
     {
-      name: "origen",
-      label: "Origen",
+      name: "lead",
+      label: "Lead",
       options: {
         filter: true,
         filterType: "textField",
         sort: true,
+        customBodyRender: (value) => {
+          if (value) {
+            return (
+              <NavLink
+                to={"/ventas/leads/" + value.lead_id}
+                className="underline text-blue-900"
+              >
+                {value.persona?.nombre}
+              </NavLink>
+            )
+          } else {
+            return null;
+          }
+        }
+      }
+    },
+    {
+      name: "contacto",
+      label: "Contacto",
+      options: {
+        filter: true,
+        filterType: "textField",
+        sort: true,
+        customBodyRender: (value) => {
+          if (value) {
+            return (
+              <NavLink
+                to={"/ventas/contactos/" + value.contacto_id}
+                className="underline text-blue-900"
+              >
+                {value.persona?.nombre}
+              </NavLink>
+            )
+          } else {
+            return null;
+          }
+        }
       }
     },
     {
@@ -141,25 +179,23 @@ const Index = () => {
   ];
 
   return (
-    <div>
-      <section className="section w-full m-auto">
-        <NavLink
-          to="/soporte/casos/nuevo"
-          className={classNameButton2}
-        >
-          <span>Crear Nuevo</span>
-          <span className="icon is-small">
-            <FontAwesomeIcon icon={solid("plus")} />
-          </span>
-        </NavLink>
-        <DataTables
-          title="Listado de Casos"
-          columns={columns}
-          data={casos}
-          isLoading={isLoading}
-        />
-      </section>
-    </div>
+    <section className={classNames("w-full m-auto", { "section": !lead_id })}>
+      {!lead_id && <NavLink
+        to="/soporte/casos/nuevo"
+        className={classNameButton2}
+      >
+        <span>Crear Nuevo</span>
+        <span className="icon is-small">
+          <FontAwesomeIcon icon={solid("plus")} />
+        </span>
+      </NavLink>}
+      <DataTables
+        title="Listado de Casos"
+        columns={columns}
+        data={casos}
+        isLoading={isLoading}
+      />
+    </section>
   )
 }
 

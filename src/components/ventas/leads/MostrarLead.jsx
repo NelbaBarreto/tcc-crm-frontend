@@ -7,6 +7,10 @@ import { useParams, useNavigate } from "react-router-dom";
 import { getLead } from "../../../api/leads";
 import { CircularProgress } from "@mui/material";
 import DatosPersona from "../../personas/DatosPersona";
+import ListarTareas from "../../actividades/tarea/Index";
+import ListarLlamadas from "../../actividades/llamada/Index";
+import ListarCasos from "../../soporte/casos/Index";
+import Tabs from "../../Tabs";
 
 const DatosLead = ({ lead }) => {
   return (
@@ -28,39 +32,16 @@ const DatosLead = ({ lead }) => {
   );
 }
 
-const MostrarLead = () => {
-  const { id } = useParams();
+const MostrarLead = ({ lead_id }) => {
   const navigate = useNavigate();
 
   const {
     data: lead,
     isLoading
-  } = useQuery(["lead", id], () => getLead(id));
+  } = useQuery(["lead", lead_id], () => getLead(lead_id));
 
   return (
-    <section className="section w-full m-auto">
-      <div className="buttons has-addons">
-        <button
-          className="button font-bold is-active"
-        >
-          Intereses
-        </button>
-        <button
-          className="button font-bold"
-        >
-          Casos
-        </button>
-        <button
-          className="button font-bold"
-        >
-          Llamadas
-        </button>
-        <button
-          className="button font-bold"
-        >
-          Tareas
-        </button>
-      </div>
+    <section className="w-full m-auto">
       <div className="mb-4">
         {isLoading ?
           <CircularProgress size={24} className="fixed top-1/2 left-1/2" /> : <DatosLead lead={lead} navigate={navigate} />
@@ -71,4 +52,31 @@ const MostrarLead = () => {
   );
 }
 
-export default MostrarLead;
+const Index = () => {
+  const { id } = useParams();
+
+  const tabList = [
+    {
+      name: "Lead",
+      content: <MostrarLead lead_id={id} />
+    },
+    {
+      name: "Casos",
+      content: <ListarCasos lead_id={id} />
+    },
+    {
+      name: "Llamadas",
+      content: <ListarLlamadas lead_id={id} />
+    },
+    {
+      name: "Tareas",
+      content: <ListarTareas lead_id={id}/>
+    },
+  ];
+
+  return (
+    <Tabs tabList={tabList} />
+  )
+}
+
+export default Index;

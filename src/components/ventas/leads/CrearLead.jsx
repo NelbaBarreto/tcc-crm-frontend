@@ -156,8 +156,13 @@ const CrearLead = () => {
             select={select}
             dispatch={dispatch}
           />
-          <Guardar saving={action.saving} guardar={crear} />
-          <Volver navigate={navigate} />
+          <Guardar 
+            saving={action.saving} 
+            guardar={crear}
+          />
+          <Volver 
+            navigate={navigate}
+          />
         </form>
       </section>
     </div>

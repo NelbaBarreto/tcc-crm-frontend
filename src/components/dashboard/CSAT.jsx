@@ -53,7 +53,7 @@ const CSAT = () => {
       <div className="rounded-md shadow-md bg-white p-2 grid grid-rows-2 gap-1">
         <h5 className="title is-5">Customer Satisfaction Score (CSAT)</h5>
         <p className="text-6xl text-center">
-          {csatData?.csat}%
+          {csatData? `${Math.round(csatData.csat,2)}%` : "Sin datos"}
         </p>
       </div>
     </div>

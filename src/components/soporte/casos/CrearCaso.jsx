@@ -16,7 +16,7 @@ import { useNavigate } from "react-router-dom";
 
 const CASO = "caso";
 
-const DatosCaso = ({ caso, dispatch, select = {} }) => {
+const DatosCaso = ({ caso = {}, dispatch, select = {} }) => {
   const {
     data: usuarios,
     usuariosLoading
@@ -119,6 +119,7 @@ const DatosCaso = ({ caso, dispatch, select = {} }) => {
             label="Lead"
             options={opcionesLeads}
             value={select.lead}
+            disabled={caso?.contacto_id}
             onChange={e => {
               handleDispatch(dispatch, "lead_id", e?.value, CASO);
               handleDispatch(dispatch, "lead", e, "select")
@@ -130,6 +131,7 @@ const DatosCaso = ({ caso, dispatch, select = {} }) => {
             label="Contacto"
             options={opcionesContactos}
             value={select.contacto}
+            disabled={caso?.lead_id}
             onChange={e => {
               handleDispatch(dispatch, "contacto_id", e?.value, CASO);
               handleDispatch(dispatch, "contacto", e, "select")

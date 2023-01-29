@@ -108,6 +108,7 @@ const CrearLlamada = () => {
                   label="Lead"
                   options={opcionesLeads}
                   value={select.lead}
+                  disabled={llamada?.contacto_id ? true : false}
                   onChange={e => {
                     handleDispatch(dispatch, "lead_id", e?.value, LLAMADA);
                     handleDispatch(dispatch, "lead", e, "select")
@@ -119,6 +120,7 @@ const CrearLlamada = () => {
                   label="Contacto"
                   options={opcionesContactos}
                   value={select.contacto}
+                  disabled={llamada?.lead_id ? true : false}
                   onChange={e => {
                     handleDispatch(dispatch, "contacto_id", e?.value, LLAMADA);
                     handleDispatch(dispatch, "contacto", e, "select")
