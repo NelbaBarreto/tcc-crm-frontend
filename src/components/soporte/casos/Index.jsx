@@ -3,7 +3,8 @@ import DataTables from "../../DataTables";
 import classNames from "classnames";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { classNameButton1, classNameButton2 } from "../../formulario/Componentes";
+import { classNameButton2 } from "../../formulario/Componentes";
+import { format, parseISO } from "date-fns";
 import { useQuery } from "react-query";
 import { getCasos } from "../../../api/casos";
 import { NavLink } from "react-router-dom";
@@ -69,15 +70,6 @@ const Index = ({ lead_id }) => {
       }
     },
     {
-      name: "tipo",
-      label: "Tipo",
-      options: {
-        filter: true,
-        filterType: "textField",
-        sort: true,
-      }
-    },
-    {
       name: "lead",
       label: "Lead",
       options: {
@@ -133,12 +125,27 @@ const Index = ({ lead_id }) => {
         customBodyRender: (value) => {
           if (value) {
             return (
-              <NavLink
-                to={"/admin/empleados/" + value.usuario_id}
-                className="underline text-blue-900"
-              >
+              <span>
                 {value.nom_usuario}
-              </NavLink>
+              </span>
+            )
+          } else {
+            return null;
+          }
+        }
+      }
+    },
+    {
+      name: "fec_insercion",
+      label: "Fecha de Creación",
+      options: {
+        filter: true,
+        filterType: "textField",
+        sort: true,
+        customBodyRender: (value) => {
+          if (value) {
+            return (
+              <span>{format(parseISO(value), "dd/MM/yyyy hh:mm")}</span>
             )
           } else {
             return null;
@@ -154,23 +161,27 @@ const Index = ({ lead_id }) => {
         empty: true,
         customBodyRender: (_value, tableMeta) => {
           return (
-            <div className="field is-grouped">
-              <div className="control">
+            <div className="field is-grouped is-grouped-centered">
+              <p className="control">
                 <NavLink
                   to={"/soporte/casos/editar/" + tableMeta.rowData[0]}
-                  className={classNameButton1}
+                  className="button is-link is-outlined is-normal"
                 >
-                  Editar
+                  <span className="icon is-small">
+                    <FontAwesomeIcon icon={solid("pen-to-square")} />
+                  </span>
                 </NavLink>
-              </div>
-              <div className="control">
+              </p>
+              <p className="control">
                 <NavLink
                   to={"/soporte/casos/eliminar/" + tableMeta.rowData[0]}
-                  className={classNameButton1}
+                  className="button is-danger is-outlined is-normal"
                 >
-                  Eliminar
+                  <span className="icon is-small">
+                    <FontAwesomeIcon icon={solid("trash")} />
+                  </span>
                 </NavLink>
-              </div>
+              </p>
             </div>
           );
         }

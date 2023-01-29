@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useQuery } from "react-query";
 import { getLeads } from "../../../api/leads";
 import { NavLink } from "react-router-dom";
-import { classNameButton1, classNameButton2 } from "../../formulario/Componentes";
+import { classNameButton2 } from "../../formulario/Componentes";
 
 const Index = () => {
   const {
@@ -140,15 +140,17 @@ const Index = () => {
         empty: true,
         customBodyRender: (_value, tableMeta) => {
           return (
-            <div className="field is-grouped">
-              <div className="control">
+            <div className="field is-grouped is-grouped-centered">
+              <p className="control">
                 <NavLink
                   to={"/ventas/leads/editar/" + tableMeta.rowData[0]}
-                  className={classNameButton1}
+                  className="button is-link is-outlined is-normal"
                 >
-                  Editar
+                  <span className="icon is-small">
+                    <FontAwesomeIcon icon={solid("pen-to-square")} />
+                  </span>
                 </NavLink>
-              </div>
+              </p>
             </div>
           );
         }

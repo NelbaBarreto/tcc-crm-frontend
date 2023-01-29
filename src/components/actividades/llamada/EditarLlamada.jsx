@@ -5,6 +5,7 @@ import MostrarMensaje from "../../formulario/MostrarMensaje";
 import { CircularProgress } from "@mui/material";
 import { Volver, Guardar } from "../../formulario/Acciones";
 import { Titulo1 } from "../../formulario/Titulo";
+import { getUsuarios } from "../../../api/usuarios";
 import { getTipos, getEstados, editLlamadas, getLlamada } from "../../../api/llamadas";
 import { getLeads } from "../../../api/leads";
 import { getContactos } from "../../../api/contactos";
@@ -34,11 +35,19 @@ const DatosLlamada = ({ llamada = {}, dispatch, select = {} }) => {
     contactosLoading
   } = useQuery(["contactos"], getContactos);
 
+  const {
+    data: usuarios,
+    usuariosLoading
+  } = useQuery(["usuarios"], getUsuarios);
+
   const opcionesLeads = leadsLoading || !leads ? [] :
     leads.map(lead => ({ value: lead.lead_id, label: `${lead.lead_id}-${lead.persona.nombre}` }));
 
   const opcionesContactos = contactosLoading || !contactos ? [] :
     contactos.map(contacto => ({ value: contacto.contacto_id, label: `${contacto.contacto_id}-${contacto.persona.nombre}` }));
+
+  const opcionesUsuarios = usuariosLoading || !usuarios ? [] :
+    usuarios.map(usuario => ({ value: usuario.usuario_id, label: usuario.nom_usuario }));
 
   return (
     <Seccion titulo="Datos de la Llamada">
@@ -82,6 +91,7 @@ const DatosLlamada = ({ llamada = {}, dispatch, select = {} }) => {
             label="Lead"
             options={opcionesLeads}
             value={select.lead}
+            disabled={llamada?.contacto ? true : false}
             onChange={e => {
               handleDispatch(dispatch, "lead_id", e?.value, LLAMADA);
               handleDispatch(dispatch, "lead", e, "select")
@@ -93,9 +103,23 @@ const DatosLlamada = ({ llamada = {}, dispatch, select = {} }) => {
             label="Contacto"
             options={opcionesContactos}
             value={select.contacto}
+            disabled={llamada?.lead ? true : false}
             onChange={e => {
               handleDispatch(dispatch, "contacto_id", e?.value, LLAMADA);
               handleDispatch(dispatch, "contacto", e, "select")
+            }}
+          />
+        </div>
+      </div>
+      <div className="columns">
+        <div className="column is-half">
+          <Dropdown
+            label="Usuario Asignado"
+            value={select.usu_asignado}
+            options={opcionesUsuarios}
+            onChange={e => {
+              handleDispatch(dispatch, "usu_asignado_id", e?.value, LLAMADA);
+              handleDispatch(dispatch, "usu_asignado", e, "select")
             }}
           />
         </div>
@@ -145,7 +169,9 @@ const EditarLlamada = () => {
       handleDispatchEdit(dispatch, {
         estado: { label: currentLlamada.estado, value: currentLlamada.estado },
         tipo: { label: currentLlamada.tipo, value: currentLlamada.tipo },
-        lead: currentLlamada.contacto ?
+        usu_asignado: currentLlamada.usu_asignado_id ? 
+          { label: currentLlamada.usuario?.nom_usuario, value: currentLlamada.usuario?.usuario_id } : "",        
+        lead: currentLlamada.lead ?
           { value: currentLlamada.lead?.lead_id, label: `${currentLlamada.lead?.lead_id}-${currentLlamada.lead?.persona.nombre}` } : "",
         contacto: currentLlamada.contacto ?
           { value: currentLlamada.contacto?.contacto_id, label: `${currentLlamada.contacto?.contacto_id}-${currentLlamada.contacto?.persona.nombre}` } : "",

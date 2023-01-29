@@ -3,7 +3,7 @@ import DataTables from "../../DataTables";
 import classNames from "classnames";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { classNameButton1, classNameButton2 } from "../../formulario/Componentes";
+import { classNameButton2 } from "../../formulario/Componentes";
 import { useQuery } from "react-query";
 import { getTareas } from "../../../api/tareas";
 import { NavLink } from "react-router-dom";
@@ -46,7 +46,7 @@ const Index = ({ lead_id }) => {
       label: "Estado",
       options: {
         filter: true,
-        filterType: "textField",
+        filterType: "dropdown",
         sort: true,
       }
     },
@@ -76,23 +76,27 @@ const Index = ({ lead_id }) => {
         empty: true,
         customBodyRender: (_value, tableMeta) => {
           return (
-            <div className="field is-grouped">
-              <div className="control">
+            <div className="field is-grouped is-grouped-centered">
+              <p className="control">
                 <NavLink
                   to={"/actividades/tareas/editar/" + tableMeta.rowData[0]}
-                  className={classNameButton1}
+                  className="button is-link is-outlined is-normal"
                 >
-                  Editar
+                  <span className="icon is-small">
+                    <FontAwesomeIcon icon={solid("pen-to-square")} />
+                  </span>
                 </NavLink>
-              </div>
-              <div className="control">
+              </p>
+              <p className="control">
                 <NavLink
                   to={"/actividades/tareas/eliminar/" + tableMeta.rowData[0]}
-                  className={classNameButton1}
+                  className="button is-danger is-outlined is-normal"
                 >
-                  Eliminar
+                  <span className="icon is-small">
+                    <FontAwesomeIcon icon={solid("trash")} />
+                  </span>
                 </NavLink>
-              </div>
+              </p>
             </div>
           );
         }

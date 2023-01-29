@@ -6,7 +6,8 @@ import { Typography, CircularProgress } from "@mui/material";
 const DataTables = ({ data, title, columns, isLoading }) => {
   const options = {
     enableNestedDataAccess: ".",
-    responsive: "scroll",
+    responsive: "vertical",
+    selectableRows: false,
     textLabels: {
       body: {
         noMatch: "No hay registros",
