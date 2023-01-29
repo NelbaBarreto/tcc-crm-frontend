@@ -61,7 +61,7 @@ const DatosContacto = ({ dispatch, select = {} }) => {
 };
 
 const CrearContacto = () => {
-  const { state: { contacto, persona, direcciones, select }, dispatch } = useContext(AppContext);
+  const { state: { contacto, persona, direcciones, telefonos, select }, dispatch } = useContext(AppContext);
   const [action, setAction] = useState({});
   const navigate = useNavigate();
   const currentUser = useToken().usuario;
@@ -78,7 +78,7 @@ const CrearContacto = () => {
     try {
       await createContacto({ ...contacto,
         ...auditoria,
-        persona: {...persona, direcciones, ...auditoria } });
+        persona: {...persona, direcciones, ...auditoria, telefonos } });
       setAction({ saving: false, error: false, message: "Contacto creado exitosamente." });
       setTimeout(() => navigate("/ventas/contactos"), 2000);
     } catch (e) {

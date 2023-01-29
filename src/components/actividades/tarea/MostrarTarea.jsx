@@ -6,7 +6,7 @@ import { Volver } from "../../formulario/Acciones";
 import { useQuery } from "react-query";
 import { useParams, useNavigate } from "react-router-dom";
 import { getTarea } from "../../../api/tareas";
-import { format, parseISO } from "date-fns";
+import { format } from "date-fns";
 
 const DatosTarea = ({ tarea = {} }) => {
   return (
@@ -16,10 +16,9 @@ const DatosTarea = ({ tarea = {} }) => {
           <TextView label="Estado" value={tarea.estado} />
         </div>
         <div className="column">
-          <DateFormat label="Fecha de Creación" value={tarea.fec_insercion} />
+          <TextView label="Prioridad" value={tarea.prioridad} />
         </div>
       </div>
-
       <div className="columns">
         <div className="column">
           <TextView label="Fecha de Inicio" value={format(tarea.fec_inicio, "dd/MM/yyyy hh:mm")} />
@@ -28,20 +27,30 @@ const DatosTarea = ({ tarea = {} }) => {
           <TextView label="Fecha Fin" value={format(tarea.fec_fin, "dd/MM/yyyy hh:mm")} />
         </div>
       </div>
-
       <div className="columns">
-        <div className="column">
-          <TextView label="Prioridad" value={tarea.prioridad} />
-        </div>
         <div className="column">
           <TextView label="Descripcion" value={tarea.descripcion} />
         </div>
+        <div className="column">
+          <DateFormat label="Fecha de Creación" value={tarea.fec_insercion} />
+        </div>
       </div>
       <div className="columns">
-      <div className="column">
-        <TextView label="Usuario Asignado" value={tarea.usuario.nom_usuario} />
+        <div className="column">
+          <TextView label="Lead" value={tarea.lead?.persona.nombre} />
+        </div>
+        <div className="column">
+          <TextView label="Contacto" value={tarea.contacto?.persona.nombre} />
+        </div>
       </div>
-    </div>
+      <div className="columns">
+        <div className="column">
+          <TextView label="Usuario Asignado" value={tarea.usuario?.nom_usuario} />
+        </div>
+        <div className="column">
+          <DateFormat label="Fecha de Creación" value={tarea.fec_insercion} />
+        </div>
+      </div>
     </Seccion >
   );
 }

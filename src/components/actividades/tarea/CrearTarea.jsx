@@ -104,6 +104,7 @@ const DatosTarea = ({ tarea, dispatch, select = {} }) => {
             label="Lead"
             options={opcionesLeads}
             value={select.lead}
+            disabled={tarea?.contacto_id}
             onChange={e => {
               handleDispatch(dispatch, "lead_id", e?.value, TAREA);
               handleDispatch(dispatch, "lead", e, "select")
@@ -115,6 +116,7 @@ const DatosTarea = ({ tarea, dispatch, select = {} }) => {
             label="Contacto"
             options={opcionesContactos}
             value={select.contacto}
+            disabled={tarea?.lead_id}
             onChange={e => {
               handleDispatch(dispatch, "contacto_id", e?.value, TAREA);
               handleDispatch(dispatch, "contacto", e, "select")
@@ -125,14 +127,14 @@ const DatosTarea = ({ tarea, dispatch, select = {} }) => {
       <div className="columns is-desktop">
         <div className="column">
           <Datepicker
-            label="Fecha de Inicio*"
+            label="Fecha de Inicio"
             selected={tarea?.fec_inicio || ""}
             onChange={fecha => handleDispatch(dispatch, "fec_inicio", fecha, TAREA)}
           />
         </div>
         <div className="column">
           <Datepicker
-            label="Fecha Fin*"
+            label="Fecha Fin"
             selected={tarea?.fec_fin || ""}
             onChange={fecha => handleDispatch(dispatch, "fec_fin", fecha, TAREA)}
           />
