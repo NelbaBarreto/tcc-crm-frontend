@@ -8,7 +8,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { getTarea } from "../../../api/tareas";
 import { getLead } from "../../../api/leads";
 import { getContacto } from "../../../api/contactos";
-import { format, parseISO } from "date-fns";
+import { format } from "date-fns";
 
 const DatosTarea = ({ tarea = {} }) => {
 
@@ -29,10 +29,9 @@ const DatosTarea = ({ tarea = {} }) => {
           <TextView label="Estado" value={tarea.estado} />
         </div>
         <div className="column">
-          <DateFormat label="Fecha de Creación" value={tarea.fec_insercion} />
+          <TextView label="Prioridad" value={tarea.prioridad} />
         </div>
       </div>
-
       <div className="columns">
         <div className="column">
           <TextView label="Fecha de Inicio" value={format(tarea.fec_inicio, "dd/MM/yyyy hh:mm")} />
@@ -41,13 +40,12 @@ const DatosTarea = ({ tarea = {} }) => {
           <TextView label="Fecha Fin" value={format(tarea.fec_fin, "dd/MM/yyyy hh:mm")} />
         </div>
       </div>
-
       <div className="columns">
         <div className="column">
-          <TextView label="Prioridad" value={tarea.prioridad} />
+          <TextView label="Descripcion" value={tarea.descripcion} />
         </div>
         <div className="column">
-          <TextView label="Descripcion" value={tarea.descripcion} />
+          <DateFormat label="Fecha de Creación" value={tarea.fec_insercion} />
         </div>
       </div>
       <div className="columns">

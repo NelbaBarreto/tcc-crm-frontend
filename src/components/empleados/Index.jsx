@@ -75,20 +75,32 @@ const Index = () => {
         empty: true,
         customBodyRender: (_value, tableMeta) => {
           return (
-            <div className="field is-grouped">
-              <div className="control">
+            <div className="field is-grouped is-grouped-centered">
+              <p className="control">
                 <NavLink
                   to={"/admin/empleados/editar/" + tableMeta.rowData[0]}
-                  className={classNameButton1}
+                  className="button is-link is-outlined is-normal"
                 >
-                  Editar
+                  <span className="icon is-small">
+                    <FontAwesomeIcon icon={solid("pen-to-square")} />
+                  </span>
                 </NavLink>
-              </div>
+              </p>
+              <p className="control">
+                <NavLink
+                  to={"/admin/empleados/eliminar/" + tableMeta.rowData[0]}
+                  className="button is-danger is-outlined is-normal"
+                >
+                  <span className="icon is-small">
+                    <FontAwesomeIcon icon={solid("trash")} />
+                  </span>
+                </NavLink>
+              </p>
             </div>
           );
         }
       }
-    },    
+    },   
   ];
 
   return (

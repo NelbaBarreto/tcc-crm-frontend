@@ -115,7 +115,7 @@ const DatosLead = ({ select, dispatch }) => {
 };
 
 const CrearLead = () => {
-  const { state: { lead, persona, direcciones, select }, dispatch } = useContext(AppContext);
+  const { state: { lead, persona, direcciones, telefonos, select }, dispatch } = useContext(AppContext);
   const [action, setAction] = useState({});
   const navigate = useNavigate();
   const currentUser = useToken().usuario;
@@ -133,7 +133,7 @@ const CrearLead = () => {
       await createLead({
         ...lead,
         ...auditoria,
-        persona: { ...persona, direcciones, ...auditoria }
+        persona: { ...persona, direcciones, telefonos, ...auditoria }
       });
       setAction({ saving: false, error: false, message: "Lead creado exitosamente." });
       setTimeout(() => navigate("/ventas/leads"), 2000);
@@ -156,8 +156,13 @@ const CrearLead = () => {
             select={select}
             dispatch={dispatch}
           />
-          <Guardar saving={action.saving} guardar={crear} />
-          <Volver navigate={navigate} />
+          <Guardar 
+            saving={action.saving} 
+            guardar={crear}
+          />
+          <Volver 
+            navigate={navigate}
+          />
         </form>
       </section>
     </div>

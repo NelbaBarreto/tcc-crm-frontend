@@ -6,7 +6,7 @@ import {
 import "react-datepicker/dist/react-datepicker.css";
 
 import Login from "./components/home/Login";
-import Dashboard from "./components/dashboard/Tabs";
+import Dashboard from "./components/dashboard/Index";
 import NotFound from "./components/NotFound.jsx";
 import AppContext from "./utils/AppContext";
 

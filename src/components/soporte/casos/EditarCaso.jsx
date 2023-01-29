@@ -120,6 +120,7 @@ const DatosCaso = ({ caso, dispatch, select = {} }) => {
             label="Lead"
             options={opcionesLeads}
             value={select.lead}
+            disabled={caso?.contacto_id ? true : false}
             onChange={e => {
               handleDispatch(dispatch, "lead_id", e?.value, CASO);
               handleDispatch(dispatch, "lead", e, "select")
@@ -131,6 +132,7 @@ const DatosCaso = ({ caso, dispatch, select = {} }) => {
             label="Contacto"
             options={opcionesContactos}
             value={select.contacto}
+            disabled={caso?.lead_id ? true : false}
             onChange={e => {
               handleDispatch(dispatch, "contacto_id", e?.value, CASO);
               handleDispatch(dispatch, "contacto", e, "select")
@@ -199,8 +201,9 @@ const EditarCaso = () => {
         origen: { label: currentCaso.origen, value: currentCaso.origen },
         prioridad: { label: currentCaso.prioridad, value: currentCaso.prioridad },
         tipo: { label: currentCaso.tipo, value: currentCaso.tipo },
-        usu_asignado: { label: currentCaso.usuario?.nom_usuario, value: currentCaso.usuario?.usuario_id },
-        lead: currentCaso.contacto ?
+        usu_asignado: currentCaso.usu_asignado_id ? 
+          { label: currentCaso.usuario?.nom_usuario, value: currentCaso.usuario?.usuario_id } : "",
+        lead: currentCaso.lead ?
           { value: currentCaso.lead?.lead_id, label: `${currentCaso.lead?.lead_id}-${currentCaso.lead?.persona.nombre}` } : "",
         contacto: currentCaso.contacto ?
           { value: currentCaso.contacto?.contacto_id, label: `${currentCaso.contacto?.contacto_id}-${currentCaso.contacto?.persona.nombre}` } : "",

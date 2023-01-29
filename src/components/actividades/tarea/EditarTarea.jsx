@@ -104,6 +104,7 @@ const DatosTarea = ({ tarea, dispatch, select = {} }) => {
             label="Lead"
             options={opcionesLeads}
             value={select.lead}
+            disabled={tarea?.contacto ? true : false}
             onChange={e => {
               handleDispatch(dispatch, "lead_id", e?.value, TAREA);
               handleDispatch(dispatch, "lead", e, "select")
@@ -115,6 +116,7 @@ const DatosTarea = ({ tarea, dispatch, select = {} }) => {
             label="Contacto"
             options={opcionesContactos}
             value={select.contacto}
+            disabled={tarea?.lead ? true : false}
             onChange={e => {
               handleDispatch(dispatch, "contacto_id", e?.value, TAREA);
               handleDispatch(dispatch, "contacto", e, "select")
@@ -169,9 +171,9 @@ const EditarTarea = () => {
       handleDispatchEdit(dispatch, {
         estado: { label: currentTarea.estado, value: currentTarea.estado },
         prioridad: { label: currentTarea.prioridad, value: currentTarea.prioridad },
-        usuario: currentTarea.usuario ?
+        usuario: currentTarea.usu_asignado_id ?
           { label: currentTarea.usuario?.nom_usuario, value: currentTarea.usuario?.usuario_id } : "",
-        lead: currentTarea.contacto ?
+        lead: currentTarea.lead ?
           { value: currentTarea.lead?.lead_id, label: `${currentTarea.lead?.lead_id}-${currentTarea.lead?.persona.nombre}` } : "",
         contacto: currentTarea.contacto ?
           { value: currentTarea.contacto?.contacto_id, label: `${currentTarea.contacto?.contacto_id}-${currentTarea.contacto?.persona.nombre}` } : "",

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { format, parseISO } from "date-fns";
+import { parseISO } from "date-fns";
 
 const API = process.env.REACT_APP_API || "http://localhost:8080/api"
 
@@ -8,8 +8,15 @@ export const createTarea = async (data) => {
   return response.data;
 };
 
-export const getTareas = async () => {
-  const { data: response } = await axios.get(`${API}/tareas`);
+export const getTareas = async ({ lead_id, contacto_id }) => {
+  let url = `${API}/tareas`;
+  if (lead_id) {
+    url += `?lead_id=${lead_id}`;
+  } else if (contacto_id) {
+    url += `?contacto_id=${contacto_id}`;
+  }
+
+  const { data: response } = await axios.get(url);
   return response.data;
 };
 

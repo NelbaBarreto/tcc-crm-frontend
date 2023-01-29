@@ -5,8 +5,9 @@ import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { format, parseISO } from "date-fns";
 
-export const Input = ({ 
-  label, name, value = "", type = "text", placeholder = "", className = "input shadow-lg", readOnly, onChange
+export const Input = ({
+  label, name, value = "", type = "text", placeholder = "", className = "input shadow-lg",
+  disabled, readOnly, onChange
 }) => {
   return (
     <div className="field">
@@ -18,6 +19,7 @@ export const Input = ({
           placeholder={placeholder}
           type={type}
           readOnly={readOnly}
+          disabled={disabled}
           value={value}
           onChange={onChange}
         />
@@ -59,7 +61,10 @@ export const Checkbox = ({ label, name, value, onChange }) => {
   );
 }
 
-export const Dropdown = ({ label, name, value = "", placeholder = "Seleccionar", className = "shadow-lg", options, isMulti, onChange }) => {
+export const Dropdown = ({
+  label, name, value = "", placeholder = "Seleccionar", className = "shadow-lg", options,
+    disabled, isMulti, onChange
+}) => {
   return (
     <div className="field">
       <label className="label">{label}</label>
@@ -70,6 +75,7 @@ export const Dropdown = ({ label, name, value = "", placeholder = "Seleccionar",
           placeholder={placeholder}
           onChange={onChange}
           value={value}
+          isDisabled={disabled}
           isMulti={isMulti}
           options={options}
           isClearable={true}
