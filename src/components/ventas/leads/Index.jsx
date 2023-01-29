@@ -2,6 +2,7 @@ import React from "react";
 import DataTables from "../../DataTables";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { format, parseISO } from "date-fns";
 import { useQuery } from "react-query";
 import { getLeads } from "../../../api/leads";
 import { NavLink } from "react-router-dom";
@@ -118,12 +119,10 @@ const Index = () => {
         customBodyRender: value => {
           if (value) {
             return (
-              <NavLink
-                to={"/admin/usuarios/" + value.usuario_id}
-                className="underline text-blue-900"
+              <span
               >
                 {value.nom_usuario}
-              </NavLink>
+              </span>
             );
           } else {
             return null;
@@ -132,6 +131,24 @@ const Index = () => {
         }
       }
     },
+    {
+      name: "fec_insercion",
+      label: "Fecha de Creación",
+      options: {
+        filter: true,
+        filterType: "textField",
+        sort: true,
+        customBodyRender: (value) => {
+          if (value) {
+            return (
+              <span>{format(parseISO(value), "dd/MM/yyyy hh:mm")}</span>
+            )
+          } else {
+            return null;
+          }
+        }
+      }
+    },    
     {
       name: "",
       options: {
