@@ -3,6 +3,7 @@ import AppContext from "../../../utils/AppContext";
 import MostrarMensaje from "../../formulario/MostrarMensaje";
 import Seccion from "../../formulario/Seccion";
 import { getTipos, getEstados, createLlamada } from "../../../api/llamadas";
+import { getUsuarios } from "../../../api/usuarios";
 import { getLeads } from "../../../api/leads";
 import { getContactos } from "../../../api/contactos";
 import { useQuery } from "react-query";
@@ -22,6 +23,11 @@ const CrearLlamada = () => {
   useEffect(() => {
     handleStateCleared(dispatch);
   }, []);
+
+  const {
+    data: usuarios,
+    usuariosLoading
+  } = useQuery(["usuarios"], getUsuarios);
 
   const {
     data: tipos,
@@ -46,6 +52,9 @@ const CrearLlamada = () => {
 
   const opcionesContactos = contactosLoading || !contactos ? [] :
     contactos.map(contacto => ({ value: contacto.contacto_id, label: `${contacto.contacto_id}-${contacto.persona.nombre}` }));
+
+  const opcionesUsuarios = usuariosLoading || !usuarios ? [] :
+    usuarios.map(usuario => ({ value: usuario.usuario_id, label: usuario.nom_usuario }));
 
   const crear = async e => {
     e.preventDefault();
@@ -128,6 +137,19 @@ const CrearLlamada = () => {
                 />
               </div>
             </div>
+            <div className="columns">
+              <div className="column is-half">
+                <Dropdown
+                  label="Usuario Asignado"
+                  value={select.usu_asignado}
+                  options={opcionesUsuarios}
+                  onChange={e => {
+                    handleDispatch(dispatch, "usu_asignado_id", e?.value, LLAMADA);
+                    handleDispatch(dispatch, "usu_asignado", e, "select")
+                  }}
+                />
+              </div>
+            </div>
             <div className="columns is-desktop">
               <div className="column">
                 <Datepicker
@@ -146,12 +168,12 @@ const CrearLlamada = () => {
               </div>
             </div>
           </Seccion>
-          <Guardar 
-            saving={action.saving} 
+          <Guardar
+            saving={action.saving}
             guardar={crear}
           />
-          <Volver 
-            navigate={navigate} 
+          <Volver
+            navigate={navigate}
           />
         </form>
       </section>
