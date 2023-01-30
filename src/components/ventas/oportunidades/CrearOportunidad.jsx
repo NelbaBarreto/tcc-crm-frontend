@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import AppContext from "../../../utils/AppContext";
 import Seccion from "../../formulario/Seccion";
 import MostrarMensaje from "../../formulario/MostrarMensaje";
+import Alert from "./Alert";
 import { handleDispatch, handleStateCleared } from "../../formulario/reducerFormularios.js";
 import { Volver, Guardar } from "../../formulario/Acciones";
 import { Titulo1 } from "../../formulario/Titulo";
@@ -153,6 +154,7 @@ const DatosOportunidad = ({ oportunidad, dispatch, select }) => {
 const CrearOportunidad = () => {
   const { state: { oportunidad, select }, dispatch } = useContext(AppContext);
   const [action, setAction] = useState({});
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   const navigate = useNavigate();
   const currentUser = useToken().usuario;
 
@@ -160,8 +162,7 @@ const CrearOportunidad = () => {
     handleStateCleared(dispatch);
   }, []);
 
-  const crear = async e => {
-    e.preventDefault();
+  const crear = async () => {
     setAction({ saving: true, error: false, message: "" });
     const auditoria = { usu_insercion: currentUser.nom_usuario, usu_modificacion: currentUser.nom_usuario };
 
@@ -177,6 +178,16 @@ const CrearOportunidad = () => {
     };
   };
 
+  const confirmarOportunidadGanada = e => {
+    e.preventDefault();
+
+    if (oportunidad.estado === "Ganado") {
+      setModalIsOpen(true);
+    } else {
+      crear();
+    }
+  }
+
   return (
     <div>
       <section className="section w-full m-auto">
@@ -185,6 +196,10 @@ const CrearOportunidad = () => {
         </Titulo1>
         {action.message ? <MostrarMensaje mensaje={action.message} error={action.error} /> : null}
         <form>
+          <Alert
+            manageModal={{modalIsOpen, setModalIsOpen}}
+            crear={crear}
+          />
           <DatosOportunidad
             oportunidad={oportunidad}
             select={select}
@@ -192,7 +207,7 @@ const CrearOportunidad = () => {
           />
           <Guardar 
             saving={action.saving} 
-            guardar={crear}
+            guardar={confirmarOportunidadGanada}
           />
           <Volver 
             navigate={navigate} 
