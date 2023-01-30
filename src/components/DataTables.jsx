@@ -7,7 +7,7 @@ const DataTables = ({ data, title, columns, isLoading }) => {
   const options = {
     enableNestedDataAccess: ".",
     responsive: "vertical",
-    selectableRows: false,
+    selectableRows: "none",
     textLabels: {
       body: {
         noMatch: "No hay registros",
