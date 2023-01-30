@@ -17,7 +17,7 @@ import useToken from "../../../utils/useToken";
 
 const OPORTUNIDAD = "oportunidad";
 
-const DatosOportunidad = ({ oportunidad, dispatch, select = {} }) => {
+const DatosOportunidad = ({ oportunidad, dispatch, select = {}, disabled }) => {
   const {
     data: estadosOportunidades,
   } = useQuery(["estadosOportunidades"], getEstados);
@@ -62,6 +62,7 @@ const DatosOportunidad = ({ oportunidad, dispatch, select = {} }) => {
             name="nombre"
             label="Nombre*"
             value={oportunidad?.nombre || ""}
+            disabled={disabled}
             onChange={e => handleDispatch(dispatch, e.target?.name, e.target?.value, OPORTUNIDAD)}
           />
         </div>
@@ -72,6 +73,7 @@ const DatosOportunidad = ({ oportunidad, dispatch, select = {} }) => {
             label="Contacto*"
             value={select.contacto}
             options={opcionesContactos}
+            disabled={disabled}
             onChange={e => {
               handleDispatch(dispatch, "contacto_id", e?.value, OPORTUNIDAD);
               handleDispatch(dispatch, "contacto", e, "select")
@@ -83,6 +85,7 @@ const DatosOportunidad = ({ oportunidad, dispatch, select = {} }) => {
             label="Curso/Interés*"
             value={select.curso}
             options={opcionesCursos}
+            disabled={disabled}
             onChange={e => {
               handleDispatch(dispatch, "curso_id", e?.value, OPORTUNIDAD);
               handleDispatch(dispatch, "curso", e, "select")
@@ -96,6 +99,7 @@ const DatosOportunidad = ({ oportunidad, dispatch, select = {} }) => {
             label="Estado*"
             value={select?.estado}
             options={estadosOportunidades || []}
+            disabled={disabled}
             onChange={e => {
               handleDispatch(dispatch, "estado", e?.value, OPORTUNIDAD);
               handleDispatch(dispatch, "estado", e, "select")
@@ -107,6 +111,7 @@ const DatosOportunidad = ({ oportunidad, dispatch, select = {} }) => {
             name="valor"
             label="Valor"
             type="number"
+            disabled={disabled}
             value={oportunidad?.valor || ""}
             onChange={e => handleDispatch(dispatch, e.target?.name, e.target?.value, OPORTUNIDAD)}
           />
@@ -118,6 +123,7 @@ const DatosOportunidad = ({ oportunidad, dispatch, select = {} }) => {
             label="Campaña"
             value={select.campana}
             options={opcionesCampanas}
+            disabled={disabled}
             onChange={e => {
               handleDispatch(dispatch, "campana_id", e?.value, OPORTUNIDAD);
               handleDispatch(dispatch, "campana", e, "select")
@@ -129,6 +135,7 @@ const DatosOportunidad = ({ oportunidad, dispatch, select = {} }) => {
             label="Usuario Asignado"
             value={select.usu_asignado}
             options={opcionesUsuarios}
+            disabled={disabled}
             onChange={e => {
               handleDispatch(dispatch, "usu_asignado_id", e?.value, OPORTUNIDAD);
               handleDispatch(dispatch, "usu_asignado", e, "select")
@@ -142,6 +149,7 @@ const DatosOportunidad = ({ oportunidad, dispatch, select = {} }) => {
             label="Descripción"
             name="descripcion"
             value={oportunidad?.descripcion || ""}
+            disabled={disabled}
             onChange={e => handleDispatch(dispatch, e.target?.name, e.target?.value, OPORTUNIDAD)}
           />
         </div>
@@ -205,6 +213,7 @@ const EditarOportunidad = () => {
         <form>
           <DatosOportunidad
             oportunidad={oportunidad}
+            disabled={currentOportunidad?.estado === "Ganado"}
             dispatch={dispatch}
             select={select}
           />
