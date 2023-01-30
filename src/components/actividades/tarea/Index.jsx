@@ -9,11 +9,11 @@ import { getTareas } from "../../../api/tareas";
 import { NavLink } from "react-router-dom";
 import { format, parseISO } from "date-fns";
 
-const Index = ({ lead_id }) => {
+const Index = ({ lead_id, contacto_id }) => {
   const {
     data: tareas,
     isLoading
-  } = useQuery(["tareas", lead_id], () => getTareas({ lead_id }));
+  } = useQuery(["tareas", lead_id], () => getTareas({ lead_id, contacto_id }));
 
   const columns = [
     {
@@ -190,8 +190,8 @@ const Index = ({ lead_id }) => {
   ];
 
   return (
-    <section className={classNames("w-full m-auto", { "section": !lead_id })}>
-      {!lead_id && <NavLink
+    <section className={classNames("w-full m-auto", { "section": !lead_id && !contacto_id })}>
+      {(!lead_id && !contacto_id) && <NavLink
         to="/actividades/tareas/nuevo"
         className={classNameButton2}
       >

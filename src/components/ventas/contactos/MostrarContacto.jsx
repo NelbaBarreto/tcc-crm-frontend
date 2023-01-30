@@ -7,6 +7,11 @@ import { useParams, useNavigate } from "react-router-dom";
 import { getContacto } from "../../../api/contactos";
 import { CircularProgress } from "@mui/material";
 import DatosPersona from "../../personas/DatosPersona";
+import ListarTareas from "../../actividades/tarea/Index";
+import ListarLlamadas from "../../actividades/llamada/Index";
+import ListarCasos from "../../soporte/casos/Index";
+import ListarOportunidades from "../../ventas/oportunidades/Index";
+import Tabs from "../../Tabs";
 
 const DatosContacto = ({ contacto }) => {
   return (
@@ -38,37 +43,48 @@ const MostrarContacto = () => {
   } = useQuery(["contacto", id], () => getContacto(id));
 
   return (
-    <section className="section w-full m-auto">
-      <div className="buttons has-addons">
-        <button
-          className="button font-bold is-active"
-        >
-          Intereses
-        </button>
-        <button
-          className="button font-bold"
-        >
-          Casos
-        </button>
-        <button
-          className="button font-bold"
-        >
-          Llamadas
-        </button>
-        <button
-          className="button font-bold"
-        >
-          Tareas
-        </button>
-      </div>
+    <section className="w-full m-auto">
       <div className="mb-4">
         {isLoading ?
           <CircularProgress size={24} className="fixed top-1/2 left-1/2" /> : <DatosContacto contacto={contacto} navigate={navigate} />
         }
       </div>
-      <Volver navigate={navigate} />
+      <Volver 
+        navigate={navigate}
+      />
     </section>
   );
 }
 
-export default MostrarContacto;
+const Index = () => {
+  const { id } = useParams();
+
+  const tabList = [
+    {
+      name: "Contacto",
+      content: <MostrarContacto contacto_id={id} />
+    },
+    {
+      name: "Oportunidades",
+      content: <ListarOportunidades contacto_id={id}/>
+    },    
+    {
+      name: "Casos",
+      content: <ListarCasos contacto_id={id} />
+    },
+    {
+      name: "Llamadas",
+      content: <ListarLlamadas contacto_id={id} />
+    },
+    {
+      name: "Tareas",
+      content: <ListarTareas contacto_id={id}/>
+    },
+  ];
+
+  return (
+    <Tabs tabList={tabList} />
+  )
+}
+
+export default Index;

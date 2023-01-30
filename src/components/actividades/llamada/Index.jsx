@@ -3,17 +3,17 @@ import DataTables from "../../DataTables";
 import classNames from "classnames";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { classNameButton1, classNameButton2 } from "../../formulario/Componentes";
+import { classNameButton2 } from "../../formulario/Componentes";
 import { useQuery } from "react-query";
 import { getLlamadas } from "../../../api/llamadas";
 import { NavLink } from "react-router-dom";
 import { format, parseISO } from "date-fns";
 
-const Index = ({ lead_id }) => {
+const Index = ({ lead_id, contacto_id }) => {
   const {
     data: llamadas,
     isLoading
-  } = useQuery(["llamadas", lead_id], () => getLlamadas({ lead_id }));
+  } = useQuery(["llamadas", lead_id, contacto_id], () => getLlamadas({ lead_id, contacto_id }));
 
   const columns = [
     {
@@ -181,8 +181,8 @@ const Index = ({ lead_id }) => {
   ];
 
   return (
-    <section className={classNames("w-full m-auto", { "section": !lead_id })}>
-      {!lead_id && <NavLink
+    <section className={classNames("w-full m-auto", { "section": !lead_id && !contacto_id })}>
+      {(!lead_id && !contacto_id) && <NavLink
         to="/actividades/llamadas/nuevo"
         className={classNameButton2}
       >

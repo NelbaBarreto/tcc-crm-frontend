@@ -46,35 +46,35 @@ const Index = () => {
       }
     },
     {
+      name: "persona.email",
+      label: "Email",
+      options: {
+        filter: true,
+        filterType: "textField",
+        sort: true,
+        customBodyRender: (value) => {
+          if (value) {
+            return (
+              <a 
+                className="text-blue-900" 
+                href={`mailto:${value}`}
+              >
+                {value}
+              </a>
+            );
+          } else {
+            return null;
+          }
+        }
+      }
+    },    
+    {
       name: "estado",
       label: "Estado",
       options: {
         filter: true,
         filterType: "dropdown",
         sort: true,
-      }
-    },
-    {
-      name: "campana",
-      label: "Campaña",
-      options: {
-        filter: true,
-        filterType: "textField",
-        sort: true,
-        customBodyRender: value => {
-          if (value) {
-            return (
-              <NavLink
-                to={"/marketing/campanas/" + value.campana_id}
-                className="underline text-blue-900"
-              >
-                {value.nombre}
-              </NavLink>
-            );
-          } else {
-            return null;
-          }
-        }
       }
     },
     {

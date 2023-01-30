@@ -9,11 +9,11 @@ import { useQuery } from "react-query";
 import { getCasos } from "../../../api/casos";
 import { NavLink } from "react-router-dom";
 
-const Index = ({ lead_id }) => {
+const Index = ({ lead_id, contacto_id }) => {
   const {
     data: casos,
     isLoading
-  } = useQuery(["casos", lead_id], () => getCasos({ lead_id }));
+  } = useQuery(["casos", lead_id, contacto_id], () => getCasos({ lead_id, contacto_id }));
 
   const columns = [
     {
@@ -190,8 +190,8 @@ const Index = ({ lead_id }) => {
   ];
 
   return (
-    <section className={classNames("w-full m-auto", { "section": !lead_id })}>
-      {!lead_id && <NavLink
+    <section className={classNames("w-full m-auto", { "section": !lead_id && !contacto_id })}>
+      {(!lead_id && !contacto_id) && <NavLink
         to="/soporte/casos/nuevo"
         className={classNameButton2}
       >
