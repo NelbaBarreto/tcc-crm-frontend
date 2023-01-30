@@ -44,7 +44,7 @@ const DatosCaso = ({ caso = {} }) => {
       </div>
       <div className="columns">
         <div className="column">
-          <TextView label="Solución" value={caso.solucion} />
+          <TextView label="Descripción" value={caso.solucion} />
         </div>
         <div className="column">
           <TextView label="Solución" value={caso.solucion} />

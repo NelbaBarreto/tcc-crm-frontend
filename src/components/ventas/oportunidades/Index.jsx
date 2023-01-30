@@ -105,7 +105,7 @@ const Index = ({ contacto_id }) => {
           }
         }
       }
-    },    
+    },  
     {
       name: "usuario",
       label: "Usuario Asignado",
