@@ -45,7 +45,6 @@ const Direcciones = ({ direcciones }) => {
             <th>Calle 1</th>
             <th>Calle 2</th>
             <th>Código Postal</th>
-            {/* <th>Ciudad</th> */}
             <th>Referencia</th>
             <th></th>
           </tr>
@@ -57,7 +56,6 @@ const Direcciones = ({ direcciones }) => {
                 <td>{direccion.calle_1}</td>
                 <td>{direccion.calle_2}</td>
                 <td>{direccion.cod_postal}</td>
-                {/* <td>{direccion.ciudad}</td> */}
                 <td>{direccion.referencia}</td>
               </tr>
             )

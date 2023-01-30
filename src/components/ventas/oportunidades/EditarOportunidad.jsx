@@ -173,7 +173,7 @@ const EditarOportunidad = () => {
       handleDispatchEdit(dispatch, currentOportunidad, OPORTUNIDAD);
       handleDispatchEdit(dispatch, {
         estado: { label: currentOportunidad.estado, value: currentOportunidad.estado },
-        campana: { label: currentOportunidad.campana?.nombre, value: currentOportunidad.campana?.campana_id },
+        campana: currentOportunidad.campana_id ? { label: currentOportunidad.campana?.nombre, value: currentOportunidad.campana?.campana_id } : "",
         curso: { label: currentOportunidad.curso?.nombre, value: currentOportunidad.curso?.curso_id },
         usu_asignado: { label: currentOportunidad.usuario?.nom_usuario, value: currentOportunidad.usuario?.usuario_id },
         contacto: { label: currentOportunidad.contacto?.persona?.nombre, value: currentOportunidad.contacto?.contacto_id }

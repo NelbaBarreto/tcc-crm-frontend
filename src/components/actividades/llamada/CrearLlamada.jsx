@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import AppContext from "../../../utils/AppContext";
 import MostrarMensaje from "../../formulario/MostrarMensaje";
 import Seccion from "../../formulario/Seccion";
+import useToken from "../../../utils/useToken";
 import { getTipos, getEstados, createLlamada } from "../../../api/llamadas";
 import { getUsuarios } from "../../../api/usuarios";
 import { getLeads } from "../../../api/leads";
@@ -19,6 +20,7 @@ const CrearLlamada = () => {
   const { state: { llamada, select }, dispatch } = useContext(AppContext);
   const [action, setAction] = useState({});
   const navigate = useNavigate();
+  const currentUser = useToken().usuario;
 
   useEffect(() => {
     handleStateCleared(dispatch);
@@ -59,8 +61,10 @@ const CrearLlamada = () => {
   const crear = async e => {
     e.preventDefault();
     setAction({ saving: true, error: false, message: "" });
+    const auditoria = { usu_insercion: currentUser.nom_usuario, usu_modificacion: currentUser.nom_usuario };
+
     try {
-      await createLlamada({ ...llamada });
+      await createLlamada({ ...llamada, ...auditoria, });
       setAction({ saving: false, error: false, message: "Registro de llamada creado exitosamente." });
       setTimeout(() => navigate("/actividades/llamadas"), 2000);
     } catch (e) {

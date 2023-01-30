@@ -159,7 +159,7 @@ const EditarCaso = () => {
         ...auditoria,
         persona: { ...persona, direcciones, ...auditoria }
       });
-      setAction({ saving: false, error: false, message: "Lead creado exitosamente." });
+      setAction({ saving: false, error: false, message: "Lead editado exitosamente." });
       setTimeout(() => navigate("/ventas/leads"), 2000);
     } catch (e) {
       setAction({ saving: false, error: true, message: e.message });

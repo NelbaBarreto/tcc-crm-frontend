@@ -22,8 +22,8 @@ export const getTareas = async ({ lead_id, contacto_id }) => {
 
 export const getTarea = async id => {
   const { data: response } = await axios.get(`${API}/tareas/${id}`);
-  const data = { ...response.data, fec_inicio: parseISO(response.data.fec_inicio),
-    fec_fin: parseISO(response.data.fec_fin) }
+  const data = { ...response.data, fec_inicio: response.data.fec_inicio ? parseISO(response.data.fec_inicio) : null,
+    fec_fin: response.data.fec_fin ? parseISO(response.data.fec_fin) : null}
   return data;
 };
 
