@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import DatePicker from "react-datepicker";
+import DatePicker, { registerLocale } from "react-datepicker";
 import Select from "react-select";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { format, parseISO } from "date-fns";
+import es from "date-fns/locale/es";
+registerLocale("es", es); 
 
 export const Input = ({
   label, name, value = "", type = "text", placeholder = "", className = "input shadow-lg",
@@ -37,6 +39,7 @@ export const Datepicker = ({ label, selected, onChange }) => {
           className="input"
           onChange={onChange}
           selected={selected}
+          locale="es"
           dateFormat="dd/MM/yyyy"
         />
       </div>
