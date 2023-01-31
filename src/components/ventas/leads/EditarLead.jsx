@@ -113,7 +113,7 @@ const DatosLead = ({ dispatch, select = {} }) => {
   );
 };
 
-const EditarCaso = () => {
+const EditarEmpleado = () => {
   const { state: { lead, persona, direcciones, select }, dispatch } = useContext(AppContext);
   const [action, setAction] = useState({});
   const [enabled, setEnabled] = useState(true);
@@ -144,7 +144,8 @@ const EditarCaso = () => {
           { label: currentLead.campana?.nombre, value: currentLead.campana?.campana_id } : "",
         usu_asignado: { label: currentLead.usu_asignado?.nom_usuario, value: currentLead.usu_asignado?.usuario_id },
         curso: { label: currentLead.curso?.nombre, value: currentLead.curso?.curso_id },
-        tip_documento: { label: currentLead.persona?.tip_documento, value: currentLead.persona?.tip_documento },
+        tip_documento: currentLead.persona.tip_documento ? 
+          { label: currentLead.persona?.tip_documento, value: currentLead.persona?.tip_documento } : "",
       }, "select");
     }
   }, [isFetching]);
@@ -153,6 +154,7 @@ const EditarCaso = () => {
     e.preventDefault();
     setAction({ saving: true, error: false, message: "" });
     const auditoria = { fec_modificacion: new Date(), usu_modificacion: currentUser.nom_usuario };
+    
     try {
       await editLead(id, {
         ...lead,
@@ -170,7 +172,7 @@ const EditarCaso = () => {
     <div>
       <section className="section w-full m-auto">
         <Titulo1>
-          Nuevo Lead
+          Editar Empleado
         </Titulo1>
         {action.message ? <MostrarMensaje mensaje={action.message} error={action.error} /> : null}
         <form>
@@ -191,4 +193,4 @@ const EditarCaso = () => {
   )
 };
 
-export default EditarCaso;
+export default EditarEmpleado;

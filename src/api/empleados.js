@@ -16,3 +16,8 @@ export const getEmpleado = async id => {
   const { data: response } = await axios.get(`${API}/empleados/${id}`);
   return response.data;
 };
+
+export const editEmpleado = async (id, data) => {
+  const { data: response } = await axios.put(`${API}/empleados/${id}`, { id, empleado: data });
+  return response.data;
+};

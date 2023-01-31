@@ -6,6 +6,7 @@ import { useQuery } from "react-query";
 import { useParams, useNavigate } from "react-router-dom";
 import { getEmpleado } from "../../api/empleados";
 import { CircularProgress } from "@mui/material";
+import { DateFormat } from "../formulario/Componentes";
 import DatosPersona from "../personas/DatosPersona";
 
 const DatosEmpleado = ({ empleado }) => {
@@ -26,6 +27,22 @@ const DatosEmpleado = ({ empleado }) => {
         <div className="columns">
           <div className="column is-half">
             <TextView label="Nombre de Usuario" value={empleado.usuario?.nom_usuario} />
+          </div>
+        </div>
+        <div className="columns">
+          <div className="column">
+            <DateFormat label="Fecha de Creación" value={empleado.fec_insercion} />
+          </div>
+          <div className="column">
+            <TextView label="Usuario Creación" value={empleado.usu_insercion} />
+          </div>
+        </div>
+        <div className="columns">
+          <div className="column">
+            <DateFormat label="Fecha de Modificación" value={empleado.fec_insercion} />
+          </div>
+          <div className="column">
+            <TextView label="Usuario Modificación" value={empleado.usu_modificacion} />
           </div>
         </div>
       </Seccion>

@@ -1,5 +1,6 @@
 import React from "react";
 import Seccion from "../../formulario/Seccion";
+import { DateFormat } from "../../formulario/Componentes";
 import { TextView } from "../../formulario/Componentes";
 import { Volver } from "../../formulario/Acciones";
 import { useQuery } from "react-query";
@@ -7,13 +8,28 @@ import { useParams, useNavigate } from "react-router-dom";
 import { getCurso } from "../../../api/cursos";
 import { CircularProgress } from "@mui/material";
 
-const DatosCurso = ({ curso = {}, navigate }) => {
+const DatosCurso = ({ curso = {} }) => {
   return (
-    <Seccion titulo="Datos del Curso">
+    <Seccion titulo={curso.nombre}>
       <div className="columns">
         <div className="column">
-          <TextView label="Nombre" value={curso.nombre} />
           <TextView label="Descripción" value={curso.descripcion} />
+        </div>
+      </div>
+      <div className="columns">
+        <div className="column">
+          <DateFormat label="Fecha de Creación" value={curso.fec_insercion} />
+        </div>
+        <div className="column">
+          <TextView label="Usuario Creación" value={curso.usu_insercion} />
+        </div>
+      </div>
+      <div className="columns">
+        <div className="column">
+          <DateFormat label="Fecha de Modificación" value={curso.fec_insercion} />
+        </div>
+        <div className="column">
+          <TextView label="Usuario Modificación" value={curso.usu_modificacion} />
         </div>
       </div>
     </Seccion>

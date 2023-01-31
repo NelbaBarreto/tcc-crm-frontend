@@ -1,6 +1,7 @@
 import React from "react";
 import DataTables from "../DataTables";
-import { classNameButton1, classNameButton2 } from "../formulario/Componentes";
+import { classNameButton2 } from "../formulario/Componentes";
+import { format, parseISO } from "date-fns";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useQuery } from "react-query";
@@ -40,11 +41,11 @@ const Index = () => {
       }
     },
     {
-      name: "persona.email",
-      label: "Email",
+      name: "cargo",
+      label: "Cargo",
       options: {
         filter: true,
-        filterType: "textField",
+        filterType: "dropdown",
         sort: true,
       }
     },
@@ -52,10 +53,16 @@ const Index = () => {
       name: "activo",
       label: "Estado",
       options: {
-        customBodyRender: value => value ? "Activo" : "Inactivo",
         filter: true,
         filterType: "dropdown",
         sort: true,
+        customBodyRender: (value) => {
+          if (value) {
+            return <span className="tag is-light is-success font-bold">Activo</span>
+          } else {
+            return <span className="tag is-light is-danger font-bold">Inactivo</span>
+          }
+        },
       }
     },
     {
@@ -67,6 +74,24 @@ const Index = () => {
         sort: true,
       }
     },
+    {
+      name: "fec_insercion",
+      label: "Fecha de Creación",
+      options: {
+        filter: true,
+        filterType: "textField",
+        sort: true,
+        customBodyRender: (value) => {
+          if (value) {
+            return (
+              <span>{format(parseISO(value), "dd/MM/yyyy hh:mm")}</span>
+            )
+          } else {
+            return null;
+          }
+        }
+      }
+    },    
     {
       name: "",
       options: {
@@ -83,16 +108,6 @@ const Index = () => {
                 >
                   <span className="icon is-small">
                     <FontAwesomeIcon icon={solid("pen-to-square")} />
-                  </span>
-                </NavLink>
-              </p>
-              <p className="control">
-                <NavLink
-                  to={"/admin/empleados/eliminar/" + tableMeta.rowData[0]}
-                  className="button is-danger is-outlined is-normal"
-                >
-                  <span className="icon is-small">
-                    <FontAwesomeIcon icon={solid("trash")} />
                   </span>
                 </NavLink>
               </p>

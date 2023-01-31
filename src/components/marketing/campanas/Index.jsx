@@ -62,6 +62,24 @@ const Index = () => {
       }
     },
     {
+      name: "fec_insercion",
+      label: "Fecha de Creación",
+      options: {
+        filter: true,
+        filterType: "textField",
+        sort: true,
+        customBodyRender: (value) => {
+          if (value) {
+            return (
+              <span>{format(parseISO(value), "dd/MM/yyyy hh:mm")}</span>
+            )
+          } else {
+            return null;
+          }
+        }
+      }
+    },
+    {
       name: "",
       options: {
         filter: false,
@@ -69,23 +87,27 @@ const Index = () => {
         empty: true,
         customBodyRender: (_value, tableMeta) => {
           return (
-            <div className="field is-grouped">
-              <div className="control">
+            <div className="field is-grouped is-grouped-centered">
+              <p className="control">
                 <NavLink
                   to={"/marketing/campanas/editar/" + tableMeta.rowData[0]}
-                  className={classNameButton1}
+                  className="button is-link is-outlined is-normal"
                 >
-                  Editar
+                  <span className="icon is-small">
+                    <FontAwesomeIcon icon={solid("pen-to-square")} />
+                  </span>
                 </NavLink>
-              </div>
-              <div className="control">
+              </p>
+              <p className="control">
                 <NavLink
                   to={"/marketing/campanas/eliminar/" + tableMeta.rowData[0]}
-                  className={classNameButton1}
+                  className="button is-danger is-outlined is-normal"
                 >
-                  Eliminar
+                  <span className="icon is-small">
+                    <FontAwesomeIcon icon={solid("trash")} />
+                  </span>
                 </NavLink>
-              </div>
+              </p>
             </div>
           );
         }

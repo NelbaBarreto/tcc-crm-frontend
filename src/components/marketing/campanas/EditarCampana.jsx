@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import AppContext from "../../../utils/AppContext";
 import Seccion from "../../formulario/Seccion";
 import MostrarMensaje from "../../formulario/MostrarMensaje";
+import useToken from "../../../utils/useToken";
 import { CircularProgress } from "@mui/material";
 import { Volver, Guardar } from "../../formulario/Acciones";
 import { Titulo1 } from "../../formulario/Titulo";
@@ -10,7 +11,6 @@ import { useParams, useNavigate } from "react-router-dom";
 import { getCampana, editCampana } from "../../../api/campanas";
 import { handleDispatch, handleDispatchEdit, handleStateCleared } from "../../formulario/reducerFormularios.js";
 import { useQuery } from "react-query";
-
 
 const CAMPANA = "campana";
 
@@ -55,6 +55,7 @@ const EditarCampana = () => {
   const [action, setAction] = useState({});
   const { id } = useParams();
   const navigate = useNavigate();
+  const currentUser = useToken().usuario;
 
   const {
     data: currentCampana,
@@ -75,8 +76,10 @@ const EditarCampana = () => {
   const crear = async e => {
     e.preventDefault();
     setAction({ saving: true, error: false, message: "" });
+    const auditoria = { fec_modificacion: new Date(), usu_modificacion: currentUser.nom_usuario };
+
     try {
-      await editCampana(campana.campana_id, { ...campana });
+      await editCampana(campana.campana_id, { ...campana, ...auditoria, });
       setAction({ saving: false, error: false, message: "Campaña editada exitosamente." });
       setTimeout(() => navigate("/marketing/campanas"), 2000);
     } catch (e) {

@@ -21,7 +21,7 @@ const DatosOrganizacion = ({ organizacion, dispatch }) => {
           <Input
             name="website"
             label="Página Web"
-            value={organizacion?.nombre || ""}
+            value={organizacion?.website || ""}
             onChange={e => handleDispatch(dispatch, e.target?.name, e.target?.value, ORGANIZACION)}
           />
         </div>

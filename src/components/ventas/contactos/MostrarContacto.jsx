@@ -11,6 +11,7 @@ import ListarTareas from "../../actividades/tarea/Index";
 import ListarLlamadas from "../../actividades/llamada/Index";
 import ListarCasos from "../../soporte/casos/Index";
 import ListarOportunidades from "../../ventas/oportunidades/Index";
+import { DateFormat } from "../../formulario/Componentes";
 import Tabs from "../../Tabs";
 
 const DatosContacto = ({ contacto }) => {
@@ -26,6 +27,22 @@ const DatosContacto = ({ contacto }) => {
           </div>
           <div className="column">
             <TextView label="Organización" value={contacto.organizacion?.persona?.nombre} />
+          </div>
+        </div>
+        <div className="columns">
+          <div className="column">
+            <DateFormat label="Fecha de Creación" value={contacto.fec_insercion} />
+          </div>
+          <div className="column">
+            <TextView label="Usuario Creación" value={contacto.usu_insercion} />
+          </div>
+        </div>
+        <div className="columns">
+          <div className="column">
+            <DateFormat label="Fecha de Modificación" value={contacto.fec_insercion} />
+          </div>
+          <div className="column">
+            <TextView label="Usuario Modificación" value={contacto.usu_modificacion} />
           </div>
         </div>
       </Seccion>
@@ -49,7 +66,7 @@ const MostrarContacto = () => {
           <CircularProgress size={24} className="fixed top-1/2 left-1/2" /> : <DatosContacto contacto={contacto} navigate={navigate} />
         }
       </div>
-      <Volver 
+      <Volver
         navigate={navigate}
       />
     </section>
@@ -66,8 +83,8 @@ const Index = () => {
     },
     {
       name: "Oportunidades",
-      content: <ListarOportunidades contacto_id={id}/>
-    },    
+      content: <ListarOportunidades contacto_id={id} />
+    },
     {
       name: "Casos",
       content: <ListarCasos contacto_id={id} />
@@ -78,7 +95,7 @@ const Index = () => {
     },
     {
       name: "Tareas",
-      content: <ListarTareas contacto_id={id}/>
+      content: <ListarTareas contacto_id={id} />
     },
   ];
 

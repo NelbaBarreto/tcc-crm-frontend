@@ -1,8 +1,9 @@
 import React from "react";
 import DataTables from "../../DataTables";
+import { format, parseISO } from "date-fns";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { classNameButton1, classNameButton2 } from "../../formulario/Componentes";
+import { classNameButton2 } from "../../formulario/Componentes";
 import { useQuery } from "react-query";
 import { getSedes } from "../../../api/sedes";
 import { NavLink } from "react-router-dom";
@@ -60,12 +61,21 @@ const Index = () => {
       }
     },
     {
-      name: "direccion.ciudad.nombre",
-      label: "Ciudad",
+      name: "fec_insercion",
+      label: "Fecha de Creación",
       options: {
         filter: true,
         filterType: "textField",
         sort: true,
+        customBodyRender: (value) => {
+          if (value) {
+            return (
+              <span>{format(parseISO(value), "dd/MM/yyyy hh:mm")}</span>
+            )
+          } else {
+            return null;
+          }
+        }
       }
     },
     {
@@ -76,23 +86,27 @@ const Index = () => {
         empty: true,
         customBodyRender: (_value, tableMeta) => {
           return (
-            <div className="field is-grouped">
-              <div className="control">
+            <div className="field is-grouped is-grouped-centered">
+              <p className="control">
                 <NavLink
                   to={"/educacion/sedes/editar/" + tableMeta.rowData[0]}
-                  className={classNameButton1}
+                  className="button is-link is-outlined is-normal"
                 >
-                  Editar
+                  <span className="icon is-small">
+                    <FontAwesomeIcon icon={solid("pen-to-square")} />
+                  </span>
                 </NavLink>
-              </div>
-              <div className="control">
+              </p>
+              <p className="control">
                 <NavLink
                   to={"/educacion/sedes/eliminar/" + tableMeta.rowData[0]}
-                  className={classNameButton1}
+                  className="button is-danger is-outlined is-normal"
                 >
-                  Eliminar
+                  <span className="icon is-small">
+                    <FontAwesomeIcon icon={solid("trash")} />
+                  </span>
                 </NavLink>
-              </div>
+              </p>
             </div>
           );
         }
