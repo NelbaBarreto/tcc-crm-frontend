@@ -16,6 +16,7 @@ import ProtectedRoute from "./components/home/ProtectedRoute.jsx";
 import ListarEmpleados from "./components/empleados/Index";
 import CrearEmpleado from "./components/empleados/CrearEmpleado";
 import MostrarEmpleado from "./components/empleados/MostrarEmpleado";
+import EditarEmpleado from "./components/empleados/EditarEmpleado";
 
 // Campañas
 import ListarCampana from "./components/marketing/campanas/Index";
@@ -144,6 +145,16 @@ const MainApp = () => {
             }
           />
           <Route
+            path="/admin/empleados/editar/:id"
+            element={
+              <ProtectedRoute usuario={usuario}>
+                <EditarEmpleado />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            exact
             path="/admin/empleados/:id"
             element={
               <ProtectedRoute usuario={usuario}>
@@ -305,7 +316,7 @@ const MainApp = () => {
                 <EditarOrganizacion />
               </ProtectedRoute>
             }
-          />          
+          />
 
           {/* Oportunidades */}
           <Route
