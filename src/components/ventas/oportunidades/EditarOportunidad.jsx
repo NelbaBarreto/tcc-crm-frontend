@@ -157,6 +157,7 @@ const EditarOportunidad = () => {
   const { state: { oportunidad, select }, dispatch } = useContext(AppContext);
   const [action, setAction] = useState({});
   const [enabled, setEnabled] = useState(true);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   const navigate = useNavigate();
   const { id } = useParams();
   const currentUser = useToken().usuario;
@@ -183,6 +184,16 @@ const EditarOportunidad = () => {
       }, "select");
     }
   }, [isFetching]);
+
+  const confirmarOportunidadGanada = e => {
+    e.preventDefault();
+
+    if (oportunidad.estado === "Ganado" && currentOportunidad.estado !== "Ganado") {
+      setModalIsOpen(true);
+    } else {
+      editar();
+    }
+  }
 
   const editar = async e => {
     e.preventDefault();
