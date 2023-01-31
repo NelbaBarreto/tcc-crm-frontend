@@ -1,5 +1,7 @@
 import React from "react";
 import Modal from "react-modal";
+import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const customStyles = {
   content: {
@@ -12,8 +14,8 @@ const customStyles = {
   },
 };
 
-const Alert = ({ manageModal, crear}) => {
-  const {modalIsOpen, setModalIsOpen} = manageModal;
+const Alert = ({ manageModal, crear }) => {
+  const { modalIsOpen, setModalIsOpen } = manageModal;
 
   const confirmar = e => {
     e.preventDefault();
@@ -33,10 +35,12 @@ const Alert = ({ manageModal, crear}) => {
       contentLabel="Confirmar Oportunidad Ganada"
     >
       <>
-        <div class="notification text-lg font-semibold">
-          Estás seguro de que quieres marcar esta oportunidad como ganada?<br/>Esta acción no se puede deshacer.
+        <div class="text-lg">
+          <h5 className="title is-5 text-center">Confirmar Oportunidad Ganada</h5>
+          <div className="my-3 bg-gray-300 h-[1px]"></div>
+          ¿Estás seguro de que quieres marcar esta oportunidad como ganada?<br />Esta acción no se puede deshacer.
         </div>
-        <div className="field is-grouped">
+        <div className="field is-grouped mt-3">
           <p className="control">
             <button
               className="button is-success is-outlined"

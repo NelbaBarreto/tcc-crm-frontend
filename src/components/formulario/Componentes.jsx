@@ -159,17 +159,6 @@ export const Image = ({ label, value = "", className = "label" }) => {
   );
 }
 
-export const Button1 = ({ onClick, children }) => {
-  return (
-    <button
-      className="button font-semibold shadow-lg text-deep-purple-800 hover:text-white focus:text-white hover:bg-deep-purple-700 bg-deep-purple-100"
-    // onClick={() => onClick}
-    >
-      {children}
-    </button>
-  );
-}
-
 export const classNameButton1 =
   "button font-semibold shadow-lg text-deep-purple-800 hover:text-white focus:text-white hover:bg-deep-purple-700 bg-deep-purple-100 disabled:bg-deep-purple-700";
 

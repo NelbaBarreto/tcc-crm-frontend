@@ -17,12 +17,6 @@ const Sidebar = () => {
     <div
       className="sidebar fixed top-0 bottom-0 lg:left-0 p-2 w-[300px] overflow-y-auto text-center bg-white shadow-md scrollbar-styles"
     >
-      <div className="text-gray-100 text-xl">
-        <div className="p-2.5 mt-1 flex items-center">
-          <img src="/logo.png" className="m-auto" style={{ height: "50px" }} alt="" />
-        </div>
-        <div className="my-2 bg-gray-300 h-[1px]"></div>
-      </div>
       <span>{usuario?.nom_usuario}</span>
       <div className="my-2 bg-gray-300 h-[1px]"></div>
       {sideMenu.map((item, index) => {
