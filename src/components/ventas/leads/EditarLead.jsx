@@ -20,7 +20,7 @@ import { useParams, useNavigate } from "react-router-dom";
 
 const LEAD = "lead";
 
-const DatosLead = ({ dispatch, select = {} }) => {
+const DatosLead = ({ dispatch, select = {}, currentLead }) => {
   const {
     data: usuarios,
     usuariosLoading
@@ -61,6 +61,7 @@ const DatosLead = ({ dispatch, select = {} }) => {
             label="Estado"
             value={select.estado}
             options={estados}
+            disabled={currentLead.estado === "Convertido"}
             onChange={e => {
               handleDispatch(dispatch, "estado", e?.value, LEAD);
               handleDispatch(dispatch, "estado", e, "select")
@@ -107,6 +108,7 @@ const DatosLead = ({ dispatch, select = {} }) => {
         label="Curso/Interés"
         value={select.curso}
         options={opcionesCursos}
+        disabled={currentLead.estado === "Convertido"}
         onChange={e => {
           handleDispatch(dispatch, "curso_id", e?.value, LEAD);
           handleDispatch(dispatch, "curso", e, "select")
@@ -204,6 +206,7 @@ const EditarLead = () => {
           />
           <EditarPersona />
           <DatosLead
+            currentLead={currentLead}
             lead={lead}
             select={select}
             dispatch={dispatch}
