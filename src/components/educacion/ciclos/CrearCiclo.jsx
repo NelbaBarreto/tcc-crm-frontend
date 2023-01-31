@@ -4,7 +4,7 @@ import MostrarMensaje from "../../formulario/MostrarMensaje";
 import { Titulo1 } from "../../formulario/Titulo";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Dropdown, Datepicker, Input, Button1 } from "../../formulario/Componentes";
+import { Dropdown, Datepicker, Input } from "../../formulario/Componentes";
 import { Volver, Guardar } from "../../formulario/Acciones";
 import { reducer } from "../../formulario/reducerFormularios.js";
 import { useNavigate } from "react-router-dom";
@@ -153,14 +153,14 @@ const DatosAulas = ({ onChange }) => {
               />
               <div className="field mt-3">
                 <div className="control">
-                  <Button1
+                  <button
                     onClick={console.log("a")}
                   >
                     <span>Agregar</span>
                     <span className="icon is-small">
                       <FontAwesomeIcon icon={solid("plus")} />
                     </span>
-                  </Button1>
+                  </button>
                 </div>
               </div>
             </div>

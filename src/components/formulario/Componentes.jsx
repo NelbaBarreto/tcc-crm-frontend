@@ -46,7 +46,7 @@ export const Datepicker = ({ label, selected, onChange }) => {
   );
 }
 
-export const Checkbox = ({ label, name, value, onChange }) => {
+export const Checkbox = ({ label, name, value, defaultValue, disabled, onChange }) => {
   return (
     <div className="field">
       <label className="label">{label}</label>
@@ -55,7 +55,9 @@ export const Checkbox = ({ label, name, value, onChange }) => {
           name={name}
           className="checkbox shadow-lg"
           type="checkbox"
+          disabled={disabled}
           checked={value}
+          defaultChecked={defaultValue}
           onChange={onChange}
         />
       </div>
@@ -156,17 +158,6 @@ export const Image = ({ label, value = "", className = "label" }) => {
         </label>
       </div>
     </>
-  );
-}
-
-export const Button1 = ({ onClick, children }) => {
-  return (
-    <button
-      className="button font-semibold shadow-lg text-deep-purple-800 hover:text-white focus:text-white hover:bg-deep-purple-700 bg-deep-purple-100"
-    // onClick={() => onClick}
-    >
-      {children}
-    </button>
   );
 }
 

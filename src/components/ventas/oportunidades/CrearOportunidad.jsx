@@ -198,7 +198,7 @@ const CrearOportunidad = () => {
         <form>
           <Alert
             manageModal={{modalIsOpen, setModalIsOpen}}
-            crear={crear}
+            guardar={crear}
           />
           <DatosOportunidad
             oportunidad={oportunidad}

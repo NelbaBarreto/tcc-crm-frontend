@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import AppContext from "../../../utils/AppContext";
 import Seccion from "../../formulario/Seccion";
 import MostrarMensaje from "../../formulario/MostrarMensaje";
+import Alert from "./Alert";
 import { handleDispatch, handleStateCleared, handleDispatchEdit } from "../../formulario/reducerFormularios.js";
 import { Volver, Guardar } from "../../formulario/Acciones";
 import { Titulo1 } from "../../formulario/Titulo";
@@ -73,6 +74,7 @@ const DatosOportunidad = ({ oportunidad, dispatch, select = {}, disabled }) => {
             label="Contacto*"
             value={select.contacto}
             options={opcionesContactos}
+            disabled={disabled}
             onChange={e => {
               handleDispatch(dispatch, "contacto_id", e?.value, OPORTUNIDAD);
               handleDispatch(dispatch, "contacto", e, "select")
@@ -157,6 +159,7 @@ const EditarOportunidad = () => {
   const { state: { oportunidad, select }, dispatch } = useContext(AppContext);
   const [action, setAction] = useState({});
   const [enabled, setEnabled] = useState(true);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   const navigate = useNavigate();
   const { id } = useParams();
   const currentUser = useToken().usuario;
@@ -184,8 +187,17 @@ const EditarOportunidad = () => {
     }
   }, [isFetching]);
 
-  const editar = async e => {
+  const confirmarOportunidadGanada = e => {
     e.preventDefault();
+
+    if (oportunidad.estado === "Ganado" && currentOportunidad.estado !== "Ganado") {
+      setModalIsOpen(true);
+    } else {
+      editar();
+    }
+  }
+
+  const editar = async () => {
     setAction({ saving: true, error: false, message: "" });
     const auditoria = { fec_modificacion: new Date(), usu_modificacion: currentUser.nom_usuario };
 
@@ -206,17 +218,23 @@ const EditarOportunidad = () => {
         </Titulo1>
         {action.message ? <MostrarMensaje mensaje={action.message} error={action.error} /> : null}
         <form>
+          <Alert
+            manageModal={{ modalIsOpen, setModalIsOpen }}
+            guardar={editar}
+          />
           <DatosOportunidad
             oportunidad={oportunidad}
             disabled={currentOportunidad?.estado === "Ganado"}
             dispatch={dispatch}
             select={select}
           />
-          <Guardar 
-            saving={action.saving} 
-            guardar={editar} 
+          <Guardar
+            saving={action.saving}
+            guardar={confirmarOportunidadGanada}
           />
-          <Volver navigate={navigate} />
+          <Volver 
+            navigate={navigate}
+          />
         </form>
       </section>
     </div>

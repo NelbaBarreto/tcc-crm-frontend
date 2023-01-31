@@ -3,10 +3,13 @@ import AppContext from "../../../utils/AppContext";
 import Seccion from "../../formulario/Seccion";
 import MostrarMensaje from "../../formulario/MostrarMensaje";
 import EditarPersona from "../../personas/EditarPersona";
+import Alert from "./Alert";
 import useToken from "../../../utils/useToken";
+import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Volver, Guardar } from "../../formulario/Acciones";
 import { Titulo1 } from "../../formulario/Titulo";
-import { Dropdown } from "../../formulario/Componentes";
+import { classNameButton2, Dropdown } from "../../formulario/Componentes";
 import { getUsuarios } from "../../../api/usuarios";
 import { getCursos } from "../../../api/cursos";
 import { getCampanas } from "../../../api/campanas";
@@ -17,7 +20,7 @@ import { useParams, useNavigate } from "react-router-dom";
 
 const LEAD = "lead";
 
-const DatosLead = ({ dispatch, select = {} }) => {
+const DatosLead = ({ dispatch, select = {}, currentLead }) => {
   const {
     data: usuarios,
     usuariosLoading
@@ -58,6 +61,7 @@ const DatosLead = ({ dispatch, select = {} }) => {
             label="Estado"
             value={select.estado}
             options={estados}
+            disabled={currentLead.estado === "Convertido"}
             onChange={e => {
               handleDispatch(dispatch, "estado", e?.value, LEAD);
               handleDispatch(dispatch, "estado", e, "select")
@@ -104,6 +108,7 @@ const DatosLead = ({ dispatch, select = {} }) => {
         label="Curso/Interés"
         value={select.curso}
         options={opcionesCursos}
+        disabled={currentLead.estado === "Convertido"}
         onChange={e => {
           handleDispatch(dispatch, "curso_id", e?.value, LEAD);
           handleDispatch(dispatch, "curso", e, "select")
@@ -113,10 +118,11 @@ const DatosLead = ({ dispatch, select = {} }) => {
   );
 };
 
-const EditarEmpleado = () => {
+const EditarLead = () => {
   const { state: { lead, persona, direcciones, select }, dispatch } = useContext(AppContext);
   const [action, setAction] = useState({});
   const [enabled, setEnabled] = useState(true);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   const { id } = useParams();
   const navigate = useNavigate();
   const currentUser = useToken().usuario;
@@ -140,21 +146,31 @@ const EditarEmpleado = () => {
       handleDispatchEdit(dispatch, {
         estado: { label: currentLead.estado, value: currentLead.estado },
         origen: { label: currentLead.origen, value: currentLead.origen },
-        campana: currentLead.campana ? 
+        campana: currentLead.campana ?
           { label: currentLead.campana?.nombre, value: currentLead.campana?.campana_id } : "",
         usu_asignado: { label: currentLead.usu_asignado?.nom_usuario, value: currentLead.usu_asignado?.usuario_id },
         curso: { label: currentLead.curso?.nombre, value: currentLead.curso?.curso_id },
-        tip_documento: currentLead.persona.tip_documento ? 
+        tip_documento: currentLead.persona.tip_documento ?
           { label: currentLead.persona?.tip_documento, value: currentLead.persona?.tip_documento } : "",
       }, "select");
     }
   }, [isFetching]);
 
-  const editar = async e => {
+  const confirmarConversionLead = e => {
     e.preventDefault();
+
+    if (lead.estado === "Convertido" && currentLead.estado !== "Convertido") {
+      setModalIsOpen(true);
+    } else {
+      editar();
+    }
+  }
+
+
+  const editar = async () => {
     setAction({ saving: true, error: false, message: "" });
     const auditoria = { fec_modificacion: new Date(), usu_modificacion: currentUser.nom_usuario };
-    
+
     try {
       await editLead(id, {
         ...lead,
@@ -172,19 +188,32 @@ const EditarEmpleado = () => {
     <div>
       <section className="section w-full m-auto">
         <Titulo1>
-          Editar Empleado
+          Editar Lead
         </Titulo1>
         {action.message ? <MostrarMensaje mensaje={action.message} error={action.error} /> : null}
         <form>
+          <button 
+            className={classNameButton2}
+            onClick={e => {e.preventDefault(); setModalIsOpen(true)}}
+          >
+            <span>Convertir Lead</span>
+            <span className="icon is-small">
+              <FontAwesomeIcon icon={solid("arrows-rotate")} />
+            </span>
+          </button>
+          <Alert
+            manageModal={{ modalIsOpen, setModalIsOpen }}
+          />
           <EditarPersona />
           <DatosLead
+            currentLead={currentLead}
             lead={lead}
             select={select}
             dispatch={dispatch}
           />
           <Guardar
             saving={action.saving}
-            guardar={editar}
+            guardar={confirmarConversionLead}
           />
           <Volver navigate={navigate} />
         </form>
@@ -193,4 +222,4 @@ const EditarEmpleado = () => {
   )
 };
 
-export default EditarEmpleado;
+export default EditarLead;

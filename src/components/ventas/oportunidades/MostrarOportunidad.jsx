@@ -6,6 +6,7 @@ import { useQuery } from "react-query";
 import { useParams, useNavigate } from "react-router-dom";
 import { getOportunidad } from "../../../api/oportunidades";
 import { CircularProgress } from "@mui/material";
+import { DateFormat } from "../../formulario/Componentes";
 
 const DatosOportunidad = ({ oportunidad }) => {
   return (
@@ -42,6 +43,22 @@ const DatosOportunidad = ({ oportunidad }) => {
           <TextView label="Descripción" value={oportunidad.descripcion} />
         </div>
       </div>
+      <div className="columns">
+          <div className="column">
+            <DateFormat label="Fecha de Creación" value={oportunidad.fec_insercion} />
+          </div>
+          <div className="column">
+            <TextView label="Usuario Creación" value={oportunidad.usu_insercion} />
+          </div>
+        </div>
+        <div className="columns">
+          <div className="column">
+            <DateFormat label="Fecha de Modificación" value={oportunidad.fec_insercion} />
+          </div>
+          <div className="column">
+            <TextView label="Usuario Modificación" value={oportunidad.usu_modificacion} />
+          </div>
+        </div>
     </Seccion>
   );
 }
