@@ -1,6 +1,10 @@
 import React, { useEffect, useContext, useState } from "react";
 import Modal from "react-modal";
 import AppContext from "../../../utils/AppContext";
+import classNames from "classnames";
+import useToken from "../../../utils/useToken";
+import { createContacto } from "../../../api/contactos";
+import { createOportunidad } from "../../../api/oportunidades";
 import { Checkbox, Input } from "../../formulario/Componentes";
 import { handleDispatch, handleDispatchEdit } from "../../formulario/reducerFormularios";
 
@@ -15,17 +19,58 @@ const customStyles = {
   },
 };
 
-const CONVERTIR_LEAD = "convertirLead";
+const CONVERTIR_LEAD = "leadConvertido";
 
 const Alert = ({ manageModal, guardar }) => {
-  const { state: { oportunidad, convertirLead }, dispatch } = useContext(AppContext);
+  const { state: { leadConvertido, lead  }, dispatch } = useContext(AppContext);
   const [action, setAction] = useState({});
   const { modalIsOpen, setModalIsOpen } = manageModal;
+  const currentUser = useToken().usuario;
 
-  const confirmar = e => {
+  const crearContacto = async () => {
+    const auditoria = { usu_insercion: currentUser.nom_usuario, usu_modificacion: currentUser.nom_usuario };
+    const nuevoContacto = {
+      persona_id: lead.persona_id,
+      origen: lead.origen,
+      ...auditoria
+    };
+
+    try {
+      return await createContacto(nuevoContacto);
+    } catch (e) {
+      setAction({ saving: false, error: true, message: e.message });
+    };
+  };
+
+  const crearOportunidad = async nuevoContacto => {
+    const auditoria = { usu_insercion: currentUser.nom_usuario, usu_modificacion: currentUser.nom_usuario };
+    const nuevaOportunidad = {
+      contacto_id: nuevoContacto.contacto_id,
+      estado: "Abierto",
+      curso_id: lead.curso_id,
+      nombre: leadConvertido.nombreOportunidad,
+      campana_id: leadConvertido.campana_id,
+      ...auditoria
+    };
+
+    try {
+      return await createOportunidad(nuevaOportunidad);
+    } catch (e) {
+      setAction({ saving: false, error: true, message: e.message });
+    };
+  };
+
+
+  const confirmar = async e => {
     e.preventDefault();
-    setModalIsOpen(false);
-    guardar();
+    setAction({ ...action, saving: true });
+    
+    const nuevoContacto = await crearContacto();
+    const nuevaOportunidad = await crearOportunidad(nuevoContacto);
+    console.log(nuevaOportunidad);
+    setAction({ ...action, saving: false });
+    // setModalIsOpen(false);
+    // guardar();
   }
 
   const cancelar = e => {
@@ -35,7 +80,7 @@ const Alert = ({ manageModal, guardar }) => {
 
   useEffect(() => {
     handleDispatchEdit(dispatch, {
-      oportunidad: true,
+      oportunidad: false,
       nombreOportunidad: "",
     }, CONVERTIR_LEAD);
   }, []);
@@ -48,35 +93,36 @@ const Alert = ({ manageModal, guardar }) => {
       ariaHideApp={false}
     >
       <>
-        <div class="text-lg">
+        <div className="text-lg">
           <h5 className="title is-5 text-center">Convertir Lead</h5>
           <div className="my-3 bg-gray-300 h-[1px]"></div>
           Convertir este lead y crear los siguientes registros:<br/>
           <Checkbox
             label="Contacto"
             disabled={true}
-            value={true}
+            defaultValue={true}
           />
           <Checkbox
             name="oportunidad"
             label="Oportunidad"
-            value={convertirLead?.oportunidad || false}
+            value={leadConvertido?.oportunidad || false}
             onChange={e => handleDispatch(dispatch, e.target?.name, e.target?.checked, CONVERTIR_LEAD)}
           />
-          {convertirLead?.oportunidad ?
+          {leadConvertido?.oportunidad ?
             <Input
               name="nombreOportunidad"
               label="Nombre Nueva Oportunidad*"
-              value={convertirLead?.nombreOportunidad || ""}
+              value={leadConvertido?.nombreOportunidad || ""}
               onChange={e => handleDispatch(dispatch, e.target?.name, e.target?.value, CONVERTIR_LEAD)}
             /> : null}
         </div>
         <div className="field is-grouped mt-3">
           <p className="control">
             <button
-              className="button is-success is-outlined"
               onClick={confirmar}
-              disabled={convertirLead?.oportunidad && !convertirLead.nombreOportunidad}
+              disabled={(leadConvertido?.oportunidad && !leadConvertido.nombreOportunidad)}
+              className={classNames("button is-success is-outlined",
+              { "is-loading": action.saving })}
             >
               Continuar
             </button>
@@ -85,6 +131,7 @@ const Alert = ({ manageModal, guardar }) => {
             <button
               className="button is-danger is-outlined"
               onClick={cancelar}
+              disabled={action.saving}
             >
               Cancelar
             </button>

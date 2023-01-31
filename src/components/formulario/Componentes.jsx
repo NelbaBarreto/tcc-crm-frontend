@@ -46,7 +46,7 @@ export const Datepicker = ({ label, selected, onChange }) => {
   );
 }
 
-export const Checkbox = ({ label, name, value, disabled, onChange }) => {
+export const Checkbox = ({ label, name, value, defaultValue, disabled, onChange }) => {
   return (
     <div className="field">
       <label className="label">{label}</label>
@@ -57,6 +57,7 @@ export const Checkbox = ({ label, name, value, disabled, onChange }) => {
           type="checkbox"
           disabled={disabled}
           checked={value}
+          defaultChecked={defaultValue}
           onChange={onChange}
         />
       </div>
