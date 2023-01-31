@@ -81,14 +81,21 @@ const Alert = ({ manageModal }) => {
 
   const confirmar = async e => {
     e.preventDefault();
+    let url = "ventas/oportunidades";
+    let nuevoContacto;
+    let nuevaOportunidad;
     setAction({ ...action, saving: true });
     
-    const nuevoContacto = await crearContacto();
-    const nuevaOportunidad = await crearOportunidad(nuevoContacto);
+    nuevoContacto = await crearContacto();
+    url = `/ventas/contactos/${nuevoContacto.contacto_id}`;
+    if (leadConvertido?.oportunidad) {
+      nuevaOportunidad = await crearOportunidad(nuevoContacto);
+      url = `/ventas/oportunidades/${nuevaOportunidad.oportunidad_id}`;
+    }
     await editarLead();
     
     setAction({ saving: false, error: false, message: "Lead convertido exitosamente." });
-    setTimeout(() => navigate(`/ventas/oportunidades/${nuevaOportunidad.oportunidad_id}`), 2000);
+    setTimeout(() => navigate(url), 2000);
   }
 
   const cancelar = e => {
