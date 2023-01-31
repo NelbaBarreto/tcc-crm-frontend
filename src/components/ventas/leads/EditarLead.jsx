@@ -201,7 +201,6 @@ const EditarLead = () => {
           </button>
           <Alert
             manageModal={{ modalIsOpen, setModalIsOpen }}
-            guardar={editar}
           />
           <EditarPersona />
           <DatosLead

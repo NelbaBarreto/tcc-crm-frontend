@@ -3,10 +3,13 @@ import Modal from "react-modal";
 import AppContext from "../../../utils/AppContext";
 import classNames from "classnames";
 import useToken from "../../../utils/useToken";
+import MostrarMensaje from "../../formulario/MostrarMensaje";
 import { createContacto } from "../../../api/contactos";
 import { createOportunidad } from "../../../api/oportunidades";
+import { editLead } from "../../../api/leads";
 import { Checkbox, Input } from "../../formulario/Componentes";
 import { handleDispatch, handleDispatchEdit } from "../../formulario/reducerFormularios";
+import { useNavigate } from "react-router-dom";
 
 const customStyles = {
   content: {
@@ -21,10 +24,11 @@ const customStyles = {
 
 const CONVERTIR_LEAD = "leadConvertido";
 
-const Alert = ({ manageModal, guardar }) => {
-  const { state: { leadConvertido, lead  }, dispatch } = useContext(AppContext);
-  const [action, setAction] = useState({});
+const Alert = ({ manageModal }) => {
+  const { state: { leadConvertido, lead, persona, direcciones, telefonos }, dispatch } = useContext(AppContext);
   const { modalIsOpen, setModalIsOpen } = manageModal;
+  const [action, setAction] = useState({});
+  const navigate = useNavigate();
   const currentUser = useToken().usuario;
 
   const crearContacto = async () => {
@@ -60,6 +64,20 @@ const Alert = ({ manageModal, guardar }) => {
     };
   };
 
+  const editarLead = async () => {
+    const auditoria = { fec_modificacion: new Date(), usu_modificacion: currentUser.nom_usuario };
+    try {
+      await editLead(lead.lead_id, {
+        ...lead,
+        estado: "Convertido",
+        ...auditoria,
+        persona: { ...persona, direcciones, telefonos, ...auditoria }
+      });
+    } catch (e) {
+      setAction({ saving: false, error: true, message: e.message });
+    };
+  };
+
 
   const confirmar = async e => {
     e.preventDefault();
@@ -67,10 +85,10 @@ const Alert = ({ manageModal, guardar }) => {
     
     const nuevoContacto = await crearContacto();
     const nuevaOportunidad = await crearOportunidad(nuevoContacto);
-    console.log(nuevaOportunidad);
-    setAction({ ...action, saving: false });
-    // setModalIsOpen(false);
-    // guardar();
+    await editarLead();
+    
+    setAction({ saving: false, error: false, message: "Lead convertido exitosamente." });
+    setTimeout(() => navigate(`/ventas/oportunidades/${nuevaOportunidad.oportunidad_id}`), 2000);
   }
 
   const cancelar = e => {
@@ -95,6 +113,7 @@ const Alert = ({ manageModal, guardar }) => {
       <>
         <div className="text-lg">
           <h5 className="title is-5 text-center">Convertir Lead</h5>
+          {action.message ? <MostrarMensaje mensaje={action.message} error={action.error} /> : null}
           <div className="my-3 bg-gray-300 h-[1px]"></div>
           Convertir este lead y crear los siguientes registros:<br/>
           <Checkbox
