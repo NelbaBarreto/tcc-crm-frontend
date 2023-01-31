@@ -14,13 +14,13 @@ const customStyles = {
   },
 };
 
-const Alert = ({ manageModal, crear }) => {
+const Alert = ({ manageModal, guardar }) => {
   const { modalIsOpen, setModalIsOpen } = manageModal;
 
   const confirmar = e => {
     e.preventDefault();
     setModalIsOpen(false);
-    crear();
+    guardar();
   }
 
   const cancelar = e => {
@@ -33,6 +33,7 @@ const Alert = ({ manageModal, crear }) => {
       isOpen={modalIsOpen}
       style={customStyles}
       contentLabel="Confirmar Oportunidad Ganada"
+      ariaHideApp={false}
     >
       <>
         <div class="text-lg">
