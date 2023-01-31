@@ -13,13 +13,13 @@ const customStyles = {
   },
 };
 
-const Alert = ({ manageModal, crear }) => {
+const Alert = ({ manageModal, guardar }) => {
   const { modalIsOpen, setModalIsOpen } = manageModal;
 
   const confirmar = e => {
     e.preventDefault();
     setModalIsOpen(false);
-    crear();
+    guardar();
   }
 
   const cancelar = e => {
@@ -31,18 +31,23 @@ const Alert = ({ manageModal, crear }) => {
     <Modal
       isOpen={modalIsOpen}
       style={customStyles}
-      contentLabel="Confirmar Conversión de Lead"
+      contentLabel="Convertir Lead"
+      ariaHideApp={false}
     >
       <>
-        <div class="notification text-lg font-semibold">
-          <Checkbox
-            label="Contacto"
+        <div class="text-lg">
+          <h5 className="title is-5 text-center">Convertir Lead</h5>
+          <div className="my-3 bg-gray-300 h-[1px]"></div>
+          <Checkbox 
+            label="Crear Contacto"
+            disabled={true}
+            value={true}
           />
-          <Checkbox
-            label="Oportunidad"
+          <Checkbox 
+            label="Crear Oportunidad"
           />
         </div>
-        <div className="field is-grouped">
+        <div className="field is-grouped mt-3">
           <p className="control">
             <button
               className="button is-success is-outlined"

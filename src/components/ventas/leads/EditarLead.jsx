@@ -3,6 +3,7 @@ import AppContext from "../../../utils/AppContext";
 import Seccion from "../../formulario/Seccion";
 import MostrarMensaje from "../../formulario/MostrarMensaje";
 import EditarPersona from "../../personas/EditarPersona";
+import Alert from "./Alert";
 import useToken from "../../../utils/useToken";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -119,6 +120,7 @@ const EditarLead = () => {
   const { state: { lead, persona, direcciones, select }, dispatch } = useContext(AppContext);
   const [action, setAction] = useState({});
   const [enabled, setEnabled] = useState(true);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   const { id } = useParams();
   const navigate = useNavigate();
   const currentUser = useToken().usuario;
@@ -152,8 +154,18 @@ const EditarLead = () => {
     }
   }, [isFetching]);
 
-  const editar = async e => {
+  const confirmarConversionLead = e => {
     e.preventDefault();
+
+    if (lead.estado === "Convertido" && currentLead.estado !== "Convertido") {
+      setModalIsOpen(true);
+    } else {
+      editar();
+    }
+  }
+
+
+  const editar = async () => {
     setAction({ saving: true, error: false, message: "" });
     const auditoria = { fec_modificacion: new Date(), usu_modificacion: currentUser.nom_usuario };
 
@@ -178,12 +190,19 @@ const EditarLead = () => {
         </Titulo1>
         {action.message ? <MostrarMensaje mensaje={action.message} error={action.error} /> : null}
         <form>
-          <button className={classNameButton2}>
+          <button 
+            className={classNameButton2}
+            onClick={e => {e.preventDefault(); setModalIsOpen(true)}}
+          >
             <span>Convertir Lead</span>
             <span className="icon is-small">
               <FontAwesomeIcon icon={solid("arrows-rotate")} />
             </span>
           </button>
+          <Alert
+            manageModal={{ modalIsOpen, setModalIsOpen }}
+            guardar={editar}
+          />
           <EditarPersona />
           <DatosLead
             lead={lead}
@@ -192,7 +211,7 @@ const EditarLead = () => {
           />
           <Guardar
             saving={action.saving}
-            guardar={editar}
+            guardar={confirmarConversionLead}
           />
           <Volver navigate={navigate} />
         </form>
