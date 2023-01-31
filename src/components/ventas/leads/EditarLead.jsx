@@ -20,7 +20,7 @@ import { useParams, useNavigate } from "react-router-dom";
 
 const LEAD = "lead";
 
-const DatosLead = ({ dispatch, select = {}, currentLead }) => {
+const DatosLead = ({ dispatch, select = {}, currentLead = {} }) => {
   const {
     data: usuarios,
     usuariosLoading
