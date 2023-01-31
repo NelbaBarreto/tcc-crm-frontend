@@ -16,15 +16,6 @@ const DatosSede = ({ sede = {} }) => {
     <Seccion titulo={sede.nombre}>
       <div className="columns">
         <div className="column">
-          <TextView label="Tipo dirección" value={sede.direccion.tipo} />
-        </div>
-        <div className="column">
-          <DateFormat label="Fecha de Creación" value={sede.fec_insercion} />
-        </div>
-      </div>
-
-      <div className="columns">
-        <div className="column">
           <TextView label="Calle 1" value={sede.direccion.calle_1} />
         </div>
         <div className="column">
@@ -39,18 +30,20 @@ const DatosSede = ({ sede = {} }) => {
           <TextView label="Referencia" value={sede.direccion?.referencia} />
         </div>
       </div>
-
       <div className="columns">
         <div className="column">
-          <TextView label="País" value={sede.direccion?.ciudad?.pais?.nombre} />
+          <DateFormat label="Fecha de Creación" value={sede.fec_insercion} />
         </div>
         <div className="column">
-          <TextView label="Ciudad" value={sede.direccion?.ciudad?.nombre} />
+          <TextView label="Usuario Creación" value={sede.usu_insercion} />
         </div>
       </div>
       <div className="columns">
         <div className="column">
-          <TextView label="Principal" value={estado_principal} />
+          <DateFormat label="Fecha de Modificación" value={sede.fec_insercion} />
+        </div>
+        <div className="column">
+          <TextView label="Usuario Modificación" value={sede.usu_modificacion} />
         </div>
       </div>
     </Seccion >
