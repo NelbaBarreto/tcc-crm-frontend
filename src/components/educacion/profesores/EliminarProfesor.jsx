@@ -3,35 +3,35 @@ import AppContext from "../../../utils/AppContext";
 import MostrarMensaje from "../../formulario/MostrarMensaje";
 import { Volver, Eliminar } from "../../formulario/Acciones";
 import { Titulo1 } from "../../formulario/Titulo";
-import { getCiudad, deleCiudad  } from "../../../api/ciudades";
+import { deleteProfesor, getProfesor } from "../../../api/profesores";
 import { handleDispatch, handleDispatchEdit, handleStateCleared } from "../../formulario/reducerFormularios.js";
 import { useQuery } from "react-query";
 import { useParams, useNavigate } from "react-router-dom";
 
-const CIUDAD = "ciudad";
+const PROFESOR = "profesor";
 
-const EliminarCiudad = () => {
-    const { state: { ciudad }, dispatch } = useContext(AppContext);
-    const [select, setSelect] = useState({ pais: "" });
+const EliminarProfesor = () => {
+    const { state: { profesor }, dispatch } = useContext(AppContext);
+    const [select, setSelect] = useState({ tip_documento: ""  });
     const [action, setAction] = useState({});
     const { id } = useParams();
     const navigate = useNavigate();
   
     const {
-      data: currentCiudad,
+      data: currentProfesor,
       isFetching,
-    } = useQuery(["ciudad", id], () => getCiudad(id));
+    } = useQuery(["profesor", id], () => getProfesor(id));
   
     useEffect(() => {
       handleStateCleared(dispatch);
-      setSelect({ pais: "" });
+      setSelect({ tip_documento: "" });
     }, []);
   
     useEffect(() => {
       if (!isFetching) {
-        handleDispatchEdit(dispatch, currentCiudad, CIUDAD);
+        handleDispatchEdit(dispatch, currentProfesor, PROFESOR);
         setSelect({
-          pais: { label: currentCiudad.pais?.nombre, value: currentCiudad.pais?.pais_id },
+            tip_documento: { label: currentProfesor.persona?.tip_documento, value: currentProfesor.persona?.tip_documento },
         });
       }
     }, [isFetching]);
@@ -40,9 +40,9 @@ const EliminarCiudad = () => {
       e.preventDefault();
       setAction({ saving: true, error: false, message: "" });
       try {
-        await deleCiudad(ciudad.ciudad_id);
-        setAction({ saving: false, error: false, message: "Ciudad Eliminada exitosamente." });
-        setTimeout(() => navigate("/parametros/ciudades"), 2000);
+        await deleteProfesor(profesor.profesor_id);
+        setAction({ saving: false, error: false, message: "Profesor Eliminado exitosamente." });
+        setTimeout(() => navigate("/educacion/profesores"), 2000);
       } catch (e) {
         setAction({ saving: false, error: true, message: e.message });
       };
@@ -52,7 +52,7 @@ const EliminarCiudad = () => {
         <div>
             <section className="section w-full m-auto">
                 <Titulo1>
-                    ¿Desea Eliminar esta Ciudad?
+                    ¿Desea Eliminar este Profesor?
                 </Titulo1>
                 {action.message ? <MostrarMensaje mensaje={action.message} error={action.error} /> : null}
             
@@ -64,4 +64,4 @@ const EliminarCiudad = () => {
     )
 };
 
-export default EliminarCiudad;
+export default EliminarProfesor;

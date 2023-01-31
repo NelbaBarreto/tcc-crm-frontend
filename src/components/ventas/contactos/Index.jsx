@@ -2,9 +2,11 @@ import React from "react";
 import DataTables from "../../DataTables";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { format, parseISO } from "date-fns";
 import { useQuery } from "react-query";
 import { getContactos } from "../../../api/contactos";
 import { NavLink } from "react-router-dom";
+import { classNameButton2 } from "../../formulario/Componentes";
 
 const Index = () => {
   const {
@@ -44,29 +46,6 @@ const Index = () => {
       }
     }, 
     {
-      name: "persona.email",
-      label: "Email",
-      options: {
-        filter: true,
-        filterType: "textField",
-        sort: true,
-        customBodyRender: (value) => {
-          if (value) {
-            return (
-              <a 
-                className="text-blue-900" 
-                href={`mailto:${value}`}
-              >
-                {value}
-              </a>
-            );
-          } else {
-            return null;
-          }
-        }
-      }
-    },
-    {
       name: "origen",
       label: "Origen",
       options: {
@@ -97,22 +76,45 @@ const Index = () => {
           }
         }
       }
-    },       
+    },
+    {
+      name: "fec_insercion",
+      label: "Fecha de Creación",
+      options: {
+        filter: true,
+        filterType: "textField",
+        sort: true,
+        customBodyRender: (value) => {
+          if (value) {
+            return (
+              <span>{format(parseISO(value), "dd/MM/yyyy hh:mm")}</span>
+            )
+          } else {
+            return null;
+          }
+        }
+      }
+    },             
     {
       name: "",
       options: {
         filter: false,
         sort: false,
         empty: true,
-        customBodyRenderLite: (dataIndex, _rowIndex) => {
+        customBodyRender: (_value, tableMeta) => {
           return (
-            <button
-              className="button font-semibold shadow-lg text-white hover:text-white focus:text-white
-              hover:bg-deep-purple-700 bg-deep-purple-400 border-deep-purple-700"
-              onClick={() => console.log(contactos[dataIndex])}
-            >
-              Editar
-            </button>
+            <div className="field is-grouped is-grouped-centered">
+              <p className="control">
+                <NavLink
+                  to={"/ventas/contactos/editar/" + tableMeta.rowData[0]}
+                  className="button is-link is-outlined is-normal"
+                >
+                  <span className="icon is-small">
+                    <FontAwesomeIcon icon={solid("pen-to-square")} />
+                  </span>
+                </NavLink>
+              </p>
+            </div>
           );
         }
       }
@@ -124,8 +126,7 @@ const Index = () => {
       <section className="section w-full m-auto">
         <NavLink
           to="/ventas/contactos/nuevo"
-          className="button font-semibold shadow-lg text-white hover:text-white focus:text-white
-              hover:bg-deep-purple-700 bg-deep-purple-400 border-deep-purple-700 mb-2"
+          className={classNameButton2}
         >
           <span>Crear Nuevo</span>
           <span className="icon is-small">

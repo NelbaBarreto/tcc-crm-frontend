@@ -8,8 +8,15 @@ export const createLlamada = async (data) => {
   return response.data;
 };
 
-export const getLlamadas = async () => {
-  const { data: response } = await axios.get(`${API}/llamadas`);
+export const getLlamadas =  async ({ lead_id, contacto_id }) => {
+  let url = `${API}/llamadas`;
+  if (lead_id) {
+    url += `?lead_id=${lead_id}`;
+  } else if (contacto_id) {
+    url += `?contacto_id=${contacto_id}`;
+  }
+
+  const { data: response } = await axios.get(url);
   return response.data;
 };
 

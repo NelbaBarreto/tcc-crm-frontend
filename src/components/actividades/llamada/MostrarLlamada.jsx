@@ -16,20 +16,39 @@ const DatosLlamada = ({ llamada = {} }) => {
           <TextView label="Estado" value={llamada.estado} />
         </div>
         <div className="column">
+          <TextView label="Tipo" value={llamada.tipo} />
+        </div>
+      </div>
+      <div className="columns">
+        <div className="column">
+          <TextView label="Lead" value={llamada.lead?.persona.nombre} />
+        </div>
+        <div className="column">
+          <TextView label="Contacto" value={llamada.contacto?.persona.nombre} />
+        </div>
+      </div>
+      <div className="columns">
+        <div className="column">
+          <TextView label="Usuario Asignado" value={llamada.usuario?.nom_usuario} />
+        </div>
+        <div className="column">
           <DateFormat label="Fecha de Creación" value={llamada.fec_insercion} />
         </div>
       </div>
       <div className="columns">
         <div className="column">
-          <TextView label="Tipo de llamada" value={llamada.tipo} />
+          <TextView label="Contacto" value={llamada.contacto?.nombre} />
         </div>
         <div className="column">
-          <TextView label="Descripción" value={llamada.descripcion} />
+          <TextView label="Lead" value={llamada.lead?.nombre}/>
         </div>
       </div>
       <div className="columns">
         <div className="column">
           <TextView label="Fecha de Inicio" value={format(llamada.fec_inicio, "dd/MM/yyyy hh:mm")} />
+        </div>
+        <div className="column">
+          <TextView label="Descripción" value={llamada.descripcion} />
         </div>
       </div>
     </Seccion>

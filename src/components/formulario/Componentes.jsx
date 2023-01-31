@@ -1,11 +1,16 @@
 import React, { useState } from "react";
-import DatePicker from "react-datepicker";
+import DatePicker, { registerLocale } from "react-datepicker";
 import Select from "react-select";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { format, parseISO } from "date-fns";
+import es from "date-fns/locale/es";
+registerLocale("es", es); 
 
-export const Input = ({ label, name, value = "", type = "text", placeholder = "", className = "input shadow-lg", onChange }) => {
+export const Input = ({
+  label, name, value = "", type = "text", placeholder = "", className = "input shadow-lg",
+  disabled, onChange
+}) => {
   return (
     <div className="field">
       <label className="label">{label}</label>
@@ -15,6 +20,7 @@ export const Input = ({ label, name, value = "", type = "text", placeholder = ""
           className={className}
           placeholder={placeholder}
           type={type}
+          disabled={disabled}
           value={value}
           onChange={onChange}
         />
@@ -32,6 +38,7 @@ export const Datepicker = ({ label, selected, onChange }) => {
           className="input"
           onChange={onChange}
           selected={selected}
+          locale="es"
           dateFormat="dd/MM/yyyy"
         />
       </div>
@@ -39,7 +46,7 @@ export const Datepicker = ({ label, selected, onChange }) => {
   );
 }
 
-export const Checkbox = ({ label, name, value, onChange }) => {
+export const Checkbox = ({ label, name, value, defaultValue, disabled, onChange }) => {
   return (
     <div className="field">
       <label className="label">{label}</label>
@@ -48,7 +55,9 @@ export const Checkbox = ({ label, name, value, onChange }) => {
           name={name}
           className="checkbox shadow-lg"
           type="checkbox"
+          disabled={disabled}
           checked={value}
+          defaultChecked={defaultValue}
           onChange={onChange}
         />
       </div>
@@ -56,7 +65,10 @@ export const Checkbox = ({ label, name, value, onChange }) => {
   );
 }
 
-export const Dropdown = ({ label, name, value = "", placeholder = "Seleccionar", className = "shadow-lg", options, isMulti, onChange }) => {
+export const Dropdown = ({
+  label, name, value = "", placeholder = "Seleccionar", className = "shadow-lg", options,
+    disabled, isMulti, onChange
+}) => {
   return (
     <div className="field">
       <label className="label">{label}</label>
@@ -67,6 +79,7 @@ export const Dropdown = ({ label, name, value = "", placeholder = "Seleccionar",
           placeholder={placeholder}
           onChange={onChange}
           value={value}
+          isDisabled={disabled}
           isMulti={isMulti}
           options={options}
           isClearable={true}
@@ -76,7 +89,7 @@ export const Dropdown = ({ label, name, value = "", placeholder = "Seleccionar",
   );
 }
 
-export const TextArea = ({ label, name, value = "", type = "text", placeholder = "", className = "textarea shadow-lg", onChange }) => {
+export const TextArea = ({ label, name, value = "", type = "text", placeholder = "", className = "textarea shadow-lg", onChange, disabled }) => {
   return (
     <div className="field">
       <label className="label">{label}</label>
@@ -85,6 +98,7 @@ export const TextArea = ({ label, name, value = "", type = "text", placeholder =
           name={name}
           className={className}
           placeholder={placeholder}
+          disabled={disabled}
           type={type}
           value={value}
           onChange={onChange}
@@ -147,16 +161,6 @@ export const Image = ({ label, value = "", className = "label" }) => {
   );
 }
 
-export const Button1 = ({ onClick, children }) => {
-  return (
-    <button
-      className="button font-semibold shadow-lg text-deep-purple-800 hover:text-white focus:text-white hover:bg-deep-purple-700 bg-deep-purple-100"
-    // onClick={() => onClick}
-    >
-      {children}
-    </button>
-  );
-}
 
 export const CheckboxGroup = ({ label, name, value = "", className = "checkbox", options, onChange }) => {
   return (

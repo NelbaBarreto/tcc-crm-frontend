@@ -19,15 +19,27 @@ const DatosCampana = ({ campana = {} }) => {
           <TextView label="Fecha Fin" value={format(campana?.fec_fin, "dd/MM/yyyy hh:mm")} />
         </div>
       </div>
-
       <div className="columns">
-        <div className="column">
-          <DateFormat label="Fecha de Creación" value={campana.fec_insercion} />
-        </div>
         <div className="column">
           <TextView label="Descripción" value={campana.descripcion} />
         </div>
       </div>
+      <div className="columns">
+          <div className="column">
+            <DateFormat label="Fecha de Creación" value={campana.fec_insercion} />
+          </div>
+          <div className="column">
+            <TextView label="Usuario Creación" value={campana.usu_insercion} />
+          </div>
+        </div>
+        <div className="columns">
+          <div className="column">
+            <DateFormat label="Fecha de Modificación" value={campana.fec_insercion} />
+          </div>
+          <div className="column">
+            <TextView label="Usuario Modificación" value={campana.usu_modificacion} />
+          </div>
+        </div>
     </Seccion >
   );
 }

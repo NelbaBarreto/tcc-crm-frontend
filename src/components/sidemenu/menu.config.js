@@ -152,64 +152,12 @@ export const sideMenu = [
       },
     ],
   },
-  {
-    label: "Perfil",
-    Icon: () => <Icon iconName="user" />,
-    to: "/perfil",
-  },
+  // {
+  //   label: "Perfil",
+  //   Icon: () => <Icon iconName="user" />,
+  //   to: "/perfil",
+  // },
 ];
-
-export const CardsData = [
-  {
-    title: "Leads",
-    color: {
-      backGround: "linear-gradient(180deg, #bb67ff 0%, #c484f3 100%)",
-      boxShadow: "0px 10px 20px 0px #e0c6f5",
-    },
-    barValue: 70,
-    value: "25,970",
-    png: () => <Icon iconName="school-flag" />,
-    series: [
-      {
-        name: "leads",
-        data: [31, 40, 28, 51, 42, 109, 100],
-      },
-    ],
-  },
-  {
-    title: "Casos",
-    color: {
-      backGround: "linear-gradient(180deg, #FF919D 0%, #FC929D 100%)",
-      boxShadow: "0px 10px 20px 0px #FDC0C7",
-    },
-    barValue: 85,
-    value: "14,270",
-    png: () => <Icon iconName="chalkboard-user" />,
-    series: [
-      {
-        name: "casos",
-        data: [10, 100, 50, 70, 80, 30, 40],
-      },
-    ],
-  },
-  {
-    title: "Oportunidades",
-    color: {
-      backGround:
-        "linear-gradient(rgb(248,212,154) -146.42%, rgb(255 202 113) -43.42%)",
-      boxShadow: "0px 10px 20px 0px #F9D59B",
-    },
-    barValue: 60,
-    value: "4,270",
-    png: () => <Icon iconName="user-graduate" />,
-    series: [
-      {
-        name: "oportunidades",
-        data: [10, 25, 15, 30, 12, 15, 20],
-      },
-    ],
-  },
-]
 
 export const logout =
 {

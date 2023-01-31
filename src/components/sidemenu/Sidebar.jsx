@@ -15,7 +15,7 @@ const Sidebar = () => {
 
   return (
     <div
-      className="sidebar fixed top-0 bottom-0 lg:left-0 p-2 w-[300px] overflow-y-auto text-center bg-white shadow-md"
+      className="sidebar fixed top-0 bottom-0 lg:left-0 p-2 w-[300px] overflow-y-auto text-center bg-white shadow-md scrollbar-styles"
     >
       <div className="text-gray-100 text-xl">
         <div className="p-2.5 mt-1 flex items-center">
@@ -23,7 +23,12 @@ const Sidebar = () => {
         </div>
         <div className="my-2 bg-gray-300 h-[1px]"></div>
       </div>
-      <span>{usuario?.nom_usuario}</span>
+      {/* <div className="inline-flex items-center justify-center">
+        <div className="rounded-full text-lg bg-gray-200 w-10 h-10 m-2 flex items-center justify-center" >
+          {usuario?.nom_usuario?.toUpperCase().slice(0, 2)}
+        </div> */}
+        <span>{usuario?.nom_usuario}</span>
+      {/* </div> */}
       <div className="my-2 bg-gray-300 h-[1px]"></div>
       {sideMenu.map((item, index) => {
         return <NavItem key={`${item.label}-${index}`} item={item} />;

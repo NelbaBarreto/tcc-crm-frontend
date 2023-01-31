@@ -5,6 +5,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useQuery } from "react-query";
 import { getProfesores } from "../../../api/profesores";
 import { NavLink } from "react-router-dom";
+import { classNameButton2 } from "../../formulario/Componentes";
+import { format, parseISO } from "date-fns";
 
 const Index = () => {
   const {
@@ -14,14 +16,15 @@ const Index = () => {
 
   const columns = [
     {
-      name: "lead_id",
+      name: "profesor_id",
       options: {
         display: "excluded",
         filter: false
       }
     },
+    
     {
-      name: "nombre",
+      name: "persona.nombre",
       label: "Nombre",
       options: {
         filter: true,
@@ -40,20 +43,71 @@ const Index = () => {
       }
     },
     {
+      name: "persona.nro_documento",
+      label: "Numero de Documento",
+      options: {
+        filter: true,
+        filterType: "textField",
+        sort: true,
+      }
+    },
+    {
+      name: "persona.email",
+      label: "Correo",
+      options: {
+        filter: true,
+        filterType: "textField",
+        sort: true,
+      }
+    },
+    {
+      name: "fec_insercion",
+      label: "Fecha de Creación",
+      options: {
+        filter: true,
+        filterType: "textField",
+        sort: true,
+        customBodyRender: (value) => {
+          if (value) {
+            return (
+              <span>{format(parseISO(value), "dd/MM/yyyy hh:mm")}</span>
+            )
+          } else {
+            return null;
+          }
+        }
+      }
+    },    
+    {
       name: "",
       options: {
         filter: false,
         sort: false,
         empty: true,
-        customBodyRenderLite: (dataIndex, _rowIndex) => {
+        customBodyRender: (_value, tableMeta) => {
           return (
-            <button
-              className="button font-semibold shadow-lg text-white hover:text-white focus:text-white
-              hover:bg-deep-purple-700 bg-deep-purple-400 border-deep-purple-700"
-              onClick={() => console.log(profesores[dataIndex])}
-            >
-              Editar
-            </button>
+            <div className="field is-grouped is-grouped-centered">
+              <p className="control">
+                <NavLink
+                  to={"/educacion/profesores/editar/" + tableMeta.rowData[0]}
+                  className="button is-link is-outlined is-normal"
+                >
+                  <span className="icon is-small">
+                    <FontAwesomeIcon icon={solid("pen-to-square")} />
+                  </span>
+                </NavLink>
+              </p>
+              <p className="control">
+                <NavLink
+                  to={"/educacion/profesores/eliminar/" + tableMeta.rowData[0]}
+                  className="button is-danger is-outlined is-normal"
+                >
+                  <span className="icon is-small">
+                    <FontAwesomeIcon icon={solid("trash")} />
+                  </span>
+                </NavLink>
+              </p>
+            </div>
           );
         }
       }
@@ -65,8 +119,7 @@ const Index = () => {
       <section className="section w-full m-auto">
         <NavLink
           to="/educacion/profesores/nuevo"
-          className="button font-semibold shadow-lg text-white hover:text-white focus:text-white
-              hover:bg-deep-purple-700 bg-deep-purple-400 border-deep-purple-700 mb-2"
+          className={classNameButton2}
         >
           <span>Crear Nuevo</span>
           <span className="icon is-small">

@@ -7,8 +7,18 @@ export const getCasosPorEstado = async () => {
   return response.data;
 };
 
+export const getCasosPorTipo = async () => {
+  const { data: response } = await axios.get(`${API}/dashboard/casosPorTipo`);
+  return response.data;
+};
+
 export const getLeadsPorEstado = async () => {
   const { data: response } = await axios.get(`${API}/dashboard/leadsPorEstado`);
+  return response.data;
+};
+
+export const getTareasPorEstado = async () => {
+  const { data: response } = await axios.get(`${API}/dashboard/tareasPorEstado`);
   return response.data;
 };
 
@@ -17,8 +27,32 @@ export const getLlamadasPorEstado = async () => {
   return response.data;
 };
 
-export const getCasosPorPrioridad = async () => {
-  const { data: response } = await axios.get(`${API}/dashboard/casosPorPrioridad`);
+export const getCasosActivosPorPrioridad = async () => {
+  const { data: response } = await axios.get(`${API}/dashboard/casosActivosPorPrioridad`);
   return response.data;
 };
 
+export const getCasosPorOrigen = async () => {
+  const { data: response } = await axios.get(`${API}/dashboard/casosPorOrigen`);
+  return response.data;
+};
+
+export const getTareasActivasPorPrioridad = async () => {
+  const { data: response } = await axios.get(`${API}/dashboard/tareasActivasPorPrioridad`);
+  return response.data;
+};
+
+export const getLeadsPorOrigen = async () => {
+  const { data: response } = await axios.get(`${API}/dashboard/leadsPorOrigen`);
+  return response.data;
+};
+
+export const getRespuestasPorValor = async () => {
+  const { data: response } = await axios.get(`${API}/dashboard/respuestasPorValor`);
+  return response.data;
+};
+
+export const getCsat = async () => {
+  const { data: response } = await axios.get(`${API}/dashboard/csat`);
+  return response.data;
+};

@@ -7,8 +7,15 @@ export const createCaso = async (data) => {
   return response.data;
 };
 
-export const getCasos = async () => {
-  const { data: response } = await axios.get(`${API}/casos`);
+export const getCasos = async ({ lead_id, contacto_id }) => {
+  let url = `${API}/casos`;
+  if (lead_id) {
+    url += `?lead_id=${lead_id}`;
+  } else if (contacto_id) {
+    url += `?contacto_id=${contacto_id}`;
+  }
+
+  const { data: response } = await axios.get(url);
   return response.data;
 };
 

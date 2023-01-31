@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useContext, useEffect } from "react";
 import AppContext from "../../../utils/AppContext";
 import Seccion from "../../formulario/Seccion";
@@ -17,12 +18,7 @@ import { useNavigate } from "react-router-dom";
 
 const LEAD = "lead";
 
-const DatosLead = ({ dispatch }) => {
-  const [select, setSelect] = useState({
-    estado: "", origen: "", campana: "",
-    usu_asignado: "", curso: ""
-  });
-
+const DatosLead = ({ select, dispatch }) => {
   const {
     data: usuarios,
     usuariosLoading
@@ -40,19 +36,11 @@ const DatosLead = ({ dispatch }) => {
 
   const {
     data: estados,
-    estadosLoading
   } = useQuery(["estados"], getEstados);
 
   const {
     data: origenes,
-    origenesLoading
   } = useQuery(["origenes"], getOrigenes);
-
-  useEffect(() => {
-    if (estados) {
-      setSelect({ ...select, estado: { label: estados[0], value: estados[0] }});
-    }
-  }, [estados]);
 
   const opcionesUsuarios = usuariosLoading || !usuarios ? [] :
     usuarios.map(usuario => ({ value: usuario.usuario_id, label: usuario.nom_usuario }));
@@ -63,12 +51,6 @@ const DatosLead = ({ dispatch }) => {
   const opcionesCursos = cursosLoading || !cursos ? [] :
     cursos.map(curso => ({ value: curso.curso_id, label: curso.nombre }));
 
-  const opcionesEstado = estadosLoading || !estados ? [] :
-    estados.map(estado => ({ value: estado, label: estado }));
-
-  const opcionesOrigen = origenesLoading || !origenes ? [] :
-    origenes.map(origen => ({ value: origen, label: origen }));
-
   return (
     <Seccion titulo="Datos del Lead">
       <div className="columns">
@@ -76,10 +58,10 @@ const DatosLead = ({ dispatch }) => {
           <Dropdown
             label="Estado"
             value={select.estado}
-            options={opcionesEstado}
+            options={estados}
             onChange={e => {
               handleDispatch(dispatch, "estado", e?.value, LEAD);
-              setSelect({ ...select, estado: e })
+              handleDispatch(dispatch, "estado", e, "select")
             }}
           />
         </div>
@@ -87,10 +69,10 @@ const DatosLead = ({ dispatch }) => {
           <Dropdown
             label="Origen"
             value={select.origen}
-            options={opcionesOrigen}
+            options={origenes}
             onChange={e => {
               handleDispatch(dispatch, "origen", e?.value, LEAD);
-              setSelect({ ...select, origen: e })
+              handleDispatch(dispatch, "origen", e, "select")
             }}
           />
         </div>
@@ -103,7 +85,7 @@ const DatosLead = ({ dispatch }) => {
             options={opcionesCampanas}
             onChange={e => {
               handleDispatch(dispatch, "campana_id", e?.value, LEAD);
-              setSelect({ ...select, campana: e })
+              handleDispatch(dispatch, "campana", e, "select")
             }}
           />
         </div>
@@ -114,7 +96,7 @@ const DatosLead = ({ dispatch }) => {
             options={opcionesUsuarios}
             onChange={e => {
               handleDispatch(dispatch, "usu_asignado_id", e?.value, LEAD);
-              setSelect({ ...select, usu_asignado: e })
+              handleDispatch(dispatch, "usu_asignado", e, "select")
             }}
           />
         </div>
@@ -125,7 +107,7 @@ const DatosLead = ({ dispatch }) => {
         options={opcionesCursos}
         onChange={e => {
           handleDispatch(dispatch, "curso_id", e?.value, LEAD);
-          setSelect({ ...select, curso: e })
+          handleDispatch(dispatch, "curso", e, "select");
         }}
       />
     </Seccion>
@@ -133,7 +115,7 @@ const DatosLead = ({ dispatch }) => {
 };
 
 const CrearLead = () => {
-  const {state : { lead, persona, direcciones }, dispatch} = useContext(AppContext);
+  const { state: { lead, persona, direcciones, telefonos, select }, dispatch } = useContext(AppContext);
   const [action, setAction] = useState({});
   const navigate = useNavigate();
   const currentUser = useToken().usuario;
@@ -148,9 +130,10 @@ const CrearLead = () => {
     const auditoria = { usu_insercion: currentUser.nom_usuario, usu_modificacion: currentUser.nom_usuario };
 
     try {
-      await createLead({ ...lead, 
+      await createLead({
+        ...lead,
         ...auditoria,
-        persona: { ...persona, direcciones, ...auditoria } 
+        persona: { ...persona, direcciones, telefonos, ...auditoria }
       });
       setAction({ saving: false, error: false, message: "Lead creado exitosamente." });
       setTimeout(() => navigate("/ventas/leads"), 2000);
@@ -168,12 +151,18 @@ const CrearLead = () => {
         {action.message ? <MostrarMensaje mensaje={action.message} error={action.error} /> : null}
         <form>
           <CrearPersona />
-          <DatosLead 
-            lead={lead} 
-            dispatch={dispatch} 
+          <DatosLead
+            lead={lead}
+            select={select}
+            dispatch={dispatch}
           />
-          <Guardar saving={action.saving} guardar={crear} />
-          <Volver navigate={navigate} />
+          <Guardar 
+            saving={action.saving} 
+            guardar={crear}
+          />
+          <Volver 
+            navigate={navigate}
+          />
         </form>
       </section>
     </div>

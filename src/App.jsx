@@ -6,7 +6,7 @@ import {
 import "react-datepicker/dist/react-datepicker.css";
 
 import Login from "./components/home/Login";
-import Dashboard from "./components/dashboard/assets/js/MainDash";
+import Dashboard from "./components/dashboard/Index";
 import NotFound from "./components/NotFound.jsx";
 import AppContext from "./utils/AppContext";
 
@@ -16,21 +16,7 @@ import ProtectedRoute from "./components/home/ProtectedRoute.jsx";
 import ListarEmpleados from "./components/empleados/Index";
 import CrearEmpleado from "./components/empleados/CrearEmpleado";
 import MostrarEmpleado from "./components/empleados/MostrarEmpleado";
-
-//Países
-import ListarPaises from "./components/parametros/paises/Index";
-import CrearPais from "./components/parametros/paises/CrearPais";
-import MostrarPais from "./components/parametros/paises/MostrarPais";
-
-// Ciudades
-import ListarCiudades from "./components/parametros/ciudades/Index";
-import CrearCiudad from "./components/parametros/ciudades/CrearCiudad";
-import MostrarCiudad from "./components/parametros/ciudades/MostrarCiudad";
-import EditarCiudad from "./components/parametros/ciudades/EditarCiudad";
-import EliminarCiudad from "./components/parametros/ciudades/EliminarCiudad";
-
-// Motivos
-import CrearMotivo from "./components/parametros/motivos/CrearMotivo";
+import EditarEmpleado from "./components/empleados/EditarEmpleado";
 
 // Campañas
 import ListarCampana from "./components/marketing/campanas/Index";
@@ -39,11 +25,6 @@ import EditarCampana from "./components/marketing/campanas/EditarCampana";
 import MostrarCampana from "./components/marketing/campanas/MostrarCampana";
 import EliminarCampana from "./components/marketing/campanas/EliminarCampana";
 
-// Tipo Campaña
-import ListarTipcampana from "./components/marketing/tipo_campanas/Index";
-import CrearTipoCampana from "./components/marketing/tipo_campanas/CrearTipoCampana";
-
-//Ventas
 //Leads
 import ListarLeads from "./components/ventas/leads/Index";
 import CrearLead from "./components/ventas/leads/CrearLead";
@@ -53,26 +34,27 @@ import EditarLead from "./components/ventas/leads/EditarLead";
 //Contactos
 import ListarContactos from "./components/ventas/contactos/Index";
 import CrearContacto from "./components/ventas/contactos/CrearContacto";
+import MostrarContacto from "./components/ventas/contactos/MostrarContacto";
+import EditarContacto from "./components/ventas/contactos/EditarContacto";
 
 //Organizaciones
 import ListarOrganizaciones from "./components/ventas/organizaciones/Index";
 import CrearOrganizacion from "./components/ventas/organizaciones/CrearOrganizacion";
+import MostrarOrganizacion from "./components/ventas/organizaciones/MostrarOrganizacion";
+import EditarOrganizacion from "./components/ventas/organizaciones/EditarOrganizacion";
 
 //Oportunidades
 import ListarOportunidades from "./components/ventas/oportunidades/Index";
 import CrearOportunidad from "./components/ventas/oportunidades/CrearOportunidad";
+import MostrarOportunidad from "./components/ventas/oportunidades/MostrarOportunidad";
 import EditarOportunidad from "./components/ventas/oportunidades/EditarOportunidad.jsx";
 
-//Soporte
-//Caso
+//Casos
 import ListarCaso from "./components/soporte/casos/Index";
 import CrearCaso from "./components/soporte/casos/CrearCaso";
 import EditarCaso from "./components/soporte/casos/EditarCaso";
 import MostrarCaso from "./components/soporte/casos/MostrarCaso";
 import EliminarCaso from "./components/soporte/casos/EliminarCaso";
-
-//Actividades
-import Calendario from "./components/actividades/calendario/Calendario";
 
 //Llamadas
 import ListarLlamada from "./components/actividades/llamada/Index";
@@ -101,6 +83,9 @@ import CrearCiclo from "./components/educacion/ciclos/CrearCiclo";
 // Profesores
 import CrearProfesor from "./components/educacion/profesores/CrearProfesor";
 import ListarProfesores from "./components/educacion/profesores/Index";
+import MostrarProfesor from "./components/educacion/profesores/MostrarProfesor";
+import EditarProfesor from "./components/educacion/profesores/EditarProfesor";
+import EliminarProfesor from "./components/educacion/profesores/EliminarProfesor";
 
 // Sedes
 import CrearSede from "./components/educacion/sedes/CrearSede";
@@ -112,7 +97,7 @@ import CSAT from "./components/encuestas/CSAT.jsx";
 
 import useToken from "../src/utils/useToken";
 
-const initialState = {};
+const initialState = { select: {} };
 
 const MainApp = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -160,6 +145,16 @@ const MainApp = () => {
             }
           />
           <Route
+            path="/admin/empleados/editar/:id"
+            element={
+              <ProtectedRoute usuario={usuario}>
+                <EditarEmpleado />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            exact
             path="/admin/empleados/:id"
             element={
               <ProtectedRoute usuario={usuario}>
@@ -167,20 +162,6 @@ const MainApp = () => {
               </ProtectedRoute>
             }
           />
-
-          {/* Países */}
-          <Route exact path="/parametros/paises" element={<ListarPaises />} />
-          <Route path="/parametros/paises/nuevo" element={<CrearPais />} />
-          <Route path="/parametros/paises/:id" element={<MostrarPais />} />
-
-          {/* Ciudades */}
-          <Route exact path="/parametros/ciudades" element={<ListarCiudades />} />
-          <Route path="/parametros/ciudades/nuevo" element={<CrearCiudad />} />
-          <Route path="/parametros/ciudades/editar/:id" element={<EditarCiudad />} />
-          <Route path="/parametros/ciudades/:id" element={<MostrarCiudad />} />
-          <Route path="/parametros/ciudades/eliminar/:id" element={<EliminarCiudad />} />
-
-          <Route path="/parametros/motivos" element={<CrearMotivo />} />
 
           {/* Campañas */}
           <Route
@@ -226,10 +207,6 @@ const MainApp = () => {
               </ProtectedRoute>
             }
           />
-
-          {/* Tipo Campañas */}
-          <Route exact path="/marketing/tipocampana" element={<ListarTipcampana />} />
-          <Route path="/marketing/tipocampana/nuevo" element={<CrearTipoCampana />} />
 
           {/* Leads */}
           <Route
@@ -285,6 +262,24 @@ const MainApp = () => {
               </ProtectedRoute>
             }
           />
+          <Route
+            exact
+            path="/ventas/contactos/:id"
+            element={
+              <ProtectedRoute usuario={usuario}>
+                <MostrarContacto />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            exact
+            path="/ventas/contactos/editar/:id"
+            element={
+              <ProtectedRoute usuario={usuario}>
+                <EditarContacto />
+              </ProtectedRoute>
+            }
+          />
 
           {/* Organizaciones */}
           <Route
@@ -304,6 +299,24 @@ const MainApp = () => {
               </ProtectedRoute>
             }
           />
+          <Route
+            exact
+            path="/ventas/organizaciones/:id"
+            element={
+              <ProtectedRoute usuario={usuario}>
+                <MostrarOrganizacion />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            exact
+            path="/ventas/organizaciones/editar/:id"
+            element={
+              <ProtectedRoute usuario={usuario}>
+                <EditarOrganizacion />
+              </ProtectedRoute>
+            }
+          />
 
           {/* Oportunidades */}
           <Route
@@ -320,6 +333,15 @@ const MainApp = () => {
             element={
               <ProtectedRoute usuario={usuario}>
                 <CrearOportunidad />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            exact
+            path="/ventas/oportunidades/:id"
+            element={
+              <ProtectedRoute usuario={usuario}>
+                <MostrarOportunidad />
               </ProtectedRoute>
             }
           />
@@ -465,16 +487,6 @@ const MainApp = () => {
             }
           />
 
-          {/* Calendarios */}
-          <Route
-            path="/actividades/calendario"
-            element={
-              <ProtectedRoute usuario={usuario}>
-                <Calendario />
-              </ProtectedRoute>
-            }
-          />
-
           {/* Cursos */}
           <Route
             exact
@@ -544,6 +556,30 @@ const MainApp = () => {
             element={
               <ProtectedRoute usuario={usuario}>
                 <CrearProfesor />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/educacion/profesores/:id"
+            element={
+              <ProtectedRoute usuario={usuario}>
+                <MostrarProfesor />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/educacion/profesores/editar/:id"
+            element={
+              <ProtectedRoute usuario={usuario}>
+                <EditarProfesor />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/educacion/profesores/eliminar/:id"
+            element={
+              <ProtectedRoute usuario={usuario}>
+                <EliminarProfesor />
               </ProtectedRoute>
             }
           />

@@ -6,33 +6,59 @@ import { useQuery } from "react-query";
 import { useParams, useNavigate } from "react-router-dom";
 import { getLead } from "../../../api/leads";
 import { CircularProgress } from "@mui/material";
+import { DateFormat } from "../../formulario/Componentes";
+import DatosPersona from "../../personas/DatosPersona";
+import ListarTareas from "../../actividades/tarea/Index";
+import ListarLlamadas from "../../actividades/llamada/Index";
+import ListarCasos from "../../soporte/casos/Index";
+import Tabs from "../../Tabs";
 
 const DatosLead = ({ lead }) => {
   return (
-    <Seccion titulo="Datos del lead">
-      <div className="columns">
-        <div className="column">
-          <TextView label="Nombre" value={lead.nombre} />
+    <>
+      <DatosPersona
+        persona={lead.persona}
+      />
+      <Seccion titulo="Datos del Lead">
+        <div className="columns">
+          <div className="column">
+            <TextView label="Interés/Curso" value={lead.curso.nombre} />
+          </div>
+          <div className="column">
+            <TextView label="Usuario Asignado" value={lead.usu_asignado?.nom_usuario} />
+          </div>
         </div>
-        <div className="column">
-          <TextView label="Descripción" value={lead.descripcion} />
+        <div className="columns">
+          <div className="column">
+            <DateFormat label="Fecha de Creación" value={lead.fec_insercion} />
+          </div>
+          <div className="column">
+            <TextView label="Usuario Creación" value={lead.usu_insercion} />
+          </div>
         </div>
-      </div>
-    </Seccion>
+        <div className="columns">
+          <div className="column">
+            <DateFormat label="Fecha de Modificación" value={lead.fec_insercion} />
+          </div>
+          <div className="column">
+            <TextView label="Usuario Modificación" value={lead.usu_modificacion} />
+          </div>
+        </div>
+      </Seccion>
+    </>
   );
 }
 
-const MostrarEmpleado = () => {
-  const { id } = useParams();
+const MostrarLead = ({ lead_id }) => {
   const navigate = useNavigate();
 
   const {
     data: lead,
     isLoading
-  } = useQuery(["lead", id], () => getLead(id));
+  } = useQuery(["lead", lead_id], () => getLead(lead_id));
 
   return (
-    <section className="section w-full m-auto">
+    <section className="w-full m-auto">
       <div className="mb-4">
         {isLoading ?
           <CircularProgress size={24} className="fixed top-1/2 left-1/2" /> : <DatosLead lead={lead} navigate={navigate} />
@@ -43,4 +69,31 @@ const MostrarEmpleado = () => {
   );
 }
 
-export default MostrarEmpleado;
+const Index = () => {
+  const { id } = useParams();
+
+  const tabList = [
+    {
+      name: "Lead",
+      content: <MostrarLead lead_id={id} />
+    },
+    {
+      name: "Casos",
+      content: <ListarCasos lead_id={id} />
+    },
+    {
+      name: "Llamadas",
+      content: <ListarLlamadas lead_id={id} />
+    },
+    {
+      name: "Tareas",
+      content: <ListarTareas lead_id={id} />
+    },
+  ];
+
+  return (
+    <Tabs tabList={tabList} />
+  )
+}
+
+export default Index;

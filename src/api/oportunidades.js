@@ -7,8 +7,12 @@ export const createOportunidad = async data => {
   return response.data;
 };
 
-export const getOportunidades = async () => {
-  const { data: response } = await axios.get(`${API}/oportunidades`);
+export const getOportunidades = async ({ contacto_id }) => {
+  let url = `${API}/oportunidades`;
+  if (contacto_id) {
+    url += `?contacto_id=${contacto_id}`;
+  }
+  const { data: response } = await axios.get(url);
   return response.data;
 };
 
@@ -17,8 +21,8 @@ export const getOportunidad = async id => {
   return response.data;
 };
 
-export const getEtapas = async id => {
-  const { data: response } = await axios.get(`${API}/oportunidades/etapas`);
+export const getEstados = async id => {
+  const { data: response } = await axios.get(`${API}/oportunidades/estados`);
   return response.data;
 };
 

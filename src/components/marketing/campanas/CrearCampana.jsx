@@ -1,6 +1,7 @@
 import React, { useState, useReducer } from "react";
 import MostrarMensaje from "../../formulario/MostrarMensaje";
 import Seccion from "../../formulario/Seccion";
+import useToken from "../../../utils/useToken";
 import { Datepicker, Input, TextArea } from "../../formulario/Componentes";
 import { Volver, Guardar } from "../../formulario/Acciones";
 import { Titulo1 } from "../../formulario/Titulo";
@@ -13,13 +14,16 @@ const CAMPANA = "campana";
 const CrearCampana = () => {
   const [state, dispatch] = useReducer(reducer, {});
   const [action, setAction] = useState({});
+  const currentUser = useToken().usuario;
   const navigate = useNavigate();
 
   const crear = async e => {
     e.preventDefault();
     setAction({ saving: true, error: false, message: "" });
+    const auditoria = { usu_insercion: currentUser.nom_usuario, usu_modificacion: currentUser.nom_usuario };
+
     try {
-      await createCampana(state.campana);
+      await createCampana({ ...state.campana, ...auditoria });
       setAction({ saving: false, error: false, message: "Campaña creada exitosamente." });
       setTimeout(() => navigate("/marketing/campanas"), 2000);
     } catch (e) {

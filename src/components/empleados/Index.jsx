@@ -1,6 +1,7 @@
 import React from "react";
 import DataTables from "../DataTables";
-import { classNameButton1 } from "../formulario/Componentes";
+import { classNameButton2 } from "../formulario/Componentes";
+import { format, parseISO } from "date-fns";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useQuery } from "react-query";
@@ -40,11 +41,11 @@ const Index = () => {
       }
     },
     {
-      name: "persona.email",
-      label: "Email",
+      name: "cargo",
+      label: "Cargo",
       options: {
         filter: true,
-        filterType: "textField",
+        filterType: "dropdown",
         sort: true,
       }
     },
@@ -52,10 +53,16 @@ const Index = () => {
       name: "activo",
       label: "Estado",
       options: {
-        customBodyRender: value => value ? "Activo" : "Inactivo",
         filter: true,
         filterType: "dropdown",
         sort: true,
+        customBodyRender: (value) => {
+          if (value) {
+            return <span className="tag is-light is-success font-bold">Activo</span>
+          } else {
+            return <span className="tag is-light is-danger font-bold">Inactivo</span>
+          }
+        },
       }
     },
     {
@@ -68,6 +75,24 @@ const Index = () => {
       }
     },
     {
+      name: "fec_insercion",
+      label: "Fecha de Creación",
+      options: {
+        filter: true,
+        filterType: "textField",
+        sort: true,
+        customBodyRender: (value) => {
+          if (value) {
+            return (
+              <span>{format(parseISO(value), "dd/MM/yyyy hh:mm")}</span>
+            )
+          } else {
+            return null;
+          }
+        }
+      }
+    },    
+    {
       name: "",
       options: {
         filter: false,
@@ -75,20 +100,22 @@ const Index = () => {
         empty: true,
         customBodyRender: (_value, tableMeta) => {
           return (
-            <div className="field is-grouped">
-              <div className="control">
+            <div className="field is-grouped is-grouped-centered">
+              <p className="control">
                 <NavLink
                   to={"/admin/empleados/editar/" + tableMeta.rowData[0]}
-                  className={classNameButton1}
+                  className="button is-link is-outlined is-normal"
                 >
-                  Editar
+                  <span className="icon is-small">
+                    <FontAwesomeIcon icon={solid("pen-to-square")} />
+                  </span>
                 </NavLink>
-              </div>
+              </p>
             </div>
           );
         }
       }
-    },    
+    },   
   ];
 
   return (
@@ -96,8 +123,7 @@ const Index = () => {
       <section className="section w-full m-auto">
         <NavLink
           to="/admin/empleados/nuevo"
-          className="button font-semibold shadow-lg text-white hover:text-white focus:text-white
-              hover:bg-deep-purple-700 bg-deep-purple-400 border-deep-purple-700 mb-2"
+          className={classNameButton2}
         >
           <span>Crear Nuevo</span>
           <span className="icon is-small">

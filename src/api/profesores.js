@@ -16,3 +16,13 @@ export const getProfesor = async id => {
   const { data: response } = await axios.get(`${API}/profesores/${id}`);
   return response.data;
 };
+
+export const editProfesor = async (id, data) => {
+  const { data: response } = await axios.put(`${API}/profesores/${id}`, { id, profesor: data });
+  return response.data;
+};
+
+export const deleteProfesor = async (id) => {
+  const { data: response } = await axios.delete(`${API}/profesores/${id}`);
+  return response.data;
+};

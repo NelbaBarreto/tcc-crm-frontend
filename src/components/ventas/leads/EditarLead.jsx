@@ -2,11 +2,14 @@ import React, { useState, useContext, useEffect } from "react";
 import AppContext from "../../../utils/AppContext";
 import Seccion from "../../formulario/Seccion";
 import MostrarMensaje from "../../formulario/MostrarMensaje";
-import CrearPersona from "../../personas/CrearPersona";
+import EditarPersona from "../../personas/EditarPersona";
+import Alert from "./Alert";
 import useToken from "../../../utils/useToken";
+import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Volver, Guardar } from "../../formulario/Acciones";
 import { Titulo1 } from "../../formulario/Titulo";
-import { Dropdown } from "../../formulario/Componentes";
+import { classNameButton2, Dropdown } from "../../formulario/Componentes";
 import { getUsuarios } from "../../../api/usuarios";
 import { getCursos } from "../../../api/cursos";
 import { getCampanas } from "../../../api/campanas";
@@ -17,9 +20,7 @@ import { useParams, useNavigate } from "react-router-dom";
 
 const LEAD = "lead";
 
-const DatosLead = ({ dispatch, manageSelect }) => {
-  const { setSelect, select } = manageSelect;
-  
+const DatosLead = ({ dispatch, select = {}, currentLead = {} }) => {
   const {
     data: usuarios,
     usuariosLoading
@@ -37,19 +38,11 @@ const DatosLead = ({ dispatch, manageSelect }) => {
 
   const {
     data: estados,
-    estadosLoading
   } = useQuery(["estados"], getEstados);
 
   const {
     data: origenes,
-    origenesLoading
   } = useQuery(["origenes"], getOrigenes);
-
-  useEffect(() => {
-    if (estados) {
-      setSelect({ ...select, estado: { label: estados[0], value: estados[0] } });
-    }
-  }, [estados]);
 
   const opcionesUsuarios = usuariosLoading || !usuarios ? [] :
     usuarios.map(usuario => ({ value: usuario.usuario_id, label: usuario.nom_usuario }));
@@ -60,12 +53,6 @@ const DatosLead = ({ dispatch, manageSelect }) => {
   const opcionesCursos = cursosLoading || !cursos ? [] :
     cursos.map(curso => ({ value: curso.curso_id, label: curso.nombre }));
 
-  const opcionesEstado = estadosLoading || !estados ? [] :
-    estados.map(estado => ({ value: estado, label: estado }));
-
-  const opcionesOrigen = origenesLoading || !origenes ? [] :
-    origenes.map(origen => ({ value: origen, label: origen }));
-
   return (
     <Seccion titulo="Datos del Lead">
       <div className="columns">
@@ -73,10 +60,11 @@ const DatosLead = ({ dispatch, manageSelect }) => {
           <Dropdown
             label="Estado"
             value={select.estado}
-            options={opcionesEstado}
+            options={estados}
+            disabled={currentLead.estado === "Convertido"}
             onChange={e => {
               handleDispatch(dispatch, "estado", e?.value, LEAD);
-              setSelect({ ...select, estado: e })
+              handleDispatch(dispatch, "estado", e, "select")
             }}
           />
         </div>
@@ -84,10 +72,10 @@ const DatosLead = ({ dispatch, manageSelect }) => {
           <Dropdown
             label="Origen"
             value={select.origen}
-            options={opcionesOrigen}
+            options={origenes}
             onChange={e => {
               handleDispatch(dispatch, "origen", e?.value, LEAD);
-              setSelect({ ...select, origen: e })
+              handleDispatch(dispatch, "origen", e, "select")
             }}
           />
         </div>
@@ -100,7 +88,7 @@ const DatosLead = ({ dispatch, manageSelect }) => {
             options={opcionesCampanas}
             onChange={e => {
               handleDispatch(dispatch, "campana_id", e?.value, LEAD);
-              setSelect({ ...select, campana: e })
+              handleDispatch(dispatch, "campana", e, "select")
             }}
           />
         </div>
@@ -111,7 +99,7 @@ const DatosLead = ({ dispatch, manageSelect }) => {
             options={opcionesUsuarios}
             onChange={e => {
               handleDispatch(dispatch, "usu_asignado_id", e?.value, LEAD);
-              setSelect({ ...select, usu_asignado: e })
+              handleDispatch(dispatch, "usu_asignado", e, "select")
             }}
           />
         </div>
@@ -120,19 +108,21 @@ const DatosLead = ({ dispatch, manageSelect }) => {
         label="Curso/Interés"
         value={select.curso}
         options={opcionesCursos}
+        disabled={currentLead.estado === "Convertido"}
         onChange={e => {
           handleDispatch(dispatch, "curso_id", e?.value, LEAD);
-          setSelect({ ...select, curso: e })
+          handleDispatch(dispatch, "curso", e, "select")
         }}
       />
     </Seccion>
   );
 };
 
-const EditarCaso = () => {
-  const { state: { lead, persona, direcciones }, dispatch } = useContext(AppContext);
-  const [select, setSelect] = useState({ estado: "", origen: "", usu_asignado: "", prioridad: "" });
+const EditarLead = () => {
+  const { state: { lead, persona, direcciones, select }, dispatch } = useContext(AppContext);
   const [action, setAction] = useState({});
+  const [enabled, setEnabled] = useState(true);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   const { id } = useParams();
   const navigate = useNavigate();
   const currentUser = useToken().usuario;
@@ -144,34 +134,50 @@ const EditarCaso = () => {
 
   useEffect(() => {
     handleStateCleared(dispatch);
-    setSelect({ estado: "", origen: "", usu_asignado: "", prioridad: "" });
   }, []);
 
   useEffect(() => {
-    if (!isFetching) {
+    if (!isFetching && enabled) {
+      setEnabled(false);
       handleDispatchEdit(dispatch, currentLead, LEAD);
-      setSelect({
+      handleDispatchEdit(dispatch, currentLead.persona, "persona");
+      handleDispatchEdit(dispatch, currentLead.persona.telefonos, "telefonos");
+      handleDispatchEdit(dispatch, currentLead.persona.direcciones, "direcciones");
+      handleDispatchEdit(dispatch, {
         estado: { label: currentLead.estado, value: currentLead.estado },
         origen: { label: currentLead.origen, value: currentLead.origen },
-        campana: { label: currentLead.campana?.nombre, value: currentLead.campana?.campana_id },
+        campana: currentLead.campana ?
+          { label: currentLead.campana?.nombre, value: currentLead.campana?.campana_id } : "",
         usu_asignado: { label: currentLead.usu_asignado?.nom_usuario, value: currentLead.usu_asignado?.usuario_id },
-        curso: { label: currentLead.curso?.nombre, value: currentLead.curso?.curso_id }
-      });
+        curso: { label: currentLead.curso?.nombre, value: currentLead.curso?.curso_id },
+        tip_documento: currentLead.persona.tip_documento ?
+          { label: currentLead.persona?.tip_documento, value: currentLead.persona?.tip_documento } : "",
+      }, "select");
     }
   }, [isFetching]);
 
-  const editar = async e => {
+  const confirmarConversionLead = e => {
     e.preventDefault();
+
+    if (lead.estado === "Convertido" && currentLead.estado !== "Convertido") {
+      setModalIsOpen(true);
+    } else {
+      editar();
+    }
+  }
+
+
+  const editar = async () => {
     setAction({ saving: true, error: false, message: "" });
     const auditoria = { fec_modificacion: new Date(), usu_modificacion: currentUser.nom_usuario };
 
     try {
-      await editLead({
+      await editLead(id, {
         ...lead,
         ...auditoria,
         persona: { ...persona, direcciones, ...auditoria }
       });
-      setAction({ saving: false, error: false, message: "Lead creado exitosamente." });
+      setAction({ saving: false, error: false, message: "Lead editado exitosamente." });
       setTimeout(() => navigate("/ventas/leads"), 2000);
     } catch (e) {
       setAction({ saving: false, error: true, message: e.message });
@@ -182,17 +188,33 @@ const EditarCaso = () => {
     <div>
       <section className="section w-full m-auto">
         <Titulo1>
-          Nuevo Lead
+          Editar Lead
         </Titulo1>
         {action.message ? <MostrarMensaje mensaje={action.message} error={action.error} /> : null}
         <form>
-          <CrearPersona />
+          <button 
+            className={classNameButton2}
+            onClick={e => {e.preventDefault(); setModalIsOpen(true)}}
+          >
+            <span>Convertir Lead</span>
+            <span className="icon is-small">
+              <FontAwesomeIcon icon={solid("arrows-rotate")} />
+            </span>
+          </button>
+          <Alert
+            manageModal={{ modalIsOpen, setModalIsOpen }}
+          />
+          <EditarPersona />
           <DatosLead
+            currentLead={currentLead}
             lead={lead}
-            manageSelect={{ setSelect, select }}
+            select={select}
             dispatch={dispatch}
           />
-          <Guardar saving={action.saving} guardar={editar} />
+          <Guardar
+            saving={action.saving}
+            guardar={confirmarConversionLead}
+          />
           <Volver navigate={navigate} />
         </form>
       </section>
@@ -200,4 +222,4 @@ const EditarCaso = () => {
   )
 };
 
-export default EditarCaso;
+export default EditarLead;

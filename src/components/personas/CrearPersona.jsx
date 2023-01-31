@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import Seccion from "../formulario/Seccion";
 import Direccion from "./Direccion";
 import AppContext from "../../utils/AppContext";
@@ -13,50 +13,44 @@ import Telefono from "./Telefono";
 
 const PERSONA = "persona";
 
-const Persona = ({ dispatch, persona }) => {
-  const [select, setSelect] = useState({ tip_documento: "" });
-
+const Persona = ({ dispatch, persona = {}, select = {}}) => {
   const {
     data: tip_documentos,
-    tiposDocumentosLoading
   } = useQuery(["tip_documentos"], getTipDocumentos);
-
-  const opcionesTipDocumentos = tiposDocumentosLoading || !tip_documentos ? [] :
-    tip_documentos.map(tip_documento => ({ value: tip_documento, label: tip_documento }));
 
   return (
     <Seccion titulo="Datos Personales">
       <Input
         label="Nombre*"
         name="nombre"
-        value={persona?.nombre || ""}
+        value={persona.nombre || ""}
         onChange={e => handleDispatch(dispatch, e?.target.name, e?.target.value, PERSONA)}
       />
       <Input
         label="Email*"
         name="email"
-        value={persona?.email || ""}
+        value={persona.email || ""}
         onChange={e => handleDispatch(dispatch, e?.target.name, e?.target.value, PERSONA)}
       />
       <div className="columns">
         <div className="column">
           <Input
-            label="Número de Documento*"
+            label="Número de Documento"
             name="nro_documento"
-            value={persona?.nro_documento || ""}
+            value={persona.nro_documento || ""}
             onChange={e => handleDispatch(dispatch, e?.target.name, e?.target.value, PERSONA)}
           />
         </div>
         <div className="column">
           <Dropdown
-            label="Tipo de Documento*"
+            label="Tipo de Documento"
             name="tip_documento"
             onChange={e => {
               handleDispatch(dispatch, "tip_documento", e?.value, PERSONA);
-              setSelect({ ...select, tip_documento: e })
+              handleDispatch(dispatch, "tip_documento", e, "select")
             }}
             value={select.tip_documento}
-            options={opcionesTipDocumentos}
+            options={tip_documentos}
           />
         </div>
       </div>
@@ -73,10 +67,7 @@ const Direcciones = ({ dispatch, direcciones, direccion }) => {
             <th>Calle 1</th>
             <th>Calle 2</th>
             <th>Código Postal</th>
-            <th>País</th>
-            <th>Ciudad</th>
             <th>Referencia</th>
-            <th>Principal</th>
             <th></th>
           </tr>
         </thead>
@@ -87,10 +78,7 @@ const Direcciones = ({ dispatch, direcciones, direccion }) => {
                 <td>{direccion.calle_1}</td>
                 <td>{direccion.calle_2}</td>
                 <td>{direccion.cod_postal}</td>
-                <td>{direccion.pais}</td>
-                <td>{direccion.ciudad}</td>
                 <td>{direccion.referencia}</td>
-                <td>{direccion.principal ? "Sí" : "No"}</td>
                 <td>
                   <button
                     className="button is-danger"
@@ -138,7 +126,6 @@ const Telefonos = ({ dispatch, telefonos, telefono }) => {
             <th>Número</th>
             <th>Tipo</th>
             <th>Comentario</th>
-            <th>Principal</th>
             <th></th>
           </tr>
         </thead>
@@ -149,7 +136,6 @@ const Telefonos = ({ dispatch, telefonos, telefono }) => {
                 <td>{telefono.numero}</td>
                 <td>{telefono.tipo}</td>
                 <td>{telefono.comentario}</td>
-                <td>{telefono.principal ? "Sí" : "No"}</td>
                 <td>
                   <button
                     className="button is-danger"
@@ -193,25 +179,27 @@ const CrearPersona = () => {
     direcciones,
     telefonos,
     direccion,
-    telefono
+    telefono,
+    select
   }, dispatch } = useContext(AppContext);
 
   return (
     <section>
       <Persona
         persona={persona}
+        select={select}
         dispatch={dispatch}
       />
-      {/* <Direcciones
-        direcciones={direcciones}
+      <Direcciones
         direccion={direccion}
+        direcciones={direcciones}
         dispatch={dispatch}
       />
       <Telefonos
         telefonos={telefonos}
         telefono={telefono}
         dispatch={dispatch}
-      /> */}
+      />
     </section>
   );
 }

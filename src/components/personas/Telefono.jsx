@@ -1,6 +1,6 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import AppContext from "../../utils/AppContext";
-import { Input, Dropdown, TextArea, Checkbox } from "../formulario/Componentes";
+import { Input, Dropdown, TextArea } from "../formulario/Componentes";
 import { getTiposTelefono } from "../../api/personas";
 import { useQuery } from "react-query";
 import { handleDispatch } from "../formulario/reducerFormularios";
@@ -8,16 +8,11 @@ import { handleDispatch } from "../formulario/reducerFormularios";
 const TELEFONO = "telefono";
 
 const Telefono = () => {
-  const { state: { telefono }, dispatch } = useContext(AppContext);
-  const [select, setSelect] = useState({ tipo: "" });
+  const { state: { telefono, select }, dispatch } = useContext(AppContext);
 
   const {
     data: tipos,
-    tiposLoading
   } = useQuery(["tiposTelefono"], getTiposTelefono);
-
-  const opcionesTipos = !tipos || tiposLoading ? [] :
-    tipos.map(tipo => ({ value: tipo, label: tipo }));
 
   return (
     <section className="mb-2 p-4 border-gray-300 border-solid border">
@@ -36,10 +31,10 @@ const Telefono = () => {
             name="tipo"
             onChange={e => {
               handleDispatch(dispatch, "tipo", e?.value, TELEFONO);
-              setSelect({ ...select, tipo: e })
+              handleDispatch(dispatch, "tip_telefono", e, "select");
             }}
-            value={select.tipo}
-            options={opcionesTipos}
+            value={select?.tip_telefono}
+            options={tipos}
           />
         </div>
       </div>
@@ -50,14 +45,6 @@ const Telefono = () => {
             name="comentario"
             value={telefono?.comentario || ""}
             onChange={e => handleDispatch(dispatch, e?.target.name, e?.target.value, TELEFONO)}
-          />
-        </div>
-        <div className="column">
-          <Checkbox
-            label="Principal"
-            name="principal"
-            checked={telefono?.principal || false}
-            onChange={e => handleDispatch(dispatch, e?.target.name, e?.target.checked, TELEFONO)}
           />
         </div>
       </div>

@@ -1,17 +1,19 @@
 import React from "react";
 import DataTables from "../../DataTables";
+import classNames from "classnames";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { classNameButton2 } from "../../formulario/Componentes";
+import { format, parseISO } from "date-fns";
 import { useQuery } from "react-query";
 import { getCasos } from "../../../api/casos";
 import { NavLink } from "react-router-dom";
 
-const Index = () => {
+const Index = ({ lead_id, contacto_id }) => {
   const {
     data: casos,
     isLoading
-  } = useQuery(["casos"], getCasos);
+  } = useQuery(["casos", lead_id, contacto_id], () => getCasos({ lead_id, contacto_id }));
 
   const columns = [
     {
@@ -68,21 +70,49 @@ const Index = () => {
       }
     },
     {
-      name: "tipo",
-      label: "Tipo",
+      name: "lead",
+      label: "Lead",
       options: {
         filter: true,
         filterType: "textField",
         sort: true,
+        customBodyRender: (value) => {
+          if (value) {
+            return (
+              <NavLink
+                to={"/ventas/leads/" + value.lead_id}
+                className="underline text-blue-900"
+              >
+                {value.persona?.nombre}
+              </NavLink>
+            )
+          } else {
+            return null;
+          }
+        }
       }
     },
     {
-      name: "origen",
-      label: "Origen",
+      name: "contacto",
+      label: "Contacto",
       options: {
         filter: true,
         filterType: "textField",
         sort: true,
+        customBodyRender: (value) => {
+          if (value) {
+            return (
+              <NavLink
+                to={"/ventas/contactos/" + value.contacto_id}
+                className="underline text-blue-900"
+              >
+                {value.persona?.nombre}
+              </NavLink>
+            )
+          } else {
+            return null;
+          }
+        }
       }
     },
     {
@@ -95,12 +125,27 @@ const Index = () => {
         customBodyRender: (value) => {
           if (value) {
             return (
-              <NavLink
-                to={"/admin/empleados/" + value.usuario_id}
-                className="underline text-blue-900"
-              >
+              <span>
                 {value.nom_usuario}
-              </NavLink>
+              </span>
+            )
+          } else {
+            return null;
+          }
+        }
+      }
+    },
+    {
+      name: "fec_insercion",
+      label: "Fecha de Creación",
+      options: {
+        filter: true,
+        filterType: "textField",
+        sort: true,
+        customBodyRender: (value) => {
+          if (value) {
+            return (
+              <span>{format(parseISO(value), "dd/MM/yyyy hh:mm")}</span>
             )
           } else {
             return null;
@@ -116,23 +161,27 @@ const Index = () => {
         empty: true,
         customBodyRender: (_value, tableMeta) => {
           return (
-            <div className="field is-grouped">
-              <div className="control">
+            <div className="field is-grouped is-grouped-centered">
+              <p className="control">
                 <NavLink
                   to={"/soporte/casos/editar/" + tableMeta.rowData[0]}
-                  className={classNameButton2}
+                  className="button is-link is-outlined is-normal"
                 >
-                  Editar
+                  <span className="icon is-small">
+                    <FontAwesomeIcon icon={solid("pen-to-square")} />
+                  </span>
                 </NavLink>
-              </div>
-              <div className="control">
+              </p>
+              <p className="control">
                 <NavLink
                   to={"/soporte/casos/eliminar/" + tableMeta.rowData[0]}
-                  className={classNameButton2}
+                  className="button is-danger is-outlined is-normal"
                 >
-                  Eliminar
+                  <span className="icon is-small">
+                    <FontAwesomeIcon icon={solid("trash")} />
+                  </span>
                 </NavLink>
-              </div>
+              </p>
             </div>
           );
         }
@@ -141,26 +190,23 @@ const Index = () => {
   ];
 
   return (
-    <div>
-      <section className="section w-full m-auto">
-        <NavLink
-          to="/soporte/casos/nuevo"
-          className="button font-semibold shadow-lg text-white hover:text-white focus:text-white
-              hover:bg-deep-purple-700 bg-deep-purple-400 border-deep-purple-700 mb-2"
-        >
-          <span>Crear Nuevo</span>
-          <span className="icon is-small">
-            <FontAwesomeIcon icon={solid("plus")} />
-          </span>
-        </NavLink>
-        <DataTables
-          title="Listado de Casos"
-          columns={columns}
-          data={casos}
-          isLoading={isLoading}
-        />
-      </section>
-    </div>
+    <section className={classNames("w-full m-auto", { "section": !lead_id && !contacto_id })}>
+      {(!lead_id && !contacto_id) && <NavLink
+        to="/soporte/casos/nuevo"
+        className={classNameButton2}
+      >
+        <span>Crear Nuevo</span>
+        <span className="icon is-small">
+          <FontAwesomeIcon icon={solid("plus")} />
+        </span>
+      </NavLink>}
+      <DataTables
+        title="Listado de Casos"
+        columns={columns}
+        data={casos}
+        isLoading={isLoading}
+      />
+    </section>
   )
 }
 

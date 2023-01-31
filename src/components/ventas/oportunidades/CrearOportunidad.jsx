@@ -2,12 +2,13 @@ import React, { useState, useContext, useEffect } from "react";
 import AppContext from "../../../utils/AppContext";
 import Seccion from "../../formulario/Seccion";
 import MostrarMensaje from "../../formulario/MostrarMensaje";
+import Alert from "./Alert";
 import { handleDispatch, handleStateCleared } from "../../formulario/reducerFormularios.js";
 import { Volver, Guardar } from "../../formulario/Acciones";
 import { Titulo1 } from "../../formulario/Titulo";
 import { Dropdown, Input, TextArea } from "../../formulario/Componentes";
 import { getUsuarios } from "../../../api/usuarios";
-import { createOportunidad, getEtapas } from "../../../api/oportunidades";
+import { createOportunidad, getEstados } from "../../../api/oportunidades";
 import { getCampanas } from "../../../api/campanas";
 import { getContactos } from "../../../api/contactos";
 import { getCursos } from "../../../api/cursos";
@@ -17,13 +18,10 @@ import useToken from "../../../utils/useToken";
 
 const OPORTUNIDAD = "oportunidad";
 
-const DatosOportunidad = ({ oportunidad, dispatch }) => {
-  const [select, setSelect] = useState({ etapa: "", usu_asignado: "" });
-
+const DatosOportunidad = ({ oportunidad, dispatch, select }) => {
   const {
-    data: etapasOportunidades,
-    etapasLoading
-  } = useQuery(["etapasOportunidades"], getEtapas);
+    data: estadosOportunidades,
+  } = useQuery(["estadosOportunidades"], getEstados);
 
   const {
     data: usuarios,
@@ -44,9 +42,6 @@ const DatosOportunidad = ({ oportunidad, dispatch }) => {
     data: cursos,
     cursosLoading
   } = useQuery(["cursos"], getCursos);
-
-  const opcionesEtapas = etapasLoading || !etapasOportunidades ? [] :
-    etapasOportunidades.map(etapa => ({ value: etapa, label: etapa }));
 
   const opcionesUsuarios = usuariosLoading || !usuarios ? [] :
     usuarios.map(usuario => ({ value: usuario.usuario_id, label: usuario.nom_usuario }));
@@ -80,7 +75,7 @@ const DatosOportunidad = ({ oportunidad, dispatch }) => {
             options={opcionesContactos}
             onChange={e => {
               handleDispatch(dispatch, "contacto_id", e?.value, OPORTUNIDAD);
-              setSelect({ ...select, contacto: e })
+              handleDispatch(dispatch, "contacto", e, "select")
             }}
           />
         </div>
@@ -91,7 +86,7 @@ const DatosOportunidad = ({ oportunidad, dispatch }) => {
             options={opcionesCursos}
             onChange={e => {
               handleDispatch(dispatch, "curso_id", e?.value, OPORTUNIDAD);
-              setSelect({ ...select, curso: e })
+              handleDispatch(dispatch, "curso", e, "select")
             }}
           />
         </div>
@@ -99,12 +94,12 @@ const DatosOportunidad = ({ oportunidad, dispatch }) => {
       <div className="columns">
         <div className="column">
           <Dropdown
-            label="Etapa*"
-            value={select.etapa}
-            options={opcionesEtapas}
+            label="Estado*"
+            value={select.estado}
+            options={estadosOportunidades || []}
             onChange={e => {
-              handleDispatch(dispatch, "etapa", e?.value, OPORTUNIDAD);
-              setSelect({ ...select, etapa: e })
+              handleDispatch(dispatch, "estado", e?.value, OPORTUNIDAD);
+              handleDispatch(dispatch, "estado", e, "select")
             }}
           />
         </div>
@@ -126,7 +121,7 @@ const DatosOportunidad = ({ oportunidad, dispatch }) => {
             options={opcionesCampanas}
             onChange={e => {
               handleDispatch(dispatch, "campana_id", e?.value, OPORTUNIDAD);
-              setSelect({ ...select, campana: e })
+              handleDispatch(dispatch, "campana", e, "select")
             }}
           />
         </div>
@@ -137,7 +132,7 @@ const DatosOportunidad = ({ oportunidad, dispatch }) => {
             options={opcionesUsuarios}
             onChange={e => {
               handleDispatch(dispatch, "usu_asignado_id", e?.value, OPORTUNIDAD);
-              setSelect({ ...select, usu_asignado: e })
+              handleDispatch(dispatch, "usu_asignado", e, "select")
             }}
           />
         </div>
@@ -157,8 +152,9 @@ const DatosOportunidad = ({ oportunidad, dispatch }) => {
 };
 
 const CrearOportunidad = () => {
-  const { state: { oportunidad }, dispatch } = useContext(AppContext);
+  const { state: { oportunidad, select }, dispatch } = useContext(AppContext);
   const [action, setAction] = useState({});
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   const navigate = useNavigate();
   const currentUser = useToken().usuario;
 
@@ -166,8 +162,7 @@ const CrearOportunidad = () => {
     handleStateCleared(dispatch);
   }, []);
 
-  const crear = async e => {
-    e.preventDefault();
+  const crear = async () => {
     setAction({ saving: true, error: false, message: "" });
     const auditoria = { usu_insercion: currentUser.nom_usuario, usu_modificacion: currentUser.nom_usuario };
 
@@ -183,6 +178,16 @@ const CrearOportunidad = () => {
     };
   };
 
+  const confirmarOportunidadGanada = e => {
+    e.preventDefault();
+
+    if (oportunidad.estado === "Ganado") {
+      setModalIsOpen(true);
+    } else {
+      crear();
+    }
+  }
+
   return (
     <div>
       <section className="section w-full m-auto">
@@ -191,12 +196,22 @@ const CrearOportunidad = () => {
         </Titulo1>
         {action.message ? <MostrarMensaje mensaje={action.message} error={action.error} /> : null}
         <form>
+          <Alert
+            manageModal={{modalIsOpen, setModalIsOpen}}
+            guardar={crear}
+          />
           <DatosOportunidad
             oportunidad={oportunidad}
+            select={select}
             dispatch={dispatch}
           />
-          <Guardar saving={action.saving} guardar={crear} />
-          <Volver navigate={navigate} />
+          <Guardar 
+            saving={action.saving} 
+            guardar={confirmarOportunidadGanada}
+          />
+          <Volver 
+            navigate={navigate} 
+          />
         </form>
       </section>
     </div>

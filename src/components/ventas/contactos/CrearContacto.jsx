@@ -15,21 +15,15 @@ import { useNavigate } from "react-router-dom";
 
 const CONTACTO = "contacto";
 
-const DatosContacto = ({ dispatch }) => {
-  const [select, setSelect] = useState({ origen: "", campana: "" });
-
+const DatosContacto = ({ dispatch, select = {} }) => {
   const {
     data: origenesContactos,
-    origenesLoading
   } = useQuery(["origenesContactos"], getOrigenes);
 
   const {
     data: organizaciones,
     organizacionesLoading
   } = useQuery(["organizaciones"], getOrganizaciones);
-
-  const opcionesOrigen = origenesLoading || !origenesContactos ? [] :
-    origenesContactos.map(origen => ({ value: origen, label: origen }));
 
   const opcionesOrganizaciones = organizacionesLoading || !organizaciones ? [] :
     organizaciones.map(organizacion => ({ value: organizacion.organizacion_id, label: organizacion?.persona.nombre }));
@@ -44,7 +38,7 @@ const DatosContacto = ({ dispatch }) => {
             options={opcionesOrganizaciones}
             onChange={e => {
               handleDispatch(dispatch, "organizacion_id", e?.value, CONTACTO);
-              setSelect({ ...select, organizacion: e })
+              handleDispatch(dispatch, "organizacion", e, "select")
             }}
           />
         </div>
@@ -54,10 +48,10 @@ const DatosContacto = ({ dispatch }) => {
           <Dropdown
             label="Origen del Lead"
             value={select.origen}
-            options={opcionesOrigen}
+            options={origenesContactos}
             onChange={e => {
               handleDispatch(dispatch, "origen", e?.value, CONTACTO);
-              setSelect({ ...select, origen: e })
+              handleDispatch(dispatch, "origen", e, "select")
             }}
           />
         </div>
@@ -67,7 +61,7 @@ const DatosContacto = ({ dispatch }) => {
 };
 
 const CrearContacto = () => {
-  const { state: { contacto, persona, direcciones }, dispatch } = useContext(AppContext);
+  const { state: { contacto, persona, direcciones, telefonos, select }, dispatch } = useContext(AppContext);
   const [action, setAction] = useState({});
   const navigate = useNavigate();
   const currentUser = useToken().usuario;
@@ -84,7 +78,7 @@ const CrearContacto = () => {
     try {
       await createContacto({ ...contacto,
         ...auditoria,
-        persona: {...persona, direcciones, ...auditoria } });
+        persona: {...persona, direcciones, ...auditoria, telefonos } });
       setAction({ saving: false, error: false, message: "Contacto creado exitosamente." });
       setTimeout(() => navigate("/ventas/contactos"), 2000);
     } catch (e) {
@@ -104,8 +98,12 @@ const CrearContacto = () => {
           <DatosContacto
             contacto={contacto}
             dispatch={dispatch}
+            select={select}
           />
-          <Guardar saving={action.saving} guardar={crear} />
+          <Guardar
+            saving={action.saving} 
+            guardar={crear} 
+          />
           <Volver navigate={navigate} />
         </form>
       </section>

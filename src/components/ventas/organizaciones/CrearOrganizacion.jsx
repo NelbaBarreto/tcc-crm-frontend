@@ -19,19 +19,9 @@ const DatosOrganizacion = ({ organizacion, dispatch }) => {
       <div className="columns">
         <div className="column">
           <Input
-            name="nombre"
-            label="Nombre*"
-            value={organizacion?.nombre || ""}
-            onChange={e => handleDispatch(dispatch, e.target?.name, e.target?.value, ORGANIZACION)}
-          />
-        </div>
-      </div>
-      <div className="columns">
-        <div className="column">
-          <Input
             name="website"
             label="Página Web"
-            value={organizacion?.nombre || ""}
+            value={organizacion?.website || ""}
             onChange={e => handleDispatch(dispatch, e.target?.name, e.target?.value, ORGANIZACION)}
           />
         </div>

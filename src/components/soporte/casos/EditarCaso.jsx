@@ -5,6 +5,8 @@ import MostrarMensaje from "../../formulario/MostrarMensaje";
 import { CircularProgress } from "@mui/material";
 import { Volver, Guardar } from "../../formulario/Acciones";
 import { Titulo1 } from "../../formulario/Titulo";
+import { getLeads } from "../../../api/leads";
+import { getContactos } from "../../../api/contactos";
 import { Dropdown, Input, TextArea } from "../../formulario/Componentes";
 import { getUsuarios } from "../../../api/usuarios";
 import { editCaso, getOrigenes, getPrioridades, getEstados, getTipos, getCaso } from "../../../api/casos";
@@ -14,8 +16,7 @@ import { useParams, useNavigate } from "react-router-dom";
 
 const CASO = "caso";
 
-const DatosCaso = ({ caso, dispatch, manageSelect }) => {
-  const { setSelect, select } = manageSelect;
+const DatosCaso = ({ caso, dispatch, select = {} }) => {
   const {
     data: usuarios,
     usuariosLoading
@@ -23,43 +24,44 @@ const DatosCaso = ({ caso, dispatch, manageSelect }) => {
 
   const {
     data: origenes,
-    origenesLoading
   } = useQuery(["origenes"], getOrigenes);
 
   const {
     data: prioridades,
-    prioridadesLoading
   } = useQuery(["prioridades"], getPrioridades);
 
   const {
     data: estados,
-    estadosLoading
   } = useQuery(["estados"], getEstados);
 
   const {
     data: tipos,
-    tiposLoading
   } = useQuery(["tipos"], getTipos);
+
+  const {
+    data: leads,
+    leadsLoading
+  } = useQuery(["leads"], getLeads);
+
+  const {
+    data: contactos,
+    contactosLoading
+  } = useQuery(["contactos"], getContactos);
 
   const opcionesUsuarios = usuariosLoading || !usuarios ? [] :
     usuarios.map(usuario => ({ value: usuario.usuario_id, label: usuario.nom_usuario }));
 
-  const opcionesOrigenes = origenesLoading || !origenes ? [] :
-    origenes.map(origen => ({ value: origen, label: origen }));
+  const opcionesLeads = leadsLoading || !leads ? [] :
+    leads.map(lead => ({ value: lead.lead_id, label: `${lead.lead_id}-${lead.persona.nombre}` }));
 
-  const opcionesPrioridades = prioridadesLoading || !prioridades ? [] :
-    prioridades.map(prioridad => ({ value: prioridad, label: prioridad }));
+  const opcionesContactos = contactosLoading || !contactos ? [] :
+    contactos.map(contacto => ({ value: contacto.contacto_id, label: `${contacto.contacto_id}-${contacto.persona.nombre}` }));
 
-  const opcionesEstados = estadosLoading || !estados ? [] :
-    estados.map(estado => ({ value: estado, label: estado }));
-
-  const opcionesTipos = tiposLoading || !tipos ? [] :
-    tipos.map(tipo => ({ value: tipo, label: tipo }));
 
   return (
     <Seccion titulo="Datos del Caso">
       <Input
-        label="Asunto"
+        label="Asunto*"
         name="asunto"
         value={caso?.asunto || ""}
         onChange={e => handleDispatch(dispatch, e?.target.name, e?.target.value, CASO)}
@@ -69,10 +71,10 @@ const DatosCaso = ({ caso, dispatch, manageSelect }) => {
           <Dropdown
             label="Prioridad"
             value={select.prioridad}
-            options={opcionesPrioridades}
+            options={prioridades}
             onChange={e => {
               handleDispatch(dispatch, "prioridad", e?.value, CASO);
-              setSelect({ ...select, prioridad: e })
+              handleDispatch(dispatch, "prioridad", e, "select")
             }}
           />
         </div>
@@ -80,10 +82,10 @@ const DatosCaso = ({ caso, dispatch, manageSelect }) => {
           <Dropdown
             label="Estado"
             value={select.estado}
-            options={opcionesEstados}
+            options={estados}
             onChange={e => {
               handleDispatch(dispatch, "estado", e?.value, CASO);
-              setSelect({ ...select, estado: e })
+              handleDispatch(dispatch, "estado", e, "select")
             }}
           />
         </div>
@@ -93,10 +95,10 @@ const DatosCaso = ({ caso, dispatch, manageSelect }) => {
           <Dropdown
             label="Tipo"
             value={select.tipo}
-            options={opcionesTipos}
+            options={tipos}
             onChange={e => {
               handleDispatch(dispatch, "tipo", e?.value, CASO);
-              setSelect({ ...select, tipo: e })
+              handleDispatch(dispatch, "tipo", e, "select")
             }}
           />
         </div>
@@ -104,10 +106,36 @@ const DatosCaso = ({ caso, dispatch, manageSelect }) => {
           <Dropdown
             label="Origen"
             value={select?.origen}
-            options={opcionesOrigenes}
+            options={origenes}
             onChange={e => {
               handleDispatch(dispatch, "origen", e?.value, CASO);
-              setSelect({ ...select, origen: e })
+              handleDispatch(dispatch, "origen", e, "select")
+            }}
+          />
+        </div>
+      </div>
+      <div className="columns is-desktop">
+        <div className="column">
+          <Dropdown
+            label="Lead"
+            options={opcionesLeads}
+            value={select.lead}
+            disabled={caso?.contacto_id ? true : false}
+            onChange={e => {
+              handleDispatch(dispatch, "lead_id", e?.value, CASO);
+              handleDispatch(dispatch, "lead", e, "select")
+            }}
+          />
+        </div>
+        <div className="column">
+          <Dropdown
+            label="Contacto"
+            options={opcionesContactos}
+            value={select.contacto}
+            disabled={caso?.lead_id ? true : false}
+            onChange={e => {
+              handleDispatch(dispatch, "contacto_id", e?.value, CASO);
+              handleDispatch(dispatch, "contacto", e, "select")
             }}
           />
         </div>
@@ -120,7 +148,7 @@ const DatosCaso = ({ caso, dispatch, manageSelect }) => {
             options={opcionesUsuarios}
             onChange={e => {
               handleDispatch(dispatch, "usu_asignado_id", e?.value, CASO);
-              setSelect({ ...select, usu_asignado: e })
+              handleDispatch(dispatch, "usu_asignado", e, "select")
             }}
           />
         </div>
@@ -149,9 +177,9 @@ const DatosCaso = ({ caso, dispatch, manageSelect }) => {
 };
 
 const EditarCaso = () => {
-  const { state: { caso }, dispatch } = useContext(AppContext);
-  const [select, setSelect] = useState({ estado: "", origen: "", usu_asignado: "", prioridad: "" });
+  const { state: { caso, select }, dispatch } = useContext(AppContext);
   const [action, setAction] = useState({});
+  const [enabled, setEnabled] = useState(true);
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -162,19 +190,24 @@ const EditarCaso = () => {
 
   useEffect(() => {
     handleStateCleared(dispatch);
-    setSelect({ estado: "", origen: "", usu_asignado: "", prioridad: "" });
   }, []);
 
   useEffect(() => {
-    if (!isFetching) {
+    if (!isFetching && enabled) {
+      setEnabled(false);
       handleDispatchEdit(dispatch, currentCaso, CASO);
-      setSelect({
+      handleDispatchEdit(dispatch, {
         estado: { label: currentCaso.estado, value: currentCaso.estado },
         origen: { label: currentCaso.origen, value: currentCaso.origen },
         prioridad: { label: currentCaso.prioridad, value: currentCaso.prioridad },
         tipo: { label: currentCaso.tipo, value: currentCaso.tipo },
-        usu_asignado: { label: currentCaso.usuario?.nom_usuario, value: currentCaso.usuario?.usuario_id }
-      });
+        usu_asignado: currentCaso.usu_asignado_id ? 
+          { label: currentCaso.usuario?.nom_usuario, value: currentCaso.usuario?.usuario_id } : "",
+        lead: currentCaso.lead ?
+          { value: currentCaso.lead?.lead_id, label: `${currentCaso.lead?.lead_id}-${currentCaso.lead?.persona.nombre}` } : "",
+        contacto: currentCaso.contacto ?
+          { value: currentCaso.contacto?.contacto_id, label: `${currentCaso.contacto?.contacto_id}-${currentCaso.contacto?.persona.nombre}` } : "",
+      }, "select");
     }
   }, [isFetching]);
 
@@ -202,13 +235,15 @@ const EditarCaso = () => {
             <DatosCaso
               caso={caso}
               dispatch={dispatch}
-              manageSelect={{ setSelect, select }}
+              select={select}
             />
             <Guardar
               saving={action.saving}
               guardar={editar}
             />
-            <Volver navigate={navigate} />
+            <Volver
+              navigate={navigate}
+            />
           </form>
         </section>}
     </div>

@@ -5,7 +5,10 @@ import MostrarMensaje from "../../formulario/MostrarMensaje";
 import { CircularProgress } from "@mui/material";
 import { Volver, Guardar } from "../../formulario/Acciones";
 import { Titulo1 } from "../../formulario/Titulo";
+import { getUsuarios } from "../../../api/usuarios";
 import { getTipos, getEstados, editLlamadas, getLlamada } from "../../../api/llamadas";
+import { getLeads } from "../../../api/leads";
+import { getContactos } from "../../../api/contactos";
 import { handleDispatch, handleDispatchEdit, handleStateCleared } from "../../formulario/reducerFormularios.js";
 import { useQuery } from "react-query";
 import { useParams, useNavigate } from "react-router-dom";
@@ -13,72 +16,140 @@ import { Dropdown, Input, TextArea, Datepicker } from "../../formulario/Componen
 
 const LLAMADA = "llamada";
 
-const DatosLlamada = ({ llamada={}, dispatch, manageSelect }) => {
-  const { setSelect, select } = manageSelect;
-
+const DatosLlamada = ({ llamada = {}, dispatch, select = {} }) => {
   const {
     data: tipos,
-    tiposLoading
   } = useQuery(["tipos"], getTipos);
 
   const {
     data: estados,
-    estadosLoading
   } = useQuery(["estados"], getEstados);
 
-  const opcionesTipos = tiposLoading || !tipos ? [] :
-    tipos.map(tipo => ({ value: tipo, label: tipo }));
+  const {
+    data: leads,
+    leadsLoading
+  } = useQuery(["leads"], getLeads);
 
-  const opcionesEstados = estadosLoading || !estados ? [] :
-    estados.map(estado => ({ value: estado, label: estado }));
+  const {
+    data: contactos,
+    contactosLoading
+  } = useQuery(["contactos"], getContactos);
+
+  const {
+    data: usuarios,
+    usuariosLoading
+  } = useQuery(["usuarios"], getUsuarios);
+
+  const opcionesLeads = leadsLoading || !leads ? [] :
+    leads.map(lead => ({ value: lead.lead_id, label: `${lead.lead_id}-${lead.persona.nombre}` }));
+
+  const opcionesContactos = contactosLoading || !contactos ? [] :
+    contactos.map(contacto => ({ value: contacto.contacto_id, label: `${contacto.contacto_id}-${contacto.persona.nombre}` }));
+
+  const opcionesUsuarios = usuariosLoading || !usuarios ? [] :
+    usuarios.map(usuario => ({ value: usuario.usuario_id, label: usuario.nom_usuario }));
 
   return (
     <Seccion titulo="Datos de la Llamada">
-      <Input
-        label="Asunto"
-        name="asunto"
-        value={llamada?.asunto || ""}
-        onChange={e => handleDispatch(dispatch, e?.target.name, e?.target.value, LLAMADA)}
-      />
-
-      <Dropdown
-        label="Tipo"
-        options={opcionesTipos}
-        value={select.tipo}
-        onChange={e => {
-          handleDispatch(dispatch, "tipo", e?.value, LLAMADA);
-          setSelect({ ...select, tipo: e })
-        }}
-      />
-      <Dropdown
-        label="Estado"
-        value={select.estado}
-        options={opcionesEstados}
-        onChange={e => {
-          handleDispatch(dispatch, "estado", e?.value, LLAMADA);
-          setSelect({ ...select, estado: e })
-        }}
-      />
-        <Datepicker
-            label="Fecha de Inicio"
-            selected={llamada.fec_inicio || ""} 
+      <div className="columns is-vcentered">
+        <div className="column">
+          <Input
+            label="Asunto*"
+            name="asunto"
+            value={llamada?.asunto || ""}
+            onChange={e => handleDispatch(dispatch, e?.target.name, e?.target.value, LLAMADA)}
+          />
+        </div>
+      </div>
+      <div className="columns">
+        <div className="column">
+          <Dropdown
+            label="Tipo*"
+            options={tipos}
+            value={select.tipo}
+            onChange={e => {
+              handleDispatch(dispatch, "tipo", e?.value, LLAMADA);
+              handleDispatch(dispatch, "tipo", e, "select")
+            }}
+          />
+        </div>
+        <div className="column">
+          <Dropdown
+            label="Estado*"
+            value={select.estado}
+            options={estados}
+            onChange={e => {
+              handleDispatch(dispatch, "estado", e?.value, LLAMADA);
+              handleDispatch(dispatch, "estado", e, "select")
+            }}
+          />
+        </div>
+      </div>
+      <div className="columns is-desktop">
+        <div className="column">
+          <Dropdown
+            label="Lead"
+            options={opcionesLeads}
+            value={select.lead}
+            disabled={llamada?.contacto ? true : false}
+            onChange={e => {
+              handleDispatch(dispatch, "lead_id", e?.value, LLAMADA);
+              handleDispatch(dispatch, "lead", e, "select")
+            }}
+          />
+        </div>
+        <div className="column">
+          <Dropdown
+            label="Contacto"
+            options={opcionesContactos}
+            value={select.contacto}
+            disabled={llamada?.lead ? true : false}
+            onChange={e => {
+              handleDispatch(dispatch, "contacto_id", e?.value, LLAMADA);
+              handleDispatch(dispatch, "contacto", e, "select")
+            }}
+          />
+        </div>
+      </div>
+      <div className="columns">
+        <div className="column is-half">
+          <Dropdown
+            label="Usuario Asignado"
+            value={select.usu_asignado}
+            options={opcionesUsuarios}
+            onChange={e => {
+              handleDispatch(dispatch, "usu_asignado_id", e?.value, LLAMADA);
+              handleDispatch(dispatch, "usu_asignado", e, "select")
+            }}
+          />
+        </div>
+      </div>
+      <div className="columns is-desktop">
+        <div className="column">
+          <Datepicker
+            label="Fecha de Inicio*"
+            selected={llamada?.fec_inicio || ""}
             onChange={fecha => handleDispatch(dispatch, "fec_inicio", fecha, LLAMADA)}
           />
-      <TextArea
-        label=" Descripción"
-        name="descripcion"
-        value={llamada?.descripcion || ""}
-        onChange={e => handleDispatch(dispatch, e?.target.name, e?.target.value, LLAMADA)}
-      />
+        </div>
+        <div className="column">
+          <TextArea
+            label="Descripción"
+            name="descripcion"
+            value={llamada?.descripcion || ""}
+            onChange={e => handleDispatch(dispatch, e?.target.name, e?.target.value, LLAMADA)}
+          />
+        </div>
+      </div>
     </Seccion >
 
   )
 };
 
 const EditarLlamada = () => {
-  const { state: { llamada }, dispatch } = useContext(AppContext);
-  const [select, setSelect] = useState({ estado: "", tipo: "" });
+  const { state: { llamada, select }, dispatch } = useContext(AppContext);
   const [action, setAction] = useState({});
+  const [enabled, setEnabled] = useState(true);
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -89,16 +160,22 @@ const EditarLlamada = () => {
 
   useEffect(() => {
     handleStateCleared(dispatch);
-    setSelect({ estado: "", tipo: "" });
   }, []);
 
   useEffect(() => {
-    if (!isFetching) {
+    if (!isFetching && enabled) {
+      setEnabled(false);
       handleDispatchEdit(dispatch, currentLlamada, LLAMADA);
-      setSelect({
+      handleDispatchEdit(dispatch, {
         estado: { label: currentLlamada.estado, value: currentLlamada.estado },
         tipo: { label: currentLlamada.tipo, value: currentLlamada.tipo },
-      });
+        usu_asignado: currentLlamada.usu_asignado_id ? 
+          { label: currentLlamada.usuario?.nom_usuario, value: currentLlamada.usuario?.usuario_id } : "",        
+        lead: currentLlamada.lead ?
+          { value: currentLlamada.lead?.lead_id, label: `${currentLlamada.lead?.lead_id}-${currentLlamada.lead?.persona.nombre}` } : "",
+        contacto: currentLlamada.contacto ?
+          { value: currentLlamada.contacto?.contacto_id, label: `${currentLlamada.contacto?.contacto_id}-${currentLlamada.contacto?.persona.nombre}` } : "",
+      }, "select");
     }
   }, [isFetching]);
 
@@ -121,12 +198,20 @@ const EditarLlamada = () => {
           <Titulo1>
             Editar Llamada
           </Titulo1>
-
           {action.message ? <MostrarMensaje mensaje={action.message} error={action.error} /> : null}
           <form>
-            <DatosLlamada llamada={llamada} dispatch={dispatch} manageSelect={{ setSelect, select }} />
-            <Guardar saving={action.saving} guardar={crear} />
-            <Volver navigate={navigate} />
+            <DatosLlamada
+              llamada={llamada}
+              dispatch={dispatch}
+              select={select}
+            />
+            <Guardar
+              saving={action.saving}
+              guardar={crear}
+            />
+            <Volver
+              navigate={navigate}
+            />
           </form>
         </section>}
     </div>

@@ -1,5 +1,5 @@
 export const reducer = (state, action) => {
-  const { name = "", value = "", object = "" } = action?.payload;
+  const { name = "", value, object = "" } = action?.payload;
 
   switch (action.type) {
     case "LOGIN":
@@ -13,7 +13,7 @@ export const reducer = (state, action) => {
     case "TELEFONO_ADDED":
       return { ...state, telefonos: [...state.telefonos || [], state.telefono], telefono: {} };
     case "STATE_CLEARED":
-      return {};
+      return { select: {} };
     case "DIRECCION_DELETED":
       const direccionesCopy = state.direcciones || [];
       direccionesCopy.splice(action.payload.index, 1);
@@ -72,6 +72,6 @@ export const handleTelefonoDeleted = (dispatch, index) => {
 export const handleStateCleared = dispatch => {
   dispatch({
     type: "STATE_CLEARED",
-    payload: {}
+    payload: {},
   })
 }

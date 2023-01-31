@@ -1,17 +1,19 @@
 import React from "react";
 import DataTables from "../../DataTables";
+import classNames from "classnames";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useQuery } from "react-query";
 import { getOportunidades } from "../../../api/oportunidades";
 import { NavLink } from "react-router-dom";
 import { classNameButton2 } from "../../formulario/Componentes";
+import { format, parseISO } from "date-fns";
 
-const Index = () => {
+const Index = ({ contacto_id }) => {
   const {
     data: oportunidades,
     isLoading
-  } = useQuery(["oportunidades"], getOportunidades);
+  } = useQuery(["oportunidades", contacto_id], () => getOportunidades({ contacto_id }));
 
   const columns = [
     {
@@ -41,17 +43,8 @@ const Index = () => {
       }
     },
     {
-      name: "valor",
-      label: "Valor",
-      options: {
-        filter: true,
-        filterType: "textField",
-        sort: true,
-      }
-    },
-    {
-      name: "etapa",
-      label: "Etapa",
+      name: "estado",
+      label: "Estado",
       options: {
         filter: true,
         filterType: "textField",
@@ -82,6 +75,29 @@ const Index = () => {
       }
     },
     {
+      name: "contacto",
+      label: "Contacto",
+      options: {
+        filter: true,
+        filterType: "textField",
+        sort: true,
+        customBodyRender: (value) => {
+          if (value) {
+            return (
+              <NavLink
+                to={"/ventas/contactos/" + value.contacto_id}
+                className="underline text-blue-900"
+              >
+                {value.persona?.nombre}
+              </NavLink>
+            )
+          } else {
+            return null;
+          }
+        }
+      }
+    },  
+    {
       name: "usuario",
       label: "Usuario Asignado",
       options: {
@@ -91,12 +107,10 @@ const Index = () => {
         customBodyRender: (value) => {
           if (value) {
             return (
-              <NavLink
-                to={"/admin/empleados/" + value.usuario_id}
-                className="underline text-blue-900"
+              <span
               >
                 {value.nom_usuario}
-              </NavLink>
+              </span>
             )
           } else {
             return null;
@@ -105,6 +119,24 @@ const Index = () => {
       }
     },
     {
+      name: "fec_insercion",
+      label: "Fecha de Creación",
+      options: {
+        filter: true,
+        filterType: "textField",
+        sort: true,
+        customBodyRender: (value) => {
+          if (value) {
+            return (
+              <span>{format(parseISO(value), "dd/MM/yyyy hh:mm")}</span>
+            )
+          } else {
+            return null;
+          }
+        }
+      }
+    },    
+    {
       name: "",
       options: {
         filter: false,
@@ -112,15 +144,17 @@ const Index = () => {
         empty: true,
         customBodyRender: (_value, tableMeta) => {
           return (
-            <div className="field is-grouped">
-              <div className="control">
+            <div className="field is-grouped is-grouped-centered">
+              <p className="control">
                 <NavLink
                   to={"/ventas/oportunidades/editar/" + tableMeta.rowData[0]}
-                  className={classNameButton2}
+                  className="button is-link is-outlined is-normal"
                 >
-                  Editar
+                  <span className="icon is-small">
+                    <FontAwesomeIcon icon={solid("pen-to-square")} />
+                  </span>
                 </NavLink>
-              </div>
+              </p>
             </div>
           );
         }
@@ -130,17 +164,16 @@ const Index = () => {
 
   return (
     <div>
-      <section className="section w-full m-auto">
-        <NavLink
+      <section className={classNames("w-full m-auto", { "section": !contacto_id })}>
+        {!contacto_id && <NavLink
           to="/ventas/oportunidades/nuevo"
-          className="button font-semibold shadow-lg text-white hover:text-white focus:text-white
-              hover:bg-deep-purple-700 bg-deep-purple-400 border-deep-purple-700 mb-2"
+          className={classNameButton2}
         >
           <span>Crear Nuevo</span>
           <span className="icon is-small">
             <FontAwesomeIcon icon={solid("plus")} />
           </span>
-        </NavLink>
+        </NavLink>}
         <DataTables
           title="Listado de Oportunidades"
           columns={columns}

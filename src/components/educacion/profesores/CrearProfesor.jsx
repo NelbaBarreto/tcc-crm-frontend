@@ -1,31 +1,40 @@
-import React, { useState, useReducer } from "react";
+import React, { useState, useContext, useEffect } from "react";
+import AppContext from "../../../utils/AppContext";
 import Seccion from "../../formulario/Seccion";
 import MostrarMensaje from "../../formulario/MostrarMensaje";
 import CrearPersona from "../../personas/CrearPersona";
-import { Titulo1 } from "../../formulario/Titulo";
-import { Input, Dropdown } from "../../formulario/Componentes";
+import useToken from "../../../utils/useToken";
 import { Volver, Guardar } from "../../formulario/Acciones";
-import { reducer, handleDispatch } from "../../formulario/reducerFormularios.js";
-import { useNavigate } from "react-router-dom";
+import { Titulo1 } from "../../formulario/Titulo";
+import { Dropdown } from "../../formulario/Componentes";
 import { createProfesor } from "../../../api/profesores";
-
-const PROFESOR = "profesor";
+import { handleDispatch, handleStateCleared } from "../../formulario/reducerFormularios.js";
+import { useQuery } from "react-query";
+import { useNavigate } from "react-router-dom";
 
 
 const CrearProfesor = () => {
-  const [state, dispatch] = useReducer(reducer, {});
+  const {state : { profesor, persona, direcciones }, dispatch} = useContext(AppContext);
   const [action, setAction] = useState({});
   const navigate = useNavigate();
-  const [persona, setPersona] = useState({ empleado: { usuario: {} } });
-  
+  const currentUser = useToken().usuario;
+
+  useEffect(() => {
+    handleStateCleared(dispatch);
+  }, []);
 
   const crear = async e => {
     e.preventDefault();
     setAction({ saving: true, error: false, message: "" });
+    const auditoria = { usu_insercion: currentUser.nom_usuario, usu_modificacion: currentUser.nom_usuario };
+
     try {
-      await createProfesor(state.profesor);
-      setAction({ saving: false, error: false, message: "Profesor registrado exitosamente." });
-      setTimeout(() => navigate("/educacion/profesores"), 3000);
+      await createProfesor({ ...profesor, 
+        ...auditoria,
+        persona: { ...persona, direcciones, ...auditoria } 
+      });
+      setAction({ saving: false, error: false, message: "Profesor creado exitosamente." });
+      setTimeout(() => navigate("/educacion/profesores"), 2000);
     } catch (e) {
       setAction({ saving: false, error: true, message: e.message });
     };
@@ -37,9 +46,10 @@ const CrearProfesor = () => {
         <Titulo1>
           Nuevo Profesor
         </Titulo1>
-        {state.message ? <MostrarMensaje mensaje={state.message} error={state.error} /> : null}
+        {action.message ? <MostrarMensaje mensaje={action.message} error={action.error} /> : null}
         <form>
-          <CrearPersona persona={persona} setPersona={setPersona} />
+          <CrearPersona />
+          
           <Guardar saving={action.saving} guardar={crear} />
           <Volver navigate={navigate} />
         </form>

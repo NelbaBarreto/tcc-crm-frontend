@@ -28,6 +28,14 @@ const DatosCaso = ({ caso = {} }) => {
       </div>
       <div className="columns">
         <div className="column">
+          <TextView label="Lead" value={caso.lead?.persona.nombre} />
+        </div>
+        <div className="column">
+          <TextView label="Contacto" value={caso.contacto?.persona.nombre} />
+        </div>
+      </div>
+      <div className="columns">
+        <div className="column">
           <TextView label="Usuario Asignado" value={caso.usuario?.nom_usuario} />
         </div>
         <div className="column">
@@ -36,10 +44,10 @@ const DatosCaso = ({ caso = {} }) => {
       </div>
       <div className="columns">
         <div className="column">
-          <TextView label="Solución" value={caso.solucion} />
+          <TextView label="Descripción" value={caso.solucion} />
         </div>
         <div className="column">
-          <TextView label="Descripción" value={caso.descripcion} />
+          <TextView label="Solución" value={caso.solucion} />
         </div>
       </div>
     </Seccion>
