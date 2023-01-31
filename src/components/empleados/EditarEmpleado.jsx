@@ -48,6 +48,7 @@ const DatosUsuario = ({ usuario, dispatch }) => {
           <Input
             label="Nombre de Usuario*"
             name="nom_usuario"
+            disabled={true}
             value={usuario?.nom_usuario || ""}
             onChange={e => handleDispatch(dispatch, e.target.name, e?.target.value, USUARIO)}
           />
@@ -58,7 +59,7 @@ const DatosUsuario = ({ usuario, dispatch }) => {
 };
 
 const EditarCaso = () => {
-  const { state: { lead, persona, direcciones, usuario, select }, dispatch } = useContext(AppContext);
+  const { state: { empleado, persona, direcciones, usuario, select }, dispatch } = useContext(AppContext);
   const [action, setAction] = useState({});
   const [enabled, setEnabled] = useState(true);
   const { id } = useParams();
@@ -68,7 +69,7 @@ const EditarCaso = () => {
   const {
     data: currentEmpleado,
     isFetching,
-  } = useQuery(["lead", id], () => getEmpleado(id));
+  } = useQuery(["empleado", id], () => getEmpleado(id));
 
   useEffect(() => {
     handleStateCleared(dispatch);
@@ -78,11 +79,13 @@ const EditarCaso = () => {
     if (!isFetching && enabled) {
       setEnabled(false);
       handleDispatchEdit(dispatch, currentEmpleado, EMPLEADO);
+      handleDispatchEdit(dispatch, currentEmpleado.usuario, "usuario");
       handleDispatchEdit(dispatch, currentEmpleado.persona, "persona");
       handleDispatchEdit(dispatch, currentEmpleado.persona.telefonos, "telefonos");
       handleDispatchEdit(dispatch, currentEmpleado.persona.direcciones, "direcciones");
       handleDispatchEdit(dispatch, {
-        tip_documento: { label: currentEmpleado.persona?.tip_documento, value: currentEmpleado.persona?.tip_documento },
+        tip_documento: currentEmpleado.persona.tip_documento ?
+         { label: currentEmpleado.persona?.tip_documento, value: currentEmpleado.persona?.tip_documento } : "",
       }, "select");
     }
   }, [isFetching]);
@@ -94,11 +97,11 @@ const EditarCaso = () => {
     
     try {
       await editEmpleado(id, {
-        ...lead,
+        ...empleado,
         ...auditoria,
         persona: { ...persona, direcciones, ...auditoria }
       });
-      setAction({ saving: false, error: false, message: "Lead editado exitosamente." });
+      setAction({ saving: false, error: false, message: "Empleado editado exitosamente." });
       setTimeout(() => navigate("/admin/empleados"), 2000);
     } catch (e) {
       setAction({ saving: false, error: true, message: e.message });
@@ -109,13 +112,13 @@ const EditarCaso = () => {
     <div>
       <section className="section w-full m-auto">
         <Titulo1>
-          Nuevo Lead
+          Editar Empleado
         </Titulo1>
         {action.message ? <MostrarMensaje mensaje={action.message} error={action.error} /> : null}
         <form>
           <EditarPersona />
           <DatosEmpleado
-            lead={lead}
+            empleado={empleado}
             select={select}
             dispatch={dispatch}
           />

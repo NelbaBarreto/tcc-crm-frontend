@@ -113,7 +113,7 @@ const DatosLead = ({ dispatch, select = {} }) => {
   );
 };
 
-const EditarCaso = () => {
+const EditarEmpleado = () => {
   const { state: { lead, persona, direcciones, select }, dispatch } = useContext(AppContext);
   const [action, setAction] = useState({});
   const [enabled, setEnabled] = useState(true);
@@ -171,7 +171,7 @@ const EditarCaso = () => {
     <div>
       <section className="section w-full m-auto">
         <Titulo1>
-          Nuevo Lead
+          Editar Empleado
         </Titulo1>
         {action.message ? <MostrarMensaje mensaje={action.message} error={action.error} /> : null}
         <form>
@@ -192,4 +192,4 @@ const EditarCaso = () => {
   )
 };
 
-export default EditarCaso;
+export default EditarEmpleado;

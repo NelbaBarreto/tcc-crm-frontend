@@ -41,11 +41,11 @@ const Index = () => {
       }
     },
     {
-      name: "persona.email",
-      label: "Email",
+      name: "cargo",
+      label: "Cargo",
       options: {
         filter: true,
-        filterType: "textField",
+        filterType: "dropdown",
         sort: true,
       }
     },
