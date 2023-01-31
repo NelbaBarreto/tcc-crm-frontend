@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect, useContext, useState } from "react";
 import Modal from "react-modal";
-import { Checkbox } from "../../formulario/Componentes";
+import AppContext from "../../../utils/AppContext";
+import { Checkbox, Input } from "../../formulario/Componentes";
+import { handleDispatch, handleDispatchEdit } from "../../formulario/reducerFormularios";
 
 const customStyles = {
   content: {
@@ -13,7 +15,11 @@ const customStyles = {
   },
 };
 
+const CONVERTIR_LEAD = "convertirLead";
+
 const Alert = ({ manageModal, guardar }) => {
+  const { state: { oportunidad, convertirLead }, dispatch } = useContext(AppContext);
+  const [action, setAction] = useState({});
   const { modalIsOpen, setModalIsOpen } = manageModal;
 
   const confirmar = e => {
@@ -27,6 +33,13 @@ const Alert = ({ manageModal, guardar }) => {
     setModalIsOpen(false);
   }
 
+  useEffect(() => {
+    handleDispatchEdit(dispatch, {
+      oportunidad: true,
+      nombreOportunidad: "",
+    }, CONVERTIR_LEAD);
+  }, []);
+
   return (
     <Modal
       isOpen={modalIsOpen}
@@ -38,14 +51,25 @@ const Alert = ({ manageModal, guardar }) => {
         <div class="text-lg">
           <h5 className="title is-5 text-center">Convertir Lead</h5>
           <div className="my-3 bg-gray-300 h-[1px]"></div>
-          <Checkbox 
-            label="Crear Contacto"
+          Convertir este lead y crear los siguientes registros:<br/>
+          <Checkbox
+            label="Contacto"
             disabled={true}
             value={true}
           />
-          <Checkbox 
-            label="Crear Oportunidad"
+          <Checkbox
+            name="oportunidad"
+            label="Oportunidad"
+            value={convertirLead?.oportunidad || false}
+            onChange={e => handleDispatch(dispatch, e.target?.name, e.target?.checked, CONVERTIR_LEAD)}
           />
+          {convertirLead?.oportunidad ?
+            <Input
+              name="nombreOportunidad"
+              label="Nombre Nueva Oportunidad*"
+              value={convertirLead?.nombreOportunidad || ""}
+              onChange={e => handleDispatch(dispatch, e.target?.name, e.target?.value, CONVERTIR_LEAD)}
+            /> : null}
         </div>
         <div className="field is-grouped mt-3">
           <p className="control">
