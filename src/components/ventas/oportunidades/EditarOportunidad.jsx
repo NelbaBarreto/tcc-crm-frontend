@@ -73,7 +73,6 @@ const DatosOportunidad = ({ oportunidad, dispatch, select = {}, disabled }) => {
             label="Contacto*"
             value={select.contacto}
             options={opcionesContactos}
-            disabled={disabled}
             onChange={e => {
               handleDispatch(dispatch, "contacto_id", e?.value, OPORTUNIDAD);
               handleDispatch(dispatch, "contacto", e, "select")
@@ -111,7 +110,6 @@ const DatosOportunidad = ({ oportunidad, dispatch, select = {}, disabled }) => {
             name="valor"
             label="Valor"
             type="number"
-            disabled={disabled}
             value={oportunidad?.valor || ""}
             onChange={e => handleDispatch(dispatch, e.target?.name, e.target?.value, OPORTUNIDAD)}
           />
@@ -123,7 +121,6 @@ const DatosOportunidad = ({ oportunidad, dispatch, select = {}, disabled }) => {
             label="Campaña"
             value={select.campana}
             options={opcionesCampanas}
-            disabled={disabled}
             onChange={e => {
               handleDispatch(dispatch, "campana_id", e?.value, OPORTUNIDAD);
               handleDispatch(dispatch, "campana", e, "select")
@@ -135,7 +132,6 @@ const DatosOportunidad = ({ oportunidad, dispatch, select = {}, disabled }) => {
             label="Usuario Asignado"
             value={select.usu_asignado}
             options={opcionesUsuarios}
-            disabled={disabled}
             onChange={e => {
               handleDispatch(dispatch, "usu_asignado_id", e?.value, OPORTUNIDAD);
               handleDispatch(dispatch, "usu_asignado", e, "select")
@@ -149,7 +145,6 @@ const DatosOportunidad = ({ oportunidad, dispatch, select = {}, disabled }) => {
             label="Descripción"
             name="descripcion"
             value={oportunidad?.descripcion || ""}
-            disabled={disabled}
             onChange={e => handleDispatch(dispatch, e.target?.name, e.target?.value, OPORTUNIDAD)}
           />
         </div>

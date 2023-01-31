@@ -9,7 +9,7 @@ registerLocale("es", es);
 
 export const Input = ({
   label, name, value = "", type = "text", placeholder = "", className = "input shadow-lg",
-  disabled, readOnly, onChange
+  disabled, onChange
 }) => {
   return (
     <div className="field">
@@ -20,7 +20,6 @@ export const Input = ({
           className={className}
           placeholder={placeholder}
           type={type}
-          readOnly={readOnly}
           disabled={disabled}
           value={value}
           onChange={onChange}

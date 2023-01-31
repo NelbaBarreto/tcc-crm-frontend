@@ -46,29 +46,6 @@ const Index = () => {
       }
     }, 
     {
-      name: "persona.email",
-      label: "Email",
-      options: {
-        filter: true,
-        filterType: "textField",
-        sort: true,
-        customBodyRender: (value) => {
-          if (value) {
-            return (
-              <a 
-                className="text-blue-900" 
-                href={`mailto:${value}`}
-              >
-                {value}
-              </a>
-            );
-          } else {
-            return null;
-          }
-        }
-      }
-    },
-    {
       name: "origen",
       label: "Origen",
       options: {
