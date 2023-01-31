@@ -144,7 +144,8 @@ const EditarEmpleado = () => {
           { label: currentLead.campana?.nombre, value: currentLead.campana?.campana_id } : "",
         usu_asignado: { label: currentLead.usu_asignado?.nom_usuario, value: currentLead.usu_asignado?.usuario_id },
         curso: { label: currentLead.curso?.nombre, value: currentLead.curso?.curso_id },
-        tip_documento: { label: currentLead.persona?.tip_documento, value: currentLead.persona?.tip_documento },
+        tip_documento: currentLead.persona.tip_documento ? 
+          { label: currentLead.persona?.tip_documento, value: currentLead.persona?.tip_documento } : "",
       }, "select");
     }
   }, [isFetching]);

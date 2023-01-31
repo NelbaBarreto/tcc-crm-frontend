@@ -6,6 +6,7 @@ import { useQuery } from "react-query";
 import { useParams, useNavigate } from "react-router-dom";
 import { getLead } from "../../../api/leads";
 import { CircularProgress } from "@mui/material";
+import { DateFormat } from "../../formulario/Componentes";
 import DatosPersona from "../../personas/DatosPersona";
 import ListarTareas from "../../actividades/tarea/Index";
 import ListarLlamadas from "../../actividades/llamada/Index";
@@ -25,6 +26,22 @@ const DatosLead = ({ lead }) => {
           </div>
           <div className="column">
             <TextView label="Usuario Asignado" value={lead.usu_asignado?.nom_usuario} />
+          </div>
+        </div>
+        <div className="columns">
+          <div className="column">
+            <DateFormat label="Fecha de Creación" value={lead.fec_insercion} />
+          </div>
+          <div className="column">
+            <TextView label="Usuario Creación" value={lead.usu_insercion} />
+          </div>
+        </div>
+        <div className="columns">
+          <div className="column">
+            <DateFormat label="Fecha de Modificación" value={lead.fec_insercion} />
+          </div>
+          <div className="column">
+            <TextView label="Usuario Modificación" value={lead.usu_modificacion} />
           </div>
         </div>
       </Seccion>
@@ -70,7 +87,7 @@ const Index = () => {
     },
     {
       name: "Tareas",
-      content: <ListarTareas lead_id={id}/>
+      content: <ListarTareas lead_id={id} />
     },
   ];
 
