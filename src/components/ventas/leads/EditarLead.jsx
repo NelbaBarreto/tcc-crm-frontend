@@ -153,6 +153,7 @@ const EditarCaso = () => {
     e.preventDefault();
     setAction({ saving: true, error: false, message: "" });
     const auditoria = { fec_modificacion: new Date(), usu_modificacion: currentUser.nom_usuario };
+    
     try {
       await editLead(id, {
         ...lead,
