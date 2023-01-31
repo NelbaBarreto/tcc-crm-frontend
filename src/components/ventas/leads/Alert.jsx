@@ -76,6 +76,7 @@ const Alert = ({ manageModal, guardar }) => {
             <button
               className="button is-success is-outlined"
               onClick={confirmar}
+              disabled={convertirLead?.oportunidad && !convertirLead.nombreOportunidad}
             >
               Continuar
             </button>
