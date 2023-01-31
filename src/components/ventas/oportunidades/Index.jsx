@@ -43,15 +43,6 @@ const Index = ({ contacto_id }) => {
       }
     },
     {
-      name: "valor",
-      label: "Valor",
-      options: {
-        filter: true,
-        filterType: "textField",
-        sort: true,
-      }
-    },
-    {
       name: "estado",
       label: "Estado",
       options: {

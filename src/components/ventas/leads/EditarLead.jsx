@@ -4,9 +4,11 @@ import Seccion from "../../formulario/Seccion";
 import MostrarMensaje from "../../formulario/MostrarMensaje";
 import EditarPersona from "../../personas/EditarPersona";
 import useToken from "../../../utils/useToken";
+import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Volver, Guardar } from "../../formulario/Acciones";
 import { Titulo1 } from "../../formulario/Titulo";
-import { Dropdown } from "../../formulario/Componentes";
+import { classNameButton2, Dropdown } from "../../formulario/Componentes";
 import { getUsuarios } from "../../../api/usuarios";
 import { getCursos } from "../../../api/cursos";
 import { getCampanas } from "../../../api/campanas";
@@ -113,7 +115,7 @@ const DatosLead = ({ dispatch, select = {} }) => {
   );
 };
 
-const EditarEmpleado = () => {
+const EditarLead = () => {
   const { state: { lead, persona, direcciones, select }, dispatch } = useContext(AppContext);
   const [action, setAction] = useState({});
   const [enabled, setEnabled] = useState(true);
@@ -140,11 +142,11 @@ const EditarEmpleado = () => {
       handleDispatchEdit(dispatch, {
         estado: { label: currentLead.estado, value: currentLead.estado },
         origen: { label: currentLead.origen, value: currentLead.origen },
-        campana: currentLead.campana ? 
+        campana: currentLead.campana ?
           { label: currentLead.campana?.nombre, value: currentLead.campana?.campana_id } : "",
         usu_asignado: { label: currentLead.usu_asignado?.nom_usuario, value: currentLead.usu_asignado?.usuario_id },
         curso: { label: currentLead.curso?.nombre, value: currentLead.curso?.curso_id },
-        tip_documento: currentLead.persona.tip_documento ? 
+        tip_documento: currentLead.persona.tip_documento ?
           { label: currentLead.persona?.tip_documento, value: currentLead.persona?.tip_documento } : "",
       }, "select");
     }
@@ -154,7 +156,7 @@ const EditarEmpleado = () => {
     e.preventDefault();
     setAction({ saving: true, error: false, message: "" });
     const auditoria = { fec_modificacion: new Date(), usu_modificacion: currentUser.nom_usuario };
-    
+
     try {
       await editLead(id, {
         ...lead,
@@ -172,10 +174,16 @@ const EditarEmpleado = () => {
     <div>
       <section className="section w-full m-auto">
         <Titulo1>
-          Editar Empleado
+          Editar Lead
         </Titulo1>
         {action.message ? <MostrarMensaje mensaje={action.message} error={action.error} /> : null}
         <form>
+          <button className={classNameButton2}>
+            <span>Convertir Lead</span>
+            <span className="icon is-small">
+              <FontAwesomeIcon icon={solid("arrows-rotate")} />
+            </span>
+          </button>
           <EditarPersona />
           <DatosLead
             lead={lead}
@@ -193,4 +201,4 @@ const EditarEmpleado = () => {
   )
 };
 
-export default EditarEmpleado;
+export default EditarLead;
