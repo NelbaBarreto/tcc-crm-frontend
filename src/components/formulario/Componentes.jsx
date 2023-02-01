@@ -161,6 +161,31 @@ export const Image = ({ label, value = "", className = "label" }) => {
   );
 }
 
+
+export const CheckboxGroup = ({ label, name, value = "", className = "checkbox", options, onChange }) => {
+  return (
+    <div className="field">
+      <label className="label">{label}</label>
+      <div className="control columns-2">
+        {options.map((option, idx) => {
+          return (
+            <label key={idx} className={className}>
+              <input
+                type="checkbox"
+                className="mr-1"
+                name={name}
+                checked={value}
+                onChange={onChange}                
+              />
+              {option.label}
+            </label>
+          )
+        })}
+      </div>
+    </div>
+  );
+}
+
 export const classNameButton1 =
   "button font-semibold shadow-lg text-deep-purple-800 hover:text-white focus:text-white hover:bg-deep-purple-700 bg-deep-purple-100 disabled:bg-deep-purple-700";
 

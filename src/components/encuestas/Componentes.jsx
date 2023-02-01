@@ -19,9 +19,9 @@ export const Card = ({ titulo, children }) => {
 
 export const Button = ({ label, Icon, index, valor, activo = false, onClick }) => {
   const className = !activo ? "flex flex-col p-3 justify-between m-1 bg-gray-50 rounded-md hover:border hover:border-gray-300 hover:bg-gray-200 text-center" :
-  "flex flex-col p-3 justify-between m-1 bg-gray-50 rounded-md hover:border border hover:border-gray-300 border-gray-300 hover:bg-gray-200 bg-gray-200 text-center";
+    "flex flex-col p-3 justify-between m-1 bg-gray-50 rounded-md hover:border border hover:border-gray-300 border-gray-300 hover:bg-gray-200 bg-gray-200 text-center";
   return (
-    <button 
+    <button
       className={className}
       onClick={() => onClick(index, valor)}
     >
@@ -51,3 +51,5 @@ export const TextArea = ({ label, name, value = "", type = "text", placeholder =
     </div>
   );
 }
+
+

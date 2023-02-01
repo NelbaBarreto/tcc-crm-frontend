@@ -3,7 +3,8 @@ import {
   faBullhorn, faGauge, faHeadphonesSimple, faHouse, faListCheck, faMoneyBillTrendUp, faUser,
   faFolder, faPhone, faCalendar, faClipboardCheck, faBullseye, faUsers, faAddressCard, faEarth,
   faCity, faPersonChalkboard, faListUl, faFile, faPersonCircleCheck, faPersonCirclePlus, faBuilding, faHandshakeAlt,
-  faBriefcase, faBusinessTime, faGear, faGraduationCap, faSchool, faUserGraduate, faChalkboardUser, faRightFromBracket
+  faBriefcase, faBusinessTime, faGear, faGraduationCap, faSchool, faUserGraduate, faChalkboardUser, faRightFromBracket,
+  faArrowsSpin
 } from "@fortawesome/free-solid-svg-icons";
 
 const myIcons = {
@@ -38,6 +39,7 @@ const myIcons = {
   "gear": faGear,
   "right-from-bracket": faRightFromBracket,
   "user": faUser,
+  "arrows-spin": faArrowsSpin
 }
 
 const Icon = ({ iconName }) => {
@@ -140,16 +142,21 @@ export const sideMenu = [
         Icon: () => <Icon iconName="user-graduate" />,
         to: "cursos",
       },
-      {
-        label: "Profesores",
-        Icon: () => <Icon iconName="chalkboard-user" />,
-        to: "profesores",
-      },
-      {
-        label: "Sedes",
-        Icon: () => <Icon iconName="school-flag" />,
-        to: "sedes",
-      },
+      // {
+      //   label: "Ciclos",
+      //   Icon: () => <Icon iconName="arrows-spin" />,
+      //   to: "ciclos",
+      // },
+      // {
+      //   label: "Profesores",
+      //   Icon: () => <Icon iconName="chalkboard-user" />,
+      //   to: "profesores",
+      // },
+      // {
+      //   label: "Sedes",
+      //   Icon: () => <Icon iconName="school-flag" />,
+      //   to: "sedes",
+      // },
     ],
   },
   // {

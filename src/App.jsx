@@ -79,6 +79,7 @@ import EditarCurso from "./components/educacion/cursos/EditarCurso";
 
 // Ciclos
 import CrearCiclo from "./components/educacion/ciclos/CrearCiclo";
+import ListarCiclos from "./components/educacion/ciclos/Index";
 
 // Profesores
 import CrearProfesor from "./components/educacion/profesores/CrearProfesor";
@@ -533,10 +534,19 @@ const MainApp = () => {
 
           {/* Ciclos */}
           <Route
-            path="/educacion/cursos/:curso_id/ciclos/nuevo"
+            path="/educacion/ciclos/nuevo"
             element={
               <ProtectedRoute usuario={usuario}>
                 <CrearCiclo />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            exact
+            path="/educacion/ciclos"
+            element={
+              <ProtectedRoute usuario={usuario}>
+                <ListarCiclos />
               </ProtectedRoute>
             }
           />
