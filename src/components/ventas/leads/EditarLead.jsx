@@ -119,7 +119,7 @@ const DatosLead = ({ dispatch, select = {}, currentLead = {} }) => {
 };
 
 const EditarLead = () => {
-  const { state: { lead, persona, direcciones, select }, dispatch } = useContext(AppContext);
+  const { state: { lead, persona, direcciones, telefonos, select }, dispatch } = useContext(AppContext);
   const [action, setAction] = useState({});
   const [enabled, setEnabled] = useState(true);
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -175,7 +175,7 @@ const EditarLead = () => {
       await editLead(id, {
         ...lead,
         ...auditoria,
-        persona: { ...persona, direcciones, ...auditoria }
+        persona: { ...persona, direcciones, telefonos, ...auditoria }
       });
       setAction({ saving: false, error: false, message: "Lead editado exitosamente." });
       setTimeout(() => navigate("/ventas/leads"), 2000);
