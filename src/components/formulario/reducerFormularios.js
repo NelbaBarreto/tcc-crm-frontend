@@ -9,9 +9,9 @@ export const reducer = (state, action) => {
     case "RECORD_LOADED":
       return { ...state,  [object]: value };      
     case "DIRECCION_ADDED":
-      return { ...state, direcciones: [...state.direcciones || [], state.direccion], direccion: {} };
+      return { ...state, direcciones: [...state.direcciones || [], state.direccion], direccion: {}, select: { ...state.select, tip_direccion: ""} };
     case "TELEFONO_ADDED":
-      return { ...state, telefonos: [...state.telefonos || [], state.telefono], telefono: {} };
+      return { ...state, telefonos: [...state.telefonos || [], state.telefono], telefono: {}, select: { ...state.select, tip_telefono: ""} };
     case "STATE_CLEARED":
       return { select: {} };
     case "DIRECCION_DELETED":
