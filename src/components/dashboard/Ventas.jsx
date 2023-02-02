@@ -1,15 +1,18 @@
 import React from "react";
 import BarChart from "./assets/js/BarChart";
+import DoughnutChart from "./assets/js/Doughnut";
 import { useState, useEffect } from "react";
 import { useQuery } from "react-query";
 import {
   getLeadsPorEstado,
-  getLeadsPorOrigen
+  getLeadsPorOrigen,
+  getOportunidadesGanadasPorCurso
 } from "../../api/dashboard";
 
 const MainDash = () => {
   const [leadEstadoData, setLeadEstadoData] = useState({ datasets: [] });
   const [leadOrigenData, setLeadOrigenData] = useState({ datasets: [] });
+  const [oportunidadGanadaData, setOportunidadGanadaData] = useState({ datasets: [] });
 
   const {
     data: leadsPorEstado,
@@ -20,6 +23,11 @@ const MainDash = () => {
     data: leadsPorOrigen,
     leadsOFetching
   } = useQuery(["leadsPorOrigen"], getLeadsPorOrigen);
+
+  const {
+    data: oportunidadPorCurso,
+    oportunidadesCFetching
+  } = useQuery(["oportunidadPorCurso"], getOportunidadesGanadasPorCurso);
 
 
   useEffect(() => {
@@ -34,6 +42,19 @@ const MainDash = () => {
       });
     }
   }, [leadsPorEstado, leadsEFetching]);
+
+  useEffect(() => {
+    if (!oportunidadesCFetching) {
+      setOportunidadGanadaData({
+        labels: oportunidadPorCurso?.map((data) => data?.curso),
+        datasets: [{
+          label: "Cursos",
+          data: oportunidadPorCurso?.map((data) => data?.total),
+          backgroundColor: ["#16bfdb", "#5969ff", "#f0346e", "#209CEE"]
+        },],
+      });
+    }
+  }, [oportunidadPorCurso, oportunidadesCFetching]);
 
   useEffect(() => {
     if (!leadsOFetching && leadsPorOrigen?.length) {
@@ -72,6 +93,12 @@ const MainDash = () => {
         <BarChart
           chartData={leadEstadoData}
           title="Leads Por Estado"
+        />
+      </div>
+      <div className="rounded-md shadow-md bg-white p-2">
+        <DoughnutChart
+          chartData={oportunidadGanadaData}
+          title="Oportunidades Ganadas Por Curso"
         />
       </div>
     </div>

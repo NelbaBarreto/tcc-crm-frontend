@@ -56,3 +56,8 @@ export const getCsat = async () => {
   const { data: response } = await axios.get(`${API}/dashboard/csat`);
   return response.data;
 };
+
+export const getOportunidadesGanadasPorCurso = async () => {
+  const { data: response } = await axios.get(`${API}/dashboard/oportunidadesGanadasPorCurso`);
+  return response.data;
+};
