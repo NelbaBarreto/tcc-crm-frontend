@@ -6,7 +6,7 @@ import useToken from "../../../utils/useToken";
 import MostrarMensaje from "../../formulario/MostrarMensaje";
 import { createContacto } from "../../../api/contactos";
 import { createOportunidad } from "../../../api/oportunidades";
-import { editLead } from "../../../api/leads";
+import { createLead, editLead } from "../../../api/leads";
 import { Checkbox, Input } from "../../formulario/Componentes";
 import { handleDispatch, handleDispatchEdit } from "../../formulario/reducerFormularios";
 import { useNavigate } from "react-router-dom";
@@ -24,17 +24,19 @@ const customStyles = {
 
 const CONVERTIR_LEAD = "leadConvertido";
 
-const Alert = ({ manageModal }) => {
-  const { state: { leadConvertido, lead, persona, direcciones, telefonos }, dispatch } = useContext(AppContext);
+const Alert = ({ manageModal, accion = "editar" }) => {
+  const { state: { leadConvertido, lead, persona, direcciones, telefonos }, dispatch, state } = useContext(AppContext);
   const { modalIsOpen, setModalIsOpen } = manageModal;
   const [action, setAction] = useState({});
   const navigate = useNavigate();
   const currentUser = useToken().usuario;
+  let nuevoLead;
 
   const crearContacto = async () => {
     const auditoria = { usu_insercion: currentUser.nom_usuario, usu_modificacion: currentUser.nom_usuario };
+
     const nuevoContacto = {
-      persona_id: lead.persona_id,
+      persona_id: lead.persona_id || nuevoLead.persona_id,
       origen: lead.origen,
       ...auditoria
     };
@@ -78,6 +80,20 @@ const Alert = ({ manageModal }) => {
     };
   };
 
+  const crearLead = async () => {
+    const auditoria = { usu_insercion: currentUser.nom_usuario, usu_modificacion: currentUser.nom_usuario };
+
+    try {
+      nuevoLead = await createLead({
+        ...lead,
+        ...auditoria,
+        persona: { ...persona, direcciones, telefonos, ...auditoria }
+      });
+      handleDispatch(dispatch, "persona_id", nuevoLead.persona_id, "lead")
+    } catch (e) {
+      setAction({ saving: false, error: true, message: e.message });
+    };
+  };
 
   const confirmar = async e => {
     e.preventDefault();
@@ -85,15 +101,22 @@ const Alert = ({ manageModal }) => {
     let nuevoContacto;
     let nuevaOportunidad;
     setAction({ ...action, saving: true });
-    
+
+    if (accion === "crear") {
+      await crearLead();
+    };
+
     nuevoContacto = await crearContacto();
     url = `/ventas/contactos/${nuevoContacto.contacto_id}`;
     if (leadConvertido?.oportunidad) {
       nuevaOportunidad = await crearOportunidad(nuevoContacto);
       url = `/ventas/oportunidades/${nuevaOportunidad.oportunidad_id}`;
     }
-    await editarLead();
-    
+
+    if (accion === "editar") {
+      await editarLead();
+    };
+
     setAction({ saving: false, error: false, message: "Lead convertido exitosamente." });
     setTimeout(() => navigate(url), 2000);
   }
@@ -122,7 +145,7 @@ const Alert = ({ manageModal }) => {
           <h5 className="title is-5 text-center">Convertir Lead</h5>
           {action.message ? <MostrarMensaje mensaje={action.message} error={action.error} /> : null}
           <div className="my-3 bg-gray-300 h-[1px]"></div>
-          Convertir este lead y crear los siguientes registros:<br/>
+          Convertir este lead y crear los siguientes registros:<br />
           <Checkbox
             label="Contacto"
             disabled={true}
@@ -148,7 +171,7 @@ const Alert = ({ manageModal }) => {
               onClick={confirmar}
               disabled={(leadConvertido?.oportunidad && !leadConvertido.nombreOportunidad)}
               className={classNames("button is-success is-outlined",
-              { "is-loading": action.saving })}
+                { "is-loading": action.saving })}
             >
               Continuar
             </button>

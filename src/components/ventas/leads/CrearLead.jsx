@@ -15,6 +15,7 @@ import { createLead, getEstados, getOrigenes } from "../../../api/leads";
 import { handleDispatch, handleStateCleared } from "../../formulario/reducerFormularios.js";
 import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
+import Alert from "./Alert";
 
 const LEAD = "lead";
 
@@ -117,6 +118,7 @@ const DatosLead = ({ select, dispatch }) => {
 const CrearLead = () => {
   const { state: { lead, persona, direcciones, telefonos, select }, dispatch } = useContext(AppContext);
   const [action, setAction] = useState({});
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   const navigate = useNavigate();
   const currentUser = useToken().usuario;
 
@@ -124,8 +126,7 @@ const CrearLead = () => {
     handleStateCleared(dispatch);
   }, []);
 
-  const crear = async e => {
-    e.preventDefault();
+  const crear = async () => {
     setAction({ saving: true, error: false, message: "" });
     const auditoria = { usu_insercion: currentUser.nom_usuario, usu_modificacion: currentUser.nom_usuario };
 
@@ -142,6 +143,17 @@ const CrearLead = () => {
     };
   };
 
+  const confirmarConversionLead = e => {
+    e.preventDefault();
+
+    if (lead.estado === "Convertido") {
+      setModalIsOpen(true);
+    } else {
+      crear();
+    }
+  }
+
+
   return (
     <div>
       <section className="section w-full m-auto">
@@ -150,6 +162,10 @@ const CrearLead = () => {
         </Titulo1>
         {action.message ? <MostrarMensaje mensaje={action.message} error={action.error} /> : null}
         <form>
+          <Alert
+            accion="crear"
+            manageModal={{ modalIsOpen, setModalIsOpen }}
+          />
           <CrearPersona />
           <DatosLead
             lead={lead}
@@ -158,7 +174,7 @@ const CrearLead = () => {
           />
           <Guardar 
             saving={action.saving} 
-            guardar={crear}
+            guardar={confirmarConversionLead}
           />
           <Volver 
             navigate={navigate}
