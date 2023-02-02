@@ -40,7 +40,7 @@ const DatosOrganizacion = ({ dispatch, organizacion }) => {
 };
 
 const EditarCaso = () => {
-  const { state: { organizacion, persona, direcciones }, dispatch } = useContext(AppContext);
+  const { state: { organizacion, persona, direcciones, telefonos }, dispatch } = useContext(AppContext);
   const [action, setAction] = useState({});
   const [enabled, setEnabled] = useState(true);
   const { id } = useParams();
@@ -77,7 +77,7 @@ const EditarCaso = () => {
       await editOrganizacion(id, {
         ...organizacion,
         ...auditoria,
-        persona: { ...persona, direcciones, ...auditoria }
+        persona: { ...persona, direcciones, telefonos, ...auditoria }
       });
       setAction({ saving: false, error: false, message: "Organización editada exitosamente." });
       setTimeout(() => navigate("/ventas/organizaciones"), 2000);

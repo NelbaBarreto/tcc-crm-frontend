@@ -59,7 +59,7 @@ const DatosUsuario = ({ usuario, dispatch }) => {
 };
 
 const EditarCaso = () => {
-  const { state: { empleado, persona, direcciones, usuario, select }, dispatch } = useContext(AppContext);
+  const { state: { empleado, persona, direcciones, telefonos, usuario, select }, dispatch } = useContext(AppContext);
   const [action, setAction] = useState({});
   const [enabled, setEnabled] = useState(true);
   const { id } = useParams();
@@ -99,7 +99,7 @@ const EditarCaso = () => {
       await editEmpleado(id, {
         ...empleado,
         ...auditoria,
-        persona: { ...persona, direcciones, ...auditoria }
+        persona: { ...persona, direcciones, telefonos, ...auditoria }
       });
       setAction({ saving: false, error: false, message: "Empleado editado exitosamente." });
       setTimeout(() => navigate("/admin/empleados"), 2000);

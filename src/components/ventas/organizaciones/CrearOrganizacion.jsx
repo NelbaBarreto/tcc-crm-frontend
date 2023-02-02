@@ -39,7 +39,7 @@ const DatosOrganizacion = ({ organizacion, dispatch }) => {
 };
 
 const CrearLead = () => {
-  const { state: { organizacion, persona, direcciones }, dispatch } = useContext(AppContext);
+  const { state: { organizacion, persona, direcciones, telefonos }, dispatch } = useContext(AppContext);
   const [action, setAction] = useState({});
   const navigate = useNavigate();
   const currentUser = useToken().usuario;
@@ -57,7 +57,7 @@ const CrearLead = () => {
       await createOrganizacion({
         ...organizacion,
         ...auditoria,
-        persona: { ...persona, direcciones, ...auditoria }
+        persona: { ...persona, direcciones, telefonos, ...auditoria }
       });
       setAction({ saving: false, error: false, message: "Organización creada exitosamente." });
       setTimeout(() => navigate("/ventas/organizaciones"), 2000);

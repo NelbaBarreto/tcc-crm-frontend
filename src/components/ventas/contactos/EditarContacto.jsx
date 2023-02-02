@@ -59,7 +59,7 @@ const DatosContacto = ({ dispatch, select = {} }) => {
 };
 
 const EditarCaso = () => {
-  const { state: { contacto, persona, direcciones, select }, dispatch } = useContext(AppContext);
+  const { state: { contacto, persona, direcciones, telefonos, select }, dispatch } = useContext(AppContext);
   const [action, setAction] = useState({});
   const [enabled, setEnabled] = useState(true);
   const { id } = useParams();
@@ -99,7 +99,7 @@ const EditarCaso = () => {
       await editContacto(id, {
         ...contacto,
         ...auditoria,
-        persona: { ...persona, direcciones, ...auditoria }
+        persona: { ...persona, direcciones, ...telefonos, ...auditoria }
       });
       setAction({ saving: false, error: false, message: "Contacto creado exitosamente." });
       setTimeout(() => navigate("/ventas/contactos"), 2000);
