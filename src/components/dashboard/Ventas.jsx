@@ -42,7 +42,7 @@ const MainDash = () => {
           labels: leadsPorOrigen[0]?.map((data) => data.origen),
           datasets: [
             {
-              label: "Leads",
+              label: "Leads No Convertidos",
               data: leadsPorOrigen[0]?.map((data) => data.total),
               backgroundColor: ["#00bfc4"]
             },
@@ -65,7 +65,7 @@ const MainDash = () => {
         <BarChart
           chartData={leadOrigenData}
           stacked={true}
-          title="Leads y Leads Convertidos Por Origen"
+          title="Leads Convertidos vs No Convertidos Por Origen"
         />
       </div>
       <div className="rounded-md shadow-md bg-white p-2">
