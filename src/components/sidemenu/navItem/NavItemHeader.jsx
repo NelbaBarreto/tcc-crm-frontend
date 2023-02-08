@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
+import { classNameNavItem } from "../../formulario/Componentes";
 import classNames from "classnames";
 
 const resolveLinkPath = (childTo, parentTo) => `${parentTo}/${childTo}`;
@@ -11,8 +12,8 @@ const NavItemHeader = (props) => {
   const { label, Icon, to: headerToPath, children } = item;
   const location = useLocation();
 
-  const className = "p-2.5 mt-3 flex items-center rounded-md px-5 duration-300 cursor-pointer bg-purple-50 hover:bg-purple-200  text-deep-purple-900 hover:text-deep-purple-900";
-  const activeClassName = "p-2.5 mt-3 flex items-center rounded-md px-5 duration-300 cursor-pointer hover:bg-purple-200 bg-purple-200 text-deep-purple-900 hover:text-deep-purple-900";
+  const className = classNameNavItem;
+  const activeClassName = "p-2.5 mt-3 flex items-center rounded-md px-5 duration-300 cursor-pointer hover:bg-purple-200 bg-purple-200 text-deep-purple-500 font-semibold hover:text-deep-purple-500";
 
   const [expanded, setExpand] = useState(
     location.pathname.includes(headerToPath)
@@ -26,12 +27,12 @@ const NavItemHeader = (props) => {
   return (
     <>
       <div
-        className="p-2.5 mt-3 flex items-center rounded-md px-5 duration-300 cursor-pointer bg-white hover:bg-purple-200  text-deep-purple-900 hover:text-deep-purple-900"
+        className={classNameNavItem + " font-semibold"}
         onClick={onExpandChange}
       >
         <Icon />
         <div className="flex justify-between w-full items-center">
-          <span className="text-[15px] ml-4 font-bold">{label}</span>
+          <span className="text-[15px] ml-4">{label}</span>
           <span className="icon">
             <FontAwesomeIcon
               className={classNames("text-base", { "rotate-180": expanded })}
@@ -41,7 +42,7 @@ const NavItemHeader = (props) => {
         </div>
       </div>
       {expanded && (
-        <div className="text-left text-sm mt-2 w-4/5 mx-auto font-bold bg-purple-50 rounded-md">
+        <div className="text-left text-sm mt-2 w-4/5 mx-auto bg-purple-50 rounded-md">
           {children.map((item, index) => {
             const key = `${item.label}-${index}`;
 

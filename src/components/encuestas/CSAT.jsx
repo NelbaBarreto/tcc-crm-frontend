@@ -25,7 +25,7 @@ const Icon = ({ valor }) => {
   if (valor === 1) {
     return <FontAwesomeIcon className="text-red-400 text-4xl" icon={myIcons["face-angry"]} />
   } else if (valor === 2) {
-    return <FontAwesomeIcon className="text-orange-400 text-4xl" icon={myIcons["face-angry"]} />
+    return <FontAwesomeIcon className="text-orange-400 text-4xl" icon={myIcons["face-frown"]} />
   } else if (valor === 3) {
     return <FontAwesomeIcon className="text-yellow-400 text-4xl" icon={myIcons["face-meh"]} />
   } else if (valor === 4) {

@@ -1,6 +1,7 @@
 import React from "react";
 import NavItem from "./navItem/NavItem.jsx";
 import useToken from "../../utils/useToken";
+import { classNameNavItem } from "../formulario/Componentes.jsx";
 import { useNavigate } from "react-router-dom";
 import { sideMenu, logout } from "./menu.config.js";
 
@@ -35,11 +36,11 @@ const Sidebar = () => {
       })}
       <div className="my-2 bg-gray-300 h-[1px]"></div>
       <div
-        className="p-2.5 mt-3 flex items-center rounded-md px-5 duration-300 cursor-pointer bg-white hover:bg-purple-200  text-deep-purple-900 hover:text-deep-purple-900"
+        className={`${classNameNavItem} font-semibold`}
         onClick={() => cerrarSesion()}
       >
         <logout.Icon />
-        <span className="text-[15px] ml-4 font-bold">{logout.label}</span>
+        <span className="text-[15px] ml-4">{logout.label}</span>
       </div>
     </div>
   );

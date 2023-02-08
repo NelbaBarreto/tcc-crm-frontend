@@ -191,3 +191,5 @@ export const classNameButton1 =
 
 export const classNameButton2 =
   "button font-semibold shadow-lg text-white hover:text-white focus:text-white hover:bg-deep-purple-700 bg-deep-purple-400 border-deep-purple-700 mb-2 disabled:bg-deep-purple-400";
+
+export const classNameNavItem = "p-2.5 mt-3 flex items-center rounded-md px-5 duration-300 cursor-pointer bg-white hover:bg-purple-200 text-gray-900 hover:text-gray-900";
