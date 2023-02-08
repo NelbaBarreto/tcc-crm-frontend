@@ -4,9 +4,9 @@ import { Titulo1 } from "./formulario/Titulo";
 const Tab = ({ tab, activeTab, changeActiveTab }) => {
 
   return (
-    <li className={tab.name === activeTab ? "is-active" : ""} onClick={() => changeActiveTab(tab.name)}>
+    <li className={tab.name === activeTab ? "bg-purple-200 rounded-tl-md rounded-tr-md" : ""} onClick={() => changeActiveTab(tab.name)}>
       <a>
-        <span>{tab.name}</span>
+        <span className="text-deep-purple-500 font-semibold">{tab.name}</span>
       </a>
     </li>
   );

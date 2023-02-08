@@ -11,6 +11,6 @@
 
 .main {
   grid-area: 1 / 2 / 4 / 3;
-  background-color: #EDE7F6;
   min-height:max-content;
+  background-color: rgb(243 244 246);
 }
