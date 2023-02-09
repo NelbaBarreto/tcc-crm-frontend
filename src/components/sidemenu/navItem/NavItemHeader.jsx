@@ -42,7 +42,7 @@ const NavItemHeader = (props) => {
         </div>
       </div>
       {expanded && (
-        <div className="text-left text-sm mt-2 w-4/5 mx-auto bg-purple-50 rounded-md">
+        <div className="text-left text-sm mt-2 w-4/5 mx-auto rounded-md">
           {children.map((item, index) => {
             const key = `${item.label}-${index}`;
 
