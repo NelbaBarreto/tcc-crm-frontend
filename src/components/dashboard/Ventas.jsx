@@ -9,7 +9,7 @@ import {
   getOportunidadesGanadasPorCurso
 } from "../../api/dashboard";
 
-const MainDash = () => {
+const Ventas = () => {
   const [leadEstadoData, setLeadEstadoData] = useState({ datasets: [] });
   const [leadOrigenData, setLeadOrigenData] = useState({ datasets: [] });
   const [oportunidadGanadaData, setOportunidadGanadaData] = useState({ datasets: [] });
@@ -83,20 +83,26 @@ const MainDash = () => {
       className="grid grid-cols-2 gap-1"
     >
       <div className="rounded-md shadow-md bg-white p-2">
-        <p className="text-sm text-center font-semibold mt-2">Leads Convertidos vs No Convertidos Por Origen</p>
+        <p className="text-sm text-center font-semibold mt-2">
+          Leads Convertidos vs No Convertidos Por Origen
+        </p>
         <BarChart
           chartData={leadOrigenData}
           stacked={true}
         />
       </div>
       <div className="rounded-md shadow-md bg-white p-2">
-        <p className="text-sm text-center font-semibold mt-2">Leads Por Estado</p>
+        <p className="text-sm text-center font-semibold mt-2">
+          Leads Por Estado
+        </p>
         <BarChart
           chartData={leadEstadoData}
         />
       </div>
       <div className="rounded-md shadow-md bg-white p-2">
-        <p className="text-sm text-center font-semibold mt-2">Oportunidades Ganadas Por Curso</p>
+        <p className="text-sm text-center font-semibold mt-2">
+          Oportunidades Ganadas Por Curso
+        </p>
         <DoughnutChart
           chartData={oportunidadGanadaData}
         />
@@ -106,4 +112,4 @@ const MainDash = () => {
 }
 
 
-export default MainDash;
+export default Ventas;

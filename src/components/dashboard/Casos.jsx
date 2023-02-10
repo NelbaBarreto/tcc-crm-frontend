@@ -90,25 +90,33 @@ const Casos = () => {
       className="grid sm:grid-rows-3 sm:grid-cols-1 md:grid-cols-3 md:grid-rows-1 gap-1"
     >
       <div className="rounded-md shadow-md bg-white p-2">
-        <p className="text-sm text-center font-semibold mt-2">Casos Por Estado</p>
+        <p className="text-sm text-center font-semibold mt-2">
+          Casos Por Estado
+        </p>
         <PieChart
           chartData={estadoData}
         />
       </div>
       <div className="rounded-md shadow-md bg-white p-2">
-        <p className="text-sm text-center font-semibold mt-2">Casos Activos Por Prioridad</p>
+        <p className="text-sm text-center font-semibold mt-2">
+          Casos Activos Por Prioridad
+        </p>
         <DoughnutChart
           chartData={prioridadData}
         />
       </div>
       <div className="rounded-md shadow-md bg-white p-2">
-        <p className="text-sm text-center font-semibold mt-2">Casos Por Tipo</p>
+        <p className="text-sm text-center font-semibold mt-2">
+          Casos Por Tipo
+        </p>
         <PieChart
           chartData={tipoData}
         />
       </div>
       <div className="rounded-md shadow-md bg-white p-2">
-        <p className="text-sm text-center font-semibold mt-2">Casos Por Origen</p>
+        <p className="text-sm text-center font-semibold mt-2">
+          Casos Por Origen
+        </p>
         <DoughnutChart
           chartData={origenData}
         />
