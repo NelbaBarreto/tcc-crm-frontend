@@ -83,22 +83,22 @@ const MainDash = () => {
       className="grid grid-cols-2 gap-1"
     >
       <div className="rounded-md shadow-md bg-white p-2">
+        <p className="text-sm text-center font-semibold mt-2">Leads Convertidos vs No Convertidos Por Origen</p>
         <BarChart
           chartData={leadOrigenData}
           stacked={true}
-          title="Leads Convertidos vs No Convertidos Por Origen"
         />
       </div>
       <div className="rounded-md shadow-md bg-white p-2">
+        <p className="text-sm text-center font-semibold mt-2">Leads Por Estado</p>
         <BarChart
           chartData={leadEstadoData}
-          title="Leads Por Estado"
         />
       </div>
       <div className="rounded-md shadow-md bg-white p-2">
+        <p className="text-sm text-center font-semibold mt-2">Oportunidades Ganadas Por Curso</p>
         <DoughnutChart
           chartData={oportunidadGanadaData}
-          title="Oportunidades Ganadas Por Curso"
         />
       </div>
     </div>

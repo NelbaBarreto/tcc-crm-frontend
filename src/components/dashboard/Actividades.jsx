@@ -77,15 +77,15 @@ const Actividades = () => {
         />
       </div>
       <div className="rounded-md shadow-md bg-white p-2">
+        <p className="text-sm text-center font-semibold mt-2">Tareas Por Estado</p>
         <PieChart
           chartData={tareaEstadoData}
-          title="Tareas Por Estado"
         />
       </div>
       <div className="rounded-md shadow-md bg-white p-2">
+        <p className="text-sm text-center font-semibold mt-2">Tareas Activas por Prioridad</p>
         <DoughnutChart
           chartData={tareaPrioridadData}
-          title="Tareas Activas por Prioridad"
         />
       </div>
     </div>
