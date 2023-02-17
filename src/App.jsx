@@ -107,9 +107,15 @@ const MainApp = () => {
   return (
     <AppContext.Provider value={{ state, dispatch }}>
       <Router>
-        {/* <Layout> */}
         <Routes>
-          <Route path="/login" element={<Login setToken={setToken} />} />
+          {/* Rutas Públicas */}
+          <Route 
+            path="/encuesta/:token" 
+            element={<CSAT />} 
+          />
+          <Route path="*" element={<NotFound />} />
+          
+          {/* Rutas Privadas */}
           <Route
             exact
             path="/"
@@ -118,6 +124,10 @@ const MainApp = () => {
                 <Dashboard />
               </ProtectedRoute>
             }
+          />
+          <Route 
+            path="/login" 
+            element={<Login setToken={setToken} />}   
           />
           <Route
             path="/dashboard"
@@ -627,10 +637,6 @@ const MainApp = () => {
               </ProtectedRoute>
             }
           />
-
-          {/* Rutas Públicas */}
-          <Route path="/encuesta/:token" element={<CSAT />} />
-          <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
     </AppContext.Provider>

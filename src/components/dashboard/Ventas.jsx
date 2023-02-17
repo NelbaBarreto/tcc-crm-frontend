@@ -37,7 +37,7 @@ const Ventas = () => {
         datasets: [{
           label: "Leads",
           data: leadsPorEstado?.map((data) => data.total),
-          backgroundColor: ["#3296ed", "#96d44e", "#c398f5", "#50d4cd"]
+          backgroundColor: ["#e60049", "#0bb4ff", "#50e991", "#e6d800", "#9b19f5"]
         },],
       });
     }
@@ -50,7 +50,7 @@ const Ventas = () => {
         datasets: [{
           label: "Cursos",
           data: oportunidadPorCurso?.map((data) => data?.total),
-          backgroundColor: ["#16bfdb", "#5969ff", "#f0346e", "#209CEE"]
+          backgroundColor: ["#e60049", "#0bb4ff", "#50e991", "#e6d800"]
         },],
       });
     }
@@ -65,12 +65,12 @@ const Ventas = () => {
             {
               label: "Leads No Convertidos",
               data: leadsPorOrigen[0]?.map((data) => data.total),
-              backgroundColor: ["#00bfc4"]
+              backgroundColor: ["#e60049"]
             },
             {
               label: "Leads Convertidos",
               data: leadsPorOrigen[1]?.map((data) => data.total),
-              backgroundColor: ["#c77cff"]
+              backgroundColor: ["#0bb4ff"]
             }
           ],
         }
@@ -88,6 +88,7 @@ const Ventas = () => {
         </p>
         <BarChart
           chartData={leadOrigenData}
+          legend={true}
           stacked={true}
         />
       </div>
