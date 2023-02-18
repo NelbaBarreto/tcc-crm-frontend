@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useContext, useEffect } from "react";
 import AppContext from "../../../utils/AppContext";
 import Seccion from "../../formulario/Seccion";
@@ -86,7 +87,8 @@ const EditarCaso = () => {
         origen: { label: currentContacto.origen, value: currentContacto.origen },
         organizacion: currentContacto.organizacion ?
           { label: currentContacto.organizacion?.persona.nombre, value: currentContacto.organizacion?.organizacion_id } : "",
-        tip_documento: { label: currentContacto.persona?.tip_documento, value: currentContacto.persona?.tip_documento },
+        tip_documento: currentContacto.persona?.tip_documento ? 
+          { label: currentContacto.persona?.tip_documento, value: currentContacto.persona?.tip_documento } : null,
       }, "select");
     }
   }, [isFetching]);
@@ -101,7 +103,7 @@ const EditarCaso = () => {
         ...auditoria,
         persona: { ...persona, direcciones, ...telefonos, ...auditoria }
       });
-      setAction({ saving: false, error: false, message: "Contacto creado exitosamente." });
+      setAction({ saving: false, error: false, message: "Contacto editado exitosamente." });
       setTimeout(() => navigate("/ventas/contactos"), 2000);
     } catch (e) {
       setAction({ saving: false, error: true, message: e.message });
