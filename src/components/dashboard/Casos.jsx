@@ -6,6 +6,8 @@ import { useQuery } from "react-query";
 import {
   getCasosPorEstado, getCasosActivosPorPrioridad, getCasosPorTipo, getCasosPorOrigen
 } from "../../api/dashboard";
+import { Tableau20 } from "chartjs-plugin-colorschemes/src/colorschemes/colorschemes.tableau";
+import { Paired7 } from "chartjs-plugin-colorschemes/src/colorschemes/colorschemes.brewer";
 
 const Casos = () => {
   const [estadoData, setEstadoData] = useState({ datasets: [] });
@@ -40,7 +42,7 @@ const Casos = () => {
         datasets: [{
           label: "Casos",
           data: casosPorEstado?.map((data) => data.total),
-          backgroundColor: ["#3296ed", "#96d44e", "#c398f5", "#50d4cd"]
+          backgroundColor: Tableau20
         },],
       });
     }
@@ -53,7 +55,7 @@ const Casos = () => {
         datasets: [{
           label: "Casos",
           data: casosPorPrioridad?.map((data) => data.total),
-          backgroundColor: ["#ff562f", "#ffab00", "#35b47f"]
+          backgroundColor: [Paired7[2], Paired7[0], Paired7[4]]
         },],
       });
     }
@@ -66,7 +68,7 @@ const Casos = () => {
         datasets: [{
           label: "Casos",
           data: casosPorTipo?.map((data) => data.total),
-          backgroundColor: ["#16bfdb", "#5969ff", "#f0346e", "#209CEE"]
+          backgroundColor: Tableau20
         },],
       });
     }
@@ -79,7 +81,7 @@ const Casos = () => {
         datasets: [{
           label: "Casos",
           data: casosPorOrigen?.map((data) => data.total),
-          backgroundColor: ["#bd0000", "#3e51b5", "#4caf4f", "#07a9f3", "#f9ce1d"]
+          backgroundColor: Tableau20
         },],
       });
     }

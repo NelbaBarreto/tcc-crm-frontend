@@ -6,6 +6,8 @@ import { useQuery } from "react-query";
 import {
   getLlamadasPorEstado, getTareasActivasPorPrioridad, getTareasPorEstado
 } from "../../api/dashboard";
+import { Tableau20 } from "chartjs-plugin-colorschemes/src/colorschemes/colorschemes.tableau";
+import { Paired7 } from "chartjs-plugin-colorschemes/src/colorschemes/colorschemes.brewer";
 
 const Actividades = () => {
   const [llamadaEstadoData, setLlamadaEstadoData] = useState({ datasets: [] });
@@ -34,7 +36,7 @@ const Actividades = () => {
         datasets: [{
           label: "Tareas",
           data: tareasPorPrioridad?.map((data) => data.total),
-          backgroundColor: ["#ff562f", "#ffab00", "#35b47f"]
+          backgroundColor: [Paired7[2], Paired7[0], Paired7[4]]
         },],
       });
     }
@@ -47,7 +49,7 @@ const Actividades = () => {
         datasets: [{
           label: "Llamadas",
           data: llamadasPorEstado?.map((data) => data.total),
-          backgroundColor: ["#bd0000", "#3e51b5", "#4caf4f"]
+          backgroundColor: Tableau20
         },],
       });
     }
@@ -60,7 +62,7 @@ const Actividades = () => {
         datasets: [{
           label: "Tareas",
           data: tareasPorEstado?.map((data) => data.total),
-          backgroundColor: ["#3296ed", "#96d44e", "#c398f5", "#50d4cd"]
+          backgroundColor: Tableau20
         },],
       });
     }

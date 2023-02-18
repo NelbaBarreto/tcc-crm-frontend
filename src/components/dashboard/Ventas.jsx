@@ -8,6 +8,7 @@ import {
   getLeadsPorOrigen,
   getOportunidadesGanadasPorCurso
 } from "../../api/dashboard";
+import { Tableau20 } from "chartjs-plugin-colorschemes/src/colorschemes/colorschemes.tableau";
 
 const Ventas = () => {
   const [leadEstadoData, setLeadEstadoData] = useState({ datasets: [] });
@@ -37,7 +38,7 @@ const Ventas = () => {
         datasets: [{
           label: "Leads",
           data: leadsPorEstado?.map((data) => data.total),
-          backgroundColor: ["#e60049", "#0bb4ff", "#50e991", "#e6d800", "#9b19f5"]
+          backgroundColor: Tableau20
         },],
       });
     }
@@ -50,7 +51,7 @@ const Ventas = () => {
         datasets: [{
           label: "Cursos",
           data: oportunidadPorCurso?.map((data) => data?.total),
-          backgroundColor: ["#e60049", "#0bb4ff", "#50e991", "#e6d800"]
+          backgroundColor: Tableau20
         },],
       });
     }
@@ -65,12 +66,12 @@ const Ventas = () => {
             {
               label: "Leads No Convertidos",
               data: leadsPorOrigen[0]?.map((data) => data.total),
-              backgroundColor: ["#e60049"]
+              backgroundColor: Tableau20[0]
             },
             {
               label: "Leads Convertidos",
               data: leadsPorOrigen[1]?.map((data) => data.total),
-              backgroundColor: ["#0bb4ff"]
+              backgroundColor: Tableau20[2]
             }
           ],
         }

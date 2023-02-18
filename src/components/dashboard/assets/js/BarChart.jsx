@@ -1,5 +1,6 @@
 import React from "react";
 import { Bar } from "react-chartjs-2";
+import { Aspect6 } from "chartjs-plugin-colorschemes/src/colorschemes/colorschemes.office";
 import { Chart as ChartJS } from "chart.js/auto"
 
 const BarChart = ({ chartData, title, stacked = false, legend = false }) => {
@@ -15,7 +16,10 @@ const BarChart = ({ chartData, title, stacked = false, legend = false }) => {
           title: {
             display: true,
             text: title
-          }
+          },
+          colorschemes: {
+            scheme: Aspect6
+          },
         },
         responsive: true,
         scales: {
@@ -29,7 +33,7 @@ const BarChart = ({ chartData, title, stacked = false, legend = false }) => {
             },
           }
         },
-      }}       
+      }}
     />
   );
 }

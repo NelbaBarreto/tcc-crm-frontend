@@ -25,7 +25,7 @@ const CSAT = () => {
         datasets: [{
           label: "Respuestas",
           data: respuestasPorValor?.map((data) => data.total),
-          backgroundColor: ["#ff562f", "#ffab00", "#35b47f"]
+          backgroundColor: ["#f87171", "#fb923c", "#facc15", "#a3e635", "#4ade80"]
         },],
       });
     }
