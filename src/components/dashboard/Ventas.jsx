@@ -38,7 +38,7 @@ const Ventas = () => {
         datasets: [{
           label: "Leads",
           data: leadsPorEstado?.map((data) => data.total),
-          backgroundColor: Tableau20
+          backgroundColor: Tableau20[0]
         },],
       });
     }
