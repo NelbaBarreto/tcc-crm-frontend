@@ -6,16 +6,33 @@ import { Typography, CircularProgress } from "@mui/material";
 const DataTables = ({ data, title, columns, isLoading }) => {
   const options = {
     enableNestedDataAccess: ".",
-    responsive: "vertical",
+    responsive: "simple",
     selectableRows: "none",
     textLabels: {
       body: {
         noMatch: "No hay registros",
+        toolTip: "Ordenar",
       },
       pagination: {
         rowsPerPage: "Filas por Página",
         displayRows: "de"
-      }
+      },
+      toolbar: {
+        search: "Buscar",
+        downloadCsv: "Descargar CSV",
+        print: "Imprimir",
+        viewColumns: "Ver Columnas",
+        filterTable: "Filtrar",
+      },
+      filter: {
+        all: "Todo",
+        title: "FILTROS",
+        reset: "REESTABLECER",
+      },
+      viewColumns: {
+        title: "Mostrar Columnas",
+        titleAria: "Mostrar/Esconder Columnas",
+      },
     },
   };
 

@@ -59,7 +59,7 @@ const DatosContacto = ({ dispatch, select = {} }) => {
   );
 };
 
-const EditarCaso = () => {
+const EditarContacto = () => {
   const { state: { contacto, persona, direcciones, telefonos, select }, dispatch } = useContext(AppContext);
   const [action, setAction] = useState({});
   const [enabled, setEnabled] = useState(true);
@@ -101,7 +101,7 @@ const EditarCaso = () => {
       await editContacto(id, {
         ...contacto,
         ...auditoria,
-        persona: { ...persona, direcciones, ...telefonos, ...auditoria }
+        persona: { ...persona, direcciones, telefonos, ...auditoria }
       });
       setAction({ saving: false, error: false, message: "Contacto editado exitosamente." });
       setTimeout(() => navigate("/ventas/contactos"), 2000);
@@ -114,7 +114,7 @@ const EditarCaso = () => {
     <div>
       <section className="section w-full m-auto">
         <Titulo1>
-          Nuevo Contacto
+          Editar Contacto
         </Titulo1>
         {action.message ? <MostrarMensaje mensaje={action.message} error={action.error} /> : null}
         <form>
@@ -135,4 +135,4 @@ const EditarCaso = () => {
   )
 };
 
-export default EditarCaso;
+export default EditarContacto;

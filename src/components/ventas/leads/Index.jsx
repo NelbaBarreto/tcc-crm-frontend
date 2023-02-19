@@ -23,8 +23,8 @@ const Index = () => {
       }
     },
     {
-      name: "persona",
-      label: "Nombre",
+      name: "persona.nombre",
+      label: "NOMBRE",
       options: {
         filter: true,
         filterType: "textField",
@@ -36,7 +36,7 @@ const Index = () => {
                 to={"/ventas/leads/" + tableMeta.rowData[0]}
                 className="underline text-blue-900"
               >
-                {value.nombre}
+                {value}
               </NavLink>
             );
           } else {
@@ -47,29 +47,28 @@ const Index = () => {
     },  
     {
       name: "estado",
-      label: "Estado",
+      label: "ESTADO",
       options: {
         filter: true,
-        filterType: "dropdown",
+        filterType: "multiselect",
         sort: true,
       }
     },
     {
       name: "origen",
-      label: "Origen",
+      label: "ORIGEN",
       options: {
         filter: true,
-        filterType: "textField",
+        filterType: "multiselect",
         sort: true,
       }
     },
     {
       name: "curso",
-      label: "Curso/Interés",
+      label: "CURSO/INTERÉS",
       options: {
-        filter: true,
-        filterType: "dropdown",
-        sort: true,
+        filter: false,
+        sort: false,
         customBodyRender: value => {
           if (value) {
             return (
@@ -87,34 +86,21 @@ const Index = () => {
       }
     },
     {
-      name: "usu_asignado",
-      label: "Usuario Asignado",
+      name: "usu_asignado.nom_usuario",
+      label: "USUARIO ASIGNADO",
       options: {
         filter: true,
         filterType: "textField",
         sort: true,
-        customBodyRender: value => {
-          if (value) {
-            return (
-              <span
-              >
-                {value.nom_usuario}
-              </span>
-            );
-          } else {
-            return null;
-          }
-
-        }
       }
     },
     {
       name: "fec_insercion",
-      label: "Fecha de Creación",
+      label: "FECHA DE CREACIÓN",
       options: {
-        filter: true,
+        filter: false,
         filterType: "textField",
-        sort: true,
+        sort: false,
         customBodyRender: (value) => {
           if (value) {
             return (
