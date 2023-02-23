@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useContext, useEffect } from "react";
 import AppContext from "../../../utils/AppContext";
 import Seccion from "../../formulario/Seccion";
@@ -39,7 +40,7 @@ const DatosOrganizacion = ({ dispatch, organizacion }) => {
   );
 };
 
-const EditarCaso = () => {
+const EditarOrganizacion = () => {
   const { state: { organizacion, persona, direcciones, telefonos }, dispatch } = useContext(AppContext);
   const [action, setAction] = useState({});
   const [enabled, setEnabled] = useState(true);
@@ -64,7 +65,7 @@ const EditarCaso = () => {
       handleDispatchEdit(dispatch, currentOrganizacion.persona.telefonos, "telefonos");
       handleDispatchEdit(dispatch, currentOrganizacion.persona.direcciones, "direcciones");
       handleDispatchEdit(dispatch, {
-        tip_documento: { label: currentOrganizacion.persona?.tip_documento, value: currentOrganizacion.persona?.tip_documento },
+        tip_documento: currentOrganizacion.persona?.tip_documento ? { label: currentOrganizacion.persona?.tip_documento, value: currentOrganizacion.persona?.tip_documento } : null,
       }, "select");
     }
   }, [isFetching]);
@@ -90,7 +91,7 @@ const EditarCaso = () => {
     <div>
       <section className="section w-full m-auto">
         <Titulo1>
-          Nueva Organizacion
+          Editar Organizacion
         </Titulo1>
         {action.message ? <MostrarMensaje mensaje={action.message} error={action.error} /> : null}
         <form>
@@ -110,4 +111,4 @@ const EditarCaso = () => {
   )
 };
 
-export default EditarCaso;
+export default EditarOrganizacion;

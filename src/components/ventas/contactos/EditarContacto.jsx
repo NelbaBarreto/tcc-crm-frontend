@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useContext, useEffect } from "react";
 import AppContext from "../../../utils/AppContext";
 import Seccion from "../../formulario/Seccion";
@@ -58,7 +59,7 @@ const DatosContacto = ({ dispatch, select = {} }) => {
   );
 };
 
-const EditarCaso = () => {
+const EditarContacto = () => {
   const { state: { contacto, persona, direcciones, telefonos, select }, dispatch } = useContext(AppContext);
   const [action, setAction] = useState({});
   const [enabled, setEnabled] = useState(true);
@@ -86,7 +87,8 @@ const EditarCaso = () => {
         origen: { label: currentContacto.origen, value: currentContacto.origen },
         organizacion: currentContacto.organizacion ?
           { label: currentContacto.organizacion?.persona.nombre, value: currentContacto.organizacion?.organizacion_id } : "",
-        tip_documento: { label: currentContacto.persona?.tip_documento, value: currentContacto.persona?.tip_documento },
+        tip_documento: currentContacto.persona?.tip_documento ? 
+          { label: currentContacto.persona?.tip_documento, value: currentContacto.persona?.tip_documento } : null,
       }, "select");
     }
   }, [isFetching]);
@@ -99,9 +101,9 @@ const EditarCaso = () => {
       await editContacto(id, {
         ...contacto,
         ...auditoria,
-        persona: { ...persona, direcciones, ...telefonos, ...auditoria }
+        persona: { ...persona, direcciones, telefonos, ...auditoria }
       });
-      setAction({ saving: false, error: false, message: "Contacto creado exitosamente." });
+      setAction({ saving: false, error: false, message: "Contacto editado exitosamente." });
       setTimeout(() => navigate("/ventas/contactos"), 2000);
     } catch (e) {
       setAction({ saving: false, error: true, message: e.message });
@@ -112,7 +114,7 @@ const EditarCaso = () => {
     <div>
       <section className="section w-full m-auto">
         <Titulo1>
-          Nuevo Contacto
+          Editar Contacto
         </Titulo1>
         {action.message ? <MostrarMensaje mensaje={action.message} error={action.error} /> : null}
         <form>
@@ -133,4 +135,4 @@ const EditarCaso = () => {
   )
 };
 
-export default EditarCaso;
+export default EditarContacto;

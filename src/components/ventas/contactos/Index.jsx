@@ -19,12 +19,13 @@ const Index = () => {
       name: "contacto_id",
       options: {
         display: "excluded",
-        filter: false
+        filter: false,
+        sort: false,
       }
     },
     {
-      name: "persona",
-      label: "Nombre",
+      name: "persona.nombre",
+      label: "NOMBRE",
       options: {
         filter: true,
         filterType: "textField",
@@ -36,7 +37,7 @@ const Index = () => {
                 to={"/ventas/contactos/" + tableMeta.rowData[0]}
                 className="underline text-blue-900"
               >
-                {value.nombre}
+                {value}
               </NavLink>
             );
           } else {
@@ -47,19 +48,19 @@ const Index = () => {
     }, 
     {
       name: "origen",
-      label: "Origen",
+      label: "ORIGEN",
       options: {
         filter: true,
-        filterType: "textField",
+        filterType: "multiselect",
         sort: true,
       }
     },
     {
       name: "organizacion",
-      label: "Organización",
+      label: "ORGANIZACIÓN",
       options: {
         filter: true,
-        filterType: "textField",
+        filterType: "multiselect",
         sort: true,
         customBodyRender: value => {
           if (value) {
@@ -79,11 +80,10 @@ const Index = () => {
     },
     {
       name: "fec_insercion",
-      label: "Fecha de Creación",
+      label: "FECHA DE CREACIÓN",
       options: {
-        filter: true,
-        filterType: "textField",
-        sort: true,
+        filter: false,
+        sort: false,
         customBodyRender: (value) => {
           if (value) {
             return (
