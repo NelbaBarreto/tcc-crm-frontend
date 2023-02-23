@@ -17,7 +17,6 @@ export const autenticarUsuarios = async (data) => {
     const { data: response } = await axios.post(`${API}/usuarios/login`, data);
     return response;
   } catch (error) {
-    const { response } = error;
-    return response;
+    return { error };
   }
 };
