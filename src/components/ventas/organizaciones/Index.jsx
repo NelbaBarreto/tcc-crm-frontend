@@ -23,8 +23,8 @@ const Index = () => {
       }
     },
     {
-      name: "persona",
-      label: "Nombre",
+      name: "persona.nombre",
+      label: "NOMBRE",
       options: {
         filter: true,
         filterType: "textField",
@@ -36,7 +36,7 @@ const Index = () => {
                 to={"/ventas/organizaciones/" + tableMeta.rowData[0]}
                 className="underline text-blue-900"
               >
-                {value.nombre}
+                {value}
               </NavLink>
             )
           }
@@ -45,7 +45,7 @@ const Index = () => {
     },
     {
       name: "website",
-      label: "Website",
+      label: "WEBSITE",
       options: {
         filter: true,
         filterType: "textField",
@@ -68,7 +68,7 @@ const Index = () => {
     },
     {
       name: "fec_insercion",
-      label: "Fecha de Creación",
+      label: "FECHA DE CREACIÓN",
       options: {
         filter: true,
         filterType: "textField",

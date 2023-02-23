@@ -20,14 +20,15 @@ const Index = ({ contacto_id }) => {
       name: "oportunidad_id",
       options: {
         display: "excluded",
-        filter: false
+        filter: false,
+        sort: false,
       }
     },
     {
       name: "nombre",
       label: "Nombre",
       options: {
-        filter: true,
+        filter: false,
         filterType: "textField",
         sort: true,
         customBodyRender: (value, tableMeta) => {
@@ -47,7 +48,7 @@ const Index = ({ contacto_id }) => {
       label: "Estado",
       options: {
         filter: true,
-        filterType: "textField",
+        filterType: "multiselect",
         sort: true,
       }
     },
@@ -55,8 +56,8 @@ const Index = ({ contacto_id }) => {
       name: "curso",
       label: "Curso/Interés",
       options: {
-        filter: true,
-        filterType: "dropdown",
+        filter: false,
+        filterType: "textField",
         sort: true,
         customBodyRender: value => {
           if (value) {
@@ -79,7 +80,7 @@ const Index = ({ contacto_id }) => {
       label: "Contacto",
       options: {
         filter: true,
-        filterType: "textField",
+        filterType: "multiselect",
         sort: true,
         customBodyRender: (value) => {
           if (value) {
@@ -98,24 +99,12 @@ const Index = ({ contacto_id }) => {
       }
     },  
     {
-      name: "usuario",
+      name: "usuario.nom_usuario",
       label: "Usuario Asignado",
       options: {
         filter: true,
         filterType: "textField",
         sort: true,
-        customBodyRender: (value) => {
-          if (value) {
-            return (
-              <span
-              >
-                {value.nom_usuario}
-              </span>
-            )
-          } else {
-            return null;
-          }
-        }
       }
     },
     {
@@ -124,7 +113,7 @@ const Index = ({ contacto_id }) => {
       options: {
         filter: true,
         filterType: "textField",
-        sort: true,
+        sort: false,
         customBodyRender: (value) => {
           if (value) {
             return (
