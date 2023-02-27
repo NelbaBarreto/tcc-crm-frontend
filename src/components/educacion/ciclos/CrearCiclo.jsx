@@ -6,7 +6,6 @@ import MostrarMensaje from "../../formulario/MostrarMensaje";
 import { Volver, Guardar } from "../../formulario/Acciones";
 import { Titulo1 } from "../../formulario/Titulo";
 import { Dropdown, Datepicker } from "../../formulario/Componentes";
-import { getSedes } from "../../../api/sedes";
 import { getCursos } from "../../../api/cursos";
 import { createCiclo } from "../../../api/ciclos";
 import { handleDispatch, handleStateCleared } from "../../formulario/reducerFormularios.js";
@@ -20,14 +19,6 @@ const DatosCiclo = ({ ciclo = {}, dispatch, select = {} }) => {
     data: cursos,
     cursosLoading
   } = useQuery(["cursos"], getCursos);
-
-  const {
-    data: sedes,
-    sedesLoading
-  } = useQuery(["sedes"], getSedes);
-
-  const opcionesSedes = sedesLoading || !sedes ? [] :
-    sedes.map(sede => ({ value: sede.sede_id, label: sede.nombre }));
 
   const opcionesCursos = cursosLoading || !cursos ? [] :
     cursos.map(curso => ({ value: curso.curso_id, label: curso.nombre }));
@@ -43,17 +34,6 @@ const DatosCiclo = ({ ciclo = {}, dispatch, select = {} }) => {
             onChange={e => {
               handleDispatch(dispatch, "curso_id", e?.value, CICLO);
               handleDispatch(dispatch, "curso", e, "select")
-            }}
-          />
-        </div>
-        <div className="column">
-          <Dropdown
-            label="Sede*"
-            options={opcionesSedes}
-            value={select.sede}
-            onChange={e => {
-              handleDispatch(dispatch, "sede_id", e?.value, CICLO);
-              handleDispatch(dispatch, "sede", e, "select")
             }}
           />
         </div>

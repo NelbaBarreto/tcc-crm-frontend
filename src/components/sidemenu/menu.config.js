@@ -142,11 +142,11 @@ export const sideMenu = [
         Icon: () => <Icon iconName="user-graduate" />,
         to: "cursos",
       },
-      // {
-      //   label: "Ciclos",
-      //   Icon: () => <Icon iconName="arrows-spin" />,
-      //   to: "ciclos",
-      // },
+      {
+        label: "Ciclos",
+        Icon: () => <Icon iconName="arrows-spin" />,
+        to: "ciclos",
+      },
       // {
       //   label: "Profesores",
       //   Icon: () => <Icon iconName="chalkboard-user" />,
