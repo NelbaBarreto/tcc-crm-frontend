@@ -7,8 +7,12 @@ import { useParams, useNavigate } from "react-router-dom";
 import { getOportunidad } from "../../../api/oportunidades";
 import { CircularProgress } from "@mui/material";
 import { DateFormat } from "../../formulario/Componentes";
+import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { classNameButton2 } from "../../formulario/Componentes";
+import { NavLink } from "react-router-dom";
 
-const DatosOportunidad = ({ oportunidad }) => {
+const DatosOportunidad = ({ oportunidad = {} }) => {
   return (
     <Seccion titulo="Datos de la Oportunidad">
       <div className="columns">
@@ -74,6 +78,14 @@ const MostrarOportunidad = () => {
 
   return (
     <section className="section w-full m-auto">
+      <NavLink
+        to={"/ventas/oportunidades/editar/" + oportunidad?.oportunidad_id}
+        className="button is-link is-normal"
+      >
+        <span className="icon is-small">
+          <FontAwesomeIcon icon={solid("pen-to-square")} />
+        </span>
+      </NavLink>
       <div className="mb-4">
         {isLoading ?
           <CircularProgress size={24} className="fixed top-1/2 left-1/2" /> : <DatosOportunidad oportunidad={oportunidad} navigate={navigate} />
