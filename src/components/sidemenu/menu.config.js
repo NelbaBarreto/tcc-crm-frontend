@@ -152,11 +152,6 @@ export const sideMenu = [
       //   Icon: () => <Icon iconName="chalkboard-user" />,
       //   to: "profesores",
       // },
-      // {
-      //   label: "Sedes",
-      //   Icon: () => <Icon iconName="school-flag" />,
-      //   to: "sedes",
-      // },
     ],
   },
   // {

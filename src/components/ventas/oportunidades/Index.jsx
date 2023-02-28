@@ -26,7 +26,7 @@ const Index = ({ contacto_id }) => {
     },
     {
       name: "nombre",
-      label: "Nombre",
+      label: "NOMBRE",
       options: {
         filter: false,
         filterType: "textField",
@@ -45,7 +45,7 @@ const Index = ({ contacto_id }) => {
     },
     {
       name: "estado",
-      label: "Estado",
+      label: "ESTADO",
       options: {
         filter: true,
         filterType: "multiselect",
@@ -54,7 +54,7 @@ const Index = ({ contacto_id }) => {
     },
     {
       name: "curso",
-      label: "Curso/Interés",
+      label: "CURSO/INTERÉS",
       options: {
         filter: false,
         filterType: "textField",
@@ -77,7 +77,7 @@ const Index = ({ contacto_id }) => {
     },
     {
       name: "contacto",
-      label: "Contacto",
+      label: "CONTACTO",
       options: {
         filter: true,
         filterType: "multiselect",
@@ -100,7 +100,7 @@ const Index = ({ contacto_id }) => {
     },  
     {
       name: "usuario.nom_usuario",
-      label: "Usuario Asignado",
+      label: "USUARIO ASIGNADO",
       options: {
         filter: true,
         filterType: "textField",
@@ -109,7 +109,7 @@ const Index = ({ contacto_id }) => {
     },
     {
       name: "fec_insercion",
-      label: "Fecha de Creación",
+      label: "FECHA DE CREACIÓN",
       options: {
         filter: true,
         filterType: "textField",
