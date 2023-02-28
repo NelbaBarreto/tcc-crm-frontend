@@ -5,7 +5,7 @@ import Seccion from "../../formulario/Seccion";
 import MostrarMensaje from "../../formulario/MostrarMensaje";
 import { Volver, Guardar } from "../../formulario/Acciones";
 import { Titulo1 } from "../../formulario/Titulo";
-import { Dropdown, Datepicker } from "../../formulario/Componentes";
+import { Dropdown, Datepicker, TextArea } from "../../formulario/Componentes";
 import { getCursos } from "../../../api/cursos";
 import { createCiclo } from "../../../api/ciclos";
 import { handleDispatch, handleStateCleared } from "../../formulario/reducerFormularios.js";
@@ -54,6 +54,16 @@ const DatosCiclo = ({ ciclo = {}, dispatch, select = {} }) => {
           />
         </div>
       </div>
+      <div className="columns">
+        <div className="column">
+          <TextArea
+            label="Más Información"
+            name="detalles"
+            value={ciclo?.detalles || ""}
+            onChange={e => handleDispatch(dispatch, e.target?.name, e.target?.value, CICLO)}
+          />
+        </div>
+      </div>      
     </Seccion>
   );
 };
@@ -61,7 +71,7 @@ const DatosCiclo = ({ ciclo = {}, dispatch, select = {} }) => {
 const CrearCiclo = () => {
   const { state: { ciclo, select }, dispatch } = useContext(AppContext);
   const [action, setAction] = useState({});
-  const { usuario = {} } = useToken();
+  const currentUser = useToken().usuario;
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -71,8 +81,13 @@ const CrearCiclo = () => {
   const crear = async e => {
     e.preventDefault();
     setAction({ saving: true, error: false, message: "" });
+    const auditoria = { usu_insercion: currentUser.nom_usuario, usu_modificacion: currentUser.nom_usuario };
+
     try {
-      await createCiclo({ ...ciclo, usu_insercion: usuario.nom_usuario, usu_modificacion: usuario.nom_usuario });
+      await createCiclo({ 
+        ...ciclo, 
+        ...auditoria
+      });
       setAction({ saving: false, error: false, message: "Ciclo creado exitosamente." });
       setTimeout(() => navigate("/educacion/ciclos"), 2000);
     } catch (e) {

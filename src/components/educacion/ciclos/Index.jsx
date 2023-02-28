@@ -23,8 +23,8 @@ const Index = () => {
       }
     },
     {
-      name: "nombre",
-      label: "Nombre",
+      name: "codigo",
+      label: "CÓDIGO",
       options: {
         filter: true,
         filterType: "textField",
@@ -42,20 +42,69 @@ const Index = () => {
       }
     },
     {
-      name: "descripcion",
-      label: "Descripción",
+      name: "curso",
+      label: "CURSO",
       options: {
         filter: false,
-        sort: false
+        filterType: "textField",
+        sort: true,
+        customBodyRender: value => {
+          if (value) {
+            return (
+              <NavLink
+                to={"/educacion/cursos/" + value.curso_id}
+                className="underline text-blue-900"
+              >
+                {value.nombre}
+              </NavLink>
+            );
+          } else {
+            return null;
+          }
+        }
+      }
+    },    
+    {
+      name: "fec_inicio",
+      label: "FECHA DE INICIO",
+      options: {
+        filter: false,
+        sort: false,
+        customBodyRender: (value) => {
+          if (value) {
+            return (
+              <span>{format(parseISO(value), "dd/MM/yyyy")}</span>
+            )
+          } else {
+            return null;
+          }
+        }
       }
     },
     {
-      name: "fec_insercion",
-      label: "Fecha de Creación",
+      name: "fec_fin",
+      label: "FECHA DE FIN",
       options: {
-        filter: true,
+        filter: false,
+        sort: false,
+        customBodyRender: (value) => {
+          if (value) {
+            return (
+              <span>{format(parseISO(value), "dd/MM/yyyy")}</span>
+            )
+          } else {
+            return null;
+          }
+        }
+      }
+    },        
+    {
+      name: "fec_insercion",
+      label: "FECHA DE CREACIÓN",
+      options: {
+        filter: false,
         filterType: "textField",
-        sort: true,
+        sort: false,
         customBodyRender: (value) => {
           if (value) {
             return (
