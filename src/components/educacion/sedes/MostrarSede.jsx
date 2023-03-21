@@ -8,10 +8,6 @@ import { useParams, useNavigate } from "react-router-dom";
 import { getSede } from "../../../api/sedes";
 
 const DatosSede = ({ sede = {} }) => {
-  let estado_principal = sede.direccion.principal
-  estado_principal === true ? estado_principal = "Si" : estado_principal = "No";
-
-
   return (
     <Seccion titulo={sede.nombre}>
       <div className="columns">
