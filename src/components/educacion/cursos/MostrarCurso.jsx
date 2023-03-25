@@ -36,7 +36,7 @@ const DatosCurso = ({ curso = {} }) => {
   );
 }
 
-const MostrarEmpleado = () => {
+const MostrarCurso = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -57,4 +57,4 @@ const MostrarEmpleado = () => {
   );
 }
 
-export default MostrarEmpleado;
+export default MostrarCurso;
