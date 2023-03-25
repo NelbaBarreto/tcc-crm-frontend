@@ -108,6 +108,15 @@ const Index = ({ contacto_id }) => {
       }
     },
     {
+      name: "campanas.nombre",
+      label: "CAMPAÑA",
+      options: {
+        filter: true,
+        filterType: "textField",
+        sort: true,
+      }
+    },
+    {
       name: "fec_insercion",
       label: "FECHA DE CREACIÓN",
       options: {
