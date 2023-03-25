@@ -21,7 +21,7 @@ const Persona = ({ dispatch, persona = {}, select = {}}) => {
   return (
     <Seccion titulo="Datos Personales">
       <Input
-        label="Nombre*"
+        label="Nombre Completo*"
         name="nombre"
         value={persona.nombre || ""}
         onChange={e => handleDispatch(dispatch, e?.target.name, e?.target.value, PERSONA)}

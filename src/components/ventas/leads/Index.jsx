@@ -17,9 +17,11 @@ const Index = () => {
   const columns = [
     {
       name: "lead_id",
+      label: "LEAD",
       options: {
         display: "excluded",
-        filter: false
+        filter: false,
+        sort: false,
       }
     },
     {
@@ -64,11 +66,21 @@ const Index = () => {
       }
     },
     {
+      name: "campana.nombre",
+      label: "CAMPAÑA",
+      options: {
+        filter: true,
+        filterType: "multiselect",
+        sort: true,
+      }
+    },
+    {
       name: "curso",
       label: "CURSO/INTERÉS",
       options: {
-        filter: false,
-        sort: false,
+        filter: true,
+        filterType: "multiselect",
+        sort: true,
         customBodyRender: value => {
           if (value) {
             return (
