@@ -7,7 +7,6 @@ import { useQuery } from "react-query";
 import { useParams, useNavigate } from "react-router-dom";
 import { getCiclo } from "../../../api/ciclos";
 import { CircularProgress } from "@mui/material";
-import { format } from "date-fns";
 
 const DatosCiclo = ({ ciclo = {} }) => {
   return (
