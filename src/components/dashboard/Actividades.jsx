@@ -100,5 +100,4 @@ const Actividades = () => {
   )
 }
 
-
 export default Actividades;

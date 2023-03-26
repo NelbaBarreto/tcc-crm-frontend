@@ -9,7 +9,7 @@ import {
 import { Tableau20 } from "chartjs-plugin-colorschemes/src/colorschemes/colorschemes.tableau";
 import { Paired7 } from "chartjs-plugin-colorschemes/src/colorschemes/colorschemes.brewer";
 
-const Casos = () => {
+const Soporte = () => {
   const [estadoData, setEstadoData] = useState({ datasets: [] });
   const [prioridadData, setPrioridadData] = useState({ datasets: [] });
   const [tipoData, setTipoData] = useState({ datasets: [] });
@@ -127,4 +127,4 @@ const Casos = () => {
   )
 }
 
-export default Casos;
+export default Soporte;
