@@ -28,14 +28,14 @@ const DatosCampana = ({ campana = {}, dispatch }) => {
       <div className="columns">
         <div className="column">
           <Datepicker
-            label="Fecha de Inicio"
+            label="Fecha de Inicio*"
             selected={campana?.fec_inicio || ""}
             onChange={fecha => handleDispatch(dispatch, "fec_inicio", fecha, CAMPANA)}
           />
         </div>
         <div className="column">
           <Datepicker
-            label="Fecha Fin"
+            label="Fecha Fin*"
             selected={campana?.fec_fin || ""}
             onChange={fecha => handleDispatch(dispatch, "fec_fin", fecha, CAMPANA)}
           />

@@ -26,7 +26,7 @@ const DatosCurso = ({ curso = {} }) => {
       </div>
       <div className="columns">
         <div className="column">
-          <DateFormat label="Fecha de Modificación" value={curso.fec_insercion} />
+          <DateFormat label="Fecha de Modificación" value={curso.fec_modificacion} />
         </div>
         <div className="column">
           <TextView label="Usuario Modificación" value={curso.usu_modificacion} />

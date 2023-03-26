@@ -9,7 +9,6 @@ import { CircularProgress } from "@mui/material";
 import { DateFormat } from "../../formulario/Componentes";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { classNameButton2 } from "../../formulario/Componentes";
 import { NavLink } from "react-router-dom";
 
 const DatosOportunidad = ({ oportunidad = {} }) => {
@@ -57,7 +56,7 @@ const DatosOportunidad = ({ oportunidad = {} }) => {
         </div>
         <div className="columns">
           <div className="column">
-            <DateFormat label="Fecha de Modificación" value={oportunidad.fec_insercion} />
+            <DateFormat label="Fecha de Modificación" value={oportunidad.fec_modificacion} />
           </div>
           <div className="column">
             <TextView label="Usuario Modificación" value={oportunidad.usu_modificacion} />

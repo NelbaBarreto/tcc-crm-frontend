@@ -6,7 +6,7 @@ import Seccion from "../../formulario/Seccion";
 import MostrarMensaje from "../../formulario/MostrarMensaje";
 import { Volver, Guardar } from "../../formulario/Acciones";
 import { Titulo1 } from "../../formulario/Titulo";
-import { Dropdown, Datepicker, TextArea } from "../../formulario/Componentes";
+import { Dropdown, Datepicker, TextArea, Input } from "../../formulario/Componentes";
 import { getCursos } from "../../../api/cursos";
 import { createCiclo } from "../../../api/ciclos";
 import { handleDispatch, handleStateCleared } from "../../formulario/reducerFormularios.js";
@@ -56,6 +56,16 @@ const DatosCiclo = ({ ciclo = {}, dispatch, select = {} }) => {
         </div>
       </div>
       <div className="columns">
+        <div className="column is-half">
+          <Input
+            label="Nivel"
+            name="nivel"
+            value={ciclo?.nivel || ""}
+            onChange={e => handleDispatch(dispatch, e.target?.name, e.target?.value, CICLO)}
+          />
+        </div>
+      </div>
+      <div className="columns">
         <div className="column">
           <TextArea
             label="Más Información"
@@ -64,7 +74,7 @@ const DatosCiclo = ({ ciclo = {}, dispatch, select = {} }) => {
             onChange={e => handleDispatch(dispatch, e.target?.name, e.target?.value, CICLO)}
           />
         </div>
-      </div>      
+      </div>
     </Seccion>
   );
 };
@@ -85,8 +95,8 @@ const CrearCiclo = () => {
     const auditoria = { usu_insercion: currentUser.nom_usuario, usu_modificacion: currentUser.nom_usuario };
 
     try {
-      await createCiclo({ 
-        ...ciclo, 
+      await createCiclo({
+        ...ciclo,
         ...auditoria
       });
       setAction({ saving: false, error: false, message: "Ciclo creado exitosamente." });

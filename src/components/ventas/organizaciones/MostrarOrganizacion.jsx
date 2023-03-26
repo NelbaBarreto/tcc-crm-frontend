@@ -34,7 +34,7 @@ const DatosOrganizacion = ({ organizacion }) => {
         </div>
         <div className="columns">
           <div className="column">
-            <DateFormat label="Fecha de Modificación" value={organizacion.fec_insercion} />
+            <DateFormat label="Fecha de Modificación" value={organizacion.fec_modificacion} />
           </div>
           <div className="column">
             <TextView label="Usuario Modificación" value={organizacion.usu_modificacion} />

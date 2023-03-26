@@ -1,4 +1,5 @@
 import axios from "axios";
+import { parseISO } from "date-fns";
 
 const API = process.env.REACT_APP_API || "http://localhost:8080/api"
 
@@ -14,7 +15,9 @@ export const getCiclos = async () => {
 
 export const getCiclo = async id => {
   const { data: response } = await axios.get(`${API}/ciclos/${id}`);
-  return response.data;
+  const data = { ...response.data, fec_inicio: parseISO(response.data.fec_inicio),
+    fec_fin: parseISO(response.data.fec_fin) }
+  return data;
 };
 
 export const editCiclo = async (id, data) => {

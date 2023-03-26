@@ -3,6 +3,7 @@ import React, { useState, useContext, useEffect } from "react";
 import AppContext from "../../../utils/AppContext";
 import Seccion from "../../formulario/Seccion";
 import MostrarMensaje from "../../formulario/MostrarMensaje";
+import useToken from "../../../utils/useToken";
 import { Volver, Guardar } from "../../formulario/Acciones";
 import { Titulo1 } from "../../formulario/Titulo";
 import { Input, TextArea, Datepicker } from "../../formulario/Componentes";
@@ -20,31 +21,35 @@ const DatosCiclo = ({ ciclo, dispatch }) => {
       <div className="columns">
         <div className="column">
           <Datepicker
-            label="Fecha de Inicio"
+            label="Fecha de Inicio*"
             selected={ciclo?.fec_inicio || ""}
             onChange={fecha => handleDispatch(dispatch, "fec_inicio", fecha, CURSO)}
           />
         </div>
         <div className="column">
           <Datepicker
-            label="Fecha Fin"
+            label="Fecha Fin*"
             selected={ciclo?.fec_fin || ""}
             onChange={fecha => handleDispatch(dispatch, "fec_fin", fecha, CURSO)}
           />
         </div>
       </div>
       <div className="columns">
-        <div className="column">
+        <div className="column is-half">
           <Input
             name="nivel"
             label="Nivel"
             value={ciclo?.nivel || ""}
             onChange={e => handleDispatch(dispatch, e.target?.name, e.target?.value, CURSO)}
           />
+        </div>
+      </div>
+      <div className="columns">
+        <div className="column">
           <TextArea
             name="detalles"
             label="Más Información"
-            value={ciclo?.descripcion || ""}
+            value={ciclo?.detalles || ""}
             onChange={e => handleDispatch(dispatch, e.target?.name, e.target?.value, CURSO)}
           />
         </div>
@@ -58,6 +63,7 @@ const EditarCiclo = () => {
   const [action, setAction] = useState({});
   const { id } = useParams();
   const navigate = useNavigate();
+  const currentUser = useToken().usuario;
 
   const {
     data: currentCiclo,
@@ -77,8 +83,10 @@ const EditarCiclo = () => {
   const editar = async e => {
     e.preventDefault();
     setAction({ saving: true, error: false, message: "" });
+    const auditoria = { fec_modificacion: new Date(), usu_modificacion: currentUser.nom_usuario };
+    
     try {
-      await editCiclo(ciclo.ciclo_id, { ...ciclo });
+      await editCiclo(ciclo.ciclo_id, { ...ciclo, ...auditoria });
       setAction({ saving: false, error: false, message: "Ciclo editado exitosamente." });
       setTimeout(() => navigate("/educacion/ciclos"), 2000);
     } catch (e) {
