@@ -39,7 +39,7 @@ const DatosContacto = ({ contacto }) => {
         </div>
         <div className="columns">
           <div className="column">
-            <DateFormat label="Fecha de Modificación" value={contacto.fec_insercion} />
+            <DateFormat label="Fecha de Modificación" value={contacto.fec_modificacion} />
           </div>
           <div className="column">
             <TextView label="Usuario Modificación" value={contacto.usu_modificacion} />

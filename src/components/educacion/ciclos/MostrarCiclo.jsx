@@ -7,16 +7,17 @@ import { useQuery } from "react-query";
 import { useParams, useNavigate } from "react-router-dom";
 import { getCiclo } from "../../../api/ciclos";
 import { CircularProgress } from "@mui/material";
+import { format } from "date-fns";
 
 const DatosCiclo = ({ ciclo = {} }) => {
   return (
     <Seccion titulo={ciclo.codigo}>
       <div className="columns">
         <div className="column">
-          <DateFormat label="Fecha de Inicio" value={ciclo.fec_inicio} dateFormat="dd/MM/yyyy" />
+          <TextView label="Fecha de Inicio" value={format(ciclo?.fec_inicio, "dd/MM/yyyy hh:mm")} />
         </div>
         <div className="column">
-          <DateFormat label="Fecha de Fin" value={ciclo.fec_fin} dateFormat="dd/MM/yyyy" />
+          <TextView label="Fecha Fin" value={format(ciclo?.fec_fin, "dd/MM/yyyy hh:mm")} />
         </div>
       </div>
       <div className="columns">
@@ -37,7 +38,7 @@ const DatosCiclo = ({ ciclo = {} }) => {
       </div>
       <div className="columns">
         <div className="column">
-          <DateFormat label="Fecha de Modificación" value={ciclo.fec_insercion} />
+          <DateFormat label="Fecha de Modificación" value={ciclo.fec_modificacion} />
         </div>
         <div className="column">
           <TextView label="Usuario Modificación" value={ciclo.usu_modificacion} />

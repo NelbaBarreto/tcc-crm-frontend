@@ -38,7 +38,7 @@ const DatosLead = ({ lead }) => {
         </div>
         <div className="columns">
           <div className="column">
-            <DateFormat label="Fecha de Modificación" value={lead.fec_insercion} />
+            <DateFormat label="Fecha de Modificación" value={lead.fec_modificacion} />
           </div>
           <div className="column">
             <TextView label="Usuario Modificación" value={lead.usu_modificacion} />
