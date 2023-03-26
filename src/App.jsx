@@ -98,6 +98,7 @@ import EliminarSede from "./components/educacion/sedes/EliminarSede";
 import CSAT from "./components/encuestas/CSAT.jsx";
 
 import useToken from "../src/utils/useToken";
+import EditarCiclo from "./components/educacion/ciclos/EditarCiclo.jsx";
 
 const initialState = { select: {} };
 
@@ -110,12 +111,12 @@ const MainApp = () => {
       <Router>
         <Routes>
           {/* Rutas Públicas */}
-          <Route 
-            path="/encuesta/:token" 
-            element={<CSAT />} 
+          <Route
+            path="/encuesta/:token"
+            element={<CSAT />}
           />
           <Route path="*" element={<NotFound />} />
-          
+
           {/* Rutas Privadas */}
           <Route
             exact
@@ -126,9 +127,9 @@ const MainApp = () => {
               </ProtectedRoute>
             }
           />
-          <Route 
-            path="/login" 
-            element={<Login setToken={setToken} />}   
+          <Route
+            path="/login"
+            element={<Login setToken={setToken} />}
           />
           <Route
             path="/dashboard"
@@ -567,6 +568,14 @@ const MainApp = () => {
             element={
               <ProtectedRoute usuario={usuario}>
                 <MostrarCiclo />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/educacion/ciclos/editar/:id"
+            element={
+              <ProtectedRoute usuario={usuario}>
+                <EditarCiclo />
               </ProtectedRoute>
             }
           />
