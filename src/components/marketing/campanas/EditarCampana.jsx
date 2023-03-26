@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useContext, useEffect } from "react";
 import AppContext from "../../../utils/AppContext";
 import Seccion from "../../formulario/Seccion";
@@ -6,7 +7,7 @@ import useToken from "../../../utils/useToken";
 import { CircularProgress } from "@mui/material";
 import { Volver, Guardar } from "../../formulario/Acciones";
 import { Titulo1 } from "../../formulario/Titulo";
-import { Datepicker, Input } from "../../formulario/Componentes";
+import { Datepicker, Input, TextArea } from "../../formulario/Componentes";
 import { useParams, useNavigate } from "react-router-dom";
 import { getCampana, editCampana } from "../../../api/campanas";
 import { handleDispatch, handleDispatchEdit, handleStateCleared } from "../../formulario/reducerFormularios.js";
@@ -40,7 +41,7 @@ const DatosCampana = ({ campana = {}, dispatch }) => {
           />
         </div>
       </div>
-      <Input
+      <TextArea
         name="descripcion"
         label="Descripcion"
         value={campana?.descripcion || ""}

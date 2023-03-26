@@ -1,8 +1,9 @@
 import React from "react";
-import Casos from "./Casos";
+import Soporte from "./Soporte";
 import CSAT from "./CSAT";
 import Ventas from "./Ventas";
 import Actividades from "./Actividades";
+import Marketing from "./Marketing";
 import Tabs from "../Tabs";
 
 const tabList = [
@@ -11,8 +12,12 @@ const tabList = [
     content: <Ventas />
   },
   {
+    name: "Marketing",
+    content: <Marketing />
+  },
+  {
     name: "Soporte",
-    content: <Casos />
+    content: <Soporte />
   },
   {
     name: "Actividades",

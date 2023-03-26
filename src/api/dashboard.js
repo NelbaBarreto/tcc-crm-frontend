@@ -61,3 +61,13 @@ export const getOportunidadesGanadasPorCurso = async () => {
   const { data: response } = await axios.get(`${API}/dashboard/oportunidadesGanadasPorCurso`);
   return response.data;
 };
+
+export const getLeadsPorCampana = async () => {
+  const { data: response } = await axios.get(`${API}/dashboard/leadsPorCampana`);
+  return response.data;
+};
+
+export const getOportunidadesPorCampana = async () => {
+  const { data: response } = await axios.get(`${API}/dashboard/oportunidadesPorCampana`);
+  return response.data;
+};
