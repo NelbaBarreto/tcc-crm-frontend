@@ -95,12 +95,16 @@ const CrearCiclo = () => {
     const auditoria = { usu_insercion: currentUser.nom_usuario, usu_modificacion: currentUser.nom_usuario };
 
     try {
-      await createCiclo({
+      const nuevoCiclo = await createCiclo({
         ...ciclo,
         ...auditoria
       });
-      setAction({ saving: false, error: false, message: "Ciclo creado exitosamente." });
-      setTimeout(() => navigate("/educacion/ciclos"), 2000);
+      if (nuevoCiclo.message) {
+        setAction({ saving: false, error: true, message: nuevoCiclo.message });
+      } else {
+        setAction({ saving: false, error: false, message: "Ciclo creado exitosamente." });
+        setTimeout(() => navigate("/educacion/ciclos"), 2000);
+      }
     } catch (e) {
       setAction({ saving: false, error: true, message: e.message });
     };
