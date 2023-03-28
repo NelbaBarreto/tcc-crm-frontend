@@ -7,7 +7,7 @@ import CrearPersona from "../../personas/CrearPersona";
 import useToken from "../../../utils/useToken";
 import { Volver, Guardar } from "../../formulario/Acciones";
 import { Titulo1 } from "../../formulario/Titulo";
-import { Dropdown } from "../../formulario/Componentes";
+import { Dropdown, Input } from "../../formulario/Componentes";
 import { getUsuarios } from "../../../api/usuarios";
 import { getCursos } from "../../../api/cursos";
 import { getCampanas } from "../../../api/campanas";
@@ -19,7 +19,7 @@ import Alert from "./Alert";
 
 const LEAD = "lead";
 
-const DatosLead = ({ select, dispatch }) => {
+const DatosLead = ({ select, dispatch, lead = {} }) => {
   const {
     data: usuarios,
     usuariosLoading
@@ -53,65 +53,74 @@ const DatosLead = ({ select, dispatch }) => {
     cursos.map(curso => ({ value: curso.curso_id, label: curso.nombre }));
 
   return (
-    <Seccion titulo="Datos del Lead">
-      <div className="columns">
-        <div className="column">
-          <Dropdown
-            label="Estado"
-            value={select.estado}
-            options={estados}
-            onChange={e => {
-              handleDispatch(dispatch, "estado", e?.value, LEAD);
-              handleDispatch(dispatch, "estado", e, "select")
-            }}
-          />
+    <>
+      <Seccion titulo="Datos del Lead">
+        <div className="columns">
+          <div className="column">
+            <Dropdown
+              label="Estado"
+              value={select.estado}
+              options={estados}
+              onChange={e => {
+                handleDispatch(dispatch, "estado", e?.value, LEAD);
+                handleDispatch(dispatch, "estado", e, "select")
+              }}
+            />
+          </div>
+          <div className="column">
+            <Dropdown
+              label="Origen"
+              value={select.origen}
+              options={origenes}
+              onChange={e => {
+                handleDispatch(dispatch, "origen", e?.value, LEAD);
+                handleDispatch(dispatch, "origen", e, "select")
+              }}
+            />
+          </div>
         </div>
-        <div className="column">
-          <Dropdown
-            label="Origen"
-            value={select.origen}
-            options={origenes}
-            onChange={e => {
-              handleDispatch(dispatch, "origen", e?.value, LEAD);
-              handleDispatch(dispatch, "origen", e, "select")
-            }}
-          />
+        <div className="columns">
+          <div className="column">
+            <Dropdown
+              label="Campaña"
+              value={select.campana}
+              options={opcionesCampanas}
+              onChange={e => {
+                handleDispatch(dispatch, "campana_id", e?.value, LEAD);
+                handleDispatch(dispatch, "campana", e, "select")
+              }}
+            />
+          </div>
+          <div className="column">
+            <Dropdown
+              label="Usuario Asignado"
+              value={select.usu_asignado}
+              options={opcionesUsuarios}
+              onChange={e => {
+                handleDispatch(dispatch, "usu_asignado_id", e?.value, LEAD);
+                handleDispatch(dispatch, "usu_asignado", e, "select")
+              }}
+            />
+          </div>
         </div>
-      </div>
-      <div className="columns">
-        <div className="column">
-          <Dropdown
-            label="Campaña"
-            value={select.campana}
-            options={opcionesCampanas}
-            onChange={e => {
-              handleDispatch(dispatch, "campana_id", e?.value, LEAD);
-              handleDispatch(dispatch, "campana", e, "select")
-            }}
-          />
-        </div>
-        <div className="column">
-          <Dropdown
-            label="Usuario Asignado"
-            value={select.usu_asignado}
-            options={opcionesUsuarios}
-            onChange={e => {
-              handleDispatch(dispatch, "usu_asignado_id", e?.value, LEAD);
-              handleDispatch(dispatch, "usu_asignado", e, "select")
-            }}
-          />
-        </div>
-      </div>
-      <Dropdown
-        label="Curso/Interés"
-        value={select.curso}
-        options={opcionesCursos}
-        onChange={e => {
-          handleDispatch(dispatch, "curso_id", e?.value, LEAD);
-          handleDispatch(dispatch, "curso", e, "select");
-        }}
-      />
-    </Seccion>
+      </Seccion>
+      <Seccion titulo="Interés">
+        <Dropdown
+          label="Curso"
+          value={select.curso}
+          options={opcionesCursos}
+          onChange={e => {
+            handleDispatch(dispatch, "curso_id", e?.value, LEAD);
+            handleDispatch(dispatch, "curso", e, "select");
+          }}
+        />
+        <Input 
+          name="ciclo_id"
+          value={lead.ciclo_id}
+          disabled={true}
+        />
+      </Seccion>
+    </>
   );
 };
 
@@ -153,7 +162,6 @@ const CrearLead = () => {
     }
   }
 
-
   return (
     <div>
       <section className="section w-full m-auto">
@@ -172,11 +180,11 @@ const CrearLead = () => {
             select={select}
             dispatch={dispatch}
           />
-          <Guardar 
-            saving={action.saving} 
+          <Guardar
+            saving={action.saving}
             guardar={confirmarConversionLead}
           />
-          <Volver 
+          <Volver
             navigate={navigate}
           />
         </form>

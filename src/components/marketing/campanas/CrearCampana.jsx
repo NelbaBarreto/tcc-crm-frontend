@@ -23,9 +23,14 @@ const CrearCampana = () => {
     const auditoria = { usu_insercion: currentUser.nom_usuario, usu_modificacion: currentUser.nom_usuario };
 
     try {
-      await createCampana({ ...state.campana, ...auditoria });
-      setAction({ saving: false, error: false, message: "Campaña creada exitosamente." });
-      setTimeout(() => navigate("/marketing/campanas"), 2000);
+      const nuevaCampana = await createCampana({ ...state.campana, ...auditoria });
+
+      if (nuevaCampana.message) {
+        setAction({ saving: false, error: true, message: nuevaCampana.message });
+      } else {
+        setAction({ saving: false, error: false, message: "Campaña creada exitosamente." });
+        setTimeout(() => navigate("/marketing/campanas"), 2000);
+      }
     } catch (e) {
       setAction({ saving: false, error: true, message: e.message });
     };

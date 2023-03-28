@@ -4,8 +4,12 @@ import { parseISO } from "date-fns";
 const API = process.env.REACT_APP_API || "http://localhost:8080/api"
 
 export const createCampana = async (data) => {
-  const { data: response } = await axios.post(`${API}/campanas`, data);
-  return response.data;
+  try {
+    const { data: response } = await axios.post(`${API}/campanas`, data);
+    return response.data;
+  } catch (error) {
+    return error.response.data;
+  }
 };
 
 export const getCampanas = async () => {
