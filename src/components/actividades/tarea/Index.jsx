@@ -116,23 +116,12 @@ const Index = ({ lead_id, contacto_id }) => {
       }
     },
     {
-      name: "usuario",
+      name: "usuario.nom_usuario",
       label: "Usuario Asignado",
       options: {
         filter: true,
         filterType: "textField",
         sort: true,
-        customBodyRender: (value) => {
-          if (value) {
-            return (
-              <span>
-                {value.nom_usuario}
-              </span>
-            )
-          } else {
-            return null;
-          }
-        }
       }
     },
     {
