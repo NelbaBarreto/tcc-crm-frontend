@@ -4,8 +4,12 @@ import { parseISO } from "date-fns";
 const API = process.env.REACT_APP_API || "http://localhost:8080/api"
 
 export const createTarea = async (data) => {
-  const { data: response } = await axios.post(`${API}/tareas`, data);
-  return response.data;
+  try {
+    const { data: response } = await axios.post(`${API}/tareas`, data);
+    return response.data;
+  } catch (error) {
+    return error.response.data;
+  }
 };
 
 export const getTareas = async ({ lead_id, contacto_id }) => {
