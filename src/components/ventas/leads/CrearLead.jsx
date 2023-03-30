@@ -19,7 +19,7 @@ import Alert from "./Alert";
 
 const LEAD = "lead";
 
-const DatosLead = ({ select, dispatch, lead = {} }) => {
+const DatosLead = ({ select, dispatch }) => {
   const {
     data: usuarios,
     usuariosLoading
@@ -177,7 +177,6 @@ const CrearLead = () => {
           />
           <CrearPersona />
           <DatosLead
-            lead={lead}
             select={select}
             dispatch={dispatch}
           />
