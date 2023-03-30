@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useContext, useState } from "react";
 import Modal from "react-modal";
 import AppContext from "../../../utils/AppContext";
@@ -25,7 +26,7 @@ const customStyles = {
 const CONVERTIR_LEAD = "leadConvertido";
 
 const Alert = ({ manageModal, accion = "editar" }) => {
-  const { state: { leadConvertido, lead, persona, direcciones, telefonos }, dispatch, state } = useContext(AppContext);
+  const { state: { leadConvertido, lead, persona, direcciones, telefonos }, dispatch } = useContext(AppContext);
   const { modalIsOpen, setModalIsOpen } = manageModal;
   const [action, setAction] = useState({});
   const navigate = useNavigate();
@@ -55,7 +56,7 @@ const Alert = ({ manageModal, accion = "editar" }) => {
       estado: "Abierto",
       curso_id: lead.curso_id,
       nombre: leadConvertido.nombreOportunidad,
-      campana_id: leadConvertido.campana_id,
+      campana_id: lead.campana_id,
       ...auditoria
     };
 

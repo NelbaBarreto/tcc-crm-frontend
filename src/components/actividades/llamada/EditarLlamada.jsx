@@ -185,7 +185,7 @@ const EditarLlamada = () => {
     setAction({ saving: true, error: false, message: "" });
     try {
       const currentLlamada = await editLlamadas(llamada.llamada_id, { ...llamada });
-      if (currentLlamada.message) {
+      if (currentLlamada?.message) {
         setAction({ saving: false, error: true, message: currentLlamada.message });
       } else {
         setAction({ saving: false, error: false, message: "Llamada editada exitosamente." });
