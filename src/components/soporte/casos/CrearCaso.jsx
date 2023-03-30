@@ -80,7 +80,7 @@ const DatosCaso = ({ caso = {}, dispatch, select = {} }) => {
         </div>
         <div className="column">
           <Dropdown
-            label="Estado"
+            label="Estado*"
             value={select.estado}
             options={estados}
             onChange={e => {
@@ -93,7 +93,7 @@ const DatosCaso = ({ caso = {}, dispatch, select = {} }) => {
       <div className="columns">
         <div className="column">
           <Dropdown
-            label="Tipo"
+            label="Tipo*"
             value={select.tipo}
             options={tipos}
             onChange={e => {
@@ -190,9 +190,14 @@ const CrearCaso = () => {
     e.preventDefault();
     setAction({ saving: true, error: false, message: "" });
     try {
-      await createCaso({ ...caso, usu_insercion: usuario.nom_usuario, usu_modificacion: usuario.nom_usuario });
-      setAction({ saving: false, error: false, message: "Caso creado exitosamente." });
-      setTimeout(() => navigate("/soporte/casos"), 2000);
+      const nuevoCaso = await createCaso({ ...caso, usu_insercion: usuario.nom_usuario, usu_modificacion: usuario.nom_usuario });
+
+      if (nuevoCaso.message) {
+        setAction({ saving: false, error: true, message: nuevoCaso.message });
+      } else {
+        setAction({ saving: false, error: false, message: "Caso creado exitosamente." });
+        setTimeout(() => navigate("/soporte/casos"), 2000);
+      }
     } catch (e) {
       setAction({ saving: false, error: true, message: e.message });
     };

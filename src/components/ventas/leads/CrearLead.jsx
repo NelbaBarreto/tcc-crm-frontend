@@ -58,7 +58,7 @@ const DatosLead = ({ select, dispatch, lead = {} }) => {
         <div className="columns">
           <div className="column">
             <Dropdown
-              label="Estado"
+              label="Estado*"
               value={select.estado}
               options={estados}
               onChange={e => {
@@ -69,7 +69,7 @@ const DatosLead = ({ select, dispatch, lead = {} }) => {
           </div>
           <div className="column">
             <Dropdown
-              label="Origen"
+              label="Origen*"
               value={select.origen}
               options={origenes}
               onChange={e => {
@@ -106,18 +106,13 @@ const DatosLead = ({ select, dispatch, lead = {} }) => {
       </Seccion>
       <Seccion titulo="Interés">
         <Dropdown
-          label="Curso"
+          label="Curso*"
           value={select.curso}
           options={opcionesCursos}
           onChange={e => {
             handleDispatch(dispatch, "curso_id", e?.value, LEAD);
             handleDispatch(dispatch, "curso", e, "select");
           }}
-        />
-        <Input 
-          name="ciclo_id"
-          value={lead.ciclo_id}
-          disabled={true}
         />
       </Seccion>
     </>
@@ -140,13 +135,19 @@ const CrearLead = () => {
     const auditoria = { usu_insercion: currentUser.nom_usuario, usu_modificacion: currentUser.nom_usuario };
 
     try {
-      await createLead({
+      const nuevoLead = await createLead({
         ...lead,
         ...auditoria,
         persona: { ...persona, direcciones, telefonos, ...auditoria }
       });
-      setAction({ saving: false, error: false, message: "Lead creado exitosamente." });
-      setTimeout(() => navigate("/ventas/leads"), 2000);
+
+      if (nuevoLead.message) {
+        setAction({ saving: false, error: true, message: nuevoLead.message });
+      } else {
+        setAction({ saving: false, error: false, message: "Lead creado exitosamente." });
+        setTimeout(() => navigate("/ventas/leads"), 2000);
+      }
+
     } catch (e) {
       setAction({ saving: false, error: true, message: e.message });
     };

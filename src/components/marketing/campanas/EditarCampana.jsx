@@ -21,7 +21,7 @@ const DatosCampana = ({ campana = {}, dispatch }) => {
     <Seccion titulo="Datos de la Campaña">
       <Input
         name="nombre"
-        label="Nombre"
+        label="Nombre*"
         value={campana?.nombre || ""}
         onChange={e => handleDispatch(dispatch, e.target?.name, e.target?.value, CAMPANA)}
       />
@@ -80,9 +80,17 @@ const EditarCampana = () => {
     const auditoria = { fec_modificacion: new Date(), usu_modificacion: currentUser.nom_usuario };
 
     try {
-      await editCampana(campana.campana_id, { ...campana, ...auditoria, });
-      setAction({ saving: false, error: false, message: "Campaña editada exitosamente." });
-      setTimeout(() => navigate("/marketing/campanas"), 2000);
+      // await editCampana(campana.campana_id, { ...campana, ...auditoria, });
+      // setAction({ saving: false, error: false, message: "Campaña editada exitosamente." });
+      // setTimeout(() => navigate("/marketing/campanas"), 2000);
+      const editarCampana = await editCampana(campana.campana_id, { ...campana, ...auditoria, });
+
+      if (editarCampana.message) {
+        setAction({ saving: false, error: true, message: editarCampana.message });
+      } else {
+        setAction({ saving: false, error: false, message: "Campaña editada exitosamente." });
+        setTimeout(() => navigate("/marketing/campanas"), 2000);
+      }
     } catch (e) {
       setAction({ saving: false, error: true, message: e.message });
     };
