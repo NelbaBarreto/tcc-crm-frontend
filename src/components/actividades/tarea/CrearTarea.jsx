@@ -141,7 +141,7 @@ const DatosTarea = ({ tarea, dispatch, select = {} }) => {
         </div>
       </div>
       <TextArea
-        label="Descripción*"
+        label="Descripción"
         name="descripcion"
         value={tarea?.descripcion || ""}
         onChange={e => handleDispatch(dispatch, e?.target.name, e?.target.value, TAREA)}

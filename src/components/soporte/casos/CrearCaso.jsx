@@ -156,7 +156,7 @@ const DatosCaso = ({ caso = {}, dispatch, select = {} }) => {
       <div className="columns">
         <div className="column">
           <TextArea
-            label="Descripción*"
+            label="Descripción"
             name="descripcion"
             value={caso?.descripcion || ""}
             onChange={e => handleDispatch(dispatch, e?.target.name, e?.target.value, CASO)}
