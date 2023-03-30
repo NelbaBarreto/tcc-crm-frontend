@@ -28,7 +28,7 @@ const DatosLead = ({ select, dispatch }) => {
   const {
     data: campanas,
     campanasLoading
-  } = useQuery(["campanas"], getCampanas);
+  } = useQuery(["campanas", {estado: "activo"}], () => getCampanas({estado: "activo"}));
 
   const {
     data: cursos,

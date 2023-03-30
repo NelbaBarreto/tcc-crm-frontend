@@ -12,8 +12,12 @@ export const createCampana = async (data) => {
   }
 };
 
-export const getCampanas = async () => {
-  const { data: response } = await axios.get(`${API}/campanas`);
+export const getCampanas = async ({ estado }) => {
+  let url = `${API}/campanas`;
+  if (estado) {
+    url += `?estado=${estado}`;
+  }
+  const { data: response } = await axios.get(url);
   return response.data;
 };
 
@@ -22,12 +26,9 @@ export const getCampana = async id => {
   const data = { ...response.data, fec_inicio: parseISO(response.data.fec_inicio),
     fec_fin: parseISO(response.data.fec_fin) }
   return data;
-  // return response.data;
 };
 
 export const editCampana = async (id, data) => {
-  // const { data: response } = await axios.put(`${API}/campanas/${id}`, { id, campana: data });
-  // return response.data;
   try {
     const { data: response } = await axios.put(`${API}/campanas/${id}`, { id, campana: data });
     return response.data;
