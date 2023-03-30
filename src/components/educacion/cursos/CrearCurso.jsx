@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import AppContext from "../../../utils/AppContext";
 import Seccion from "../../formulario/Seccion";
 import useToken from "../../../utils/useToken";
@@ -6,7 +6,7 @@ import MostrarMensaje from "../../formulario/MostrarMensaje";
 import { Titulo1 } from "../../formulario/Titulo";
 import { Input, TextArea } from "../../formulario/Componentes";
 import { Volver, Guardar } from "../../formulario/Acciones";
-import { handleDispatch } from "../../formulario/reducerFormularios.js";
+import { handleDispatch, handleStateCleared } from "../../formulario/reducerFormularios.js";
 import { useNavigate } from "react-router-dom";
 import { createCurso } from "../../../api/cursos";
 
@@ -36,6 +36,10 @@ const CrearCurso = () => {
   const [action, setAction] = useState({});
   const navigate = useNavigate();
   const currentUser = useToken().usuario;
+  
+  useEffect(() => {
+    handleStateCleared(dispatch);
+  }, []);
 
   const crear = async e => {
     e.preventDefault();
@@ -43,13 +47,17 @@ const CrearCurso = () => {
     const auditoria = { usu_insercion: currentUser.nom_usuario, usu_modificacion: currentUser.nom_usuario };
 
     try {
-      await createCurso({
-        ...curso,
-        ...auditoria,
-      });
-
-      setAction({ saving: false, error: false, message: "Curso creado exitosamente." });
-      setTimeout(() => navigate("/educacion/cursos"), 3000);
+        const nuevoCurso = await createCurso({
+          ...curso,
+          ...auditoria,
+        });
+  
+        if (nuevoCurso.message) {
+          setAction({ saving: false, error: true, message: nuevoCurso.message });
+        } else {
+          setAction({ saving: false, error: false, message: "Curso creado exitosamente." });
+          setTimeout(() => navigate("/educacion/cursos"), 3000);
+        }
     } catch (e) {
       setAction({ saving: false, error: true, message: e.message });
     };

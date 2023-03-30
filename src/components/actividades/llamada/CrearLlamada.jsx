@@ -65,7 +65,6 @@ const CrearLlamada = () => {
 
     try {
       const nuevaLlamada = await createLlamada({ ...llamada, ...auditoria });
-      console.log(nuevaLlamada);
 
       if (nuevaLlamada.message) {
         setAction({ saving: false, error: true, message: nuevaLlamada.message });
