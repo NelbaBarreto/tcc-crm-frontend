@@ -154,9 +154,9 @@ const CrearLead = () => {
   };
 
   const confirmarConversionLead = e => {
-    e.preventDefault();
+    e?.preventDefault();
 
-    if (lead.estado === "Convertido") {
+    if (lead?.estado === "Convertido") {
       setModalIsOpen(true);
     } else {
       crear();
