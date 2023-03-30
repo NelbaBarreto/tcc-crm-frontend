@@ -7,7 +7,7 @@ import CrearPersona from "../../personas/CrearPersona";
 import useToken from "../../../utils/useToken";
 import { Volver, Guardar } from "../../formulario/Acciones";
 import { Titulo1 } from "../../formulario/Titulo";
-import { Dropdown, Input } from "../../formulario/Componentes";
+import { Dropdown } from "../../formulario/Componentes";
 import { getUsuarios } from "../../../api/usuarios";
 import { getCursos } from "../../../api/cursos";
 import { getCampanas } from "../../../api/campanas";

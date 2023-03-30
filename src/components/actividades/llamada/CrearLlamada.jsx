@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useContext, useEffect } from "react";
 import AppContext from "../../../utils/AppContext";
 import MostrarMensaje from "../../formulario/MostrarMensaje";
@@ -162,7 +163,7 @@ const CrearLlamada = () => {
             <div className="columns is-desktop">
               <div className="column">
                 <Datepicker
-                  label="Fecha de Inicio*"
+                  label="Fecha*"
                   selected={llamada?.fec_inicio || ""}
                   onChange={fecha => handleDispatch(dispatch, "fec_inicio", fecha, LLAMADA)}
                 />

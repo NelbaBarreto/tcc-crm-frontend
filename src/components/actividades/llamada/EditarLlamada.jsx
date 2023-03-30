@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useContext, useEffect } from "react";
 import AppContext from "../../../utils/AppContext";
 import Seccion from "../../formulario/Seccion";
@@ -127,7 +128,7 @@ const DatosLlamada = ({ llamada = {}, dispatch, select = {} }) => {
       <div className="columns is-desktop">
         <div className="column">
           <Datepicker
-            label="Fecha de Inicio*"
+            label="Fecha*"
             selected={llamada?.fec_inicio || ""}
             onChange={fecha => handleDispatch(dispatch, "fec_inicio", fecha, LLAMADA)}
           />
@@ -183,9 +184,13 @@ const EditarLlamada = () => {
     e.preventDefault();
     setAction({ saving: true, error: false, message: "" });
     try {
-      await editLlamadas(llamada.llamada_id, { ...llamada });
-      setAction({ saving: false, error: false, message: "Llamada editada exitosamente." });
-      setTimeout(() => navigate("/actividades/llamadas"), 2000);
+      const currentLlamada = await editLlamadas(llamada.llamada_id, { ...llamada });
+      if (currentLlamada.message) {
+        setAction({ saving: false, error: true, message: currentLlamada.message });
+      } else {
+        setAction({ saving: false, error: false, message: "Llamada editada exitosamente." });
+        setTimeout(() => navigate("/actividades/llamadas"), 2000);
+      }
     } catch (e) {
       setAction({ saving: false, error: true, message: e.message });
     };

@@ -41,8 +41,12 @@ export const getEstados = async () => {
 };
 
 export const editLlamadas = async (id, data) => {
-  const { data: response } = await axios.put(`${API}/llamadas/${id}`, { id, llamada: data });
-  return response.data;
+  try {
+    const { data: response } = await axios.put(`${API}/llamadas/${id}`, { id, llamada: data });
+    return response.data;
+  } catch (error) {
+    return error.response.data;
+  }
 };
 
 export const deleLlamada = async (id) => {
