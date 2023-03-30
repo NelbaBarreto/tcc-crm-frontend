@@ -163,9 +163,14 @@ const CrearTarea = () => {
     e.preventDefault();
     setAction({ saving: true, error: false, message: "" });
     try {
-      await createTarea({ ...tarea });
-      setAction({ saving: false, error: false, message: "Tarea creada exitosamente." });
-      setTimeout(() => navigate("/actividades/tareas"), 3000);
+      const nuevaTarea = await createTarea({ ...tarea });
+
+      if (nuevaTarea.message) {
+        setAction({ saving: false, error: true, message: nuevaTarea.message });
+      } else {
+        setAction({ saving: false, error: false, message: "Tarea creada exitosamente." });
+        setTimeout(() => navigate("/actividades/tareas"), 3000);
+      }
     } catch (e) {
       setAction({ saving: false, error: true, message: e.message });
     };

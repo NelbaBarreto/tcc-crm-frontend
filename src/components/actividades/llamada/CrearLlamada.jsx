@@ -64,9 +64,14 @@ const CrearLlamada = () => {
     const auditoria = { usu_insercion: currentUser.nom_usuario, usu_modificacion: currentUser.nom_usuario };
 
     try {
-      await createLlamada({ ...llamada, ...auditoria, });
-      setAction({ saving: false, error: false, message: "Registro de llamada creado exitosamente." });
-      setTimeout(() => navigate("/actividades/llamadas"), 2000);
+      const nuevaLlamada = createLlamada({ ...llamada, ...auditoria });
+
+      if (nuevaLlamada.message) {
+        setAction({ saving: false, error: true, message: nuevaLlamada.message });
+      } else {
+        setAction({ saving: false, error: false, message: "Registro de llamada creado exitosamente." });
+        setTimeout(() => navigate("/actividades/llamadas"), 2000);
+      }
     } catch (e) {
       setAction({ saving: false, error: true, message: e.message });
     };

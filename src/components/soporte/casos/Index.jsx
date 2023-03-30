@@ -70,6 +70,16 @@ const Index = ({ lead_id, contacto_id }) => {
       }
     },
     {
+      name: "tipo",
+      label: "Tipo",
+      options: {
+        filter: true,
+        filterType: "dropdown",
+        sort: true,
+        display: "excluded",
+      }
+    },
+    {
       name: "lead",
       label: "Lead",
       options: {

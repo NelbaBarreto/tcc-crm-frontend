@@ -26,8 +26,14 @@ export const getCampana = async id => {
 };
 
 export const editCampana = async (id, data) => {
-  const { data: response } = await axios.put(`${API}/campanas/${id}`, { id, campana: data });
-  return response.data;
+  // const { data: response } = await axios.put(`${API}/campanas/${id}`, { id, campana: data });
+  // return response.data;
+  try {
+    const { data: response } = await axios.put(`${API}/campanas/${id}`, { id, campana: data });
+    return response.data;
+  } catch (error) {
+    return error.response.data;
+  }
 };
 
 export const deleCampana = async (id) => {
