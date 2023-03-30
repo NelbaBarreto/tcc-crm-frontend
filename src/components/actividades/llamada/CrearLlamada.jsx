@@ -64,7 +64,8 @@ const CrearLlamada = () => {
     const auditoria = { usu_insercion: currentUser.nom_usuario, usu_modificacion: currentUser.nom_usuario };
 
     try {
-      const nuevaLlamada = createLlamada({ ...llamada, ...auditoria });
+      const nuevaLlamada = await createLlamada({ ...llamada, ...auditoria });
+      console.log(nuevaLlamada);
 
       if (nuevaLlamada.message) {
         setAction({ saving: false, error: true, message: nuevaLlamada.message });

@@ -114,11 +114,6 @@ const DatosLead = ({ select, dispatch, lead = {} }) => {
             handleDispatch(dispatch, "curso", e, "select");
           }}
         />
-        <Input 
-          name="ciclo_id"
-          value={lead.ciclo_id}
-          disabled={true}
-        />
       </Seccion>
     </>
   );
