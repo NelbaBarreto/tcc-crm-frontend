@@ -62,7 +62,7 @@ const DatosLead = ({ dispatch, select = {}, currentLead = {} }) => {
             label="Estado"
             value={select.estado}
             options={estados}
-            disabled={currentLead.estado === "Convertido"}
+            disabled={currentLead.estado === "Convertido" || currentLead.estado === "Perdido" || currentLead.estado === "Anulado"}
             onChange={e => {
               handleDispatch(dispatch, "estado", e?.value, LEAD);
               handleDispatch(dispatch, "estado", e, "select")
@@ -74,6 +74,7 @@ const DatosLead = ({ dispatch, select = {}, currentLead = {} }) => {
             label="Origen"
             value={select.origen}
             options={origenes}
+            disabled={currentLead.estado === "Convertido" || currentLead.estado === "Perdido" || currentLead.estado === "Anulado"}
             onChange={e => {
               handleDispatch(dispatch, "origen", e?.value, LEAD);
               handleDispatch(dispatch, "origen", e, "select")
@@ -87,6 +88,7 @@ const DatosLead = ({ dispatch, select = {}, currentLead = {} }) => {
             label="Campaña"
             value={select.campana}
             options={opcionesCampanas}
+            disabled={currentLead.estado === "Convertido" || currentLead.estado === "Perdido" || currentLead.estado === "Anulado"}
             onChange={e => {
               handleDispatch(dispatch, "campana_id", e?.value, LEAD);
               handleDispatch(dispatch, "campana", e, "select")
@@ -98,6 +100,7 @@ const DatosLead = ({ dispatch, select = {}, currentLead = {} }) => {
             label="Usuario Asignado"
             value={select.usu_asignado}
             options={opcionesUsuarios}
+            disabled={currentLead.estado === "Convertido" || currentLead.estado === "Perdido" || currentLead.estado === "Anulado"}
             onChange={e => {
               handleDispatch(dispatch, "usu_asignado_id", e?.value, LEAD);
               handleDispatch(dispatch, "usu_asignado", e, "select")
@@ -109,7 +112,7 @@ const DatosLead = ({ dispatch, select = {}, currentLead = {} }) => {
         label="Curso/Interés"
         value={select.curso}
         options={opcionesCursos}
-        disabled={currentLead.estado === "Convertido"}
+        disabled={currentLead.estado === "Convertido" || currentLead.estado === "Perdido" || currentLead.estado === "Anulado"}
         onChange={e => {
           handleDispatch(dispatch, "curso_id", e?.value, LEAD);
           handleDispatch(dispatch, "curso", e, "select")

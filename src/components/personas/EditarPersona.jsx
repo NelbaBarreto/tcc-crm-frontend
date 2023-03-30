@@ -18,6 +18,10 @@ const Persona = ({ dispatch, persona = {}, select = {}}) => {
     data: tip_documentos,
   } = useQuery(["tip_documentos"], getTipDocumentos);
 
+  // const queryClient = useQueryClient();
+
+  // console.log(queryClient.getQueryData("lead"));
+
   return (
     <Seccion titulo="Datos Personales">
       <Input
