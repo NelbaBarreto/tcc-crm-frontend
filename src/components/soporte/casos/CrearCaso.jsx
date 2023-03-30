@@ -190,9 +190,6 @@ const CrearCaso = () => {
     e.preventDefault();
     setAction({ saving: true, error: false, message: "" });
     try {
-      // await createCaso({ ...caso, usu_insercion: usuario.nom_usuario, usu_modificacion: usuario.nom_usuario });
-      // setAction({ saving: false, error: false, message: "Caso creado exitosamente." });
-      // setTimeout(() => navigate("/soporte/casos"), 2000);
       const nuevoCaso = await createCaso({ ...caso, usu_insercion: usuario.nom_usuario, usu_modificacion: usuario.nom_usuario });
 
       if (nuevoCaso.message) {

@@ -140,14 +140,6 @@ const CrearLead = () => {
     const auditoria = { usu_insercion: currentUser.nom_usuario, usu_modificacion: currentUser.nom_usuario };
 
     try {
-      // await createLead({
-      //   ...lead,
-      //   ...auditoria,
-      //   persona: { ...persona, direcciones, telefonos, ...auditoria }
-      // });
-      // setAction({ saving: false, error: false, message: "Lead creado exitosamente." });
-      // setTimeout(() => navigate("/ventas/leads"), 2000);
-
       const nuevoLead = await createLead({
         ...lead,
         ...auditoria,
